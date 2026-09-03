@@ -1,0 +1,60 @@
+project:
+  type: book
+  output-dir: docs
+
+engine: knitr
+#filters:
+#  - webr
+
+date: "last-modified"
+date-format: iso
+institute: "Wilfrid Laurier University"
+number-depth: 2
+author: "Dr. Devan Becker"
+execute:
+    warning: false
+
+book:
+  title: "Applied Statistics"
+  subtitle: "Forked from daviddalpiaz/appliedstats"
+  author: "[David Dalpiaz](https://daviddalpiaz.org/), modified by Devan Becker"
+  date: "last-modified"
+  page-navigation: true
+  sidebar: 
+    collapse-level: 1
+  chapters:
+    - index.qmd
+    - part: Background
+      chapters:
+        - r-intro.qmd
+        - data-and-programming.qmd
+        - data-summary.qmd
+        - prob-and-stat.qmd
+        - r-resources.qmd
+    - part: OLS Basics
+      chapters:
+        - slr.qmd
+        - slr-inf.qmd
+        - mlr.qmd
+    - part: Choosing Models
+      chapters:
+        - model-building.qmd
+        - cat-int.qmd
+        - anova.qmd
+        - diagnostics.qmd
+        - transformations.qmd
+        - collinearity.qmd
+        - selection.qmd
+    - part: Advanced Topics
+      chapters:
+        - logistic.qmd
+        - beyond.qmd
+
+format:
+  html:
+    theme:
+      light: [flatly, smaller_lists.scss]
+      dark: [darkly, smaller_lists.scss]
+    mainfont: ubuntu, sans-serif
+    code-fold: true
+    code-summary: "Show the code"

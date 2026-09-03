@@ -580,7 +580,7 @@ Once completed, this process will automatically generate the code to import a fi
 
 Earlier we looked at installing packages, in particular the `ggplot2` package. (A package for visualization. While not necessary for this course, it is quickly growing in popularity.) 
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 library(ggplot2)
 ```
 
