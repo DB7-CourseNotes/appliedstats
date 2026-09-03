@@ -955,10 +955,4 @@ Removing these points results in a much better Q-Q plot, and now Shapiro-Wilk fa
 
 We've now seen that sometimes modifying the data can fix issues with regression. However, next chapter, instead of modifying the data, we will modify the model via *transformations*.
 
-## `R` Markdown
 
-The `R` Markdown file for this chapter can be found here:
-
-- [`diagnostics.Rmd`](diagnostics.Rmd){target="_blank"}
-
-The file was created using `R` version ``r paste0(version$major, "." ,version$minor)``.

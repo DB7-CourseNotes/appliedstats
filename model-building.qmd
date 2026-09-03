@@ -366,10 +366,4 @@ When using model to,
 
 Linear models can accomplish both these goals. Later, we will see that often a linear model that accomplishes one of these goals, usually accomplishes the other.
 
-## `R` Markdown
 
-The `R` Markdown file for this chapter can be found here:
-
-- [`model-building.Rmd`](model-building.Rmd){target="_blank"}
-
-The file was created using `R` version ``r paste0(version$major, "." ,version$minor)``.
