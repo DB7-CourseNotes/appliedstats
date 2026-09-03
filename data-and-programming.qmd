@@ -1,10 +1,13 @@
 ---
-format: live-html
+format: 
+  live-html:
+    code-fold: false
+engine: knitr
 webr:
   render-df: gt-interactive
-execute:
-  code-fold: false
 ---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
 # Data and Programming
 
