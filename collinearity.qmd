@@ -18,7 +18,7 @@ After reading this chapter you will be able to:
 Let's create a dataset where one of the predictors, $x_3$, is a linear combination of the other predictors.
 
 ```{r}
-gen_exact_collin_data = function(num_samples = 100) {
+gen_exact_collin_data <- function(num_samples = 100) {
   x1 = rnorm(n = num_samples, mean = 80, sd = 10)
   x2 = rnorm(n = num_samples, mean = 70, sd = 5)
   x3 = 2 * x1 + 4 * x2 + 3
@@ -31,21 +31,21 @@ Notice that the way we are generating this data, the response $y$ only really de
 
 ```{r}
 set.seed(42)
-exact_collin_data = gen_exact_collin_data()
+exact_collin_data <- gen_exact_collin_data()
 head(exact_collin_data)
 ```
 
 What happens when we attempt to fit a regression model in `R` using all of the predictors?
 
 ```{r}
-exact_collin_fit = lm(y ~ x1 + x2 + x3, data = exact_collin_data)
+exact_collin_fit <- lm(y ~ x1 + x2 + x3, data = exact_collin_data)
 summary(exact_collin_fit)
 ```
 
 We see that `R` simply decides to exclude a variable. Why is this happening?
 
 ```{r, eval = FALSE}
-X = cbind(1, as.matrix(exact_collin_data[,-1]))
+X <- cbind(1, as.matrix(exact_collin_data[,-1]))
 solve(t(X) %*% X)
 ```
 
@@ -56,9 +56,9 @@ When this happens, we say there is **exact collinearity** in the dataset.
 As a result of this issue, `R` essentially chose to fit the model `y ~ x1 + x2`. However notice that two other models would accomplish exactly the same fit.
 
 ```{r}
-fit1 = lm(y ~ x1 + x2, data = exact_collin_data)
-fit2 = lm(y ~ x1 + x3, data = exact_collin_data)
-fit3 = lm(y ~ x2 + x3, data = exact_collin_data)
+fit1 <- lm(y ~ x1 + x2, data = exact_collin_data)
+fit2 <- lm(y ~ x1 + x3, data = exact_collin_data)
+fit3 <- lm(y ~ x2 + x3, data = exact_collin_data)
 ```
 
 We see that the fitted values for each of the three models are exactly the same. This is a result of $x_3$ containing all of the information from $x_1$ and $x_2$. As long as one of $x_1$ or $x_2$ is included in the model, $x_3$ can be used to recover the information from the variable not included.
@@ -97,7 +97,7 @@ We can also do this numerically with the `cor()` function, which when applied to
 Unlike exact collinearity, here we can still fit a model with all of the predictors, but what effect does this have?
 
 ```{r}
-hip_model = lm(hipcenter ~ ., data = seatpos)
+hip_model <- lm(hipcenter ~ ., data = seatpos)
 summary(hip_model)
 ```
 
@@ -108,7 +108,7 @@ This happens as a result of the predictors being highly correlated. For example,
 We define $R_j^2$ to be the proportion of observed variation in the $j$-th predictor explained by the other predictors. In other words $R_j^2$ is the multiple R-Squared for the regression of $x_j$ on each of the other predictors.
 
 ```{r}
-ht_shoes_model = lm(HtShoes ~ . - hipcenter, data = seatpos)
+ht_shoes_model <- lm(HtShoes ~ . - hipcenter, data = seatpos)
 summary(ht_shoes_model)$r.squared
 ```
 
@@ -150,8 +150,8 @@ Let's further investigate how the presence of collinearity actually affects a mo
 
 ```{r}
 set.seed(1337)
-noise = rnorm(n = nrow(seatpos), mean = 0, sd = 5)
-hip_model_noise = lm(hipcenter + noise ~ ., data = seatpos)
+noise <- rnorm(n = nrow(seatpos), mean = 0, sd = 5)
+hip_model_noise <- lm(hipcenter + noise ~ ., data = seatpos)
 ```
 
 Adding the noise had such a large effect, the sign of the coefficient for `Ht` has changed.
@@ -174,7 +174,7 @@ We see that by plotting the predicted values using both models against each othe
 Let's now look at a smaller model,
 
 ```{r}
-hip_model_small = lm(hipcenter ~ Age + Arm + Ht, data = seatpos)
+hip_model_small <- lm(hipcenter ~ Age + Arm + Ht, data = seatpos)
 summary(hip_model_small)
 vif(hip_model_small)
 ```
@@ -195,7 +195,7 @@ To quantify this effect we will look at a **variable added plot** and a **partia
 - Regressing the predictor of interest (`HtShoes`) against the other predictors (`Age`, `Arm`, and `Ht`).
 
 ```{r}
-ht_shoes_model_small = lm(HtShoes ~ Age + Arm + Ht, data = seatpos)
+ht_shoes_model_small <- lm(HtShoes ~ Age + Arm + Ht, data = seatpos)
 ```
 
 So now, the residuals of `hip_model_small` give us the variation of `hipcenter` that is *unexplained* by `Age`, `Arm`, and `Ht`. Similarly, the residuals of `ht_shoes_model_small` give us the variation of `HtShoes` unexplained by `Age`, `Arm`, and `Ht`.
@@ -237,31 +237,31 @@ Here we simulate example data with and without collinearity. We will note the di
 We will use the model,
 
 \[
-Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon
+Y <- \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon
 \]
 
 where $\epsilon \sim N(\mu = 0, \sigma^2 = 25)$ and the $\beta$ coefficients defined below.
 
 ```{r}
 set.seed(42)
-beta_0 = 7
-beta_1 = 3
-beta_2 = 4
+beta_0 <- 7
+beta_1 <- 3
+beta_2 <- 4
 sigma  = 5
 ```
 
 We will use a sample size of 10, and 2500 simulations for both situations.
 
 ```{r}
-sample_size = 10
+sample_size <- 10
 num_sim     = 2500
 ```
 
 We'll first consider the situation with a collinearity issue, so we manually create the two predictor variables.
 
 ```{r}
-x1 = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-x2 = c(1, 2, 3, 4, 5, 7, 6, 10, 9, 8)
+x1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+x2 <- c(1, 2, 3, 4, 5, 7, 6, 10, 9, 8)
 ```
 
 ```{r}
@@ -272,7 +272,7 @@ cor(x1, x2)
 Notice that they have extremely high correlation.
 
 ```{r}
-true_line_bad = beta_0 + beta_1 * x1 + beta_2 * x2
+true_line_bad <- beta_0 + beta_1 * x1 + beta_2 * x2
 beta_hat_bad  = matrix(0, num_sim, 2)
 mse_bad       = rep(0, num_sim)
 ```
@@ -291,8 +291,8 @@ for (s in 1:num_sim) {
 Now we move to  the situation without a collinearity issue, so we again manually create the two predictor variables.
 
 ```{r}
-z1 = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-z2 = c(9, 2, 7, 4, 5, 6, 3, 8, 1, 10)
+z1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+z2 <- c(9, 2, 7, 4, 5, 6, 3, 8, 1, 10)
 ```
 
 Notice that the standard deviations of each are the same as before, however, now the correlation is extremely close to 0.
@@ -303,7 +303,7 @@ cor(z1, z2)
 ```
 
 ```{r}
-true_line_good = beta_0 + beta_1 * z1 + beta_2 * z2
+true_line_good <- beta_0 + beta_1 * z1 + beta_2 * z2
 beta_hat_good  = matrix(0, num_sim, 2)
 mse_good       = rep(0, num_sim)
 ```

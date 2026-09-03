@@ -20,13 +20,13 @@ After reading this chapter you will be able to:
 Recall the multiple linear regression model that we have defined.
 
 \[
-Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)} + \epsilon_i, \qquad i = 1, 2, \ldots, n.
+Y_i <- \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)} + \epsilon_i, \qquad i = 1, 2, \ldots, n.
 \]
 
 Using matrix notation, this model can be written much more succinctly as
 
 \[
-Y = X \beta + \epsilon.
+Y <- X \beta + \epsilon.
 \]
 
 Given data, we found the estimates for the $\beta$ parameters using
@@ -56,7 +56,7 @@ In particular, an individual parameter, say $\hat{\beta}_j$ had a normal distrib
 where $C$ was the matrix defined as
 
 \[
-C = \left(X^\top X\right)^{-1}.
+C <- \left(X^\top X\right)^{-1}.
 \]
 
 We then used this fact to define
@@ -84,7 +84,7 @@ Are these issues that we care about? If all we would like to do is predict, poss
 Technically, the assumptions of the model are encoded directly in a model statement such as,
 
 \[
-Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)} + \epsilon_i
+Y_i <- \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)} + \epsilon_i
 \]
 
 where $\epsilon_i \sim N(0, \sigma^2).$
@@ -129,19 +129,19 @@ We'll now look at a number of tools for checking the assumptions of a linear mod
 \]
 
 ```{r}
-sim_1 = function(sample_size = 500) {
+sim_1 <- function(sample_size = 500) {
   x = runif(n = sample_size) * 5
   y = 3 + 5 * x + rnorm(n = sample_size, mean = 0, sd = 1)
   data.frame(x, y)
 }
 
-sim_2 = function(sample_size = 500) {
+sim_2 <- function(sample_size = 500) {
   x = runif(n = sample_size) * 5
   y = 3 + 5 * x + rnorm(n = sample_size, mean = 0, sd = x)
   data.frame(x, y)
 }
 
-sim_3 = function(sample_size = 500) {
+sim_3 <- function(sample_size = 500) {
   x = runif(n = sample_size) * 5
   y = 3 + 5 * x ^ 2 + rnorm(n = sample_size, mean = 0, sd = 5)
   data.frame(x, y)
@@ -156,7 +156,7 @@ Data generated from Model 1 above should not show any signs of violating assumpt
 
 ```{r}
 set.seed(42)
-sim_data_1 = sim_1()
+sim_data_1 <- sim_1()
 head(sim_data_1)
 ```
 
@@ -165,7 +165,7 @@ We then fit the model and add the fitted line to a scatterplot.
 ```{r}
 plot(y ~ x, data = sim_data_1, col = "grey", pch = 20,
      main = "Data from Model 1")
-fit_1 = lm(y ~ x, data = sim_data_1)
+fit_1 <- lm(y ~ x, data = sim_data_1)
 abline(fit_1, col = "darkorange", lwd = 3)
 ```
 
@@ -190,8 +190,8 @@ Model 2 is an example of non-constant variance. In this case, the variance is la
 
 ```{r}
 set.seed(42)
-sim_data_2 = sim_2()
-fit_2 = lm(y ~ x, data = sim_data_2)
+sim_data_2 <- sim_2()
+fit_2 <- lm(y ~ x, data = sim_data_2)
 plot(y ~ x, data = sim_data_2, col = "grey", pch = 20,
      main = "Data from Model 2")
 abline(fit_2, col = "darkorange", lwd = 3)
@@ -211,8 +211,8 @@ Now we will demonstrate a model which does not meet the linearity assumption. Mo
 
 ```{r}
 set.seed(42)
-sim_data_3 = sim_3()
-fit_3 = lm(y ~ x, data = sim_data_3)
+sim_data_3 <- sim_3()
+fit_3 <- lm(y ~ x, data = sim_data_3)
 plot(y ~ x, data = sim_data_3, col = "grey", pch = 20,
      main = "Data from Model 3")
 abline(fit_3, col = "darkorange", lwd = 3)
@@ -318,7 +318,7 @@ The [Wikipedia page for Normal probability plots](http://en.wikipedia.org/wiki/N
 Also, to get a better idea of how Q-Q plots work, here is a quick function which creates a Q-Q plot:
 
 ```{r}
-qq_plot = function(e) {
+qq_plot <- function(e) {
 
   n = length(e)
   normal_quantiles = qnorm(((1:n - 0.5) / n))
@@ -344,7 +344,7 @@ We can then verify that it is essentially equivalent to using `qqnorm()` and `qq
 
 ```{r, fig.height = 5, fig.width = 10}
 set.seed(420)
-x = rnorm(100, mean = 0 , sd = 1)
+x <- rnorm(100, mean = 0 , sd = 1)
 par(mfrow = c(1, 2))
 qqnorm(x, col = "darkgrey")
 qqline(x, lty = 2, lwd = 2, col = "dodgerblue")
@@ -461,12 +461,12 @@ par(mfrow = c(1, 3))
 set.seed(42)
 ex_data  = data.frame(x = 1:10,
                       y = 10:1 + rnorm(n = 10))
-ex_model = lm(y ~ x, data = ex_data)
+ex_model <- lm(y ~ x, data = ex_data)
 
 # low leverage, large residual, small influence
-point_1 = c(5.4, 11)
-ex_data_1 = rbind(ex_data, point_1)
-model_1 = lm(y ~ x, data = ex_data_1)
+point_1 <- c(5.4, 11)
+ex_data_1 <- rbind(ex_data, point_1)
+model_1 <- lm(y ~ x, data = ex_data_1)
 plot(y ~ x, data = ex_data_1, cex = 2, pch = 20, col = "grey",
      main = "Low Leverage, Large Residual, Small Influence")
 points(x = point_1[1], y = point_1[2], pch = 1, cex = 4, col = "black", lwd = 2)
@@ -476,9 +476,9 @@ legend("bottomleft", c("Original Data", "Added Point"),
        lty = c(1, 2), col = c("dodgerblue", "darkorange"))
 
 # high leverage, small residual, small influence
-point_2 = c(18, -5.7)
-ex_data_2 = rbind(ex_data, point_2)
-model_2 = lm(y ~ x, data = ex_data_2)
+point_2 <- c(18, -5.7)
+ex_data_2 <- rbind(ex_data, point_2)
+model_2 <- lm(y ~ x, data = ex_data_2)
 plot(y ~ x, data = ex_data_2, cex = 2, pch = 20, col = "grey",
      main = "High Leverage, Small Residual, Small Influence")
 points(x = point_2[1], y = point_2[2], pch = 1, cex = 4, col = "black", lwd = 2)
@@ -488,9 +488,9 @@ legend("bottomleft", c("Original Data", "Added Point"),
        lty = c(1, 2), col = c("dodgerblue", "darkorange"))
 
 # high leverage, large residual, large influence
-point_3 = c(14, 5.1)
-ex_data_3 = rbind(ex_data, point_3)
-model_3 = lm(y ~ x, data = ex_data_3)
+point_3 <- c(14, 5.1)
+ex_data_3 <- rbind(ex_data, point_3)
+model_3 <- lm(y ~ x, data = ex_data_3)
 plot(y ~ x, data = ex_data_3, cex = 2, pch = 20, col = "grey", ylim = c(-3, 12),
      main = "High Leverage, Large Residual, Large Influence")
 points(x = point_3[1], y = point_3[2], pch = 1, cex = 4, col = "black", lwd = 2)
@@ -553,7 +553,7 @@ Thus,
 Now we define,
 
 \[
-H = X \left(X^\top X\right)^{-1} X^\top
+H <- X \left(X^\top X\right)^{-1} X^\top
 \]
 
 which we will refer to as the *hat matrix*. The hat matrix is used to project onto the subspace spanned by the columns of $X$. It is also simply known as a projection matrix.
@@ -595,7 +595,7 @@ we say that observation $i$ has large leverage. Here,
 For simple linear regression, the leverage for each point is given by
 
 \[
-h_i = \frac{1}{n} + \frac{(x_i - \bar{x})^2}{S_{xx}}.
+h_i <- \frac{1}{n} + \frac{(x_i - \bar{x})^2}{S_{xx}}.
 \]
 
 This expression should be familiar. (Think back to inference for SLR.) It suggests that the large leverages occur when $x$ values are far from their mean. Recall that the regression goes through the point $(\bar{x},\bar{y})$.
@@ -603,7 +603,7 @@ This expression should be familiar. (Think back to inference for SLR.) It sugges
 There are multiple ways to find leverages in `R`.
 
 ```{r}
-lev_ex = data.frame(
+lev_ex <- data.frame(
   x1 = c(0, 11, 11, 7, 4, 10, 5, 8),
   x2 = c(1, 5, 4, 3, 1, 4, 4, 2),
   y  = c(11, 15, 13, 14, 0, 19, 16, 8))
@@ -617,8 +617,8 @@ Here we've created some multivariate data. Notice that we have plotted the $x$ v
 We could calculate the leverages using the expressions defined above. We first create the $X$ matrix, then calculate $H$ as defined, and extract the diagonal elements.
 
 ```{r}
-X = cbind(rep(1, 8), lev_ex$x1, lev_ex$x2)
-H = X %*% solve(t(X) %*% X) %*% t(X)
+X <- cbind(rep(1, 8), lev_ex$x1, lev_ex$x2)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
 diag(H)
 ```
 
@@ -631,7 +631,7 @@ sum(diag(H))
 Alternatively, the method we will use more often, is to simply fit a regression, then use the `hatvalues()` function, which returns the leverages.
 
 ```{r}
-lev_fit = lm(y ~ ., data = lev_ex)
+lev_fit <- lm(y ~ ., data = lev_ex)
 hatvalues(lev_fit)
 ```
 
@@ -652,7 +652,7 @@ lev_ex[which.max(hatvalues(lev_fit)),]
 We see that the original `y` value is `r lev_ex[which.max(hatvalues(lev_fit)),3]`. We'll create a copy of the data, and modify this point to have a `y` value of `20`.
 
 ```{r}
-lev_ex_1 = lev_ex
+lev_ex_1 <- lev_ex
 lev_ex_1$y[1] = 20
 lm(y ~ ., data = lev_ex_1)
 ```
@@ -669,7 +669,7 @@ lev_ex[which.min(hatvalues(lev_fit)),]
 We see that the original `y` value is `r lev_ex[which.min(hatvalues(lev_fit)),3]`. We'll again create a copy of the data, and modify this point to have a `y` value of `30`.
 
 ```{r}
-lev_ex_2 = lev_ex
+lev_ex_2 <- lev_ex
 lev_ex_2$y[4] = 30
 lm(y ~ ., data = lev_ex_2)
 ```
@@ -709,7 +709,7 @@ Outliers are points which do not fit the model well. They may or may not have a 
 Note,
 
 \[
-e = y - \hat{y} = Iy - Hy = (I - H) y
+e <- y - \hat{y} = Iy - Hy = (I - H) y
 \]
 
 Then, under the assumptions of linear regression,
@@ -727,7 +727,7 @@ and thus estimating $\sigma^2$ with $s_e^2$ gives
 We can then look at the **standardized residual** for each observation, $i = 1, 2, \ldots n$,
 
 \[
-r_i = \frac{e_i}{s_e\sqrt{1 - h_i}} \overset{approx}{\sim} N(\mu = 0, \sigma^ 2 = 1)
+r_i <- \frac{e_i}{s_e\sqrt{1 - h_i}} \overset{approx}{\sim} N(\mu = 0, \sigma^ 2 = 1)
 \]
 
 when $n$ is large.
@@ -813,7 +813,7 @@ Last chapter we fit an additive regression to the `mtcars` data with `mpg` as th
 First, fit the model as we did last chapter.
 
 ```{r}
-mpg_hp_add = lm(mpg ~ hp + am, data = mtcars)
+mpg_hp_add <- lm(mpg ~ hp + am, data = mtcars)
 ```
 
 ```{r}
@@ -855,9 +855,9 @@ sum(abs(rstandard(mpg_hp_add)) > 2)
 There is also one point with a large residual. Do these result in any points that are considered influential?
 
 ```{r}
-cd_mpg_hp_add = cooks.distance(mpg_hp_add)
+cd_mpg_hp_add <- cooks.distance(mpg_hp_add)
 sum(cd_mpg_hp_add > 4 / length(cd_mpg_hp_add))
-large_cd_mpg = cd_mpg_hp_add > 4 / length(cd_mpg_hp_add)
+large_cd_mpg <- cd_mpg_hp_add > 4 / length(cd_mpg_hp_add)
 cd_mpg_hp_add[large_cd_mpg]
 ```
 
@@ -870,7 +870,7 @@ coef(mpg_hp_add)
 Since the diagnostics looked good, there isn't much need to worry about these two points, but let's see how much the coefficients change if we remove them.
 
 ```{r}
-mpg_hp_add_fix = lm(mpg ~ hp + am,
+mpg_hp_add_fix <- lm(mpg ~ hp + am,
                     data = mtcars,
                     subset = cd_mpg_hp_add <= 4 / length(cd_mpg_hp_add))
 coef(mpg_hp_add_fix)
@@ -891,7 +891,7 @@ Let's consider the model `big_model` from last chapter which was fit to the `aut
 
 ```{r, echo = FALSE}
 # read data frame from the web
-autompg = read.table(
+autompg <- read.table(
   "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data",
   quote = "\"",
   comment.char = "",
@@ -899,20 +899,20 @@ autompg = read.table(
 # give the dataframe headers
 colnames(autompg) = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year", "origin", "name")
 # remove missing data, which is stored as "?"
-autompg = subset(autompg, autompg$hp != "?")
+autompg <- subset(autompg, autompg$hp != "?")
 # remove the plymouth reliant, as it causes some issues
-autompg = subset(autompg, autompg$name != "plymouth reliant")
+autompg <- subset(autompg, autompg$name != "plymouth reliant")
 # give the dataset row names, based on the engine, year and name
 rownames(autompg) = paste(autompg$cyl, "cylinder", autompg$year, autompg$name)
 # remove the variable for name
-autompg = subset(autompg, select = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year", "origin"))
+autompg <- subset(autompg, select = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year", "origin"))
 # change horsepower from character to numeric
 autompg$hp = as.numeric(autompg$hp)
 # create a dummary variable for foreign vs domestic cars. domestic = 1.
 autompg$domestic = as.numeric(autompg$origin == 1)
 # remove 3 and 5 cylinder cars (which are very rare.)
-autompg = autompg[autompg$cyl != 5,]
-autompg = autompg[autompg$cyl != 3,]
+autompg <- autompg[autompg$cyl != 5,]
+autompg <- autompg[autompg$cyl != 3,]
 # the following line would verify the remaining cylinder possibilities are 4, 6, 8
 #unique(autompg$cyl)
 # change cyl to a factor variable
@@ -924,7 +924,7 @@ str(autompg)
 ```
 
 ```{r}
-big_model = lm(mpg ~ disp * hp * domestic, data = autompg)
+big_model <- lm(mpg ~ disp * hp * domestic, data = autompg)
 ```
 
 ```{r}
@@ -936,14 +936,14 @@ shapiro.test(resid(big_model))
 Here both the Q-Q plot, and the Shapiro-Wilk test suggest that the normality assumption is violated.
 
 ```{r}
-big_mod_cd = cooks.distance(big_model)
+big_mod_cd <- cooks.distance(big_model)
 sum(big_mod_cd > 4 / length(big_mod_cd))
 ```
 
 Here, we find `r sum(big_mod_cd > 4 / length(big_mod_cd))`, so perhaps removing them will help!
 
 ```{r}
-big_model_fix = lm(mpg ~ disp * hp * domestic,
+big_model_fix <- lm(mpg ~ disp * hp * domestic,
                    data = autompg,
                    subset = big_mod_cd < 4 / length(big_mod_cd))
 qqnorm(resid(big_model_fix), col = "grey")

@@ -90,7 +90,7 @@ Suppose $x_{i} \sim \mathrm{N}(\mu,\sigma^{2})$ and we want to test $H_{0}: \mu 
 Assuming $\sigma$ is unknown, we use the one-sample Student's $t$ test statistic:
 
 \[
-t = \frac{\bar{x}-\mu_{0}}{s/\sqrt{n}} \sim t_{n-1},
+t <- \frac{\bar{x}-\mu_{0}}{s/\sqrt{n}} \sim t_{n-1},
 \]
 
 where $\bar{x} = \displaystyle\frac{\sum_{i=1}^{n}x_{i}}{n}$ and $s = \sqrt{\displaystyle\frac{1}{n - 1}\sum_{i=1}^{n}(x_i - \bar{x})^2}$.
@@ -108,7 +108,7 @@ where $t_{\alpha/2, n-1}$ is the critical value such that $P\left(t>t_{\alpha/2,
 Suppose a grocery store sells "16 ounce" boxes of *Captain Crisp* cereal. A random sample of 9 boxes was taken and weighed. The weight in ounces is stored in the data frame `capt_crisp`.
 
 ```{r}
-capt_crisp = data.frame(weight = c(15.5, 16.2, 16.1, 15.8, 15.6, 16.0, 15.8, 15.9, 16.2))
+capt_crisp <- data.frame(weight = c(15.5, 16.2, 16.1, 15.8, 15.6, 16.0, 15.8, 15.9, 16.2))
 ```
 
 The company that makes *Captain Crisp* cereal claims that the average weight of a box is at least 16 ounces. We will assume the weight of cereal in a box is normally distributed and use a 0.05 level of significance to test the company's claim.
@@ -116,13 +116,13 @@ The company that makes *Captain Crisp* cereal claims that the average weight of 
 To test $H_{0}: \mu \geq 16$ versus $H_{1}: \mu < 16$, the test statistic is
 
 \[
-t = \frac{\bar{x} - \mu_{0}}{s / \sqrt{n}}
+t <- \frac{\bar{x} - \mu_{0}}{s / \sqrt{n}}
 \]
 
 The sample mean $\bar{x}$ and the sample standard deviation $s$ can be easily computed using `R`. We also create variables which store the hypothesized mean and the sample size.
 
 ```{r}
-x_bar = mean(capt_crisp$weight)
+x_bar <- mean(capt_crisp$weight)
 s     = sd(capt_crisp$weight)
 mu_0  = 16
 n     = 9
@@ -131,7 +131,7 @@ n     = 9
 We can then easily compute the test statistic.
 
 ```{r}
-t = (x_bar - mu_0) / (s / sqrt(n))
+t <- (x_bar - mu_0) / (s / sqrt(n))
 t
 ```
 
@@ -166,7 +166,7 @@ We supply `R` with the data, the hypothesized value of $\mu$, the alternative, a
 Since the test was one-sided, `R` returned a one-sided confidence interval. If instead we wanted a two-sided interval for the mean weight of boxes of *Captain Crisp* cereal we could modify our code.
 
 ```{r}
-capt_test_results = t.test(capt_crisp$weight, mu = 16,
+capt_test_results <- t.test(capt_crisp$weight, mu = 16,
                            alternative = c("two.sided"), conf.level = 0.95)
 ```
 
@@ -208,7 +208,7 @@ Want to test $H_{0}: \mu_{x} - \mu_{y} = \mu_{0}$ versus $H_{1}: \mu_{x} - \mu_{
 Assuming $\sigma$ is unknown, use the two-sample Student's $t$ test statistic:
 
 \[
-t = \frac{(\bar{x} - \bar{y})-\mu_{0}}{s_{p}\sqrt{\frac{1}{n}+\frac{1}{m}}} \sim t_{n+m-2},
+t <- \frac{(\bar{x} - \bar{y})-\mu_{0}}{s_{p}\sqrt{\frac{1}{n}+\frac{1}{m}}} \sim t_{n+m-2},
 \]
 
 where $\displaystyle\bar{x}=\frac{\sum_{i=1}^{n}x_{i}}{n}$, $\displaystyle\bar{y}=\frac{\sum_{i=1}^{m}y_{i}}{m}$, and $s_p^2 = \displaystyle\frac{(n-1)s_x^2+(m-1)s_y^2}{n+m-2}$.
@@ -226,15 +226,15 @@ where $t_{\alpha/2, n+m-2}$ is the critical value such that $P\left(t>t_{\alpha/
 Assume that the distributions of $X$ and $Y$ are $\mathrm{N}(\mu_{1},\sigma^{2})$ and $\mathrm{N}(\mu_{2},\sigma^{2})$, respectively. Given the $n = 6$ observations of $X$,
 
 ```{r}
-x = c(70, 82, 78, 74, 94, 82)
-n = length(x)
+x <- c(70, 82, 78, 74, 94, 82)
+n <- length(x)
 ```
 
 and the $m = 8$ observations of $Y$,
 
 ```{r}
-y = c(64, 72, 60, 76, 72, 80, 84, 68)
-m = length(y)
+y <- c(64, 72, 60, 76, 72, 80, 84, 68)
+m <- length(y)
 ```
 
 we will test $H_{0}: \mu_{1} = \mu_{2}$ versus $H_{1}: \mu_{1} > \mu_{2}$.
@@ -242,9 +242,9 @@ we will test $H_{0}: \mu_{1} = \mu_{2}$ versus $H_{1}: \mu_{1} > \mu_{2}$.
 First, note that we can calculate the sample means and standard deviations.
 
 ```{r}
-x_bar = mean(x)
+x_bar <- mean(x)
 s_x   = sd(x)
-y_bar = mean(y)
+y_bar <- mean(y)
 s_y   = sd(y)
 ```
 
@@ -255,17 +255,17 @@ s_{p} = \sqrt{\frac{(n-1)s_{x}^{2}+(m-1)s_{y}^{2}}{n+m-2}}
 \]
 
 ```{r}
-s_p = sqrt(((n - 1) * s_x ^ 2 + (m - 1) * s_y ^ 2) / (n + m - 2))
+s_p <- sqrt(((n - 1) * s_x ^ 2 + (m - 1) * s_y ^ 2) / (n + m - 2))
 ```
 
 Thus, the relevant $t$ test statistic is given by
 
 \[
-t = \frac{(\bar{x}-\bar{y})-\mu_{0}}{s_{p}\sqrt{\frac{1}{n}+\frac{1}{m}}}.
+t <- \frac{(\bar{x}-\bar{y})-\mu_{0}}{s_{p}\sqrt{\frac{1}{n}+\frac{1}{m}}}.
 \]
 
 ```{r}
-t = ((x_bar - y_bar) - 0) / (s_p * sqrt(1 / n + 1 / m))
+t <- ((x_bar - y_bar) - 0) / (s_p * sqrt(1 / n + 1 / m))
 t
 ```
 
@@ -290,7 +290,7 @@ Recall that a two-sample $t$-test can be done with or without an equal variance 
 Above we carried out the analysis using two vectors `x` and `y`. In general, we will have a preference for using data frames.
 
 ```{r}
-t_test_data = data.frame(values = c(x, y),
+t_test_data <- data.frame(values = c(x, y),
                          group  = c(rep("A", length(x)), rep("B", length(y))))
 ```
 
@@ -360,7 +360,7 @@ and
 Then, 
 
 \[
-D = \bar{X}_1 - \bar{X}_2 \sim N\left(\mu_1-\mu_2, \frac{\sigma^2}{n} + \frac{\sigma^2}{n}\right) = N\left(6-5, \frac{4}{25} + \frac{4}{25}\right).
+D <- \bar{X}_1 - \bar{X}_2 \sim N\left(\mu_1-\mu_2, \frac{\sigma^2}{n} + \frac{\sigma^2}{n}\right) = N\left(6-5, \frac{4}{25} + \frac{4}{25}\right).
 \]
 
 So, 
@@ -393,8 +393,8 @@ We will repeat the process a large number of times. Then we will use the distrib
 
 ```{r}
 set.seed(42)
-num_samples = 10000
-differences = rep(0, num_samples)
+num_samples <- 10000
+differences <- rep(0, num_samples)
 ```
 
 Before starting our `for` loop to perform the operation, we set a seed for reproducibility, create and set a variable `num_samples` which will define the number of repetitions, and lastly create a variables `differences` which will store the simulate values, $d_s$.
@@ -438,7 +438,7 @@ We could have also accomplished this task with a single line of more "idiomatic"
 
 ```{r}
 set.seed(42)
-diffs = replicate(10000, mean(rnorm(25, 6, 2)) - mean(rnorm(25, 5, 2)))
+diffs <- replicate(10000, mean(rnorm(25, 6, 2)) - mean(rnorm(25, 5, 2)))
 ```
 
 Use `?replicate` to take a look at the documentation for the `replicate` function and see if you can understand how this line performs the same operations that our `for` loop above executed.
@@ -482,7 +482,7 @@ The following verifies this result for a Poisson distribution with $\mu = 10$ an
 ```{r}
 set.seed(1337)
 mu          = 10
-sample_size = 50
+sample_size <- 50
 samples     = 100000
 x_bars      = rep(0, samples)
 ```
@@ -494,7 +494,7 @@ for(i in 1:samples){
 ```
 
 ```{r}
-x_bar_hist = hist(x_bars, breaks = 50, 
+x_bar_hist <- hist(x_bars, breaks = 50, 
                   main = "Histogram of Sample Means",
                   xlab = "Sample Means")
 ```
@@ -523,11 +523,11 @@ mean(x_bars > mu - 2 * sqrt(mu) / sqrt(sample_size) &
 This last histogram uses a bit of a trick to approximately shade the bars that are within two standard deviations of the mean.)
 
 ```{r}
-shading = ifelse(x_bar_hist$breaks > mu - 2 * sqrt(mu) / sqrt(sample_size) & 
+shading <- ifelse(x_bar_hist$breaks > mu - 2 * sqrt(mu) / sqrt(sample_size) & 
                    x_bar_hist$breaks < mu + 2 * sqrt(mu) / sqrt(sample_size),
                   "darkorange", "dodgerblue")
 
-x_bar_hist = hist(x_bars, breaks = 50, col = shading,
+x_bar_hist <- hist(x_bars, breaks = 50, col = shading,
                   main = "Histogram of Sample Means, Two Standard Deviations",
                   xlab = "Sample Means")
 ```

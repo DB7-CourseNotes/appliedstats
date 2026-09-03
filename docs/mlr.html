@@ -567,12 +567,12 @@ window.Quarto = {
 <li>Compare nested models using an ANOVA F-Test.</li>
 </ul>
 <p>The last two chapters we saw how to fit a model that assumed a linear relationship between a response variable and a single predictor variable. Specifically, we defined the simple linear regression model,</p>
-<p>[ Y_i = _0 + _1 x_i + _i ]</p>
+<p>[ Y_i &lt;- _0 + _1 x_i + _i ]</p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>.</p>
 <p>However, it is rarely the case that a dataset will have a single predictor variable. It is also rarely the case that a response variable will only depend on a single variable. So in this chapter, we will extend our current linear model to allow a response to depend on <em>multiple</em> predictors.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read the data from the web</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">=</span> <span class="fu">read.table</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data"</span>,</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">quote =</span> <span class="st">"</span><span class="sc">\"</span><span class="st">"</span>,</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment.char =</span> <span class="st">""</span>,</span>
@@ -580,13 +580,13 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># give the dataframe headers</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(autompg) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"disp"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span>, <span class="st">"acc"</span>, <span class="st">"year"</span>, <span class="st">"origin"</span>, <span class="st">"name"</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># remove missing data, which is stored as "?"</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">=</span> <span class="fu">subset</span>(autompg, autompg<span class="sc">$</span>hp <span class="sc">!=</span> <span class="st">"?"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">&lt;-</span> <span class="fu">subset</span>(autompg, autompg<span class="sc">$</span>hp <span class="sc">!=</span> <span class="st">"?"</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the plymouth reliant, as it causes some issues</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">=</span> <span class="fu">subset</span>(autompg, autompg<span class="sc">$</span>name <span class="sc">!=</span> <span class="st">"plymouth reliant"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">&lt;-</span> <span class="fu">subset</span>(autompg, autompg<span class="sc">$</span>name <span class="sc">!=</span> <span class="st">"plymouth reliant"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># give the dataset row names, based on the engine, year and name</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(autompg) <span class="ot">=</span> <span class="fu">paste</span>(autompg<span class="sc">$</span>cyl, <span class="st">"cylinder"</span>, autompg<span class="sc">$</span>year, autompg<span class="sc">$</span>name)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the variable for name, as well as origin</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">=</span> <span class="fu">subset</span>(autompg, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"disp"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span>, <span class="st">"acc"</span>, <span class="st">"year"</span>))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">&lt;-</span> <span class="fu">subset</span>(autompg, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"disp"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span>, <span class="st">"acc"</span>, <span class="st">"year"</span>))</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># change horsepower from character to numeric</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>autompg<span class="sc">$</span>hp <span class="ot">=</span> <span class="fu">as.numeric</span>(autompg<span class="sc">$</span>hp)</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># check final structure of data</span></span>
@@ -604,7 +604,7 @@ window.Quarto = {
 </div>
 <p>We will once again discuss a dataset with information about cars. <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data" target="_blank">This dataset</a>, which can be found at the <a href="https://archive.ics.uci.edu/ml/datasets/Auto+MPG" target="_blank">UCI Machine Learning Repository</a> contains a response variable <code>mpg</code> which stores the city fuel efficiency of cars, as well as several predictor variables for the attributes of the vehicles. We load the data, and perform some basic tidying before moving on to analysis.</p>
 <p>For now we will focus on using two variables, <code>wt</code> and <code>year</code>, as predictor variables. That is, we would like to model the fuel efficiency (<code>mpg</code>) of a car as a function of its weight (<code>wt</code>) and model year (<code>year</code>). To do so, we will define the following linear model,</p>
-<p>[ Y_i = _0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + _i, i = 1, 2, , n ]</p>
+<p>[ Y_i &lt;- _0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + _i, i = 1, 2, , n ]</p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>. In this notation we will define:</p>
 <ul>
 <li><span class="math inline">\(x_{i1}\)</span> as the weight (<code>wt</code>) of the <span class="math inline">\(i\)</span>th car.</li>
@@ -640,7 +640,7 @@ n \beta_0 + \beta_1 \sum_{i = 1}^{n} x_{i1} + \beta_2 \sum_{i = 1}^{n} x_{i2} &a
 <p>]</p>
 <p>We now have three equations and three variables, which we could solve, or we could simply let <code>R</code> solve for us.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mpg_model <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> year, <span class="at">data =</span> autompg)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mpg_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> year, <span class="at">data =</span> autompg)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mpg_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  (Intercept)            wt          year 
@@ -656,7 +656,7 @@ n \beta_0 + \beta_1 \sum_{i = 1}^{n} x_{i1} + \beta_2 \sum_{i = 1}^{n} x_{i2} &a
 <section id="matrix-approach-to-regression" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="matrix-approach-to-regression"><span class="header-section-number">9.1</span> Matrix Approach to Regression</h2>
 <p>In our above example we used two predictor variables, but it will only take a little more work to allow for an arbitrary number of predictor variables and derive their coefficient estimates. We can consider the model,</p>
-<p>[ Y_i = <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{p-1} x_{i(p-1)} + _i, i = 1, 2, , n ]</p>
+<p>[ Y_i &lt;- <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{p-1} x_{i(p-1)} + _i, i = 1, 2, , n ]</p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>. In this model, there are <span class="math inline">\(p - 1\)</span> predictor variables, <span class="math inline">\(x_1, x_2, \cdots, x_{p-1}\)</span>. There are a total of <span class="math inline">\(p\)</span> <span class="math inline">\(\beta\)</span>-parameters and a single parameter <span class="math inline">\(\sigma^2\)</span> for the variance of the errors. (It should be noted that almost as often, authors will use <span class="math inline">\(p\)</span> as the number of predictors, making the total number of <span class="math inline">\(\beta\)</span> parameters <span class="math inline">\(p+1\)</span>. This is always something you should be aware of when reading about multiple regression. There is not a standard that is used most often.)</p>
 <p>If we were to stack together the <span class="math inline">\(n\)</span> linear equations that represent each <span class="math inline">\(Y_i\)</span> into a column vector, we get the following.</p>
 [
@@ -689,10 +689,10 @@ Y_n   \\
 \end{bmatrix}\]</span>
 ]</li>
 </ul>
-<p>[ Y = X + ]</p>
-[ Y =
+<p>[ Y &lt;- X + ]</p>
+[ Y &lt;-
 <span class="math display">\[\begin{bmatrix} Y_1 \\ Y_2 \\ \vdots\\ Y_n \end{bmatrix}\]</span>
-, X =
+, X &lt;-
 <span class="math display">\[\begin{bmatrix}
 1      &amp; x_{11}    &amp; x_{12}    &amp; \cdots &amp; x_{1(p-1)} \\
 1      &amp; x_{21}    &amp; x_{22}    &amp; \cdots &amp; x_{2(p-1)} \\
@@ -711,7 +711,7 @@ Y_n   \\
 <span class="math display">\[\begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots\\ \epsilon_n \end{bmatrix}\]</span>
 <p>]</p>
 <p>So now with data,</p>
-[ y =
+[ y &lt;-
 <span class="math display">\[\begin{bmatrix} y_1 \\ y_2 \\ \vdots\\ y_n \end{bmatrix}\]</span>
 <p>]</p>
 <p>Just as before, we can estimate <span class="math inline">\(\beta\)</span> by minimizing,</p>
@@ -744,10 +744,10 @@ n                           &amp; \sum_{i = 1}^{n} x_{i1}           &amp; \sum_{
 <p>[ = ( X^X )<sup>{-1}X</sup>y ]</p>
 <p>To verify that this is what <code>R</code> has done for us in the case of two predictors, we create an <span class="math inline">\(X\)</span> matrix. Note that the first column is all 1s, and the remaining columns contain the data.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">nrow</span>(autompg)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">coef</span>(mpg_model))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), autompg<span class="sc">$</span>wt, autompg<span class="sc">$</span>year)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> autompg<span class="sc">$</span>mpg</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(autompg)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(mpg_model))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), autompg<span class="sc">$</span>wt, autompg<span class="sc">$</span>year)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> autompg<span class="sc">$</span>mpg</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>(<span class="at">beta_hat =</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -792,7 +792,7 @@ n                           &amp; \sum_{i = 1}^{n} x_{i1}           &amp; \sum_{
 <p>[ s_e^2 = ]</p>
 <p>which is likely the very first sample variance you saw in a mathematical statistics class. The same reason for <span class="math inline">\(n - 1\)</span> in this case, that we estimated one parameter, so we lose one degree of freedom. Now, in general, we are estimating <span class="math inline">\(p\)</span> parameters, the <span class="math inline">\(\beta\)</span> parameters, so we lose <span class="math inline">\(p\)</span> degrees of freedom.</p>
 <p>Also, recall that most often we will be interested in <span class="math inline">\(s_e\)</span>, the residual standard error as <code>R</code> calls it,</p>
-<p>[ s_e = . ]</p>
+<p>[ s_e &lt;- . ]</p>
 <p>In <code>R</code>, we could directly access <span class="math inline">\(s_e\)</span> for a fitted model, as we have seen before.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpg_model)<span class="sc">$</span>sigma</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -802,7 +802,7 @@ n                           &amp; \sum_{i = 1}^{n} x_{i1}           &amp; \sum_{
 </div>
 <p>And we can now verify that our math above is indeed calculating the same quantities.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">=</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>e     <span class="ot">=</span> y <span class="sc">-</span> y_hat</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">t</span>(e) <span class="sc">%*%</span> e <span class="sc">/</span> (n <span class="sc">-</span> p))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -866,9 +866,9 @@ F-statistic: 815.6 on 2 and 387 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>and for any <span class="math inline">\(\hat{\beta}_j\)</span> we have</p>
 <p>[ [_j] = ^2 C_{jj} ]</p>
 <p>where</p>
-<p>[ C = (X<sup>X)</sup>{-1} ]</p>
+<p>[ C &lt;- (X<sup>X)</sup>{-1} ]</p>
 <p>and the elements of <span class="math inline">\(C\)</span> are denoted</p>
-[ C =
+[ C &lt;-
 <span class="math display">\[\begin{bmatrix}
 C_{00}     &amp; C_{01}     &amp; C_{02}     &amp; \cdots &amp; C_{0(p-1)}     \\
 C_{10}     &amp; C_{11}     &amp; C_{12}     &amp; \cdots &amp; C_{1(p-1)}     \\
@@ -894,10 +894,10 @@ C_{(p-1)0} &amp; C_{(p-1)1} &amp; C_{(p-1)2} &amp; \cdots &amp; C_{(p-1)(p-1)} \
 <p>Again, the test statistic takes the form</p>
 <p>[ = . ]</p>
 <p>In particular,</p>
-<p>[ t = = , ]</p>
+<p>[ t &lt;- = , ]</p>
 <p>which, under the null hypothesis, follows a <span class="math inline">\(t\)</span> distribution with <span class="math inline">\(n - p\)</span> degrees of freedom.</p>
 <p>Recall our model for <code>mpg</code>,</p>
-<p>[ Y_i = _0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + _i, i = 1, 2, , n ]</p>
+<p>[ Y_i &lt;- _0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + _i, i = 1, 2, , n ]</p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>.</p>
 <ul>
 <li><span class="math inline">\(x_{i1}\)</span> as the weight (<code>wt</code>) of the <span class="math inline">\(i\)</span>th car.</li>
@@ -974,7 +974,7 @@ x_{0(p-1)} \\
 <p>[ (x_0) t_{/2, n - p} s_e ]</p>
 <p>The math has changed a bit, but the process in <code>R</code> remains almost identical. Here, we create a data frame for two additional cars. One car that weighs 3500 pounds produced in 1976, as well as a second car that weighs 5000 pounds which was produced in 1981.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>new_cars <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">wt =</span> <span class="fu">c</span>(<span class="dv">3500</span>, <span class="dv">5000</span>), <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">76</span>, <span class="dv">81</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>new_cars <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wt =</span> <span class="fu">c</span>(<span class="dv">3500</span>, <span class="dv">5000</span>), <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">76</span>, <span class="dv">81</span>))</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>new_cars</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    wt year
@@ -1029,7 +1029,7 @@ x_{0(p-1)} \\
 <p>However, we have to consider weight and year together now. And based on the above plot, one of the new cars is within the “blob” of observed values, while the other, the car from 1981 weighing 5000 pounds, is noticeably outside of the observed values. This is a hidden extrapolation which you should be aware of when using multiple regression.</p>
 <p>Shifting gears back to the new data pair that can be reasonably estimated, we do a quick verification of some of the mathematics in <code>R</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3500</span>, <span class="dv">76</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3500</span>, <span class="dv">76</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>x0 <span class="sc">%*%</span> beta_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
@@ -1071,7 +1071,7 @@ x_{0(p-1)} \\
 [2,]  -0.006634876
 [3,]   0.761401955</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>x0 <span class="sc">%*%</span> beta_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
@@ -1133,13 +1133,13 @@ x_{0(p-1)} \\
 <p>In multiple regression, the significance of regression test is</p>
 <p>[ H_0: _1 = <em>2 = = </em>{p - 1} = 0. ]</p>
 <p>Here, we see that the null hypothesis sets all of the <span class="math inline">\(\beta_j\)</span> equal to 0, <em>except</em> the intercept, <span class="math inline">\(\beta_0\)</span>. We could then say that the null model, or “model under the null hypothesis” is</p>
-<p>[ Y_i = _0 + _i. ]</p>
+<p>[ Y_i &lt;- _0 + _i. ]</p>
 <p>This is a model where the <em>regression</em> is insignificant. <strong>None</strong> of the predictors have a significant linear relationship with the response. Notationally, we will denote the fitted values of this model as <span class="math inline">\(\hat{y}_{0i}\)</span>, which in this case happens to be:</p>
 <p>[ _{0i} = {y}. ]</p>
 <p>The alternative hypothesis here is that at least one of the <span class="math inline">\(\beta_j\)</span> from the null hypothesis is not 0.</p>
 <p>[ H_1: _j , j = 1, 2, , (p-1) ]</p>
 <p>We could then say that the full model, or “model under the alternative hypothesis” is</p>
-<p>[ Y_i = <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{(p-1)} x_{i(p-1)} + _i ]</p>
+<p>[ Y_i &lt;- <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{(p-1)} x_{i(p-1)} + _i ]</p>
 <p>This is a model where the regression is significant. <strong>At least one</strong> of the predictors has a significant linear relationship with the response. There is some linear relationship between <span class="math inline">\(y\)</span> and the predictors, <span class="math inline">\(x_1, x_2, \ldots, x_{p - 1}\)</span>.</p>
 <p>We will denote the fitted values of this model as <span class="math inline">\(\hat{y}_{1i}\)</span>.</p>
 <p>To develop the <span class="math inline">\(F\)</span> test for the significance of the regression, we will arrange the variance decomposition into an ANOVA table.</p>
@@ -1185,7 +1185,7 @@ x_{0(p-1)} \\
 </tbody>
 </table>
 <p>In summary, the <span class="math inline">\(F\)</span> statistic is</p>
-<p>[ F = , ]</p>
+<p>[ F &lt;- , ]</p>
 <p>and the p-value is calculated as</p>
 <p>[ P(F_{p-1, n-p} &gt; F) ]</p>
 <p>since we reject for large values of <span class="math inline">\(F\)</span>. A large value of the statistic corresponds to a large portion of the variance being explained by the regression. Here <span class="math inline">\(F_{p-1, n-p}\)</span> represents a random variable which follows an <span class="math inline">\(F\)</span> distribution with <span class="math inline">\(p - 1\)</span> and <span class="math inline">\(n - p\)</span> degrees of freedom.</p>
@@ -1197,8 +1197,8 @@ x_{0(p-1)} \\
 </ul>
 <p>That is, in the null model, we use neither of the predictors, whereas in the full (alternative) model, at least one of the predictors is useful.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>null_mpg_model <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> autompg)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>full_mpg_model <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> year, <span class="at">data =</span> autompg)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>null_mpg_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> autompg)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>full_mpg_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> year, <span class="at">data =</span> autompg)</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(null_mpg_model, full_mpg_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
@@ -1277,10 +1277,10 @@ F-statistic: 815.6 on 2 and 387 DF,  p-value: &lt; 2.2e-16</code></pre>
 <h2 data-number="9.4" class="anchored" data-anchor-id="nested-models"><span class="header-section-number">9.4</span> Nested Models</h2>
 <p>The significance of regression test is actually a special case of testing what we will call <strong>nested models</strong>. More generally we can compare two models, where one model is “nested” inside the other, meaning one model contains a subset of the predictors from only the larger model.</p>
 <p>Consider the following full model,</p>
-<p>[ Y_i = <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{(p-1)} x_{i(p-1)} + _i ]</p>
+<p>[ Y_i &lt;- <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{(p-1)} x_{i(p-1)} + _i ]</p>
 <p>This model has <span class="math inline">\(p - 1\)</span> predictors, for a total of <span class="math inline">\(p\)</span> <span class="math inline">\(\beta\)</span>-parameters. We will denote the fitted values of this model as <span class="math inline">\(\hat{y}_{1i}\)</span>.</p>
 <p>Let the null model be</p>
-<p>[ Y_i = <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{(q-1)} x_{i(q-1)} + _i ]</p>
+<p>[ Y_i &lt;- <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{(q-1)} x_{i(q-1)} + _i ]</p>
 <p>where <span class="math inline">\(q &lt; p\)</span>. This model has <span class="math inline">\(q - 1\)</span> predictors, for a total of <span class="math inline">\(q\)</span> <span class="math inline">\(\beta\)</span>-parameters. We will denote the fitted values of this model as <span class="math inline">\(\hat{y}_{0i}\)</span>.</p>
 <p>The difference between these two models can be codified by the null hypothesis of a test.</p>
 <p>[ H_0: <em>q = </em>{q+1} = = _{p - 1} = 0. ]</p>
@@ -1327,7 +1327,7 @@ F-statistic: 815.6 on 2 and 387 DF,  p-value: &lt; 2.2e-16</code></pre>
 </tr>
 </tbody>
 </table>
-<p>[ F = . ]</p>
+<p>[ F &lt;- . ]</p>
 <p>Notice that the row for “Diff” compares the sum of the squared differences of the fitted values. The degrees of freedom is then the difference of the number of <span class="math inline">\(\beta\)</span>-parameters estimated between the two models.</p>
 <p>For example, the <code>autompg</code> dataset has a number of additional variables that we have yet to use.</p>
 <div class="cell" data-layout-align="center">
@@ -1346,9 +1346,9 @@ F-statistic: 815.6 on 2 and 387 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The alternative is simply that at least one of the <span class="math inline">\(\beta_{j}\)</span> from the null is not 0.</p>
 <p>To perform this test in <code>R</code> we first define both models, then give them to the <code>anova()</code> commands.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>null_mpg_model <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> year, <span class="at">data =</span> autompg)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>null_mpg_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> year, <span class="at">data =</span> autompg)</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="co">#full_mpg_model = lm(mpg ~ wt + year + cyl + disp + hp + acc, data = autompg)</span></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>full_mpg_model <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> autompg)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>full_mpg_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> autompg)</span>
 <span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(null_mpg_model, full_mpg_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
@@ -1399,31 +1399,31 @@ Model 2: mpg ~ cyl + disp + hp + wt + acc + year
 <section id="simulation" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="simulation"><span class="header-section-number">9.5</span> Simulation</h2>
 <p>Since we ignored the derivation of certain results, we will again use simulation to convince ourselves of some of the above results. In particular, we will simulate samples of size <code>n = 100</code> from the model</p>
-<p>[ Y_i = 5 + -2 x_{i1} + 6 x_{i2} + _i, i = 1, 2, , n ]</p>
+<p>[ Y_i &lt;- 5 + -2 x_{i1} + 6 x_{i2} + _i, i = 1, 2, , n ]</p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2 = 16)\)</span>. Here we have two predictors, so <span class="math inline">\(p = 3\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100</span> <span class="co"># sample size</span></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co"># sample size</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>beta_0 <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">=</span> <span class="sc">-</span><span class="dv">2</span></span>
-<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>beta_2 <span class="ot">=</span> <span class="dv">6</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>beta_2 <span class="ot">&lt;-</span> <span class="dv">6</span></span>
 <span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>sigma  <span class="ot">=</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As is the norm with regression, the <span class="math inline">\(x\)</span> values are considered fixed and known quantities, so we will simulate those first, and they remain the same for the rest of the simulation study. Also note we create an <code>x0</code> which is all <code>1</code>, which we need to create our <code>X</code> matrix. If you look at the matrix formulation of regression, this unit vector of all <code>1</code>s is a “predictor” that puts the intercept into the model. We also calculate the <code>C</code> matrix for later use.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, n)</span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length =</span> n))</span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length =</span> n))</span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(x0, x1, x2)</span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>C <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, n)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length =</span> n))</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length =</span> n))</span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x0, x1, x2)</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We then simulate the response according the model above. Lastly, we place the two predictors and response into a data frame. Note that we do <strong>not</strong> place <code>x0</code> in the data frame. This is a result of <code>R</code> adding an intercept by default.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>eps      <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma)</span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>y        <span class="ot">=</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> x1 <span class="sc">+</span> beta_2 <span class="sc">*</span> x2 <span class="sc">+</span> eps</span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">=</span> <span class="fu">data.frame</span>(x1, x2, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x1, x2, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Plotting this data and fitting the regression produces the following plot.</p>
 <div class="cell" data-layout-align="center">
@@ -1463,7 +1463,7 @@ x2  5.843424</code></pre>
 </div>
 <p>We then calculated the fitted values in order to calculate <span class="math inline">\(s_e\)</span>, which we see is the same as the <code>sigma</code> which is returned by <code>summary()</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">=</span> X <span class="sc">%*%</span> beta_hat</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> X <span class="sc">%*%</span> beta_hat</span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>(<span class="at">s_e =</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((y <span class="sc">-</span> y_hat) <span class="sc">^</span> <span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> p)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.294307</code></pre>
@@ -1496,8 +1496,8 @@ x2  5.843424</code></pre>
 </div>
 <p>We now perform the simulation a large number of times. Each time, we update the <code>y</code> variable in the data frame, leaving the <code>x</code> variables the same. We then fit a model, and store <span class="math inline">\(\hat{\beta}_2\)</span>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>num_sims <span class="ot">=</span> <span class="dv">10000</span></span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>beta_hat_2 <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, num_sims)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>num_sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>beta_hat_2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, num_sims)</span>
 <span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>num_sims) {</span>
 <span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  eps           <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span> , <span class="at">sd =</span> sigma)</span>
 <span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>  sim_data<span class="sc">$</span>y    <span class="ot">=</span> beta_0 <span class="sc">*</span> x0 <span class="sc">+</span> beta_1 <span class="sc">*</span> x1 <span class="sc">+</span> beta_2 <span class="sc">*</span> x2 <span class="sc">+</span> eps</span>
@@ -1556,7 +1556,7 @@ x2  5.843424</code></pre>
 <p>This looks good! The simulation-based histogram appears to be Normal with mean 6 and spread of about 0.15 as you measure from center to inflection point. That matches really well with the sampling distribution of <span class="math inline">\(\hat{\beta}_2 \sim N\left(\mu = 6, \sigma^2 = 0.0232549  \right)\)</span>.</p>
 <p>One last check, we verify the <span class="math inline">\(68 - 95 - 99.7\)</span> rule.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>sd_bh2 <span class="ot">=</span> <span class="fu">sqrt</span>(sigma <span class="sc">^</span> <span class="dv">2</span> <span class="sc">*</span> C[<span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span>, <span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span>])</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>sd_bh2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sigma <span class="sc">^</span> <span class="dv">2</span> <span class="sc">*</span> C[<span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span>, <span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span>])</span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We expect these to be: 0.68, 0.95, 0.997</span></span>
 <span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(beta_2 <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> sd_bh2 <span class="sc">&lt;</span> beta_hat_2 <span class="sc">&amp;</span> beta_hat_2 <span class="sc">&lt;</span> beta_2 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> sd_bh2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">

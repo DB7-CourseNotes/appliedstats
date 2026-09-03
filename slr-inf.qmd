@@ -17,7 +17,7 @@ After reading this chapter you will be able to:
 Last chapter we defined the simple linear regression model,
 
 \[
-Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+Y_i <- \beta_0 + \beta_1 x_i + \epsilon_i
 \]
 
 where $\epsilon_i \sim N(0, \sigma^2)$. We then used observations $(x_i, y_i)$, for $i = 1, 2, \ldots n$, to find values of $\beta_0$ and $\beta_1$ which minimized
@@ -38,7 +38,7 @@ We called these values $\hat{\beta}_0$ and $\hat{\beta}_1$, which we found to be
 We also estimated $\sigma ^2$ using $s_e^2$. In other words, we found that $s_e$ is an estimate of $\sigma$, where;
 
 \[
-s_e = \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
+s_e <- \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
 \]
 
 which we also called $\text{RSE}$, for "Residual Standard Error."
@@ -46,7 +46,7 @@ which we also called $\text{RSE}$, for "Residual Standard Error."
 When applied to the `cars` data, we obtained the following results:
 
 ```{r}
-stop_dist_model = lm(dist ~ speed, data = cars)
+stop_dist_model <- lm(dist ~ speed, data = cars)
 summary(stop_dist_model)
 ```
 
@@ -196,7 +196,7 @@ A note to current readers: These derivations and proofs may be added to an appen
 To verify the above results, we will simulate samples of size $n = 100$ from the model
 
 \[
-Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+Y_i <- \beta_0 + \beta_1 x_i + \epsilon_i
 \]
 
 where $\epsilon_i \sim N(0, \sigma^2).$ In this case, the parameters are known to be:
@@ -221,16 +221,16 @@ First we need to decide ahead of time what our $x$ values will be for this simul
 
 ```{r}
 set.seed(42)
-sample_size = 100 # this is n
-x = seq(-1, 1, length = sample_size)
-Sxx = sum((x - mean(x)) ^ 2)
+sample_size <- 100 # this is n
+x <- seq(-1, 1, length = sample_size)
+Sxx <- sum((x - mean(x)) ^ 2)
 ```
 
 We also fix our parameter values.
 
 ```{r}
-beta_0 = 3
-beta_1 = 6
+beta_0 <- 3
+beta_1 <- 6
 sigma  = 2
 ```
 
@@ -272,9 +272,9 @@ and
 We now simulate data from this model 10,000 times. Note this may not be the most `R` way of doing the simulation. We perform the simulation in this manner in an attempt at clarity. For example, we could have used the `sim_slr()` function from the previous chapter. We also simply store variables in the global environment instead of creating a data frame for each new simulated dataset.
 
 ```{r}
-num_samples = 10000
-beta_0_hats = rep(0, num_samples)
-beta_1_hats = rep(0, num_samples)
+num_samples <- 10000
+beta_0_hats <- rep(0, num_samples)
+beta_1_hats <- rep(0, num_samples)
 
 for (i in 1:num_samples) {
   eps = rnorm(sample_size, mean = 0, sd = sigma)
@@ -408,7 +408,7 @@ To see this, first note that,
 Also recall that a random variable $T$ defined as,
 
 \[
-T = \frac{Z}{\sqrt{\frac{\chi_{d}^2}{d}}}
+T <- \frac{Z}{\sqrt{\frac{\chi_{d}^2}{d}}}
 \]
 
 follows a $t$ distribution with $d$ degrees of freedom, where $\chi_{d}^2$ is a $\chi^2$ random variable with $d$ degrees of freedom.
@@ -442,7 +442,7 @@ Recall that a $t$ distribution is similar to a standard normal, but with heavier
 
 ```{r}
 # define grid of x values
-x = seq(-4, 4, length = 100)
+x <- seq(-4, 4, length = 100)
 
 # plot curve for standard normal
 plot(x, dnorm(x), type = "l", lty = 1, lwd = 2,
@@ -510,7 +510,7 @@ H_0: \beta_0 = \beta_{00} \quad \text{vs} \quad H_1: \beta_0 \neq \beta_{00}
 we use the test statistic
 
 \[
-t = \frac{\hat{\beta}_0 - \beta_{00}}{\text{SE}[\hat{\beta}_0]} = \frac{\hat{\beta}_0-\beta_{00}}{s_e\sqrt{\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}}}
+t <- \frac{\hat{\beta}_0 - \beta_{00}}{\text{SE}[\hat{\beta}_0]} = \frac{\hat{\beta}_0-\beta_{00}}{s_e\sqrt{\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}}}
 \]
 
 which, under the null hypothesis, follows a $t$ distribution with $n - 2$ degrees of freedom. We use $\beta_{00}$ to denote the hypothesized value of $\beta_0$.
@@ -524,7 +524,7 @@ H_0: \beta_1 = \beta_{10} \quad \text{vs} \quad H_1: \beta_1 \neq \beta_{10}
 we use the test statistic
 
 \[
-t = \frac{\hat{\beta}_1-\beta_{10}}{\text{SE}[\hat{\beta}_1]} = \frac{\hat{\beta}_1-\beta_{10}}{s_e / \sqrt{S_{xx}}}
+t <- \frac{\hat{\beta}_1-\beta_{10}}{\text{SE}[\hat{\beta}_1]} = \frac{\hat{\beta}_1-\beta_{10}}{s_e / \sqrt{S_{xx}}}
 \]
 
 which again, under the null hypothesis, follows a $t$ distribution with $n - 2$ degrees of freedom. We now use $\beta_{10}$ to denote the hypothesized value of $\beta_1$.
@@ -534,7 +534,7 @@ which again, under the null hypothesis, follows a $t$ distribution with $n - 2$ 
 We now return to the `cars` example from last chapter to illustrate these concepts. We first fit the model using `lm()` then use `summary()` to view the results in greater detail.
 
 ```{r}
-stop_dist_model = lm(dist ~ speed, data = cars)
+stop_dist_model <- lm(dist ~ speed, data = cars)
 summary(stop_dist_model)
 ```
 
@@ -582,7 +582,7 @@ The second value, `Std. Error`, is the standard error of $\hat{\beta}_1$,
 The third value, `t value`, is the value of the test statistic for testing $H_0: \beta_1 = 0$ vs $H_1: \beta_1 \neq 0$,
 
 \[
-t = \frac{\hat{\beta}_1-0}{\text{SE}[\hat{\beta}_1]} = \frac{\hat{\beta}_1-0}{s_e / \sqrt{S_{xx}}} = `r summary(stop_dist_model)$coefficients[2,3]`.
+t <- \frac{\hat{\beta}_1-0}{\text{SE}[\hat{\beta}_1]} = \frac{\hat{\beta}_1-0}{s_e / \sqrt{S_{xx}}} = `r summary(stop_dist_model)$coefficients[2,3]`.
 \]
 
 Lastly, `Pr(>|t|)`, gives us the p-value of that test.
@@ -602,17 +602,17 @@ summary(stop_dist_model)$coefficients[1,]
 In summary, the following code stores the information of `summary(stop_dist_model)$coefficients` in a new variable `stop_dist_model_test_info`, then extracts each element into a new variable which describes the information it contains.
 
 ```{r}
-stop_dist_model_test_info = summary(stop_dist_model)$coefficients
+stop_dist_model_test_info <- summary(stop_dist_model)$coefficients
 
 beta_0_hat      = stop_dist_model_test_info[1, 1] # Estimate
 beta_0_hat_se   = stop_dist_model_test_info[1, 2] # Std. Error
 beta_0_hat_t    = stop_dist_model_test_info[1, 3] # t value
-beta_0_hat_pval = stop_dist_model_test_info[1, 4] # Pr(>|t|)
+beta_0_hat_pval <- stop_dist_model_test_info[1, 4] # Pr(>|t|)
 
 beta_1_hat      = stop_dist_model_test_info[2, 1] # Estimate
 beta_1_hat_se   = stop_dist_model_test_info[2, 2] # Std. Error
 beta_1_hat_t    = stop_dist_model_test_info[2, 3] # t value
-beta_1_hat_pval = stop_dist_model_test_info[2, 4] # Pr(>|t|)
+beta_1_hat_pval <- stop_dist_model_test_info[2, 4] # Pr(>|t|)
 ```
 
 We can then verify some equivalent expressions: the $t$ test statistic for $\hat{\beta}_1$ and the two-sided p-value associated with that test statistic.
@@ -640,13 +640,13 @@ H_0: \beta_1 = 0 \quad \text{vs} \quad H_1: \beta_1 \neq 0
 is used most often. Let's think about this test in terms of the simple linear regression model,
 
 \[
-Y_i = \beta_0 + \beta_1 x_i + \epsilon_i.
+Y_i <- \beta_0 + \beta_1 x_i + \epsilon_i.
 \]
 
 If we assume the null hypothesis is true, then $\beta_1 = 0$ and we have the model,
 
 \[
-Y_i = \beta_0 + \epsilon_i.
+Y_i <- \beta_0 + \epsilon_i.
 \]
 
 In this model, the response does **not** depend on the predictor. So then we could think of this test in the following way,
@@ -669,8 +669,8 @@ With this extremely low p-value, we would reject the null hypothesis at any reas
 
 ```{r, echo = FALSE}
 set.seed(42)
-x = seq(-1, 1, 0.01)
-y = 5 + 4 * x ^ 2 + rnorm(length(x), 0, 0.5)
+x <- seq(-1, 1, 0.01)
+y <- 5 + 4 * x ^ 2 + rnorm(length(x), 0, 0.5)
 plot(x, y, pch  = 20, cex  = 2, col  = "grey")
 abline(lm(y ~ x), lwd = 3, col = "darkorange")
 ```
@@ -710,13 +710,13 @@ We can also verify that calculations that `R` is performing for the $\beta_1$ in
 
 ```{r}
 # store estimate
-beta_1_hat = coef(stop_dist_model)[2]
+beta_1_hat <- coef(stop_dist_model)[2]
 
 # store standard error
-beta_1_hat_se = summary(stop_dist_model)$coefficients[2, 2]
+beta_1_hat_se <- summary(stop_dist_model)$coefficients[2, 2]
 
 # calculate critical value for two-sided 99% CI
-crit = qt(0.995, df = length(resid(stop_dist_model)) - 2)
+crit <- qt(0.995, df = length(resid(stop_dist_model)) - 2)
 
 # est - margin, est + margin
 c(beta_1_hat - crit * beta_1_hat_se, beta_1_hat + crit * beta_1_hat_se)
@@ -771,7 +771,7 @@ We can then use this to find the confidence interval for the mean response,
 To find confidence intervals for the mean response using `R`, we use the `predict()` function. We give the function our fitted model as well as new data, stored as a data frame. (This is important, so that `R` knows the name of the predictor variable.) Here, we are finding the confidence interval for the mean stopping distance when a car is travelling 5 miles per hour and when a car is travelling 21 miles per hour.
 
 ```{r}
-new_speeds = data.frame(speed = c(5, 21))
+new_speeds <- data.frame(speed = c(5, 21))
 predict(stop_dist_model, newdata = new_speeds, 
         interval = c("confidence"), level = 0.99)
 ```
@@ -818,11 +818,11 @@ Also notice that these two intervals are wider than the corresponding confidence
 Often we will like to plot both confidence intervals for the mean response and prediction intervals for all possible values of $x$. We calls these confidence and prediction bands.
 
 ```{r, fig.height = 8, fig.width = 10, message = TRUE}
-speed_grid = seq(min(cars$speed), max(cars$speed), by = 0.01)
-dist_ci_band = predict(stop_dist_model, 
+speed_grid <- seq(min(cars$speed), max(cars$speed), by = 0.01)
+dist_ci_band <- predict(stop_dist_model, 
                        newdata = data.frame(speed = speed_grid), 
                        interval = "confidence", level = 0.99)
-dist_pi_band = predict(stop_dist_model, 
+dist_pi_band <- predict(stop_dist_model, 
                        newdata = data.frame(speed = speed_grid), 
                        interval = "prediction", level = 0.99) 
 
@@ -878,7 +878,7 @@ To develop the $F$ test, we will arrange this information in an **ANOVA** table,
 ANOVA, or Analysis of Variance will be a concept we return to often in this course. For now, we will focus on the results of the table, which is the $F$ statistic,
 
 \[
-F = \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2 / 1}{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 / (n - 2)} \sim F_{1, n - 2}
+F <- \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2 / 1}{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 / (n - 2)} \sim F_{1, n - 2}
 \]
 
 which follows an $F$ distribution with degrees of freedom $1$ and $n - 2$ under the null hypothesis. An $F$ distribution is a continuous distribution which takes only positive values and has two parameters, which are the two degrees of freedom.
@@ -898,7 +898,7 @@ H_1: \beta_1 \neq 0 \quad \quad Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 We can use the $F$ statistic to perform this test.
 
 \[
-F = \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2 / 1}{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 / (n - 2)}
+F <- \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2 / 1}{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 / (n - 2)}
 \]
 
 In particular, we will reject the null when the $F$ statistic is large, that is, when there is a low probability that the observations could have come from the null model by chance. We will let `R` calculate the p-value for us.

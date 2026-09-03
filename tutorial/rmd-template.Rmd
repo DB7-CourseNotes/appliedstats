@@ -48,7 +48,7 @@ The following is an example of an `R` code chunk
 
 ```{r example_chunk}
 # define function
-get_sd = function(x, biased = FALSE) {
+get_sd <- function(x, biased = FALSE) {
   n = length(x) - 1 * !biased
   sqrt((1 / n) * sum((x - mean(x)) ^ 2))
 }
@@ -75,7 +75,7 @@ When using RMarkdown, any time you *knit* your document to its final form, say `
 
 ```{r load_data, message = FALSE, warning = FALSE}
 library(readr)
-example_data = read_csv("example-data.csv")
+example_data <- read_csv("example-data.csv")
 ```
 
 The above loads the file stored in `example_data.csv` and stores it in a variable named `example_data`. Note that when this line runs during *knitting*, your **working directory** is considered the directory which contains your `.Rmd` file. This is why we did not give a full file path. We simply used a relative reference. You should **always** reference data in this manner.
@@ -146,8 +146,8 @@ print("Hello World!")
 Above, we see output, but no code! This is done using `echo = FALSE`, which is often useful.
 
 ```{r, message = FALSE, warning = FALSE}
-x = 1:10
-y = 1:10
+x <- 1:10
+y <- 1:10
 summary(lm(y ~ x))
 ```
 
@@ -168,7 +168,7 @@ With `.html` the LaTeX is not actually rendered during knitting, but actually re
 Displaystyle is used for larger equations which appear centered on their own line.
 
 $$
-s = \sqrt{\frac{1}{n - 1}\sum_{i=1}^{n}(x - \bar{x})^2}
+s <- \sqrt{\frac{1}{n - 1}\sum_{i=1}^{n}(x - \bar{x})^2}
 $$
 
 ## Inline LaTex

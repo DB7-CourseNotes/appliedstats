@@ -72,7 +72,7 @@ $$
 To illustrate the use of a GLM we'll focus on the case of binary responses variable coded using $0$ and $1$. In practice, these $0$ and $1$s will code for two classes such as yes/no, cat/dog, sick/healthy, etc.
 
 $$
-Y = 
+Y <- 
 \begin{cases} 
       1 & \text{yes} \\
       0 & \text{no} 
@@ -126,7 +126,7 @@ Note that for $x \in (-\infty, \infty))$, this function outputs values between 0
 Students often ask, where is the error term? The answer is that it's something that is specific to the normal model. First notice that the model with the error term,
 
 $$
-Y = \beta_0 + \beta_1x_1 + \ldots + \beta_qx_q + \epsilon, \ \ \epsilon \sim N(0, \sigma^2)
+Y <- \beta_0 + \beta_1x_1 + \ldots + \beta_qx_q + \epsilon, \ \ \epsilon \sim N(0, \sigma^2)
 $$
 can instead be written as
 
@@ -223,7 +223,7 @@ When this happens, the model is still "fit," but there are consequences, namely,
 ### Simulation Examples
 
 ```{r}
-sim_logistic_data = function(sample_size = 25, beta_0 = -2, beta_1 = 3) {
+sim_logistic_data <- function(sample_size = 25, beta_0 = -2, beta_1 = 3) {
   x = rnorm(n = sample_size)
   eta = beta_0 + beta_1 * x
   p = 1 / (1 + exp(-eta))
@@ -261,7 +261,7 @@ $$
 
 ```{r}
 set.seed(1)
-example_data = sim_logistic_data()
+example_data <- sim_logistic_data()
 head(example_data)
 ```
 
@@ -271,7 +271,7 @@ After simulating a dataset, we'll then fit both ordinary linear regression and l
 # ordinary linear regression
 fit_lm  = lm(y ~ x, data = example_data)
 # logistic regression
-fit_glm = glm(y ~ x, data = example_data, family = binomial)
+fit_glm <- glm(y ~ x, data = example_data, family = binomial)
 ```
 
 Notice that the syntax is extremely similar. What's changed?
@@ -291,7 +291,7 @@ The `family` argument to `glm()` actually specifies both the distribution and th
 
 ```{r}
 # more detailed call to glm for logistic regression
-fit_glm = glm(y ~ x, data = example_data, family = binomial(link = "logit"))
+fit_glm <- glm(y ~ x, data = example_data, family = binomial(link = "logit"))
 ```
 
 Making predictions with an object of type  `glm` is slightly different than making predictions after fitting with `lm()`. In the case of logistic regression, with `family = binomial`, we have:
@@ -377,13 +377,13 @@ In this model, as $x$ increases, the log odds decrease.
 
 ```{r}
 set.seed(1)
-example_data = sim_logistic_data(sample_size = 50, beta_0 = 1, beta_1 = -4)
+example_data <- sim_logistic_data(sample_size = 50, beta_0 = 1, beta_1 = -4)
 ```
 
 We again simulate some observations form this model, then fit logistic regression.
 
 ```{r}
-fit_glm = glm(y ~ x, data = example_data, family = binomial)
+fit_glm <- glm(y ~ x, data = example_data, family = binomial)
 ```
 
 ```{r}
@@ -403,7 +403,7 @@ We see that this time, as $x$ increases, $\hat{p}({\bf x})$ decreases.
 Now let's look at an example where the estimated probability doesn't always simply increase or decrease. Much like ordinary linear regression, the linear combination of predictors can contain transformations of predictors (in this case a quadratic term) and interactions.
 
 ```{r}
-sim_quadratic_logistic_data = function(sample_size = 25) {
+sim_quadratic_logistic_data <- function(sample_size = 25) {
   x = rnorm(n = sample_size)
   eta = -1.5 + 0.5 * x + x ^ 2
   p = 1 / (1 + exp(-eta))
@@ -428,11 +428,11 @@ $$
 
 ```{r}
 set.seed(42)
-example_data = sim_quadratic_logistic_data(sample_size = 50)
+example_data <- sim_quadratic_logistic_data(sample_size = 50)
 ```
 
 ```{r}
-fit_glm = glm(y ~ x + I(x^2), data = example_data, family = binomial)
+fit_glm <- glm(y ~ x + I(x^2), data = example_data, family = binomial)
 ```
 
 ```{r}
@@ -497,7 +497,7 @@ $$
 however, the test statistic and its distribution are no longer $t$. We see that the test statistic takes the same form
 
 $$
-z = \frac{\hat{\beta}_j - \beta_j}{\text{SE}[\hat{\beta}_j]} \overset{\text{approx}}{\sim} N(0, 1)
+z <- \frac{\hat{\beta}_j - \beta_j}{\text{SE}[\hat{\beta}_j]} \overset{\text{approx}}{\sim} N(0, 1)
 $$
 
 but now we are performing a $z$-test, as the test statistic is approximated by a standard normal distribution, *provided we have a large enough sample*. (The $t$-test for ordinary linear regression, assuming the assumptions were correct, had an exact distribution for any sample size.)
@@ -533,7 +533,7 @@ This implies that the reduced model is nested inside the full model.
 We then define a test statistic, $D$,
 
 $$
-D = -2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Null}}})} {L(\boldsymbol{\hat{\beta}_{\text{Full}}})} \right) = 2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Full}}})} {L(\boldsymbol{\hat{\beta}_{\text{Null}}})} \right) = 2 \left( \ell(\hat{\beta}_{\text{Full}}) - \ell(\hat{\beta}_{\text{Null}})\right)
+D <- -2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Null}}})} {L(\boldsymbol{\hat{\beta}_{\text{Full}}})} \right) = 2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Full}}})} {L(\boldsymbol{\hat{\beta}_{\text{Null}}})} \right) = 2 \left( \ell(\hat{\beta}_{\text{Full}}) - \ell(\hat{\beta}_{\text{Null}})\right)
 $$
 
 where $L$ denotes a likelihood and $\ell$ denotes a log-likelihood. For a large enough sample, this test statistic has an approximate Chi-square distribution
@@ -579,7 +579,7 @@ $$
 $$
 
 ```{r}
-chd_mod_ldl = glm(chd ~ ldl, data = SAheart, family = binomial)
+chd_mod_ldl <- glm(chd ~ ldl, data = SAheart, family = binomial)
 plot(jitter(chd, factor = 0.1) ~ ldl, data = SAheart, pch = 20, 
      ylab = "Probability of CHD", xlab = "Low Density Lipoprotein Cholesterol")
 grid()
@@ -606,7 +606,7 @@ we use the `summary()` function as we have done so many times before. Like the $
 When fitting logistic regression, we can use the same formula syntax as ordinary linear regression. So, to fit an additive model using all available predictors, we use:
 
 ```{r}
-chd_mod_additive = glm(chd ~ ., data = SAheart, family = binomial)
+chd_mod_additive <- glm(chd ~ ., data = SAheart, family = binomial)
 ```
 
 We can then use the likelihood-ratio test to compare the two models. Specifically, we are testing
@@ -632,7 +632,7 @@ We see that the test statistic that we had just calculated appears in the output
 While we prefer the additive model compared to the model with only a single predictor, do we actually need all of the predictors in the additive model? To select a subset of predictors, we can use a stepwise procedure as we did with ordinary linear regression. Recall that AIC and BIC were defined in terms of likelihoods. Here we demonstrate using AIC with a backwards selection procedure.
 
 ```{r}
-chd_mod_selected = step(chd_mod_additive, trace = 0)
+chd_mod_selected <- step(chd_mod_additive, trace = 0)
 coef(chd_mod_selected)
 ```
 
@@ -689,7 +689,7 @@ $$
 To demonstrate creating these intervals, we'll consider a new observation.
 
 ```{r}
-new_obs = data.frame(
+new_obs <- data.frame(
   sbp = 148.0,
   tobacco = 5,
   ldl = 12,
@@ -705,14 +705,14 @@ new_obs = data.frame(
 First, we'll use the `predict()` function to obtain $\hat{\eta}({\bf x})$ for this observation.
 
 ```{r}
-eta_hat = predict(chd_mod_selected, new_obs, se.fit = TRUE, type = "link")
+eta_hat <- predict(chd_mod_selected, new_obs, se.fit = TRUE, type = "link")
 eta_hat
 ```
 
 By setting `se.fit = TRUE`, `R` also computes $\text{SE}[\hat{\eta}({\bf x})]$. Note that we used `type = "link"`, but this is actually a default value. We added it here to stress that the output from `predict()` will be the value of the link function.
 
 ```{r}
-z_crit = qnorm(0.975)
+z_crit <- qnorm(0.975)
 round(z_crit, 2)
 ```
 
@@ -739,7 +739,7 @@ Without really thinking about it, we've been using our previous knowledge of `R`
 Let's add an interaction between LDL and family history for the model we selected.
 
 ```{r}
-chd_mod_interaction = glm(chd ~ alcohol + ldl + famhist + typea + age + ldl:famhist, 
+chd_mod_interaction <- glm(chd ~ alcohol + ldl + famhist + typea + age + ldl:famhist, 
                           data = SAheart, family = binomial)
 summary(chd_mod_interaction)
 ```
@@ -751,7 +751,7 @@ Based on the $z$-test seen in the above summary, this interaction is significant
 Let's take the previous model, and now add a polynomial term.
 
 ```{r}
-chd_mod_int_quad = glm(chd ~ alcohol + ldl + famhist + typea + age + ldl:famhist + I(ldl^2),
+chd_mod_int_quad <- glm(chd ~ alcohol + ldl + famhist + typea + age + ldl:famhist + I(ldl^2),
                        data = SAheart, family = binomial)
 summary(chd_mod_int_quad)
 ```
@@ -867,21 +867,21 @@ To get started, we'll first test-train split the data.
 ```{r}
 set.seed(42)
 # spam_idx = sample(nrow(spam), round(nrow(spam) / 2))
-spam_idx = sample(nrow(spam), 1000)
-spam_trn = spam[spam_idx, ]
-spam_tst = spam[-spam_idx, ]
+spam_idx <- sample(nrow(spam), 1000)
+spam_trn <- spam[spam_idx, ]
+spam_tst <- spam[-spam_idx, ]
 ```
 
 We've used a somewhat small train set relative to the total size of the dataset. In practice it should likely be larger, but this is simply to keep training time low for illustration and rendering of this document.
 
 ```{r, message = FALSE, warning = FALSE}
-fit_caps = glm(type ~ capitalTotal, 
+fit_caps <- glm(type ~ capitalTotal, 
                data = spam_trn, family = binomial)
-fit_selected = glm(type ~ edu + money + capitalTotal + charDollar, 
+fit_selected <- glm(type ~ edu + money + capitalTotal + charDollar, 
                    data = spam_trn, family = binomial)
-fit_additive = glm(type ~ ., 
+fit_additive <- glm(type ~ ., 
                    data = spam_trn, family = binomial)
-fit_over = glm(type ~ capitalTotal * (.), 
+fit_over <- glm(type ~ capitalTotal * (.), 
                data = spam_trn, family = binomial, maxit = 75)
 ```
 
@@ -969,7 +969,7 @@ To quickly summarize how well this classifier works, we'll create a confusion ma
 It further breaks down the classification errors into false positives and false negatives.
 
 ```{r}
-make_conf_mat = function(predicted, actual) {
+make_conf_mat <- function(predicted, actual) {
   table(predicted = predicted, actual = actual)
 }
 ```
@@ -977,10 +977,10 @@ make_conf_mat = function(predicted, actual) {
 Let's explicitly store the predicted values of our classifier on the test dataset.
 
 ```{r}
-spam_tst_pred = ifelse(predict(fit_additive, spam_tst) > 0, 
+spam_tst_pred <- ifelse(predict(fit_additive, spam_tst) > 0, 
                        "spam", 
                        "nonspam")
-spam_tst_pred = ifelse(predict(fit_additive, spam_tst, type = "response") > 0.5, 
+spam_tst_pred <- ifelse(predict(fit_additive, spam_tst, type = "response") > 0.5, 
                        "spam", 
                        "nonspam")
 ```
@@ -1033,7 +1033,7 @@ $$
 Here we have an `R` function to calculate the sensitivity based on the confusion matrix. Note that this function is good for illustrative purposes, but is easily broken. (Think about what happens if there are no "positives" predicted.)
 
 ```{r}
-get_sens = function(conf_mat) {
+get_sens <- function(conf_mat) {
   conf_mat[2, 2] / sum(conf_mat[, 2])
 }
 ```
@@ -1045,7 +1045,7 @@ $$
 $$
 
 ```{r}
-get_spec =  function(conf_mat) {
+get_spec <-  function(conf_mat) {
   conf_mat[1, 1] / sum(conf_mat[, 1])
 }
 ```
@@ -1072,7 +1072,7 @@ Additionally, if we change the cutoff to improve sensitivity, we'll decrease spe
 First let's see what happens when we lower the cutoff from $0.5$ to $0.1$ to create a new classifier, and thus new predictions.
 
 ```{r}
-spam_tst_pred_10 = ifelse(predict(fit_additive, spam_tst, type = "response") > 0.1, 
+spam_tst_pred_10 <- ifelse(predict(fit_additive, spam_tst, type = "response") > 0.1, 
                           "spam", 
                           "nonspam")
 ```
@@ -1093,7 +1093,7 @@ get_spec(conf_mat_10)
 This classifier, using $0.1$ instead of $0.5$ has a higher sensitivity, but a much lower specificity. Clearly, we should have moved the cutoff in the other direction. Let's try $0.9$.
 
 ```{r}
-spam_tst_pred_90 = ifelse(predict(fit_additive, spam_tst, type = "response") > 0.9, 
+spam_tst_pred_90 <- ifelse(predict(fit_additive, spam_tst, type = "response") > 0.9, 
                           "spam", 
                           "nonspam")
 ```

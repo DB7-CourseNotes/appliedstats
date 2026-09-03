@@ -13,7 +13,7 @@ Let's take a step back and consider the process of finding a model for data at a
 Essentially, we are trying to discover the functional relationship between $y$ and the predictors. In the previous chapter we were fitting models for a car's fuel efficiency (`mpg`) as a function of its attributes (`wt`, `year`, `cyl`, `disp`, `hp`, `acc`). We also consider $y$ to be a function of some noise. Rarely if ever do we expect there to be an *exact* functional relationship between the predictors and the response.
 
 \[
-y = f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon
+y <- f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon
 \]
 
 We can think of this as
@@ -48,7 +48,7 @@ Let's work backwards and discuss each of these.
 Consider one of the simplest models we could fit to data, simple linear regression.
 
 \[
-y = f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon = \beta_0 + \beta_1 x_{1} + \epsilon
+y <- f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon = \beta_0 + \beta_1 x_{1} + \epsilon
 \]
 
 So here, despite having multiple predictors, we chose to use only one. How is this model **fit**? We will almost exclusively use the method of least squares, but recall, we had seen alternative methods of fitting this model.
@@ -78,13 +78,13 @@ Note that, now we have dropped the term for the noise. We don't make any effort 
 What are the different **forms** a model could take? Currently, for the linear models we have considered, the only method for altering the form of the model is to control the predictors used. For example, one form of the multiple linear regression model is simple linear regression.
 
 \[
-y = f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon = \beta_0 + \beta_1 x_{1} + \epsilon
+y <- f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon = \beta_0 + \beta_1 x_{1} + \epsilon
 \]
 
 We could also consider a SLR model with a different predictor, thus altering the form of the model.
 
 \[
-y = f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon = \beta_0 + \beta_2 x_{2} + \epsilon
+y <- f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon = \beta_0 + \beta_2 x_{2} + \epsilon
 \]
 
 Often, we'll use multiple predictors in our model. Very often, we will at least try a model with all possible predictors.
@@ -117,23 +117,23 @@ In linear regression, we specified models with parameters, $\beta_j$ and fit the
 
 ```{r, echo=FALSE, fig.height=6, fig.width=12}
 set.seed(42)
-n = 30
-beta_0 = 1
-beta_1 = 0.5
-sigma = 3
-x = runif(n, 0, 10)
-xplot = seq(0, 10, by = 0.1)
+n <- 30
+beta_0 <- 1
+beta_1 <- 0.5
+sigma <- 3
+x <- runif(n, 0, 10)
+xplot <- seq(0, 10, by = 0.1)
 
-sim_slr = function(n, x, beta_0 = 10, beta_1 = 5, sigma = 1) {
+sim_slr <- function(n, x, beta_0 = 10, beta_1 = 5, sigma = 1) {
   epsilon = rnorm(n, mean = 0, sd = sigma)
   y       = beta_0 + beta_1 * x + epsilon
   data.frame(predictor = x, response = y)
 }
 
-sim_data = sim_slr(n = n, x = x, beta_0 = beta_0, beta_1 = beta_1, sigma = sigma)
+sim_data <- sim_slr(n = n, x = x, beta_0 = beta_0, beta_1 = beta_1, sigma = sigma)
 
-sim_fit_1 = lm(response ~ predictor, data = sim_data)
-sim_fit_2 = loess(response ~ predictor, data = sim_data)
+sim_fit_1 <- lm(response ~ predictor, data = sim_data)
+sim_fit_2 <- loess(response ~ predictor, data = sim_data)
 
 par(mfrow = c(1, 2))
 
@@ -165,7 +165,7 @@ Why the focus on **linear models**? Two big reasons:
 When searching for a model, we often need to make assumptions. These assumptions are codified in the **family** and **form** of the model. For example
 
 \[
-y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
+y <- \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
 \]
 
 assumes that $y$ is a linear combination of $x_{1}$, $x_{3}$, and $x_{5}$ as well as some noise. This assumes that the effect of $x_{1}$ on $y$ is $\beta_1$, which is the same for all values of $x_{3}$ and $x_{5}$. That is, we are using the *family* of linear models with a particular *form*.
@@ -174,7 +174,7 @@ assumes that $y$ is a linear combination of $x_{1}$, $x_{3}$, and $x_{5}$ as wel
 Suppose we then *fit* this model to some data and obtain the **fitted model**. For example, in `R` we would use
 
 ```{r, eval = FALSE}
-fit = lm(y ~ x1 + x3 + x5, data = some_data)
+fit <- lm(y ~ x1 + x3 + x5, data = some_data)
 ```
 
 This is `R`'s way of saying the *family* is *linear* and specifying the *form* from above. An additive model with the specified predictors as well as an intercept. We then obtain
@@ -186,7 +186,7 @@ This is `R`'s way of saying the *family* is *linear* and specifying the *form* f
 This is our best guess for the function $f$ in 
 
 \[
-y = f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon
+y <- f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon
 \]
 
 for the assumed **family** and **form**. Fitting a model only gives us the best fit for the family and form that we specify. So the natural question is; how do we choose the correct family and form? We'll focus on *form* since we are focusing on the *family* of linear models.
@@ -210,7 +210,7 @@ Note that *linear* models of any size are rather interpretable to begin with. La
 To find small and interpretable models, we will eventually use selection procedures, which search among many possible forms of a model. For now we will do this in a more ad-hoc manner using **inference** techniques we have already encountered. To use inference as we have seen it, we need an additional assumption in addition to the family and form of the model.
 
 \[
-y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
+y <- \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
 \]
 
 Our additional assumption is about the error term.
@@ -226,16 +226,16 @@ So with our inference tools (ANOVA and $t$-test) we have two potential strategie
 #### Correlation and Causation
 
 ```{r, echo = FALSE}
-autompg = read.table(
+autompg <- read.table(
   "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data",
   quote = "\"",
   comment.char = "",
   stringsAsFactors = FALSE)
 colnames(autompg) = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year", "origin", "name")
-autompg = subset(autompg, autompg$hp != "?")
-autompg = subset(autompg, autompg$name != "plymouth reliant")
+autompg <- subset(autompg, autompg$hp != "?")
+autompg <- subset(autompg, autompg$name != "plymouth reliant")
 rownames(autompg) = paste(autompg$cyl, "cylinder", autompg$year, autompg$name)
-autompg = subset(autompg, select = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year"))
+autompg <- subset(autompg, select = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year"))
 autompg$hp = as.numeric(autompg$hp)
 ```
 
@@ -289,26 +289,26 @@ Below, we simulate some data and fit two models. We will call the solid blue lin
 
 ```{r, echo=FALSE, fig.height=6, fig.width=12}
 set.seed(42)
-n = 30
-beta_0 = 1
-beta_1 = 0.5
-sigma = 1.5
-x = runif(n, 0, 10)
-xplot = seq(-1, 11, by = 0.1)
+n <- 30
+beta_0 <- 1
+beta_1 <- 0.5
+sigma <- 1.5
+x <- runif(n, 0, 10)
+xplot <- seq(-1, 11, by = 0.1)
 
-sim_slr = function(n, x, beta_0 = 10, beta_1 = 5, sigma = 1) {
+sim_slr <- function(n, x, beta_0 = 10, beta_1 = 5, sigma = 1) {
   epsilon = rnorm(n, mean = 0, sd = sigma)
   y       = beta_0 + beta_1 * x + epsilon
   data.frame(predictor = x, response = y)
 }
 
-sim_data = sim_slr(n = n, x = x, beta_0 = beta_0, beta_1 = beta_1, sigma = sigma)
+sim_data <- sim_slr(n = n, x = x, beta_0 = beta_0, beta_1 = beta_1, sigma = sigma)
 
-sim_fit_1 = lm(response ~ predictor, data = sim_data)
-sim_fit_2 = lm(response ~ poly(predictor, 8), data = sim_data)
+sim_fit_1 <- lm(response ~ predictor, data = sim_data)
+sim_fit_2 <- lm(response ~ poly(predictor, 8), data = sim_data)
 
 
-rmse = function(actual, predicted) {
+rmse <- function(actual, predicted) {
   sqrt(mean((actual - predicted) ^ 2))
 }
 
@@ -316,9 +316,9 @@ rmse = function(actual, predicted) {
 # rmse(sim_data$response, predict(sim_fit_2))
 
 set.seed(420)
-n = 30
-x = runif(n, 0, 10)
-sim_data_new = sim_slr(n = n, x = x, beta_0 = beta_0, beta_1 = beta_1, sigma = sigma)
+n <- 30
+x <- runif(n, 0, 10)
+sim_data_new <- sim_slr(n = n, x = x, beta_0 = beta_0, beta_1 = beta_1, sigma = sigma)
 
 # rmse(sim_data_new$response, predict(sim_fit_1, sim_data_new))
 # rmse(sim_data_new$response, predict(sim_fit_2, sim_data_new))

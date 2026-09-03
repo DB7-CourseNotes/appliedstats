@@ -137,7 +137,7 @@ Each of the previous three metrics explicitly used $p$, the number of parameters
 We'll now briefly introduce **overfitting** and **cross-validation**.
 
 ```{r}
-make_poly_data = function(sample_size = 11) {
+make_poly_data <- function(sample_size = 11) {
   x = seq(0, 10)
   y = 3 + x + 4 * x ^ 2 + rnorm(n = sample_size, mean = 0, sd = 20)
   data.frame(x, y)
@@ -146,19 +146,19 @@ make_poly_data = function(sample_size = 11) {
 
 ```{r}
 set.seed(1234)
-poly_data = make_poly_data()
+poly_data <- make_poly_data()
 ```
 
 Here we have generated data where the mean of $Y$ is a quadratic function of a single predictor $x$, specifically,
 
 \[
-Y = 3 + x + 4 x ^ 2 + \epsilon.
+Y <- 3 + x + 4 x ^ 2 + \epsilon.
 \]
 
 We'll now fit two models to this data, one which has the correct form, quadratic, and one that is large, which includes terms up to and including an eighth degree.
 
 ```{r}
-fit_quad = lm(y ~ poly(x, degree = 2), data = poly_data)
+fit_quad <- lm(y ~ poly(x, degree = 2), data = poly_data)
 fit_big  = lm(y ~ poly(x, degree = 8), data = poly_data)
 ```
 
@@ -166,7 +166,7 @@ We then plot the data and the results of the two models.
 
 ```{r}
 plot(y ~ x, data = poly_data, ylim = c(-100, 400), cex = 2, pch = 20)
-xplot = seq(0, 10, by = 0.1)
+xplot <- seq(0, 10, by = 0.1)
 lines(xplot, predict(fit_quad, newdata = data.frame(x = xplot)),
       col = "dodgerblue", lwd = 2, lty = 1)
 lines(xplot, predict(fit_big, newdata = data.frame(x = xplot)),
@@ -213,7 +213,7 @@ where $h_i$ are the leverages and $e_i$ are the usual residuals. This is great, 
 Let's calculate LOOCV $\text{RMSE}$ for both models, then discuss *why* we want to do so. We first write a function which calculates the LOOCV $\text{RMSE}$ as defined using the shortcut formula for linear models.
 
 ```{r}
-calc_loocv_rmse = function(model) {
+calc_loocv_rmse <- function(model) {
   sqrt(mean((resid(model) / (1 - hatvalues(model))) ^ 2))
 }
 ```
@@ -228,11 +228,11 @@ calc_loocv_rmse(fit_big)
 Now we see that the quadratic model has a much smaller LOOCV $\text{RMSE}$, so we would prefer this quadratic model. This is because the large model has *severely* over-fit the data. By leaving a single data point out and fitting the large model, the resulting fit is much different than the fit using all of the data. For example, let's leave out the third data point and fit both models, then plot the result.
 
 ```{r}
-fit_quad_removed = lm(y ~ poly(x, degree = 2), data = poly_data[-3, ])
+fit_quad_removed <- lm(y ~ poly(x, degree = 2), data = poly_data[-3, ])
 fit_big_removed  = lm(y ~ poly(x, degree = 8), data = poly_data[-3, ])
 
 plot(y ~ x, data = poly_data, ylim = c(-100, 400), cex = 2, pch = 20)
-xplot = seq(0, 10, by = 0.1)
+xplot <- seq(0, 10, by = 0.1)
 lines(xplot, predict(fit_quad_removed, newdata = data.frame(x = xplot)),
       col = "dodgerblue", lwd = 2, lty = 1)
 lines(xplot, predict(fit_big_removed, newdata = data.frame(x = xplot)),
@@ -249,7 +249,7 @@ We've now seen a number of model quality criteria, but now we need to address wh
 
 ```{r}
 library(faraway)
-hipcenter_mod = lm(hipcenter ~ ., data = seatpos)
+hipcenter_mod <- lm(hipcenter ~ ., data = seatpos)
 coef(hipcenter_mod)
 ```
 
@@ -268,7 +268,7 @@ If we had 10 or more predictors, we would already be considering over 1000 model
 Backward selection procedures start with all possible predictors in the model, then consider how deleting a single predictor will affect a chosen metric. Let's try this on the `seatpos` data. We will use the `step()` function in `R` which by default uses $\text{AIC}$ as its metric of choice.
 
 ```{r}
-hipcenter_mod_back_aic = step(hipcenter_mod, direction = "backward")
+hipcenter_mod_back_aic <- step(hipcenter_mod, direction = "backward")
 ```
 
 We start with the model `hipcenter ~ .`, which is otherwise known as `hipcenter ~ Age + Weight + HtShoes + Ht + Seated + Arm + Thigh + Leg`. `R` will then repeatedly attempt to delete a predictor until it stops, or reaches the model `hipcenter ~ 1`, which contains no predictors.
@@ -285,7 +285,7 @@ which we quickly verify.
 
 ```{r}
 extractAIC(hipcenter_mod) # returns both p and AIC
-n = length(resid(hipcenter_mod))
+n <- length(resid(hipcenter_mod))
 (p = length(coef(hipcenter_mod)))
 n * log(mean(resid(hipcenter_mod) ^ 2)) + 2 * p
 ```
@@ -305,8 +305,8 @@ coef(hipcenter_mod_back_aic)
 We could also search through the possible models in a backwards fashion using $\text{BIC}$. To do so, we again use the `step()` function, but now specify `k = log(n)`, where `n` stores the number of observations in the data.
 
 ```{r}
-n = length(resid(hipcenter_mod))
-hipcenter_mod_back_bic = step(hipcenter_mod, direction = "backward", k = log(n))
+n <- length(resid(hipcenter_mod))
+hipcenter_mod_back_bic <- step(hipcenter_mod, direction = "backward", k = log(n))
 ```
 
 The procedure is exactly the same, except at each step we look to improve the $\text{BIC}$, which `R` still labels $\text{AIC}$ in the output.
@@ -342,8 +342,8 @@ We see that we would prefer the model chosen via $\text{BIC}$ if using LOOCV $\t
 Forward selection is the exact opposite of backwards selection. Here we tell `R` to start with a model using no predictors, that is `hipcenter ~ 1`, then at each step `R` will attempt to add a predictor until it finds a good model or reaches `hipcenter ~ Age + Weight + HtShoes + Ht + Seated + Arm + Thigh + Leg`.
 
 ```{r}
-hipcenter_mod_start = lm(hipcenter ~ 1, data = seatpos)
-hipcenter_mod_forw_aic = step(
+hipcenter_mod_start <- lm(hipcenter ~ 1, data = seatpos)
+hipcenter_mod_forw_aic <- step(
   hipcenter_mod_start, 
   scope = hipcenter ~ Age + Weight + HtShoes + Ht + Seated + Arm + Thigh + Leg, 
   direction = "forward")
@@ -352,7 +352,7 @@ hipcenter_mod_forw_aic = step(
 Again, by default `R` uses $\text{AIC}$ as its quality metric when using the `step()` function. Also note that now the rows begin with a `+` which indicates addition of predictors to the current model from any step.
 
 ```{r}
-hipcenter_mod_forw_bic = step(
+hipcenter_mod_forw_bic <- step(
   hipcenter_mod_start, 
   scope = hipcenter ~ Age + Weight + HtShoes + Ht + Seated + Arm + Thigh + Leg, 
   direction = "forward", k = log(n))
@@ -381,7 +381,7 @@ Stepwise search checks going both backwards and forwards at every step. It consi
 Here we perform stepwise search using $\text{AIC}$ as our metric. We start with the model `hipcenter ~ 1` and search up to `hipcenter ~ Age + Weight + HtShoes + Ht + Seated + Arm + Thigh + Leg`. Notice that at many of the steps, some row begin with `-`, while others begin with `+`.
 
 ```{r}
-hipcenter_mod_both_aic = step(
+hipcenter_mod_both_aic <- step(
   hipcenter_mod_start, 
   scope = hipcenter ~ Age + Weight + HtShoes + Ht + Seated + Arm + Thigh + Leg, 
   direction = "both")
@@ -390,7 +390,7 @@ hipcenter_mod_both_aic = step(
 We could again instead use $\text{BIC}$ as our metric.
 
 ```{r}
-hipcenter_mod_both_bic = step(
+hipcenter_mod_both_bic <- step(
   hipcenter_mod_start, 
   scope = hipcenter ~ Age + Weight + HtShoes + Ht + Seated + Arm + Thigh + Leg, 
   direction = "both", k = log(n))
@@ -418,7 +418,7 @@ However, with a reasonably sized dataset, it isn't too difficult to check all po
 
 ```{r}
 library(leaps)
-all_hipcenter_mod = summary(regsubsets(hipcenter ~ ., data = seatpos))
+all_hipcenter_mod <- summary(regsubsets(hipcenter ~ ., data = seatpos))
 ```
 
 A few points about this line of code. First, note that we immediately use `summary()` and store those results. That is simply the intended use of `regsubsets()`. Second, inside of `regsubsets()` we specify the model `hipcenter ~ .`. This will be the largest model considered, that is the model using all first-order predictors, and `R` will check all possible subsets. Third, `regsubsets()` has an argument of `nvmax` to set the maximum size of subsets to examine with $8$ as default. You need to change it if you investigate the subsets with more than $8$ predictors, although increasing `nvmax` will significantly increase computation time.
@@ -460,8 +460,8 @@ all_hipcenter_mod$which[best_r2_ind, ]
 We'll now calculate $\text{AIC}$ and $\text{BIC}$ for each of the models with the best $\text{RSS}$. To do so, we will need both $n$ and the $p$ for the largest possible model.
 
 ```{r}
-p = length(coef(hipcenter_mod))
-n = length(resid(hipcenter_mod))
+p <- length(coef(hipcenter_mod))
+n <- length(resid(hipcenter_mod))
 ```
 
 We'll use the form of $\text{AIC}$ which leaves out the constant term that is equal across all models.
@@ -473,20 +473,20 @@ We'll use the form of $\text{AIC}$ which leaves out the constant term that is eq
 Since we have the $\text{RSS}$ of each model stored, this is easy to calculate.
 
 ```{r}
-hipcenter_mod_aic = n * log(all_hipcenter_mod$rss / n) + 2 * (2:p)
+hipcenter_mod_aic <- n * log(all_hipcenter_mod$rss / n) + 2 * (2:p)
 ```
 
 We can then extract the predictors of the model with the best $\text{AIC}$.
 
 ```{r}
-best_aic_ind = which.min(hipcenter_mod_aic)
+best_aic_ind <- which.min(hipcenter_mod_aic)
 all_hipcenter_mod$which[best_aic_ind,]
 ```
 
 Let's fit this model so we can compare to our previously chosen models using $\text{AIC}$ and search procedures.
 
 ```{r}
-hipcenter_mod_best_aic = lm(hipcenter ~ Age + Ht + Leg, data = seatpos)
+hipcenter_mod_best_aic <- lm(hipcenter ~ Age + Ht + Leg, data = seatpos)
 ```
 
 The `extractAIC()` function will calculate the $\text{AIC}$ defined above for a fitted model.
@@ -513,7 +513,7 @@ We could easily repeat this process for $\text{BIC}$.
 \]
 
 ```{r}
-hipcenter_mod_bic = n * log(all_hipcenter_mod$rss / n) + log(n) * (2:p)
+hipcenter_mod_bic <- n * log(all_hipcenter_mod$rss / n) + log(n) * (2:p)
 ```
 
 ```{r}
@@ -522,7 +522,7 @@ all_hipcenter_mod$which[1,]
 ```
 
 ```{r}
-hipcenter_mod_best_bic = lm(hipcenter ~ Ht, data = seatpos)
+hipcenter_mod_best_bic <- lm(hipcenter ~ Ht, data = seatpos)
 ```
 
 ```{r}
@@ -537,23 +537,23 @@ extractAIC(hipcenter_mod_both_bic, k = log(n))
 So far we have only allowed first-order terms in our models. Let's return to the `autompg` dataset to explore higher-order terms.
 
 ```{r}
-autompg = read.table(
+autompg <- read.table(
   "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data",
   quote = "\"",
   comment.char = "",
   stringsAsFactors = FALSE)
 colnames(autompg) = c("mpg", "cyl", "disp", "hp", "wt", "acc", 
                       "year", "origin", "name")
-autompg = subset(autompg, autompg$hp != "?")
-autompg = subset(autompg, autompg$name != "plymouth reliant")
+autompg <- subset(autompg, autompg$hp != "?")
+autompg <- subset(autompg, autompg$name != "plymouth reliant")
 rownames(autompg) = paste(autompg$cyl, "cylinder", autompg$year, autompg$name)
 autompg$hp = as.numeric(autompg$hp)
 autompg$domestic = as.numeric(autompg$origin == 1)
-autompg = autompg[autompg$cyl != 5,]
-autompg = autompg[autompg$cyl != 3,]
+autompg <- autompg[autompg$cyl != 5,]
+autompg <- autompg[autompg$cyl != 3,]
 autompg$cyl = as.factor(autompg$cyl)
 autompg$domestic = as.factor(autompg$domestic)
-autompg = subset(autompg, select = c("mpg", "cyl", "disp", "hp", 
+autompg <- subset(autompg, select = c("mpg", "cyl", "disp", "hp", 
                                      "wt", "acc", "year", "domestic"))
 ```
 
@@ -572,7 +572,7 @@ We'll use the `pairs()` plot to determine which variables may benefit from a qua
 So now, we'll fit this rather large model. We'll use a log-transformed response. Notice that `log(mpg) ~ . ^ 2` will automatically consider all first-order terms, as well as all two-way interactions. We use `I(var_name ^ 2)` to add quadratic terms for some variables. This generally works better than using `poly()` when performing variable selection.
 
 ```{r}
-autompg_big_mod = lm(
+autompg_big_mod <- lm(
   log(mpg) ~ . ^ 2 + I(disp ^ 2) + I(hp ^ 2) + I(wt ^ 2) + I(acc ^ 2), 
   data = autompg)
 ```
@@ -586,7 +586,7 @@ length(coef(autompg_big_mod))
 We'll try backwards search with both $\text{AIC}$ and $\text{BIC}$ to attempt to find a smaller, more reasonable model.
 
 ```{r}
-autompg_mod_back_aic = step(autompg_big_mod, direction = "backward", trace = 0)
+autompg_mod_back_aic <- step(autompg_big_mod, direction = "backward", trace = 0)
 ```
 
 Notice that we used `trace = 0` in the function call. This suppresses the output for each step, and simply stores the chosen model. This is useful, as this code would otherwise create a large amount of output. If we had viewed the output, which you can try on your own by removing `trace = 0`, we would see that `R` only considers the `cyl` variable as a single variable, despite the fact that it is coded using two dummy variables. So removing `cyl` would actually remove two parameters from the resulting model.
@@ -596,8 +596,8 @@ You should also notice that `R` respects hierarchy when attempting to remove var
 We also use $\text{BIC}$.
 
 ```{r}
-n = length(resid(autompg_big_mod))
-autompg_mod_back_bic = step(autompg_big_mod, direction = "backward", 
+n <- length(resid(autompg_big_mod))
+autompg_mod_back_bic <- step(autompg_big_mod, direction = "backward", 
                             k = log(n), trace = 0)
 ```
 

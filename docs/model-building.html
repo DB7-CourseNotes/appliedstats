@@ -562,7 +562,7 @@ window.Quarto = {
 </blockquote>
 <p>Let’s take a step back and consider the process of finding a model for data at a higher level. We are attempting to find a model for a response variable <span class="math inline">\(y\)</span> based on a number of predictors <span class="math inline">\(x_1, x_2, x_3, \ldots, x_{p-1}\)</span>.</p>
 <p>Essentially, we are trying to discover the functional relationship between <span class="math inline">\(y\)</span> and the predictors. In the previous chapter we were fitting models for a car’s fuel efficiency (<code>mpg</code>) as a function of its attributes (<code>wt</code>, <code>year</code>, <code>cyl</code>, <code>disp</code>, <code>hp</code>, <code>acc</code>). We also consider <span class="math inline">\(y\)</span> to be a function of some noise. Rarely if ever do we expect there to be an <em>exact</em> functional relationship between the predictors and the response.</p>
-<p>[ y = f(x_1, x_2, x_3, , x_{p-1}) + ]</p>
+<p>[ y &lt;- f(x_1, x_2, x_3, , x_{p-1}) + ]</p>
 <p>We can think of this as</p>
 <p>[ = + . ]</p>
 <p>We <em>could</em> consider all sorts of complicated functions for <span class="math inline">\(f\)</span>. You will likely encounter several ways of doing this in future machine learning courses. So far in this course we have focused on (multiple) linear regression. That is</p>
@@ -585,7 +585,7 @@ y &amp;= f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon \\
 <section id="fit" class="level3">
 <h3 class="anchored" data-anchor-id="fit">Fit</h3>
 <p>Consider one of the simplest models we could fit to data, simple linear regression.</p>
-<p>[ y = f(x_1, x_2, x_3, , x_{p-1}) + = _0 + <em>1 x</em>{1} + ]</p>
+<p>[ y &lt;- f(x_1, x_2, x_3, , x_{p-1}) + = _0 + <em>1 x</em>{1} + ]</p>
 <p>So here, despite having multiple predictors, we chose to use only one. How is this model <strong>fit</strong>? We will almost exclusively use the method of least squares, but recall, we had seen alternative methods of fitting this model.</p>
 <p>[ |y_i - (_0 + _1 x_i)| ]</p>
 <p>[ _{i = 1}^{n}|y_i - (_0 + _1 x_i)| ]</p>
@@ -597,9 +597,9 @@ y &amp;= f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon \\
 <section id="form" class="level3">
 <h3 class="anchored" data-anchor-id="form">Form</h3>
 <p>What are the different <strong>forms</strong> a model could take? Currently, for the linear models we have considered, the only method for altering the form of the model is to control the predictors used. For example, one form of the multiple linear regression model is simple linear regression.</p>
-<p>[ y = f(x_1, x_2, x_3, , x_{p-1}) + = _0 + <em>1 x</em>{1} + ]</p>
+<p>[ y &lt;- f(x_1, x_2, x_3, , x_{p-1}) + = _0 + <em>1 x</em>{1} + ]</p>
 <p>We could also consider a SLR model with a different predictor, thus altering the form of the model.</p>
-<p>[ y = f(x_1, x_2, x_3, , x_{p-1}) + = _0 + <em>2 x</em>{2} + ]</p>
+<p>[ y &lt;- f(x_1, x_2, x_3, , x_{p-1}) + = _0 + <em>2 x</em>{2} + ]</p>
 <p>Often, we’ll use multiple predictors in our model. Very often, we will at least try a model with all possible predictors.</p>
 [
 <span class="math display">\[\begin{aligned}
@@ -640,16 +640,16 @@ y &amp;= f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon \\
 <section id="assumed-model-fitted-model" class="level3">
 <h3 class="anchored" data-anchor-id="assumed-model-fitted-model">Assumed Model, Fitted Model</h3>
 <p>When searching for a model, we often need to make assumptions. These assumptions are codified in the <strong>family</strong> and <strong>form</strong> of the model. For example</p>
-<p>[ y = _0 + <em>1 x</em>{1} + <em>3 x</em>{3} + <em>5 x</em>{5} + ]</p>
+<p>[ y &lt;- _0 + <em>1 x</em>{1} + <em>3 x</em>{3} + <em>5 x</em>{5} + ]</p>
 <p>assumes that <span class="math inline">\(y\)</span> is a linear combination of <span class="math inline">\(x_{1}\)</span>, <span class="math inline">\(x_{3}\)</span>, and <span class="math inline">\(x_{5}\)</span> as well as some noise. This assumes that the effect of <span class="math inline">\(x_{1}\)</span> on <span class="math inline">\(y\)</span> is <span class="math inline">\(\beta_1\)</span>, which is the same for all values of <span class="math inline">\(x_{3}\)</span> and <span class="math inline">\(x_{5}\)</span>. That is, we are using the <em>family</em> of linear models with a particular <em>form</em>.</p>
 <p>Suppose we then <em>fit</em> this model to some data and obtain the <strong>fitted model</strong>. For example, in <code>R</code> we would use</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x3 <span class="sc">+</span> x5, <span class="at">data =</span> some_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x3 <span class="sc">+</span> x5, <span class="at">data =</span> some_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This is <code>R</code>’s way of saying the <em>family</em> is <em>linear</em> and specifying the <em>form</em> from above. An additive model with the specified predictors as well as an intercept. We then obtain</p>
 <p>[ = 1.5 + 0.9 x_{1} + 1.1 x_{3} + 2.3 x_{5}. ]</p>
 <p>This is our best guess for the function <span class="math inline">\(f\)</span> in</p>
-<p>[ y = f(x_1, x_2, x_3, , x_{p-1}) + ]</p>
+<p>[ y &lt;- f(x_1, x_2, x_3, , x_{p-1}) + ]</p>
 <p>for the assumed <strong>family</strong> and <strong>form</strong>. Fitting a model only gives us the best fit for the family and form that we specify. So the natural question is; how do we choose the correct family and form? We’ll focus on <em>form</em> since we are focusing on the <em>family</em> of linear models.</p>
 </section>
 </section>
@@ -664,7 +664,7 @@ y &amp;= f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon \\
 <p>To explain a relationship, we are interested in keeping models as small as possible, since smaller models are easy to interpret. The fewer predictors the fewer considerations we need to make in our design process.</p>
 <p>Note that <em>linear</em> models of any size are rather interpretable to begin with. Later in your data analysis careers, you will see more complicated models that may fit data better, but are much harder, if not impossible to interpret. These models aren’t nearly as useful for explaining a relationship. This is another reason to always attempt a linear model. If it fits as well as more complicated methods, it will be the easiest to understand.</p>
 <p>To find small and interpretable models, we will eventually use selection procedures, which search among many possible forms of a model. For now we will do this in a more ad-hoc manner using <strong>inference</strong> techniques we have already encountered. To use inference as we have seen it, we need an additional assumption in addition to the family and form of the model.</p>
-<p>[ y = _0 + <em>1 x</em>{1} + <em>3 x</em>{3} + <em>5 x</em>{5} + ]</p>
+<p>[ y &lt;- _0 + <em>1 x</em>{1} + <em>3 x</em>{3} + <em>5 x</em>{5} + ]</p>
 <p>Our additional assumption is about the error term.</p>
 <p>[ N(0, ^2) ]</p>
 <p>This assumption that the errors are normally distributed with some common variance is the key to all of the inference we have done so far. We will discuss this in great detail later.</p>

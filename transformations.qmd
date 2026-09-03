@@ -23,7 +23,7 @@ Last chapter we checked the assumptions of regression models and looked at ways 
 Let's look at some (*fictional*) salary data from the (*fictional*) company *Initech*. We will try to model `salary` as a function of `years` of experience. The data can be found in [`initech.csv`](data/initech.csv).
 
 ```{r, echo = FALSE}
-sim_initech = function(sample_size = 50) {
+sim_initech <- function(sample_size = 50) {
   x = round(seq(1, 25, length.out = sample_size))
   log_y = 10.5 + 0.08 * x + rnorm(n = sample_size, sd = 0.20)
   y = round(exp(log_y))
@@ -31,12 +31,12 @@ sim_initech = function(sample_size = 50) {
 }
 
 set.seed(420)
-initech = sim_initech(sample_size = 100)
+initech <- sim_initech(sample_size = 100)
 write.csv(initech, "data/initech.csv", row.names = FALSE)
 ```
 
 ```{r}
-initech = read.csv("data/initech.csv")
+initech <- read.csv("data/initech.csv")
 ```
 
 ```{r}
@@ -47,7 +47,7 @@ plot(salary ~ years, data = initech, col = "grey", pch = 20, cex = 1.5,
 We first fit a simple linear model.
 
 ```{r}
-initech_fit = lm(salary ~ years, data = initech)
+initech_fit <- lm(salary ~ years, data = initech)
 summary(initech_fit)
 ```
 
@@ -127,7 +127,7 @@ which has the errors entering the model in a multiplicative fashion.
 Fitting this model in `R` requires only a minor modification to our formula specification.
 
 ```{r}
-initech_fit_log = lm(log(salary) ~ years, data = initech)
+initech_fit_log <- lm(log(salary) ~ years, data = initech)
 ```
 
 Note that while `log(y)` is considered the new response variable, we do not actually create a new variable in `R`, but simply transform the variable inside the model formula.
@@ -235,7 +235,7 @@ Here we need the `MASS` package for the `boxcox()` function, and we will conside
 First we will use the `savings` dataset as an example of using the Box-Cox method to justify the use of no transformation. We fit an additive multiple regression model with `sr` as the response and each of the other variables as predictors.
 
 ```{r}
-savings_model = lm(sr ~ ., data = savings)
+savings_model <- lm(sr ~ ., data = savings)
 ```
 
 We then use the `boxcox()` function to find the best transformation of the form considered by the Box-Cox method.
@@ -275,7 +275,7 @@ shapiro.test(resid(savings_model))
 Now we will use the `gala` dataset as an example of using the Box-Cox method to justify a transformation other than $\log$. We fit an additive multiple regression model with `Species` as the response and most of the other variables as predictors.
 
 ```{r}
-gala_model = lm(Species ~ Area + Elevation + Nearest + Scruz + Adjacent, data = gala)
+gala_model <- lm(Species ~ Area + Elevation + Nearest + Scruz + Adjacent, data = gala)
 ```
 
 ```{r}
@@ -299,7 +299,7 @@ Using the Box-Cox method, we see that $\lambda = 0.3$ is both in the confidence 
 We then fit a model with this transformation applied to the response.
 
 ```{r}
-gala_model_cox = lm((((Species ^ 0.3) - 1) / 0.3) ~ Area + Elevation + Nearest + Scruz + Adjacent, data = gala)
+gala_model_cox <- lm((((Species ^ 0.3) - 1) / 0.3) ~ Area + Elevation + Nearest + Scruz + Adjacent, data = gala)
 ```
 
 ```{r}
@@ -330,7 +330,7 @@ In addition to transformation of the response variable, we can also consider tra
 
 ```{r, echo = FALSE}
 # read data frame from the web
-autompg = read.table(
+autompg <- read.table(
   "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data",
   quote = "\"",
   comment.char = "",
@@ -338,20 +338,20 @@ autompg = read.table(
 # give the dataframe headers
 colnames(autompg) = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year", "origin", "name")
 # remove missing data, which is stored as "?"
-autompg = subset(autompg, autompg$hp != "?")
+autompg <- subset(autompg, autompg$hp != "?")
 # remove the plymouth reliant, as it causes some issues
-autompg = subset(autompg, autompg$name != "plymouth reliant")
+autompg <- subset(autompg, autompg$name != "plymouth reliant")
 # give the dataset row names, based on the engine, year and name
 rownames(autompg) = paste(autompg$cyl, "cylinder", autompg$year, autompg$name)
 # remove the variable for name
-autompg = subset(autompg, select = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year", "origin"))
+autompg <- subset(autompg, select = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year", "origin"))
 # change horsepower from character to numeric
 autompg$hp = as.numeric(autompg$hp)
 # create a dummary variable for foreign vs domestic cars. domestic = 1.
 autompg$domestic = as.numeric(autompg$origin == 1)
 # remove 3 and 5 cylinder cars (which are very rare.)
-autompg = autompg[autompg$cyl != 5,]
-autompg = autompg[autompg$cyl != 3,]
+autompg <- autompg[autompg$cyl != 5,]
+autompg <- autompg[autompg$cyl != 3,]
 # the following line would verify the remaining cylinder possibilities are 4, 6, 8
 #unique(autompg$cyl)
 # change cyl to a factor variable
@@ -367,7 +367,7 @@ Recall the `autompg` dataset from the previous chapter. Here we will attempt to 
 ```{r, fig.height = 4, fig.width = 8}
 par(mfrow = c(1, 2))
 plot(mpg ~ hp, data = autompg, col = "dodgerblue", pch = 20, cex = 1.5)
-mpg_hp = lm(mpg ~ hp, data = autompg)
+mpg_hp <- lm(mpg ~ hp, data = autompg)
 abline(mpg_hp, col = "darkorange", lwd = 2)
 plot(fitted(mpg_hp), resid(mpg_hp), col = "dodgerblue",
      pch = 20, cex = 1.5, xlab = "Fitted", ylab = "Residuals")
@@ -379,7 +379,7 @@ We first attempt SLR, but we see a rather obvious pattern in the fitted versus r
 ```{r, fig.height = 4, fig.width = 8}
 par(mfrow = c(1, 2))
 plot(log(mpg) ~ hp, data = autompg, col = "dodgerblue", pch = 20, cex = 1.5)
-mpg_hp_log = lm(log(mpg) ~ hp, data = autompg)
+mpg_hp_log <- lm(log(mpg) ~ hp, data = autompg)
 abline(mpg_hp_log, col = "darkorange", lwd = 2)
 plot(fitted(mpg_hp_log), resid(mpg_hp_log), col = "dodgerblue",
      pch = 20, cex = 1.5, xlab = "Fitted", ylab = "Residuals")
@@ -391,7 +391,7 @@ After performing the $\log$ transform of the response, we still have some of the
 ```{r, fig.height = 4, fig.width = 8}
 par(mfrow = c(1, 2))
 plot(log(mpg) ~ log(hp), data = autompg, col = "dodgerblue", pch = 20, cex = 1.5)
-mpg_hp_loglog = lm(log(mpg) ~ log(hp), data = autompg)
+mpg_hp_loglog <- lm(log(mpg) ~ log(hp), data = autompg)
 abline(mpg_hp_loglog, col = "darkorange", lwd = 2)
 plot(fitted(mpg_hp_loglog), resid(mpg_hp_loglog), col = "dodgerblue",
      pch = 20, cex = 1.5, xlab = "Fitted", ylab = "Residuals")
@@ -409,7 +409,7 @@ It should come as no surprise that sales of a product are related to the adverti
 Consider monthly data for the sales of *Initech* widgets, $y$, as a function of *Initech*'s advertising expenditure for said widget, $x$, both in ten thousand dollars. The data can be found in [`marketing.csv`](data/marketing.csv).
 
 ```{r}
-marketing = read.csv("data/marketing.csv")
+marketing <- read.csv("data/marketing.csv")
 ```
 
 ```{r}
@@ -465,22 +465,22 @@ We also maintain the same distributional results
 \]
 
 ```{r}
-mark_mod = lm(sales ~ advert, data = marketing)
+mark_mod <- lm(sales ~ advert, data = marketing)
 summary(mark_mod)
 ```
 
 While the SLR model is significant, the fitted versus residuals plot would have a very clear pattern.
 
 ```{r}
-mark_mod_poly2 = lm(sales ~ advert + I(advert ^ 2), data = marketing)
+mark_mod_poly2 <- lm(sales ~ advert + I(advert ^ 2), data = marketing)
 summary(mark_mod_poly2)
 ```
 
 To add the second order term we need to use the `I()` function in the model specification around our newly created predictor. We see that with the first order term in the model, the quadratic term is also significant.
 
 ```{r}
-n = length(marketing$advert)
-X = cbind(rep(1, n), marketing$advert, marketing$advert ^ 2)
+n <- length(marketing$advert)
+X <- cbind(rep(1, n), marketing$advert, marketing$advert ^ 2)
 t(X) %*% X
 solve(t(X) %*% X) %*% t(X) %*% marketing$sales
 ```
@@ -504,7 +504,7 @@ We could also add higher order terms, such as a third degree predictor. This is 
 \]
 
 ```{r}
-mark_mod_poly3 = lm(sales ~ advert + I(advert ^ 2) + I(advert ^ 3), data = marketing)
+mark_mod_poly3 <- lm(sales ~ advert + I(advert ^ 2) + I(advert ^ 3), data = marketing)
 summary(mark_mod_poly3)
 ```
 
@@ -515,7 +515,7 @@ plot(sales ~ advert, data = marketing,
      xlab = "Advert Spending (in $10,000)", ylab = "Sales (in $10,000)",
      pch = 20, cex = 2)
 abline(mark_mod, lty = 2, col = "green", lwd = 2)
-xplot = seq(0, 16, by = 0.01)
+xplot <- seq(0, 16, by = 0.01)
 lines(xplot, predict(mark_mod_poly2, newdata = data.frame(advert = xplot)),
       col = "blue", lwd = 2)
 lines(xplot, predict(mark_mod_poly3, newdata = data.frame(advert = xplot)),
@@ -543,15 +543,15 @@ However, we should be careful about over-fitting, since with a polynomial of deg
 
 ```{r}
 set.seed(1234)
-x = seq(0, 10)
-y = 3 + x + 4 * x ^ 2 + rnorm(11, 0, 20)
+x <- seq(0, 10)
+y <- 3 + x + 4 * x ^ 2 + rnorm(11, 0, 20)
 plot(x, y, ylim = c(-300, 400), cex = 2, pch = 20)
-fit = lm(y ~ x + I(x ^ 2))
+fit <- lm(y ~ x + I(x ^ 2))
 #summary(fit)
-fit_perf = lm(y ~ x + I(x ^ 2) + I(x ^ 3) + I(x ^ 4) + I(x ^ 5) + I(x ^ 6)
+fit_perf <- lm(y ~ x + I(x ^ 2) + I(x ^ 3) + I(x ^ 4) + I(x ^ 5) + I(x ^ 6)
                + I(x ^ 7) + I(x ^ 8) + I(x ^ 9) + I(x ^ 10))
 summary(fit_perf)
-xplot = seq(0, 10, by = 0.1)
+xplot <- seq(0, 10, by = 0.1)
 lines(xplot, predict(fit, newdata = data.frame(x = xplot)),
       col = "dodgerblue", lwd = 2, lty = 1)
 lines(xplot, predict(fit_perf, newdata = data.frame(x = xplot)),
@@ -567,7 +567,7 @@ Suppose you work for an automobile manufacturer which makes a large luxury sedan
 Our goal then, is to fit a model to this data in order to be able to predict fuel efficiency when driving at certain speeds. The data from this example can be found in [`fuel_econ.csv`](data/fuel_econ.csv).
 
 ```{r}
-econ = read.csv("data/fuel_econ.csv")
+econ <- read.csv("data/fuel_econ.csv")
 ```
 
 In this example, we will be frequently looking at the fitted versus residuals plot, so we *should* write a function to make our life easier, but this is left as an exercise for homework.
@@ -575,7 +575,7 @@ In this example, we will be frequently looking at the fitted versus residuals pl
 We will also be adding fitted curves to scatterplots repeatedly, so smartly we will write a function to do so.
 
 ```{r}
-plot_econ_curve = function(model) {
+plot_econ_curve <- function(model) {
   plot(mpg ~ mph, data = econ, xlab = "Speed (Miles per Hour)", 
        ylab = "Fuel Efficiency (Miles per Gallon)", col = "dodgerblue", 
        pch = 20, cex = 2)
@@ -588,7 +588,7 @@ plot_econ_curve = function(model) {
 So now we first fit a simple linear regression to this data.
 
 ```{r}
-fit1 = lm(mpg ~ mph, data = econ)
+fit1 <- lm(mpg ~ mph, data = econ)
 ```
 
 ```{r, fig.height = 4, fig.width = 8}
@@ -604,7 +604,7 @@ Pretty clearly we can do better. Yes fuel efficiency does increase as speed incr
 We will now add polynomial terms until we fit a suitable fit.
 
 ```{r}
-fit2 = lm(mpg ~ mph + I(mph ^ 2), data = econ)
+fit2 <- lm(mpg ~ mph + I(mph ^ 2), data = econ)
 summary(fit2)
 ```
 
@@ -619,7 +619,7 @@ plot(fitted(fit2), resid(fit2), xlab = "Fitted", ylab = "Residuals",
 While this model clearly fits much better, and the second order term is significant, we still see a pattern in the fitted versus residuals plot which suggests higher order terms will help. Also, we would expect the curve to flatten as speed increases or decreases, not go sharply downward as we see here.
 
 ```{r}
-fit3 = lm(mpg ~ mph + I(mph ^ 2) + I(mph ^ 3), data = econ)
+fit3 <- lm(mpg ~ mph + I(mph ^ 2) + I(mph ^ 3), data = econ)
 summary(fit3)
 ```
 
@@ -634,7 +634,7 @@ plot(fitted(fit3), resid(fit3), xlab = "Fitted", ylab = "Residuals",
 Adding the third order term doesn't seem to help at all. The fitted curve hardly changes. This makes sense, since what we would like is for the curve to flatten at the extremes. For this we will need an even degree polynomial term.
 
 ```{r}
-fit4 = lm(mpg ~ mph + I(mph ^ 2) + I(mph ^ 3) + I(mph ^ 4), data = econ)
+fit4 <- lm(mpg ~ mph + I(mph ^ 2) + I(mph ^ 3) + I(mph ^ 4), data = econ)
 summary(fit4)
 ```
 
@@ -649,7 +649,7 @@ plot(fitted(fit4), resid(fit4), xlab = "Fitted", ylab = "Residuals",
 Now we are making progress. The fourth order term is significant with the other terms in the model. Also we are starting to see what we expected for low and high speed. However, there still seems to be a bit of a pattern in the residuals, so we will again try more higher order terms. We will add the fifth and sixth together, since adding the fifth will be similar to adding the third.
 
 ```{r}
-fit6 = lm(mpg ~ mph + I(mph ^ 2) + I(mph ^ 3) + I(mph ^ 4) + I(mph ^ 5) + I(mph^6), data = econ)
+fit6 <- lm(mpg ~ mph + I(mph ^ 2) + I(mph ^ 3) + I(mph ^ 4) + I(mph ^ 5) + I(mph^6), data = econ)
 summary(fit6)
 ```
 
@@ -674,7 +674,7 @@ anova(fit4, fit6)
 So, this test does not reject the null hypothesis at a level of significance of $\alpha = 0.05$, however the p-value is still rather small, and the fitted versus residuals plot is much better for the model with the sixth order term. This makes the sixth order model a good choice. We could repeat this process one more time.
 
 ```{r}
-fit8 = lm(mpg ~ mph + I(mph ^ 2) + I(mph ^ 3) + I(mph ^ 4) + I(mph ^ 5)
+fit8 <- lm(mpg ~ mph + I(mph ^ 2) + I(mph ^ 3) + I(mph ^ 4) + I(mph ^ 5)
           + I(mph ^ 6) + I(mph ^ 7) + I(mph ^ 8), data = econ)
 summary(fit8)
 ```
@@ -697,7 +697,7 @@ Here we would clearly stick with `fit6`. The eighth order term is not significan
 As an aside, be aware that there is a quicker way to specify a model with many higher order terms.
 
 ```{r}
-fit6_alt = lm(mpg ~ poly(mph, 6), data = econ)
+fit6_alt <- lm(mpg ~ poly(mph, 6), data = econ)
 all.equal(fitted(fit6), fitted(fit6_alt))
 ```
 
@@ -720,7 +720,7 @@ Notice though that the p-value for testing the degree 6 term is the same. Becaus
 To use `poly()` to obtain the same results as using `I()` repeatedly, we would need to set `raw = TRUE`.
 
 ```{r}
-fit6_alt2 = lm(mpg ~ poly(mph, 6, raw = TRUE), data = econ)
+fit6_alt2 <- lm(mpg ~ poly(mph, 6, raw = TRUE), data = econ)
 coef(fit6_alt2)
 ```
 
@@ -731,7 +731,7 @@ We've now seen how to transform predictor and response variables. In this chapte
 ## Response Transformations {-}
 
 ```{r}
-initech = read.csv("data/initech.csv")
+initech <- read.csv("data/initech.csv")
 ```
 
 ```{r}
@@ -740,7 +740,7 @@ plot(salary ~ years, data = initech, col = "grey", pch = 20, cex = 1.5,
 ```
 
 ```{r}
-initech_fit = lm(salary ~ years, data = initech)
+initech_fit <- lm(salary ~ years, data = initech)
 summary(initech_fit)
 ```
 
@@ -762,7 +762,7 @@ qqline(resid(initech_fit), col = "dodgerblue", lwd = 2)
 ```
 
 ```{r}
-initech_fit_log = lm(log(salary) ~ years, data = initech)
+initech_fit_log <- lm(log(salary) ~ years, data = initech)
 ```
 
 $$
@@ -776,7 +776,7 @@ abline(initech_fit_log, col = "darkorange", lwd = 2)
 ```
 
 $$
-Y_i = \exp(\beta_0 + \beta_1 x_i) \cdot \exp(\epsilon_i)
+Y_i <- \exp(\beta_0 + \beta_1 x_i) \cdot \exp(\epsilon_i)
 $$
 
 ```{r}
@@ -812,7 +812,7 @@ sqrt(mean((initech$salary - exp(fitted(initech_fit_log))) ^ 2))
 ### A Quadratic Model
 
 ```{r}
-sim_quad = function(sample_size = 500) {
+sim_quad <- function(sample_size = 500) {
   x = runif(n = sample_size) * 5
   y = 3 + 5 * x ^ 2 + rnorm(n = sample_size, mean = 0, sd = 5)
   data.frame(x, y)
@@ -821,11 +821,11 @@ sim_quad = function(sample_size = 500) {
 
 ```{r}
 set.seed(314)
-quad_data = sim_quad(sample_size = 200)
+quad_data <- sim_quad(sample_size = 200)
 ```
 
 ```{r}
-lin_fit = lm(y ~ x, data = quad_data)
+lin_fit <- lm(y ~ x, data = quad_data)
 summary(lin_fit)
 ```
 
@@ -847,11 +847,11 @@ qqline(resid(lin_fit), col = "dodgerblue", lwd = 2)
 ```
 
 $$
-Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
+Y_i <- \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
 $$
 
 ```{r}
-quad_fit = lm(y ~ x + I(x^2), data = quad_data)
+quad_fit <- lm(y ~ x + I(x^2), data = quad_data)
 summary(quad_fit)
 ```
 
@@ -876,7 +876,7 @@ qqline(resid(quad_fit), col = "dodgerblue", lwd = 2)
 ### Overfitting and Extrapolation
 
 ```{r}
-sim_for_perf = function() {
+sim_for_perf <- function() {
   x = seq(0, 10)
   y = 3 + x - 4 * x ^ 2 + rnorm(n = 11, mean = 0, sd = 25)
   data.frame(x, y)
@@ -885,18 +885,18 @@ sim_for_perf = function() {
 
 ```{r}
 set.seed(1234)
-data_for_perf = sim_for_perf()
+data_for_perf <- sim_for_perf()
 ```
 
 ```{r}
-fit_correct = lm(y ~ x + I(x ^ 2), data = data_for_perf)
-fit_perfect = lm(y ~ x + I(x ^ 2) + I(x ^ 3) + I(x ^ 4) + I(x ^ 5) + I(x ^ 6) + 
+fit_correct <- lm(y ~ x + I(x ^ 2), data = data_for_perf)
+fit_perfect <- lm(y ~ x + I(x ^ 2) + I(x ^ 3) + I(x ^ 4) + I(x ^ 5) + I(x ^ 6) + 
                  I(x ^ 7) + I(x ^ 8) + I(x ^ 9) + I(x ^ 10), 
                  data = data_for_perf)
 ```
 
 ```{r, fig.height=6, fig.width=8}
-x_plot = seq(-5, 15, by = 0.1)
+x_plot <- seq(-5, 15, by = 0.1)
 plot(y ~ x, data = data_for_perf, ylim = c(-450, 100), cex = 2, pch = 20)
 lines(x_plot, predict(fit_correct, newdata = data.frame(x = x_plot)),
       col = "dodgerblue", lwd = 2, lty = 1)
@@ -907,7 +907,7 @@ lines(x_plot, predict(fit_perfect, newdata = data.frame(x = x_plot)),
 ### Comparing Polynomial Models
 
 ```{r}
-sim_higher = function(sample_size = 250) {
+sim_higher <- function(sample_size = 250) {
   x = runif(n = sample_size, min = -1, max = 1) * 2
   y = 3 + -6 * x ^ 2 + 1 * x ^ 4 + rnorm(n = sample_size, mean = 0, sd = 3)
   data.frame(x, y)
@@ -915,20 +915,20 @@ sim_higher = function(sample_size = 250) {
 ```
 
 $$
-Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
+Y_i <- \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
 $$
 
 $$
-Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \epsilon_i
+Y_i <- \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \epsilon_i
 $$
 
 $$
-Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \beta_5 x_i^5 + \beta_6 x_i^6 + \epsilon_i
+Y_i <- \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \beta_5 x_i^5 + \beta_6 x_i^6 + \epsilon_i
 $$
 
 ```{r}
 set.seed(42)
-data_higher = sim_higher()
+data_higher <- sim_higher()
 ```
 
 ```{r}
@@ -937,14 +937,14 @@ plot(y ~ x, data = data_higher, col = "grey", pch = 20, cex = 1.5,
 ```
 
 ```{r}
-fit_2 = lm(y ~ poly(x, 2), data = data_higher)
-fit_4 = lm(y ~ poly(x, 4), data = data_higher)
+fit_2 <- lm(y ~ poly(x, 2), data = data_higher)
+fit_4 <- lm(y ~ poly(x, 4), data = data_higher)
 ```
 
 ```{r}
 plot(y ~ x, data = data_higher, col = "grey", pch = 20, cex = 1.5,
      main = "Simulated Quartic Data")
-x_plot = seq(-5, 5, by = 0.05)
+x_plot <- seq(-5, 5, by = 0.05)
 lines(x_plot, predict(fit_2, newdata = data.frame(x = x_plot)),
       col = "dodgerblue", lwd = 2, lty = 1)
 lines(x_plot, predict(fit_4, newdata = data.frame(x = x_plot)),
@@ -978,7 +978,7 @@ anova(fit_2, fit_4)
 ```
 
 ```{r}
-fit_6 = lm(y ~ poly(x, 6), data = data_higher)
+fit_6 <- lm(y ~ poly(x, 6), data = data_higher)
 ```
 
 ```{r}
@@ -988,13 +988,13 @@ anova(fit_4, fit_6)
 ### `poly()` Function and Orthogonal Polynomials
 
 $$
-Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \epsilon_i
+Y_i <- \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \epsilon_i
 $$
 
 ```{r}
-fit_4a = lm(y ~ poly(x, degree = 4), data = data_higher)
-fit_4b = lm(y ~ poly(x, degree = 4, raw = TRUE), data = data_higher)
-fit_4c = lm(y ~ x + I(x^2) + I(x^3) + I(x^4), data = data_higher)
+fit_4a <- lm(y ~ poly(x, degree = 4), data = data_higher)
+fit_4b <- lm(y ~ poly(x, degree = 4, raw = TRUE), data = data_higher)
+fit_4c <- lm(y ~ x + I(x^2) + I(x^3) + I(x^4), data = data_higher)
 ```
 
 ```{r}
@@ -1050,7 +1050,7 @@ coef(lm(y ~ x + x, data = quad_data))
 
 ```{r, echo = FALSE}
 # read data frame from the web
-autompg = read.table(
+autompg <- read.table(
   "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data",
   quote = "\"",
   comment.char = "",
@@ -1058,20 +1058,20 @@ autompg = read.table(
 # give the dataframe headers
 colnames(autompg) = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year", "origin", "name")
 # remove missing data, which is stored as "?"
-autompg = subset(autompg, autompg$hp != "?")
+autompg <- subset(autompg, autompg$hp != "?")
 # remove the plymouth reliant, as it causes some issues
-autompg = subset(autompg, autompg$name != "plymouth reliant")
+autompg <- subset(autompg, autompg$name != "plymouth reliant")
 # give the dataset row names, based on the engine, year and name
 rownames(autompg) = paste(autompg$cyl, "cylinder", autompg$year, autompg$name)
 # remove the variable for name
-autompg = subset(autompg, select = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year", "origin"))
+autompg <- subset(autompg, select = c("mpg", "cyl", "disp", "hp", "wt", "acc", "year", "origin"))
 # change horsepower from character to numeric
 autompg$hp = as.numeric(autompg$hp)
 # create a dummary variable for foreign vs domestic cars. domestic = 1.
 autompg$domestic = as.numeric(autompg$origin == 1)
 # remove 3 and 5 cylinder cars (which are very rare.)
-autompg = autompg[autompg$cyl != 5,]
-autompg = autompg[autompg$cyl != 3,]
+autompg <- autompg[autompg$cyl != 5,]
+autompg <- autompg[autompg$cyl != 3,]
 # change cyl to a factor variable
 autompg$cyl = as.factor(autompg$cyl)
 ```
@@ -1081,7 +1081,7 @@ pairs(autompg)
 ```
 
 ```{r, fig.height=5, fig.width=10}
-mpg_hp = lm(mpg ~ hp, data = autompg)
+mpg_hp <- lm(mpg ~ hp, data = autompg)
 
 par(mfrow = c(1, 2))
 
@@ -1094,12 +1094,12 @@ abline(h = 0, lty = 2, col = "darkorange", lwd = 2)
 ```
 
 ```{r, fig.height=5, fig.width=10}
-mpg_hp_log = lm(mpg ~ hp + I(hp ^ 2), data = autompg)
+mpg_hp_log <- lm(mpg ~ hp + I(hp ^ 2), data = autompg)
 
 par(mfrow = c(1, 2))
 
 plot(mpg ~ hp, data = autompg, col = "dodgerblue", pch = 20, cex = 1.5)
-xplot = seq(min(autompg$hp), max(autompg$hp), by = 0.1)
+xplot <- seq(min(autompg$hp), max(autompg$hp), by = 0.1)
 lines(xplot, predict(mpg_hp_log, newdata = data.frame(hp = xplot)),
       col = "darkorange", lwd = 2, lty = 1)
 
@@ -1109,12 +1109,12 @@ abline(h = 0, lty = 2, col = "darkorange", lwd = 2)
 ```
 
 ```{r, fig.height=5, fig.width=10}
-mpg_hp_log = lm(log(mpg) ~ hp + I(hp ^ 2), data = autompg)
+mpg_hp_log <- lm(log(mpg) ~ hp + I(hp ^ 2), data = autompg)
 
 par(mfrow = c(1, 2))
 
 plot(log(mpg) ~ hp, data = autompg, col = "dodgerblue", pch = 20, cex = 1.5)
-xplot = seq(min(autompg$hp), max(autompg$hp), by = 0.1)
+xplot <- seq(min(autompg$hp), max(autompg$hp), by = 0.1)
 lines(xplot, predict(mpg_hp_log, newdata = data.frame(hp = xplot)),
       col = "darkorange", lwd = 2, lty = 1)
 
@@ -1124,7 +1124,7 @@ abline(h = 0, lty = 2, col = "darkorange", lwd = 2)
 ```
 
 ```{r, fig.height=5, fig.width=10}
-mpg_hp_loglog = lm(log(mpg) ~ log(hp), data = autompg)
+mpg_hp_loglog <- lm(log(mpg) ~ log(hp), data = autompg)
 
 par(mfrow = c(1, 2))
 plot(log(mpg) ~ log(hp), data = autompg, col = "dodgerblue", pch = 20, cex = 1.5)
@@ -1136,7 +1136,7 @@ abline(h = 0, lty = 2, col = "darkorange", lwd = 2)
 ```
 
 ```{r}
-big_model = lm(mpg ~ disp * hp * domestic, data = autompg)
+big_model <- lm(mpg ~ disp * hp * domestic, data = autompg)
 ```
 
 ```{r}
@@ -1145,7 +1145,7 @@ qqline(resid(big_model), col = "dodgerblue", lwd = 2)
 ```
 
 ```{r}
-bigger_model = lm(log(mpg) ~ disp * hp * domestic + 
+bigger_model <- lm(log(mpg) ~ disp * hp * domestic + 
                I(disp ^ 2) + I(hp ^ 2), data = autompg)
 summary(bigger_model)
 ```

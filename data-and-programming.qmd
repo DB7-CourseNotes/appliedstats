@@ -42,7 +42,7 @@ c(1, 3, 5, 7, 8, 9)
 Here `R` simply outputs this vector. If we would like to store this vector in a **variable**, we can do so with the **assignment** operator `=`. In this case the variable `x` now holds the vector we just created, and we can access the vector by typing `x`.
 
 ```{webr-r}
-x = c(1, 3, 5, 7, 8, 9)
+x <- c(1, 3, 5, 7, 8, 9)
 x
 ```
 
@@ -145,7 +145,7 @@ Lastly we see that we can subset based on a vector of indices.
 All of the above are subsetting a vector using a vector of indexes. (Remember a single number is still a vector.) We could instead use a vector of logical values.
 
 ```{webr-r}
-z = c(TRUE, TRUE, FALSE, TRUE, TRUE, FALSE)
+z <- c(TRUE, TRUE, FALSE, TRUE, TRUE, FALSE)
 z
 ```
 
@@ -158,7 +158,7 @@ x[z]
 One of the biggest strengths of `R` is its use of vectorized operations. (Frequently the lack of understanding of this concept leads to a belief that `R` is *slow*. `R` is not the fastest language, but it has a reputation for being slower than it really is.)
 
 ```{webr-r}
-x = 1:10
+x <- 1:10
 x + 1
 2 * x
 2 ^ x
@@ -186,7 +186,7 @@ We see that when a function like `log()` is called on a vector `x`, a vector is 
 In `R`, logical operators are vectorized. 
 
 ```{webr-r}
-x = c(1, 3, 5, 7, 8, 9)
+x <- c(1, 3, 5, 7, 8, 9)
 ```
 
 ```{webr-r}
@@ -227,8 +227,8 @@ which.max(x)
 ### More Vectorization
 
 ```{webr-r}
-x = c(1, 3, 5, 7, 8, 9)
-y = 1:100
+x <- c(1, 3, 5, 7, 8, 9)
+y <- 1:100
 ```
 
 ```{webr-r}
@@ -250,7 +250,7 @@ length(y) / length(x)
 ```
 
 ```{webr-r}
-y = 1:60
+y <- 1:60
 x + y
 length(y) / length(x)
 ```
@@ -270,8 +270,8 @@ identical(x + y, rep(x, 10) + y)
 ```
 
 ```{webr-r}
-x = c(1, 3, 5)
-y = c(1, 2, 4)
+x <- c(1, 3, 5)
+y <- c(1, 2, 4)
 x == y
 all(x == y)
 any(x == y)
@@ -280,8 +280,8 @@ any(x == y)
 While `all` returns `TRUE` only when all of its arguments are `TRUE`, `any` returns `TRUE` when at least one of its arguments is `TRUE`.
 
 ```{webr-r}
-x = c(10 ^ (-8))
-y = c(10 ^ (-9))
+x <- c(10 ^ (-8))
+y <- c(10 ^ (-9))
 all(x == y)
 all.equal(x, y)
 ```
@@ -295,9 +295,9 @@ The `all.equal` function tests "near equality" with a default tolerance value ar
 Matrices can be created using the `matrix` function. 
 
 ```{webr-r}
-x = 1:9
+x <- 1:9
 x
-X = matrix(x, nrow = 3, ncol = 3)
+X <- matrix(x, nrow = 3, ncol = 3)
 X
 ```
 
@@ -306,14 +306,14 @@ Note here that we are using two different variables: lower case `x`, which store
 By default the `matrix` function reorders a vector into columns, but we can also tell `R` to use rows instead.
 
 ```{webr-r}
-Y = matrix(x, nrow = 3, ncol = 3, byrow = TRUE)
+Y <- matrix(x, nrow = 3, ncol = 3, byrow = TRUE)
 Y
 ```
 
 We can also create a matrix of a specified dimension where every element is the same, in this case `0`.
 
 ```{webr-r}
-Z = matrix(0, 2, 4)
+Z <- matrix(0, 2, 4)
 Z
 ```
 
@@ -340,7 +340,7 @@ X[2, c(1, 3)]
 Matrices can also be created by combining vectors as columns, using `cbind`, or combining vectors as rows, using `rbind`.
 
 ```{webr-r}
-x = 1:9
+x <- 1:9
 rev(x)
 rep(1, 9)
 ```
@@ -358,10 +358,10 @@ When using `rbind` and `cbind` you can specify "argument" names that will be use
 `R` can then be used to perform matrix calculations.
 
 ```{webr-r}
-x = 1:9
-y = 9:1
-X = matrix(x, 3, 3)
-Y = matrix(y, 3, 3)
+x <- 1:9
+y <- 9:1
+X <- matrix(x, 3, 3)
+Y <- matrix(y, 3, 3)
 X
 Y
 ```
@@ -381,7 +381,7 @@ t(X)
 ```
 
 ```{webr-r}
-Z = matrix(c(9, 2, -3, 2, 4, -2, -3, -2, 16), 3, byrow = TRUE)
+Z <- matrix(c(9, 2, -3, 2, 4, -2, -3, -2, 16), 3, byrow = TRUE)
 Z
 solve(Z)
 ```
@@ -397,7 +397,7 @@ all.equal(solve(Z) %*% Z, diag(3))
 `R` has a number of matrix specific functions for obtaining dimension and summary information.
 
 ```{webr-r}
-X = matrix(1:6, 2, 3)
+X <- matrix(1:6, 2, 3)
 X
 dim(X)
 rowSums(X)
@@ -429,8 +429,8 @@ diag(5)
 Certain operations in `R`, for example `%*%` have different behavior on vectors and matrices. To illustrate this, we will first create two vectors.
 
 ```{webr-r}
-a_vec = c(1, 2, 3)
-b_vec = c(2, 2, 2)
+a_vec <- c(1, 2, 3)
+b_vec <- c(2, 2, 2)
 ```
 
 Note that these are indeed vectors. They are not matrices.
@@ -497,8 +497,8 @@ X^\top X
 is used repeatedly.
 
 ```{webr-r}
-C_mat = matrix(c(1, 2, 3, 4, 5, 6), 2, 3)
-D_mat = matrix(c(2, 2, 2, 2, 2, 2), 2, 3)
+C_mat <- matrix(c(1, 2, 3, 4, 5, 6), 2, 3)
+D_mat <- matrix(c(2, 2, 2, 2, 2, 2), 2, 3)
 ```
 
 This is useful both as a shortcut for a frequent calculation and as a more efficient implementation than using `t()` and `%*%`.
@@ -523,7 +523,7 @@ A list is a one-dimensional heterogeneous data structure. So it is indexed like 
 # creation
 list(42, "Hello", TRUE)
 
-ex_list = list(
+ex_list <- list(
   a = c(1, 2, 3, 4),
   b = TRUE,
   c = "Hello!",
@@ -594,7 +594,7 @@ write.csv(example_data, "data/example-data.csv", row.names = FALSE)
 
 ```{r, message = FALSE, warning = FALSE, eval = FALSE}
 library(readr)
-example_data_from_csv = read_csv("data/example-data.csv")
+example_data_from_csv <- read_csv("data/example-data.csv")
 ```
 
 This particular line of code assumes that the file `example_data.csv` exists in a folder called `data` in your current working directory.
@@ -609,7 +609,7 @@ The `as_tibble()` function can be used to coerce a regular data frame to a tibbl
 
 ```{webr-r}
 library(tibble)
-example_data = as_tibble(example_data)
+example_data <- as_tibble(example_data)
 example_data
 ```
 
@@ -720,8 +720,8 @@ if (...) {
 For example,
 
 ```{webr-r}
-x = 1
-y = 3
+x <- 1
+y <- 3
 if (x > y) {
   z = x * y
   print("x is larger than y")
@@ -742,14 +742,14 @@ ifelse(4 > 3, 1, 0)
 The real power of `ifelse()` comes from its ability to be applied to vectors.
 
 ```{webr-r}
-fib = c(1, 1, 2, 3, 5, 8, 13, 21)
+fib <- c(1, 1, 2, 3, 5, 8, 13, 21)
 ifelse(fib > 6, "Foo", "Bar")
 ```
 
 Now a `for` loop example,
 
 ```{webr-r}
-x = 11:15
+x <- 11:15
 for (i in 1:5) {
   x[i] = x[i] * 2
 }
@@ -760,8 +760,8 @@ x
 Note that this `for` loop is very normal in many programming languages, but not in `R`. In `R` we would not use a loop, instead we would simply use a vectorized operation.
 
 ```{webr-r}
-x = 11:15
-x = x * 2
+x <- 11:15
+x <- x * 2
 x
 ```
 
@@ -790,7 +790,7 @@ In `R` we would write a function to do this. When writing a function, there are 
 - Write the body of the function within curly braces, `{}`.
 
 ```{webr-r}
-standardize = function(x) {
+standardize <- function(x) {
   m = mean(x)
   std = sd(x)
   result = (x - m) / std
@@ -810,7 +810,7 @@ standardize(x = test_sample)
 This function could be written much more succinctly, simply performing all the operations on one line and immediately returning the result, without storing any of the intermediate results.
 
 ```{webr-r}
-standardize = function(x) {
+standardize <- function(x) {
   (x - mean(x)) / sd(x)
 }
 ```
@@ -818,7 +818,7 @@ standardize = function(x) {
 When specifying arguments, you can provide default arguments.
 
 ```{webr-r}
-power_of_num = function(num, power = 2) {
+power_of_num <- function(num, power = 2) {
   num ^ power
 }
 ```
@@ -860,7 +860,7 @@ It will also have the ability to return the biased estimate (based on maximum li
 \]
 
 ```{webr-r}
-get_var = function(x, biased = FALSE) {
+get_var <- function(x, biased = FALSE) {
   n = length(x) - 1 * !biased
   (1 / n) * sum((x - mean(x)) ^ 2)
 }

@@ -93,15 +93,15 @@ plot(dist ~ speed, data = cars,
      pch  = 20,
      cex  = 2,
      col  = "grey")
-underfit_model = lm(dist ~ 1, data = cars)
+underfit_model <- lm(dist ~ 1, data = cars)
 abline(underfit_model, lwd = 3, col = "darkorange")
 ```
 
 We could also try to model the data with a very "wiggly" function that tries to go through as many of the data points as possible. This also doesn't seem to work very well. The stopping distance for a speed of 5 mph shouldn't be off the chart! (Even in 1920.) This is an example of **overfitting**. (Note that in this example no function will go through every point, since there are some $x$ values that have several possible $y$ values in the data.)
 
 ```{r overfit_plot, echo = FALSE}
-overfit_model = lm(dist ~ poly(speed, 18), data = cars)
-x = seq(-10, 50, length.out = 200)
+overfit_model <- lm(dist ~ poly(speed, 18), data = cars)
+x <- seq(-10, 50, length.out = 200)
 plot(dist ~ speed, data = cars,
      xlab = "Speed (in Miles Per Hour)",
      ylab = "Stopping Distance (in Feet)",
@@ -115,7 +115,7 @@ lines(x, predict(overfit_model, data.frame(speed = x)), lwd = 2, col = "darkoran
 Lastly, we could try to model the data with a well-chosen line rather than one of the two extremes previously attempted. The line on the plot below seems to summarize the relationship between stopping distance and speed quite well. As speed increases, the distance required to come to a stop increases. There is still some variation about this line, but it seems to capture the overall trend.
 
 ```{r goodfit_plot, echo = FALSE}
-stop_dist_model = lm(dist ~ speed, data = cars)
+stop_dist_model <- lm(dist ~ speed, data = cars)
 plot(dist ~ speed, data = cars,
      xlab = "Speed (in Miles Per Hour)",
      ylab = "Stopping Distance (in Feet)",
@@ -129,7 +129,7 @@ abline(stop_dist_model, lwd = 3, col = "darkorange")
 With this in mind, we would like to restrict our choice of $f(X)$ to *linear* functions of $X$. We will write our model using $\beta_1$ for the slope, and $\beta_0$ for the intercept,
 
 $$
-Y = \beta_0 + \beta_1 X + \epsilon.
+Y <- \beta_0 + \beta_1 X + \epsilon.
 $$
 
 ### Simple Linear Regression Model
@@ -137,7 +137,7 @@ $$
 We now define what we will call the simple linear regression model,
 
 $$
-Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+Y_i <- \beta_0 + \beta_1 x_i + \epsilon_i
 $$
 
 where
@@ -283,24 +283,24 @@ Traditionally we would now calculate $\hat{\beta}_0$ and $\hat{\beta}_1$ by hand
 To keep some notation consistent with the above mathematics, we will store the response variable as `y` and the predictor variable as `x`.
 
 ```{r}
-x = cars$speed
-y = cars$dist
+x <- cars$speed
+y <- cars$dist
 ```
 
 We then calculate the three sums of squares defined above.
 
 ```{r}
-Sxy = sum((x - mean(x)) * (y - mean(y)))
-Sxx = sum((x - mean(x)) ^ 2)
-Syy = sum((y - mean(y)) ^ 2)
+Sxy <- sum((x - mean(x)) * (y - mean(y)))
+Sxx <- sum((x - mean(x)) ^ 2)
+Syy <- sum((y - mean(y)) ^ 2)
 c(Sxy, Sxx, Syy)
 ```
 
 Then finally calculate $\hat{\beta}_0$ and $\hat{\beta}_1$.
 
 ```{r}
-beta_1_hat = Sxy / Sxx
-beta_0_hat = mean(y) - beta_1_hat * mean(x)
+beta_1_hat <- Sxy / Sxx
+beta_0_hat <- mean(y) - beta_1_hat * mean(x)
 c(beta_0_hat, beta_1_hat)
 ```
 
@@ -387,13 +387,13 @@ This is also an issue we saw when interpreting $\hat{\beta}_0 = `r round(beta_0_
 If we think of our model as "Response = Prediction + Error," we can then write it as
 
 $$
-y = \hat{y} + e.
+y <- \hat{y} + e.
 $$
 
 We then define a **residual** to be the observed value minus the predicted value.
 
 $$
-e_i = y_i - \hat{y}_i
+e_i <- y_i - \hat{y}_i
 $$
 
 Let's calculate the residual for the prediction we made for a car traveling 8 miles per hour. First, we need to obtain the observed value of $y$ for this $x$ value.
@@ -455,7 +455,7 @@ Here, $s^2$ is the estimate of $\sigma^2$ when we have a single random variable 
 Now, in the regression case, with $s_e^2$ each $y$ has a different mean because of the relationship with $x$. Thus, for each $y_i$, we use a different estimate of the mean, that is $\hat{y}_i$.
 
 ```{r}
-y_hat = beta_0_hat + beta_1_hat * x
+y_hat <- beta_0_hat + beta_1_hat * x
 e     = y - y_hat
 n     = length(e)
 s2_e  = sum(e^2) / (n - 2)
@@ -465,7 +465,7 @@ s2_e
 Just as with the univariate measure of variance, this value of `r round(s2_e, 2)` doesn't have a practical interpretation in terms of stopping distance. Taking the square root, however, computes the standard deviation of the residuals, also known as *residual standard error*.
 
 ```{r}
-s_e = sqrt(s2_e)
+s_e <- sqrt(s2_e)
 s_e
 ```
 
@@ -561,14 +561,14 @@ $$
 The coefficient of determination is interpreted as the proportion of observed variation in $y$ that can be explained by the simple linear regression model.
 
 ```{r}
-R2 = SSReg / SST
+R2 <- SSReg / SST
 R2
 ```
 
 For the `cars` example, we calculate $R^2 = `r round(R2, 2)`$. We then say that $`r round(R2, 2) * 100`\%$ of the observed variability in stopping distance is explained by the linear relationship with speed.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-generate_data = function(int = 1,
+generate_data <- function(int = 1,
                          slope = 2,
                          sigma = 5,
                          n_obs = 15,
@@ -582,7 +582,7 @@ generate_data = function(int = 1,
   data.frame(x, y, y_hat, y_bar)
 }
 
-plot_total_dev = function(reg_data) {
+plot_total_dev <- function(reg_data) {
   plot(reg_data$x, reg_data$y, main = "SST (Sum of Squares Total)", 
        xlab = "x", ylab = "y", pch = 20, cex = 2, col = "grey")
   arrows(reg_data$x, reg_data$y_bar,
@@ -592,7 +592,7 @@ plot_total_dev = function(reg_data) {
   # abline(lm(y ~ x, data = reg_data), lwd = 2, col = "grey")
 }
 
-plot_total_dev_prop = function(reg_data) {
+plot_total_dev_prop <- function(reg_data) {
   plot(reg_data$x, reg_data$y, main = "SST (Sum of Squares Total)", 
        xlab = "x", ylab = "y", pch = 20, cex = 2, col = "grey")
   arrows(reg_data$x, reg_data$y_bar,
@@ -605,7 +605,7 @@ plot_total_dev_prop = function(reg_data) {
   abline(lm(y ~ x, data = reg_data), lwd = 2, col = "grey")
 }
 
-plot_unexp_dev = function(reg_data) {
+plot_unexp_dev <- function(reg_data) {
   plot(reg_data$x, reg_data$y, main = "SSE (Sum of Squares Error)",
        xlab = "x", ylab = "y", pch = 20, cex = 2, col = "grey")
   arrows(reg_data$x, reg_data$y_hat,
@@ -614,7 +614,7 @@ plot_unexp_dev = function(reg_data) {
   abline(lm(y ~ x, data = reg_data), lwd = 2, col = "grey")
 }
 
-plot_exp_dev = function(reg_data) {
+plot_exp_dev <- function(reg_data) {
   plot(reg_data$x, reg_data$y, main = "SSReg (Sum of Squares Regression)", 
   xlab = "x", ylab = "y", pch = 20, cex = 2, col = "grey")
   arrows(reg_data$x, reg_data$y_bar,
@@ -627,7 +627,7 @@ plot_exp_dev = function(reg_data) {
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 set.seed(2)
-plot_data = generate_data(sigma = 2)
+plot_data <- generate_data(sigma = 2)
 ```
 
 The following plots visually demonstrate the three "sums of squares" for a simulated dataset which has $R^2 = `r round(summary(lm(y ~ x, data = plot_data))$r.sq, 2)`$ which is a somewhat high value. Notice in the final plot, that the orange arrows account for a larger proportion of the total arrow.
@@ -642,7 +642,7 @@ plot_total_dev_prop(plot_data)
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 set.seed(1)
-plot_data = generate_data(slope = -1.5, sigma = 10)
+plot_data <- generate_data(slope = -1.5, sigma = 10)
 ```
 
 The next plots again visually demonstrate the three "sums of squares," this time for a simulated dataset which has $R^2 = `r round(summary(lm(y ~ x, data = plot_data))$r.sq, 2)`$. Notice in the final plot, that now the blue arrows account for a larger proportion of the total arrow.
@@ -665,7 +665,7 @@ The `lm()` command is used to fit **linear models** which actually account for a
 We'll continue using the `cars` data, and essentially use the `lm()` function to check the work we had previously done.
 
 ```{r}
-stop_dist_model = lm(dist ~ speed, data = cars)
+stop_dist_model <- lm(dist ~ speed, data = cars)
 ```
 
 This line of code fits our very first linear model. The syntax should look somewhat familiar. We use the `dist ~ speed` syntax to tell `R` we would like to model the response variable `dist` as a linear function of the predictor variable `speed`. In general, you should think of the syntax as `response ~ predictor`. The `data = cars` argument then tells `R` that the `dist` and `speed` variables are from the dataset `cars`. We then store this result in a variable `stop_dist_model`.
@@ -744,7 +744,7 @@ summary(stop_dist_model)$sigma
 Note that this is the same result seen earlier as `s_e`. You may also notice that this value was displayed above as a result of the `summary()` command, which `R` labeled the "Residual Standard Error."
 
 $$
-s_e = \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
+s_e <- \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
 $$
 
 Often it is useful to talk about $s_e$ (or RSE) instead of $s_e^2$ because of their units. The unit of $s_e$ in the `cars` example is feet, while the unit of $s_e^2$ is feet-squared.
@@ -796,7 +796,7 @@ fitted(stop_dist_model)
 Recall the model,
 
 $$
-Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+Y_i <- \beta_0 + \beta_1 x_i + \epsilon_i
 $$
 
 where $\epsilon_i \sim N(0, \sigma^2)$.
@@ -903,7 +903,7 @@ In practice you will almost never have a true model, and you will use data to at
 For this example, we will simulate $n = 21$ observations from the model
 
 $$
-Y = 5 - 2 x + \epsilon.
+Y <- 5 - 2 x + \epsilon.
 $$
 
 That is $\beta_0 = 5$, $\beta_1 = -2$, and let $\epsilon \sim N(\mu = 0, \sigma^2 = 9)$. Or, even more succinctly we could write
@@ -915,7 +915,7 @@ $$
 We first set the true parameters of the model to be simulated.
 
 ```{r}
-num_obs = 21
+num_obs <- 21
 beta_0  = 5
 beta_1  = -2
 sigma   = 3
@@ -925,13 +925,13 @@ Next, we obtain simulated values of $\epsilon_i$ after setting a seed for reprod
 
 ```{r}
 set.seed(1)
-epsilon = rnorm(n = num_obs, mean = 0, sd = sigma)
+epsilon <- rnorm(n = num_obs, mean = 0, sd = sigma)
 ```
 
 Now, since the $x_i$ values in SLR are considered fixed and known, we simply specify `r num_obs` values. Another common practice is to generate them from a uniform distribution, and then use them for the remainder of the analysis.
 
 ```{r}
-x_vals = seq(from = 0, to = 10, length.out = num_obs)
+x_vals <- seq(from = 0, to = 10, length.out = num_obs)
 # set.seed(1)
 # x_vals = runif(num_obs, 0, 10)
 ```
@@ -939,13 +939,13 @@ x_vals = seq(from = 0, to = 10, length.out = num_obs)
 We then generate the $y$ values according to the specified functional relationship.
 
 ```{r}
-y_vals = beta_0 + beta_1 * x_vals + epsilon
+y_vals <- beta_0 + beta_1 * x_vals + epsilon
 ```
 
 The data, $(x_i, y_i)$, represent a possible sample from the true distribution. Now to check how well the method of least squares works, we use `lm()` to fit the model to our simulated data, then take a look at the estimated coefficients.
 
 ```{r}
-sim_fit = lm(y_vals ~ x_vals)
+sim_fit <- lm(y_vals ~ x_vals)
 coef(sim_fit)
 ```
 
@@ -961,7 +961,7 @@ We should say here, that we're being sort of lazy, and not the good kind of lazy
 The function below, `sim_slr()`, can be used for the same task as above, but is much more flexible. Notice that we provide `x` to the function, instead of generating `x` inside the function. In the SLR model, the $x_i$ are considered known values. That is, they are not random, so we do not assume a distribution for the $x_i$. Because of this, we will repeatedly use the same `x` values across all simulations.
 
 ```{r}
-sim_slr = function(x, beta_0 = 10, beta_1 = 5, sigma = 1) {
+sim_slr <- function(x, beta_0 = 10, beta_1 = 5, sigma = 1) {
   n = length(x)
   epsilon = rnorm(n, mean = 0, sd = sigma)
   y = beta_0 + beta_1 * x + epsilon
@@ -973,7 +973,7 @@ Here, we use the function to repeat the analysis above.
 
 ```{r}
 set.seed(1)
-sim_data = sim_slr(x = x_vals, beta_0 = 5, beta_1 = -2, sigma = 3)
+sim_data <- sim_slr(x = x_vals, beta_0 = 5, beta_1 = -2, sigma = 3)
 ```
 
 This time, the simulated observations are stored in a data frame.
@@ -985,7 +985,7 @@ head(sim_data)
 Now when we fit the model with `lm()` we can use a `data` argument, a very good practice.
 
 ```{r}
-sim_fit = lm(response ~ predictor, data = sim_data)
+sim_fit <- lm(response ~ predictor, data = sim_data)
 coef(sim_fit)
 ```
 

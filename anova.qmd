@@ -83,10 +83,10 @@ For the stated model and assuming the null hypothesis is true, the $t$ test stat
 
 ```{r, echo = FALSE}
 set.seed(42)
-sleep_means = c(6.5, 8.2)
-sleep_sigma = 1.2
+sleep_means <- c(6.5, 8.2)
+sleep_sigma <- 1.2
 
-melatonin = data.frame(
+melatonin <- data.frame(
   sleep = rnorm(n = 20, mean = sleep_means, sd = sleep_sigma),
   group = rep(c("control", "treatment"), 10)
 )
@@ -154,7 +154,7 @@ Here,
 Then the total sample size is
 
 \[
-N = \sum_{i = 1}^{g} n_i
+N <- \sum_{i = 1}^{g} n_i
 \]
 
 Observations from group $i$ follow a normal distribution
@@ -198,19 +198,19 @@ We'll leave out most of the details about how the estimation is done, but we'll 
 We'll then decompose the variance, as we've seen before in regression. The **total** variation measures how much the observations vary about the overall sample mean, *ignoring the groups*.
 
 \[
-SST = \sum_{i = 1}^{g} \sum_{j = 1}^{n_i} (y_{ij} - \bar{y})^2
+SST <- \sum_{i = 1}^{g} \sum_{j = 1}^{n_i} (y_{ij} - \bar{y})^2
 \]
 
 The variation **between** groups looks at how far the individual sample means are from the overall sample mean.
 
 \[
-SSB = \sum_{i = 1}^{g} \sum_{j = 1}^{n_i} (\bar{y}_i - \bar{y})^2 = \sum_{i = 1}^{g} n_i (\bar{y}_i - \bar{y})^2
+SSB <- \sum_{i = 1}^{g} \sum_{j = 1}^{n_i} (\bar{y}_i - \bar{y})^2 = \sum_{i = 1}^{g} n_i (\bar{y}_i - \bar{y})^2
 \]
 
 Lastly, the **within** group variation measures how far observations are from the sample mean of its group.
 
 \[
-SSW = \sum_{i = 1}^{g} \sum_{j = 1}^{n_i} (y_{ij} - \bar{y}_i)^2 = \sum_{i = 1}^{g} (n_i - 1) s_{i}^{2}
+SSW <- \sum_{i = 1}^{g} \sum_{j = 1}^{n_i} (y_{ij} - \bar{y}_i)^2 = \sum_{i = 1}^{g} (n_i - 1) s_{i}^{2}
 \]
 
 This could also be thought of as the error sum of squares, where $y_{ij}$ is an observation and $\bar{y}_i$ is its fitted (predicted) value from the model. 
@@ -227,7 +227,7 @@ We reject the null (equal means) when the $F$ statistic is large. This occurs wh
 
 ```{r, echo = FALSE}
 library(broom)
-plot_anova = function(n = 20, mu_a = 0, mu_b = 0, mu_c = 0, sigma = 1) {
+plot_anova <- function(n = 20, mu_a = 0, mu_b = 0, mu_c = 0, sigma = 1) {
 
   response = rnorm(n * 3, mean = c(mu_a , mu_b, mu_c), sd = sigma)
   group    = factor(rep(LETTERS[1:3], n))
@@ -299,7 +299,7 @@ First, consider $\mu_A = -5, \mu_B = 0, \mu_C = 5$ with $\sigma = 1$.
 ```{r, fig.height = 5, fig.width = 10, echo = FALSE}
 set.seed(42)
 par(mfrow = c(1, 2))
-p1 = plot_anova(n = 20, mu_a = -5, mu_b = 0, mu_c = 5, sigma = 1)
+p1 <- plot_anova(n = 20, mu_a = -5, mu_b = 0, mu_c = 5, sigma = 1)
 ```
 
 The left panel shows the three normal distributions we are sampling from. The ticks along the $x$-axis show the randomly sampled observations. The right panel re-displays only the sampled values in a boxplot. Note that the mid-line of the boxes is usually the sample median. These boxplots have been modified to use the sample mean.
@@ -316,7 +316,7 @@ Now consider $\mu_A = 0, \mu_B = 0, \mu_C = 0$ with $\sigma = 1$. That is, equal
 ```{r, fig.height = 5, fig.width = 10, echo = FALSE}
 set.seed(1337)
 par(mfrow = c(1, 2))
-p2 = plot_anova(n = 20, mu_a =  0, mu_b = 0, mu_c = 0, sigma = 1)
+p2 <- plot_anova(n = 20, mu_a =  0, mu_b = 0, mu_c = 0, sigma = 1)
 ```
 
 Here the sample means vary only a tiny bit around the overall sample mean. Within the groups there is variability, this time much larger than the variability of the sample means.
@@ -333,7 +333,7 @@ The next two examples show different means, with different levels of noise. Noti
 ```{r, fig.height = 5, fig.width = 10, echo = FALSE}
 set.seed(42)
 par(mfrow = c(1, 2))
-p3 = plot_anova(n = 20, mu_a = -1, mu_b = 0, mu_c = 1, sigma = 1)
+p3 <- plot_anova(n = 20, mu_a = -1, mu_b = 0, mu_c = 1, sigma = 1)
 ```
 
 - $F = `r p3$f`$
@@ -346,7 +346,7 @@ Above, there isn't obvious separation between the groups like the first example,
 ```{r, fig.height = 5, fig.width = 10, echo = FALSE}
 set.seed(42)
 par(mfrow = c(1, 2))
-p4 = plot_anova(n = 20, mu_a = -1, mu_b = 0, mu_c = 1, sigma = 2)
+p4 <- plot_anova(n = 20, mu_a = -1, mu_b = 0, mu_c = 1, sigma = 2)
 ```
 
 - $F = `r p4$f`$
@@ -371,7 +371,7 @@ plot(coag ~ diet, data = coagulation, col = 2:5)
 We first load the data and create the relevant boxplot. The plot alone suggests a difference of means. The `aov()` function is used to obtain the relevant sums of squares. Using the `summary()` function on the output from `aov()` creates the desired ANOVA table (without the unneeded row for total).
 
 ```{r}
-coag_aov = aov(coag ~ diet, data = coagulation)
+coag_aov <- aov(coag ~ diet, data = coagulation)
 coag_aov
 summary(coag_aov)
 ```
@@ -379,7 +379,7 @@ summary(coag_aov)
 Were we to run this experiment, we would have pre-specified a significance level. However, notice that the p-value of this test is incredibly low, so using any reasonable significance level we would reject the null hypothesis. Thus we believe the diets had an effect on blood coagulation time.
 
 ```{r}
-diets = data.frame(diet = unique(coagulation$diet))
+diets <- data.frame(diet = unique(coagulation$diet))
 data.frame(diets, coag = predict(coag_aov, diets))
 ```
 
@@ -391,12 +391,12 @@ When performing ANOVA in `R`, be sure the grouping variable is a factor variable
 
 ```{r}
 set.seed(42)
-response = rnorm(15)
+response <- rnorm(15)
 group    = c(rep(1, 5), rep(2, 5), rep(3, 5))
-bad = data.frame(response, group)
+bad <- data.frame(response, group)
 summary(aov(response ~ group, data = bad)) # wrong DF!
 
-good = data.frame(response, group = as.factor(group))
+good <- data.frame(response, group = as.factor(group))
 summary(aov(response ~ group, data = good))
 
 is.factor(bad$group)  # 1, 2, and 3 are numbers.
@@ -410,7 +410,7 @@ Here we verify the distribution of the test statistic under the null hypothesis.
 ```{r sim-anova-function}
 library(broom)
 
-sim_anova = function(n = 10, mu_a = 0, mu_b = 0, mu_c = 0, mu_d = 0, sigma = 1, stat = TRUE) {
+sim_anova <- function(n = 10, mu_a = 0, mu_b = 0, mu_c = 0, mu_d = 0, sigma = 1, stat = TRUE) {
   
   # create data from one-way ANOVA model with four groups of equal size
   # response simulated from normal with group mean, shared variance
@@ -438,18 +438,18 @@ sim_anova = function(n = 10, mu_a = 0, mu_b = 0, mu_c = 0, mu_d = 0, sigma = 1, 
 ```
 
 ```{r sample-sim-anova-simulation, eval = FALSE}
-f_stats = replicate(n = 5000, sim_anova(stat = TRUE))
+f_stats <- replicate(n = 5000, sim_anova(stat = TRUE))
 ```
 
 
 ```{r cache-simulation, eval = FALSE, echo = FALSE}
-f_stats = replicate(n = 5000, sim_anova(stat = TRUE))
+f_stats <- replicate(n = 5000, sim_anova(stat = TRUE))
 dir.create("sim-result-cache", showWarnings = FALSE)
 saveRDS(f_stats, "sim-result-cache/f_statistics_simulation.rds", version = 2)
 ```
 
 ```{r load-cached-fstats, echo = FALSE}
-f_stats = readRDS("sim-result-cache/f_statistics_simulation.rds")
+f_stats <- readRDS("sim-result-cache/f_statistics_simulation.rds")
 ```
 
 ```{r sim-anova-graphs}
@@ -483,21 +483,21 @@ A number of things can affect the power of a test:
 The following simulations look at the effect of significance level, effect size, and noise level on the power of an ANOVA $F$-test. Homework will look into sample size and balance.
 
 ```{r}
-p_vals = replicate(n = 1000, sim_anova(mu_a = -1, mu_b = 0, mu_c = 0, mu_d = 1,
+p_vals <- replicate(n = 1000, sim_anova(mu_a = -1, mu_b = 0, mu_c = 0, mu_d = 1,
                                      sigma = 1.5, stat = FALSE))
 mean(p_vals < 0.05)
 mean(p_vals < 0.01)
 ```
 
 ```{r}
-p_vals = replicate(n = 1000, sim_anova(mu_a = -1, mu_b = 0, mu_c = 0, mu_d = 1,
+p_vals <- replicate(n = 1000, sim_anova(mu_a = -1, mu_b = 0, mu_c = 0, mu_d = 1,
                                      sigma = 2.0, stat = FALSE))
 mean(p_vals < 0.05)
 mean(p_vals < 0.01)
 ```
 
 ```{r}
-p_vals = replicate(n = 1000, sim_anova(mu_a = -2, mu_b = 0, mu_c = 0, mu_d = 2,
+p_vals <- replicate(n = 1000, sim_anova(mu_a = -2, mu_b = 0, mu_c = 0, mu_d = 2,
                                      sigma = 2.0, stat = FALSE))
 mean(p_vals < 0.05)
 mean(p_vals < 0.01)
@@ -535,7 +535,7 @@ We see that these p-values are much higher than the unadjusted p-values, thus, w
 We can simulate the 100 test scenarios to illustrate this point.
 
 ```{r sim-p-val-function}
-get_p_val = function() {
+get_p_val <- function() {
   
   # create data for two groups, equal mean
   y = rnorm(20, mean = 0, sd = 1)
@@ -550,8 +550,8 @@ get_p_val = function() {
 ```{r cache-p-val-simulation, eval = FALSE, echo = FALSE}
 set.seed(1337)
 
-simulation_100_p_val = mean(replicate(1000, any(replicate(100, get_p_val()) < 0.05)))
-simulation_100_p_val_bonf = mean(replicate(1000, any(p.adjust(replicate(100, get_p_val()), "bonferroni") < 0.05)))
+simulation_100_p_val <- mean(replicate(1000, any(replicate(100, get_p_val()) < 0.05)))
+simulation_100_p_val_bonf <- mean(replicate(1000, any(p.adjust(replicate(100, get_p_val()), "bonferroni") < 0.05)))
 
 # Ensure sim-result-cache is present
 dir.create("sim-result-cache", showWarnings = FALSE)
@@ -570,7 +570,7 @@ mean(replicate(1000, any(replicate(100, get_p_val()) < 0.05)))
 ```
 
 ```{r load-cached-pval-anova, echo = FALSE}
-simulation_100_p_val = readRDS("sim-result-cache/simulation_100_p_val.rds")
+simulation_100_p_val <- readRDS("sim-result-cache/simulation_100_p_val.rds")
 simulation_100_p_val
 ```
 
@@ -582,7 +582,7 @@ mean(replicate(1000, any(p.adjust(replicate(100, get_p_val()), "bonferroni") < 0
 ```
 
 ```{r load-cached-pval-bonferroni-anova, echo = FALSE}
-simulation_100_p_val_bonf = readRDS("sim-result-cache/simulation_100_p_val_bonf.rds")
+simulation_100_p_val_bonf <- readRDS("sim-result-cache/simulation_100_p_val_bonf.rds")
 simulation_100_p_val_bonf
 ```
 
@@ -709,14 +709,14 @@ Let's fit each of the possible models, then investigate their estimates for each
 rats_int   = aov(time ~ poison * treat, data = rats) # interaction model
 rats_add   = aov(time ~ poison + treat, data = rats) # additive model
 rats_pois  = aov(time ~ poison , data = rats)        # single factor model   
-rats_treat = aov(time ~ treat, data = rats)          # single factor model
+rats_treat <- aov(time ~ treat, data = rats)          # single factor model
 rats_null  = aov(time ~ 1, data = rats)              # null model
 ```
 
 To get the estimates, we'll create a table which we will predict on. 
 
 ```{r}
-rats_table = expand.grid(poison = unique(rats$poison), treat = unique(rats$treat))
+rats_table <- expand.grid(poison = unique(rats$poison), treat = unique(rats$treat))
 rats_table
 matrix(paste0(rats_table$poison, "-", rats_table$treat) , 4, 3, byrow = TRUE)
 ```
@@ -724,7 +724,7 @@ matrix(paste0(rats_table$poison, "-", rats_table$treat) , 4, 3, byrow = TRUE)
 Since we'll be repeating ourselves a number of times, we write a function to perform the prediction. Some housekeeping is done to keep the estimates in order, and provide row and column names. Above, we've shown where each of the estimates will be placed in the resulting matrix.
 
 ```{r}
-get_est_means = function(model, table) {
+get_est_means <- function(model, table) {
   mat = matrix(predict(model, table), nrow = 4, ncol = 3, byrow = TRUE)
   colnames(mat) = c("I", "II", "III")
   rownames(mat) = c("A", "B", "C", "D")
@@ -751,12 +751,12 @@ knitr::kable(get_est_means(model = rats_add, table = rats_table))
 To understand the difference, let's consider the effect of the treatments.
 
 ```{r}
-additive_means = get_est_means(model = rats_add, table = rats_table)
+additive_means <- get_est_means(model = rats_add, table = rats_table)
 additive_means["A",] - additive_means["B",]
 ```
 
 ```{r}
-interaction_means = get_est_means(model = rats_int, table = rats_table)
+interaction_means <- get_est_means(model = rats_int, table = rats_table)
 interaction_means["A",] - interaction_means["B",]
 ```
 

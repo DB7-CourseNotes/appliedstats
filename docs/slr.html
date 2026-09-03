@@ -674,13 +674,13 @@ Y = f(X) + \epsilon.
 </div>
 <p>With this in mind, we would like to restrict our choice of <span class="math inline">\(f(X)\)</span> to <em>linear</em> functions of <span class="math inline">\(X\)</span>. We will write our model using <span class="math inline">\(\beta_1\)</span> for the slope, and <span class="math inline">\(\beta_0\)</span> for the intercept,</p>
 <p><span class="math display">\[
-Y = \beta_0 + \beta_1 X + \epsilon.
+Y &lt;- \beta_0 + \beta_1 X + \epsilon.
 \]</span></p>
 <section id="simple-linear-regression-model" class="level3">
 <h3 class="anchored" data-anchor-id="simple-linear-regression-model">Simple Linear Regression Model</h3>
 <p>We now define what we will call the simple linear regression model,</p>
 <p><span class="math display">\[
-Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+Y_i &lt;- \beta_0 + \beta_1 x_i + \epsilon_i
 \]</span></p>
 <p>where</p>
 <p><span class="math display">\[
@@ -790,14 +790,14 @@ S_{yy} &amp;= \sum_{i = 1}^{n} y_i^2 - \frac{(\sum_{i = 1}^{n} y_i)^2}{n}  = \su
 <p>Traditionally we would now calculate <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> by hand for the <code>cars</code> dataset. However because we are living in the 21st century and are intelligent (or lazy or efficient, depending on your perspective), we will utilize <code>R</code> to do the number crunching for us.</p>
 <p>To keep some notation consistent with the above mathematics, we will store the response variable as <code>y</code> and the predictor variable as <code>x</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> cars<span class="sc">$</span>speed</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> cars<span class="sc">$</span>dist</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> cars<span class="sc">$</span>speed</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> cars<span class="sc">$</span>dist</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We then calculate the three sums of squares defined above.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Sxy <span class="ot">=</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">*</span> (y <span class="sc">-</span> <span class="fu">mean</span>(y)))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Sxx <span class="ot">=</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">^</span> <span class="dv">2</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Syy <span class="ot">=</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y)) <span class="sc">^</span> <span class="dv">2</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Sxy <span class="ot">&lt;-</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">*</span> (y <span class="sc">-</span> <span class="fu">mean</span>(y)))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Sxx <span class="ot">&lt;-</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">^</span> <span class="dv">2</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Syy <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y)) <span class="sc">^</span> <span class="dv">2</span>)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(Sxy, Sxx, Syy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  5387.40  1370.00 32538.98</code></pre>
@@ -805,8 +805,8 @@ S_{yy} &amp;= \sum_{i = 1}^{n} y_i^2 - \frac{(\sum_{i = 1}^{n} y_i)^2}{n}  = \su
 </div>
 <p>Then finally calculate <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>beta_1_hat <span class="ot">=</span> Sxy <span class="sc">/</span> Sxx</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>beta_0_hat <span class="ot">=</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta_1_hat <span class="sc">*</span> <span class="fu">mean</span>(x)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>beta_1_hat <span class="ot">&lt;-</span> Sxy <span class="sc">/</span> Sxx</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>beta_0_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta_1_hat <span class="sc">*</span> <span class="fu">mean</span>(x)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(beta_0_hat, beta_1_hat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -17.579095   3.932409</code></pre>
@@ -897,11 +897,11 @@ S_{yy} &amp;= \sum_{i = 1}^{n} y_i^2 - \frac{(\sum_{i = 1}^{n} y_i)^2}{n}  = \su
 <h3 class="anchored" data-anchor-id="residuals">Residuals</h3>
 <p>If we think of our model as “Response = Prediction + Error,” we can then write it as</p>
 <p><span class="math display">\[
-y = \hat{y} + e.
+y &lt;- \hat{y} + e.
 \]</span></p>
 <p>We then define a <strong>residual</strong> to be the observed value minus the predicted value.</p>
 <p><span class="math display">\[
-e_i = y_i - \hat{y}_i
+e_i &lt;- y_i - \hat{y}_i
 \]</span></p>
 <p>Let’s calculate the residual for the prediction we made for a car traveling 8 miles per hour. First, we need to obtain the observed value of <span class="math inline">\(y\)</span> for this <span class="math inline">\(x\)</span> value.</p>
 <div class="cell" data-layout-align="center">
@@ -959,7 +959,7 @@ s^2 = \frac{1}{n - 1}\sum_{i=1}^{n}(x_i - \bar{x})^2
 <p>Here, <span class="math inline">\(s^2\)</span> is the estimate of <span class="math inline">\(\sigma^2\)</span> when we have a single random variable <span class="math inline">\(X\)</span>. In this case <span class="math inline">\(\bar{x}\)</span> is an estimate of <span class="math inline">\(\mu\)</span> which is assumed to be the same for each <span class="math inline">\(x\)</span>.</p>
 <p>Now, in the regression case, with <span class="math inline">\(s_e^2\)</span> each <span class="math inline">\(y\)</span> has a different mean because of the relationship with <span class="math inline">\(x\)</span>. Thus, for each <span class="math inline">\(y_i\)</span>, we use a different estimate of the mean, that is <span class="math inline">\(\hat{y}_i\)</span>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">=</span> beta_0_hat <span class="sc">+</span> beta_1_hat <span class="sc">*</span> x</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> beta_0_hat <span class="sc">+</span> beta_1_hat <span class="sc">*</span> x</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>e     <span class="ot">=</span> y <span class="sc">-</span> y_hat</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>n     <span class="ot">=</span> <span class="fu">length</span>(e)</span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>s2_e  <span class="ot">=</span> <span class="fu">sum</span>(e<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">2</span>)</span>
@@ -970,7 +970,7 @@ s^2 = \frac{1}{n - 1}\sum_{i=1}^{n}(x_i - \bar{x})^2
 </div>
 <p>Just as with the univariate measure of variance, this value of 236.53 doesn’t have a practical interpretation in terms of stopping distance. Taking the square root, however, computes the standard deviation of the residuals, also known as <em>residual standard error</em>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>s_e <span class="ot">=</span> <span class="fu">sqrt</span>(s2_e)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>s_e <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(s2_e)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>s_e</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15.37959</code></pre>
@@ -1057,7 +1057,7 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \b
 \]</span></p>
 <p>The coefficient of determination is interpreted as the proportion of observed variation in <span class="math inline">\(y\)</span> that can be explained by the simple linear regression model.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>R2 <span class="ot">=</span> SSReg <span class="sc">/</span> SST</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> SSReg <span class="sc">/</span> SST</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>R2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6510794</code></pre>
@@ -1092,7 +1092,7 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \b
 <p>The <code>lm()</code> command is used to fit <strong>linear models</strong> which actually account for a broader class of models than simple linear regression, but we will use SLR as our first demonstration of <code>lm()</code>. The <code>lm()</code> function will be one of our most commonly used tools, so you may want to take a look at the documentation by using <code>?lm</code>. You’ll notice there is a lot of information there, but we will start with just the very basics. This is documentation you will want to return to often.</p>
 <p>We’ll continue using the <code>cars</code> data, and essentially use the <code>lm()</code> function to check the work we had previously done.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>stop_dist_model <span class="ot">=</span> <span class="fu">lm</span>(dist <span class="sc">~</span> speed, <span class="at">data =</span> cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>stop_dist_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(dist <span class="sc">~</span> speed, <span class="at">data =</span> cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This line of code fits our very first linear model. The syntax should look somewhat familiar. We use the <code>dist ~ speed</code> syntax to tell <code>R</code> we would like to model the response variable <code>dist</code> as a linear function of the predictor variable <code>speed</code>. In general, you should think of the syntax as <code>response ~ predictor</code>. The <code>data = cars</code> argument then tells <code>R</code> that the <code>dist</code> and <code>speed</code> variables are from the dataset <code>cars</code>. We then store this result in a variable <code>stop_dist_model</code>.</p>
 <p>The variable <code>stop_dist_model</code> now contains a wealth of information, and we will now see how to extract and use that information. The first thing we will do is simply output whatever is stored immediately in the variable <code>stop_dist_model</code>.</p>
@@ -1258,7 +1258,7 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 </div>
 <p>Note that this is the same result seen earlier as <code>s_e</code>. You may also notice that this value was displayed above as a result of the <code>summary()</code> command, which <code>R</code> labeled the “Residual Standard Error.”</p>
 <p><span class="math display">\[
-s_e = \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
+s_e &lt;- \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
 \]</span></p>
 <p>Often it is useful to talk about <span class="math inline">\(s_e\)</span> (or RSE) instead of <span class="math inline">\(s_e^2\)</span> because of their units. The unit of <span class="math inline">\(s_e\)</span> in the <code>cars</code> example is feet, while the unit of <span class="math inline">\(s_e^2\)</span> is feet-squared.</p>
 <p>Another useful function, which we will use almost as often as <code>lm()</code> is the <code>predict()</code> function.</p>
@@ -1351,7 +1351,7 @@ s_e = \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
 <h2 data-number="7.5" class="anchored" data-anchor-id="maximum-likelihood-estimation-mle-approach"><span class="header-section-number">7.5</span> Maximum Likelihood Estimation (MLE) Approach</h2>
 <p>Recall the model,</p>
 <p><span class="math display">\[
-Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+Y_i &lt;- \beta_0 + \beta_1 x_i + \epsilon_i
 \]</span></p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>.</p>
 <p>Then we can find the mean and variance of each <span class="math inline">\(Y_i\)</span>.</p>
@@ -1426,7 +1426,7 @@ s_e^2 &amp;= \frac{1}{n - 2} \sum_{i = 1}^{n}(y_i - \hat{y}_i)^2 = \frac{1}{n - 
 <p>In practice you will almost never have a true model, and you will use data to attempt to recover information about the unknown true model. With simulation, we decide the true model and simulate data from it. Then, we apply a method to the data, in this case least squares. Now, since we know the true model, we can assess how well it did.</p>
 <p>For this example, we will simulate <span class="math inline">\(n = 21\)</span> observations from the model</p>
 <p><span class="math display">\[
-Y = 5 - 2 x + \epsilon.
+Y &lt;- 5 - 2 x + \epsilon.
 \]</span></p>
 <p>That is <span class="math inline">\(\beta_0 = 5\)</span>, <span class="math inline">\(\beta_1 = -2\)</span>, and let <span class="math inline">\(\epsilon \sim N(\mu = 0, \sigma^2 = 9)\)</span>. Or, even more succinctly we could write</p>
 <p><span class="math display">\[
@@ -1434,7 +1434,7 @@ Y \mid X \sim N(\mu = 5 - 2 x, \sigma^ 2 = 9).
 \]</span></p>
 <p>We first set the true parameters of the model to be simulated.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>num_obs <span class="ot">=</span> <span class="dv">21</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>num_obs <span class="ot">&lt;-</span> <span class="dv">21</span></span>
 <span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>beta_0  <span class="ot">=</span> <span class="dv">5</span></span>
 <span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>beta_1  <span class="ot">=</span> <span class="sc">-</span><span class="dv">2</span></span>
 <span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>sigma   <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1442,21 +1442,21 @@ Y \mid X \sim N(\mu = 5 - 2 x, \sigma^ 2 = 9).
 <p>Next, we obtain simulated values of <span class="math inline">\(\epsilon_i\)</span> after setting a seed for reproducibility.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>epsilon <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> num_obs, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> num_obs, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now, since the <span class="math inline">\(x_i\)</span> values in SLR are considered fixed and known, we simply specify 21 values. Another common practice is to generate them from a uniform distribution, and then use them for the remainder of the analysis.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>x_vals <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">length.out =</span> num_obs)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>x_vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">length.out =</span> num_obs)</span>
 <span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="co"># set.seed(1)</span></span>
 <span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="co"># x_vals = runif(num_obs, 0, 10)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We then generate the <span class="math inline">\(y\)</span> values according to the specified functional relationship.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>y_vals <span class="ot">=</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> x_vals <span class="sc">+</span> epsilon</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>y_vals <span class="ot">&lt;-</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> x_vals <span class="sc">+</span> epsilon</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The data, <span class="math inline">\((x_i, y_i)\)</span>, represent a possible sample from the true distribution. Now to check how well the method of least squares works, we use <code>lm()</code> to fit the model to our simulated data, then take a look at the estimated coefficients.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>sim_fit <span class="ot">=</span> <span class="fu">lm</span>(y_vals <span class="sc">~</span> x_vals)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>sim_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y_vals <span class="sc">~</span> x_vals)</span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(sim_fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)      x_vals 
@@ -1478,7 +1478,7 @@ Y \mid X \sim N(\mu = 5 - 2 x, \sigma^ 2 = 9).
 <p>We should say here, that we’re being sort of lazy, and not the good kind of lazy that could be considered efficient. Any time you simulate data, you should consider doing two things: writing a function, and storing the data in a data frame.</p>
 <p>The function below, <code>sim_slr()</code>, can be used for the same task as above, but is much more flexible. Notice that we provide <code>x</code> to the function, instead of generating <code>x</code> inside the function. In the SLR model, the <span class="math inline">\(x_i\)</span> are considered known values. That is, they are not random, so we do not assume a distribution for the <span class="math inline">\(x_i\)</span>. Because of this, we will repeatedly use the same <code>x</code> values across all simulations.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>sim_slr <span class="ot">=</span> <span class="cf">function</span>(x, <span class="at">beta_0 =</span> <span class="dv">10</span>, <span class="at">beta_1 =</span> <span class="dv">5</span>, <span class="at">sigma =</span> <span class="dv">1</span>) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>sim_slr <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">beta_0 =</span> <span class="dv">10</span>, <span class="at">beta_1 =</span> <span class="dv">5</span>, <span class="at">sigma =</span> <span class="dv">1</span>) {</span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">length</span>(x)</span>
 <span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  epsilon <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma)</span>
 <span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> x <span class="sc">+</span> epsilon</span>
@@ -1488,7 +1488,7 @@ Y \mid X \sim N(\mu = 5 - 2 x, \sigma^ 2 = 9).
 <p>Here, we use the function to repeat the analysis above.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">=</span> <span class="fu">sim_slr</span>(<span class="at">x =</span> x_vals, <span class="at">beta_0 =</span> <span class="dv">5</span>, <span class="at">beta_1 =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">sigma =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">sim_slr</span>(<span class="at">x =</span> x_vals, <span class="at">beta_0 =</span> <span class="dv">5</span>, <span class="at">beta_1 =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">sigma =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This time, the simulated observations are stored in a data frame.</p>
 <div class="cell" data-layout-align="center">
@@ -1505,7 +1505,7 @@ Y \mid X \sim N(\mu = 5 - 2 x, \sigma^ 2 = 9).
 </div>
 <p>Now when we fit the model with <code>lm()</code> we can use a <code>data</code> argument, a very good practice.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>sim_fit <span class="ot">=</span> <span class="fu">lm</span>(response <span class="sc">~</span> predictor, <span class="at">data =</span> sim_data)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>sim_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(response <span class="sc">~</span> predictor, <span class="at">data =</span> sim_data)</span>
 <span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(sim_fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)   predictor 

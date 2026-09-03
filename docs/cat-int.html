@@ -635,10 +635,10 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></
 </div>
 <p>We used a common <code>R</code> “trick” when plotting this data. The <code>am</code> variable takes two possible values; <code>0</code> for automatic transmission, and <code>1</code> for manual transmissions. <code>R</code> can use numbers to represent colors, however the color for <code>0</code> is white. So we take the <code>am</code> vector and add <code>1</code> to it. Then observations with automatic transmissions are now represented by <code>1</code>, which is black in <code>R</code>, and manual transmission are represented by <code>2</code>, which is red in <code>R</code>. (Note, we are only adding <code>1</code> inside the call to <code>plot()</code>, we are not actually modifying the values stored in <code>am</code>.)</p>
 <p>We now fit the SLR model</p>
-<p>[ Y = _0 + _1 x_1 + , ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + , ]</p>
 <p>where <span class="math inline">\(Y\)</span> is <code>mpg</code> and <span class="math inline">\(x_1\)</span> is <code>hp</code>. For notational brevity, we drop the index <span class="math inline">\(i\)</span> for observations.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mpg_hp_slr <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp, <span class="at">data =</span> mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mpg_hp_slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp, <span class="at">data =</span> mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We then re-plot the data and add the fitted line to the plot.</p>
 <div class="cell" data-layout-align="center">
@@ -655,9 +655,9 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></
 </div>
 <p>We should notice a pattern here. The red, manual observations largely fall above the line, while the black, automatic observations are mostly below the line. This means our model underestimates the fuel efficiency of manual transmissions, and overestimates the fuel efficiency of automatic transmissions. To correct for this, we will add a predictor to our model, namely, <code>am</code> as <span class="math inline">\(x_2\)</span>.</p>
 <p>Our new model is</p>
-<p>[ Y = _0 + _1 x_1 + _2 x_2 + , ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + _2 x_2 + , ]</p>
 <p>where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(Y\)</span> remain the same, but now</p>
-[ x_2 =
+[ x_2 &lt;-
 <span class="math display">\[\begin{cases}
    1 &amp; \text{manual transmission} \\
    0       &amp; \text{automatic transmission}
@@ -667,7 +667,7 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></
 <p>First, note that <code>am</code> is already a dummy variable, since it uses the values <code>0</code> and <code>1</code> to represent automatic and manual transmissions. Often, a variable like <code>am</code> would store the character values <code>auto</code> and <code>man</code> and we would either have to convert these to <code>0</code> and <code>1</code>, or, as we will see later, <code>R</code> will take care of creating dummy variables for us.</p>
 <p>So, to fit the above model, we do so like any other multiple regression model we have seen before.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mpg_hp_add <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mpg_hp_add <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp <span class="sc">+</span> am, <span class="at">data =</span> mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Briefly checking the output, we see that <code>R</code> has estimated the three <span class="math inline">\(\beta\)</span> parameters.</p>
 <div class="cell" data-layout-align="center">
@@ -684,9 +684,9 @@ Coefficients:
 </div>
 <p>Since <span class="math inline">\(x_2\)</span> can only take values <code>0</code> and <code>1</code>, we can effectively write two different models, one for manual and one for automatic transmissions.</p>
 <p>For automatic transmissions, that is <span class="math inline">\(x_2 = 0\)</span>, we have,</p>
-<p>[ Y = _0 + _1 x_1 + . ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + . ]</p>
 <p>Then for manual transmissions, that is <span class="math inline">\(x_2 = 1\)</span>, we have,</p>
-<p>[ Y = (_0 + _2) + _1 x_1 + . ]</p>
+<p>[ Y &lt;- (_0 + _2) + _1 x_1 + . ]</p>
 <p>Notice that these models share the same slope, <span class="math inline">\(\beta_1\)</span>, but have different intercepts, differing by <span class="math inline">\(\beta_2\)</span>. So the change in <code>mpg</code> is the same for both models, but on average <code>mpg</code> differs by <span class="math inline">\(\beta_2\)</span> between the two transmission types.</p>
 <p>We’ll now calculate the estimated slope and intercept of these two models so that we can add them to a plot. Note that:</p>
 <ul>
@@ -696,11 +696,11 @@ Coefficients:
 </ul>
 <p>We can then combine these to calculate the estimated slope and intercepts.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>int_auto <span class="ot">=</span> <span class="fu">coef</span>(mpg_hp_add)[<span class="dv">1</span>]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>int_manu <span class="ot">=</span> <span class="fu">coef</span>(mpg_hp_add)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_hp_add)[<span class="dv">3</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>int_auto <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_hp_add)[<span class="dv">1</span>]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>int_manu <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_hp_add)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_hp_add)[<span class="dv">3</span>]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>slope_auto <span class="ot">=</span> <span class="fu">coef</span>(mpg_hp_add)[<span class="dv">2</span>]</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>slope_manu <span class="ot">=</span> <span class="fu">coef</span>(mpg_hp_add)[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>slope_auto <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_hp_add)[<span class="dv">2</span>]</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>slope_manu <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_hp_add)[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Re-plotting the data, we use these slopes and intercepts to add the “two” fitted models to the plot.</p>
 <div class="cell" data-layout-align="center">
@@ -752,7 +752,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><p><span class="math inline">\(\hat{\beta}_1 = -0.0588878\)</span> is the estimated change in average <code>mpg</code> for an increase in one <code>hp</code>, for <strong>either</strong> transmission type.</p></li>
 </ul>
 <p>We should take special notice of those last two. In the model,</p>
-<p>[ Y = _0 + _1 x_1 + _2 x_2 + , ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + _2 x_2 + , ]</p>
 <p>we see <span class="math inline">\(\beta_1\)</span> is the average change in <span class="math inline">\(Y\)</span> for an increase in <span class="math inline">\(x_1\)</span>, <em>no matter</em> the value of <span class="math inline">\(x_2\)</span>. Also, <span class="math inline">\(\beta_2\)</span> is always the difference in the average of <span class="math inline">\(Y\)</span> for <em>any</em> value of <span class="math inline">\(x_1\)</span>. These are two restrictions we won’t always want, so we need a way to specify a more flexible model.</p>
 <p>Here we restricted ourselves to a single numerical predictor <span class="math inline">\(x_1\)</span> and one dummy variable <span class="math inline">\(x_2\)</span>. However, the concept of a dummy variable can be used with larger multiple regression models. We only use a single numerical predictor here for ease of visualization since we can think of the “two lines” interpretation. But in general, we can think of a dummy variable as creating “two models,” one for each category of a binary categorical variable.</p>
 </section>
@@ -761,7 +761,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>To remove the “same slope” restriction, we will now discuss <strong>interaction</strong>. To illustrate this concept, we will return to the <code>autompg</code> dataset we created in the last chapter, with a few more modifications.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read data frame from the web</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">=</span> <span class="fu">read.table</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data"</span>,</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">quote =</span> <span class="st">"</span><span class="sc">\"</span><span class="st">"</span>,</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">comment.char =</span> <span class="st">""</span>,</span>
@@ -769,20 +769,20 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># give the dataframe headers</span></span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(autompg) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"disp"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span>, <span class="st">"acc"</span>, <span class="st">"year"</span>, <span class="st">"origin"</span>, <span class="st">"name"</span>)</span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># remove missing data, which is stored as "?"</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">=</span> <span class="fu">subset</span>(autompg, autompg<span class="sc">$</span>hp <span class="sc">!=</span> <span class="st">"?"</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">&lt;-</span> <span class="fu">subset</span>(autompg, autompg<span class="sc">$</span>hp <span class="sc">!=</span> <span class="st">"?"</span>)</span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the plymouth reliant, as it causes some issues</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">=</span> <span class="fu">subset</span>(autompg, autompg<span class="sc">$</span>name <span class="sc">!=</span> <span class="st">"plymouth reliant"</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">&lt;-</span> <span class="fu">subset</span>(autompg, autompg<span class="sc">$</span>name <span class="sc">!=</span> <span class="st">"plymouth reliant"</span>)</span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># give the dataset row names, based on the engine, year and name</span></span>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(autompg) <span class="ot">=</span> <span class="fu">paste</span>(autompg<span class="sc">$</span>cyl, <span class="st">"cylinder"</span>, autompg<span class="sc">$</span>year, autompg<span class="sc">$</span>name)</span>
 <span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the variable for name</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">=</span> <span class="fu">subset</span>(autompg, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"disp"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span>, <span class="st">"acc"</span>, <span class="st">"year"</span>, <span class="st">"origin"</span>))</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">&lt;-</span> <span class="fu">subset</span>(autompg, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"disp"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span>, <span class="st">"acc"</span>, <span class="st">"year"</span>, <span class="st">"origin"</span>))</span>
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># change horsepower from character to numeric</span></span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>autompg<span class="sc">$</span>hp <span class="ot">=</span> <span class="fu">as.numeric</span>(autompg<span class="sc">$</span>hp)</span>
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dummy variable for foreign vs domestic cars. domestic = 1.</span></span>
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>autompg<span class="sc">$</span>domestic <span class="ot">=</span> <span class="fu">as.numeric</span>(autompg<span class="sc">$</span>origin <span class="sc">==</span> <span class="dv">1</span>)</span>
 <span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co"># remove 3 and 5 cylinder cars (which are very rare.)</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">=</span> autompg[autompg<span class="sc">$</span>cyl <span class="sc">!=</span> <span class="dv">5</span>,]</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">=</span> autompg[autompg<span class="sc">$</span>cyl <span class="sc">!=</span> <span class="dv">3</span>,]</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">&lt;-</span> autompg[autompg<span class="sc">$</span>cyl <span class="sc">!=</span> <span class="dv">5</span>,]</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>autompg <span class="ot">&lt;-</span> autompg[autompg<span class="sc">$</span>cyl <span class="sc">!=</span> <span class="dv">3</span>,]</span>
 <span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co"># the following line would verify the remaining cylinder possibilities are 4, 6, 8</span></span>
 <span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co">#unique(autompg$cyl)</span></span>
 <span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co"># change cyl to a factor variable</span></span>
@@ -805,14 +805,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>We’ve removed cars with <code>3</code> and <code>5</code> cylinders , as well as created a new variable <code>domestic</code> which indicates whether or not a car was built in the United States. Removing the <code>3</code> and <code>5</code> cylinders is simply for ease of demonstration later in the chapter and would not be done in practice. The new variable <code>domestic</code> takes the value <code>1</code> if the car was built in the United States, and <code>0</code> otherwise, which we will refer to as “foreign.” (We are arbitrarily using the United States as the reference point here.) We have also made <code>cyl</code> and <code>origin</code> into factor variables, which we will discuss later.</p>
 <p>We’ll now be concerned with three variables: <code>mpg</code>, <code>disp</code>, and <code>domestic</code>. We will use <code>mpg</code> as the response. We can fit a model,</p>
-<p>[ Y = _0 + _1 x_1 + _2 x_2 + , ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + _2 x_2 + , ]</p>
 <p>where</p>
 <ul>
 <li><span class="math inline">\(Y\)</span> is <code>mpg</code>, the fuel efficiency in miles per gallon,</li>
 <li><span class="math inline">\(x_1\)</span> is <code>disp</code>, the displacement in cubic inches,</li>
 <li><span class="math inline">\(x_2\)</span> is <code>domestic</code> as described above, which is a dummy variable.</li>
 </ul>
-[ x_2 =
+[ x_2 &lt;-
 <span class="math display">\[\begin{cases}
    1 &amp; \text{Domestic} \\
    0 &amp; \text{Foreign}
@@ -820,13 +820,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>]</p>
 <p>We will fit this model, extract the slope and intercept for the “two lines,” plot the data and add the lines.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mpg_disp_add <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> domestic, <span class="at">data =</span> autompg)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mpg_disp_add <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> domestic, <span class="at">data =</span> autompg)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>int_for <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_add)[<span class="dv">1</span>]</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>int_dom <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_add)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_add)[<span class="dv">3</span>]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>int_for <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_add)[<span class="dv">1</span>]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>int_dom <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_add)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_add)[<span class="dv">3</span>]</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>slope_for <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_add)[<span class="dv">2</span>]</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>slope_dom <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_add)[<span class="dv">2</span>]</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>slope_for <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_add)[<span class="dv">2</span>]</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>slope_dom <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_add)[<span class="dv">2</span>]</span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> autompg, <span class="at">col =</span> domestic <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> domestic <span class="sc">+</span> <span class="dv">1</span>)</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(int_for, slope_for, <span class="at">col =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>) <span class="co"># add line for foreign cars</span></span>
@@ -842,13 +842,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>This is a model that allows for two <em>parallel</em> lines, meaning the <code>mpg</code> can be different on average between foreign and domestic cars of the same engine displacement, but the change in average <code>mpg</code> for an increase in displacement is the same for both. We can see this model isn’t doing very well here. The red line fits the red points fairly well, but the black line isn’t doing very well for the black points, it should clearly have a more negative slope. Essentially, we would like a model that allows for two different slopes.</p>
 <p>Consider the following model,</p>
-<p>[ Y = _0 + _1 x_1 + _2 x_2 + _3 x_1 x_2 + , ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + _2 x_2 + _3 x_1 x_2 + , ]</p>
 <p>where <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, and <span class="math inline">\(Y\)</span> are the same as before, but we have added a new <strong>interaction</strong> term <span class="math inline">\(x_1 x_2\)</span> which multiplies <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, so we also have an additional <span class="math inline">\(\beta\)</span> parameter <span class="math inline">\(\beta_3\)</span>.</p>
 <p>This model essentially creates two slopes and two intercepts, <span class="math inline">\(\beta_2\)</span> being the difference in intercepts and <span class="math inline">\(\beta_3\)</span> being the difference in slopes. To see this, we will break down the model into the two “sub-models” for foreign and domestic cars.</p>
 <p>For foreign cars, that is <span class="math inline">\(x_2 = 0\)</span>, we have</p>
-<p>[ Y = _0 + _1 x_1 + . ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + . ]</p>
 <p>For domestic cars, that is <span class="math inline">\(x_2 = 1\)</span>, we have</p>
-<p>[ Y = (_0 + _2) + (_1 + _3) x_1 + . ]</p>
+<p>[ Y &lt;- (_0 + _2) + (_1 + _3) x_1 + . ]</p>
 <p>These two models have both different slopes and intercepts.</p>
 <ul>
 <li><span class="math inline">\(\beta_0\)</span> is the average <code>mpg</code> for a foreign car with <strong>0</strong> <code>disp</code>.</li>
@@ -860,15 +860,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>One method would be to simply create a new variable, then fit a model like any other.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>autompg<span class="sc">$</span>x3 <span class="ot">=</span> autompg<span class="sc">$</span>disp <span class="sc">*</span> autompg<span class="sc">$</span>domestic <span class="co"># THIS CODE NOT RUN!</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>do_not_do_this <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> domestic <span class="sc">+</span> x3, <span class="at">data =</span> autompg) <span class="co"># THIS CODE NOT RUN!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>do_not_do_this <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> domestic <span class="sc">+</span> x3, <span class="at">data =</span> autompg) <span class="co"># THIS CODE NOT RUN!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You should only do this as a last resort. We greatly prefer not to have to modify our data simply to fit a model. Instead, we can tell <code>R</code> we would like to use the existing data with an interaction term, which it will create automatically when we use the <code>:</code> operator.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mpg_disp_int <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> domestic <span class="sc">+</span> disp<span class="sc">:</span>domestic, <span class="at">data =</span> autompg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mpg_disp_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> domestic <span class="sc">+</span> disp<span class="sc">:</span>domestic, <span class="at">data =</span> autompg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>An alternative method, which will fit the exact same model as above would be to use the <code>*</code> operator. This method automatically creates the interaction term, as well as any “lower order terms,” which in this case are the first order terms for <code>disp</code> and <code>domestic</code></p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mpg_disp_int2 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> domestic, <span class="at">data =</span> autompg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mpg_disp_int2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> domestic, <span class="at">data =</span> autompg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can quickly verify that these are doing the same thing.</p>
 <div class="cell" data-layout-align="center">
@@ -929,11 +929,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Again we see this test has the same p-value as the <span class="math inline">\(t\)</span>-test. Also the p-value is extremely low, so between the two, we choose the interaction model.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>int_for <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">1</span>]</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>int_dom <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">3</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>int_for <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">1</span>]</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>int_dom <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">3</span>]</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>slope_for <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">2</span>]</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>slope_dom <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">4</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>slope_for <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">2</span>]</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>slope_dom <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int)[<span class="dv">4</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here we again calculate the slope and intercepts for the two lines for use in plotting.</p>
 <div class="cell" data-layout-align="center">
@@ -952,7 +952,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>We see that these lines fit the data much better, which matches the result of our tests.</p>
 <p>So far we have only seen interaction between a categorical variable (<code>domestic</code>) and a numerical variable (<code>disp</code>). While this is easy to visualize, since it allows for different slopes for two lines, it is not the only type of interaction we can use in a model. We can also consider interactions between two numerical variables.</p>
 <p>Consider the model,</p>
-<p>[ Y = _0 + _1 x_1 + _2 x_2 + _3 x_1 x_2 + , ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + _2 x_2 + _3 x_1 x_2 + , ]</p>
 <p>where</p>
 <ul>
 <li><span class="math inline">\(Y\)</span> is <code>mpg</code>, the fuel efficiency in miles per gallon,</li>
@@ -960,12 +960,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><span class="math inline">\(x_2\)</span> is <code>hp</code>, the horsepower, in foot-pounds per second.</li>
 </ul>
 <p>How does <code>mpg</code> change based on <code>disp</code> in this model? We can rearrange some terms to see how.</p>
-<p>[ Y = _0 + (_1 + _3 x_2) x_1 + _2 x_2 + ]</p>
+<p>[ Y &lt;- _0 + (_1 + _3 x_2) x_1 + _2 x_2 + ]</p>
 <p>So, for a one unit increase in <span class="math inline">\(x_1\)</span> (<code>disp</code>), the mean of <span class="math inline">\(Y\)</span> (<code>mpg</code>) increases <span class="math inline">\(\beta_1 + \beta_3 x_2\)</span>, which is a different value depending on the value of <span class="math inline">\(x_2\)</span> (<code>hp</code>)!</p>
 <p>Since we’re now working in three dimensions, this model can’t be easily justified via visualizations like the previous example. Instead, we will have to rely on a test.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mpg_disp_add_hp <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp, <span class="at">data =</span> autompg)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>mpg_disp_int_hp <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> hp, <span class="at">data =</span> autompg)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mpg_disp_add_hp <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp, <span class="at">data =</span> autompg)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>mpg_disp_int_hp <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> hp, <span class="at">data =</span> autompg)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpg_disp_int_hp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1022,7 +1022,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><span class="math inline">\(\hat{\beta}_3 = 5.658269\times 10^{-4}\)</span> is an estimate of the modification to the change in average <code>mpg</code> for an increase in <code>disp</code>, for a car of a certain <code>hp</code> (or vice versa).</li>
 </ul>
 <p>That last coefficient needs further explanation. Recall the rearrangement we made earlier</p>
-<p>[ Y = _0 + (_1 + _3 x_2) x_1 + _2 x_2 + . ]</p>
+<p>[ Y &lt;- _0 + (_1 + _3 x_2) x_1 + _2 x_2 + . ]</p>
 <p>So, our estimate for <span class="math inline">\(\beta_1 + \beta_3 x_2\)</span>, is <span class="math inline">\(\hat{\beta}_1 + \hat{\beta}_3 x_2\)</span>, which in this case is</p>
 <p>[ -0.1001738 + 5.658269^{-4} x_2. ]</p>
 <p>This says that, for an increase of one <code>disp</code> we see an estimated change in average <code>mpg</code> of <span class="math inline">\(-0.1001738 + 5.658269\times 10^{-4} x_2\)</span>. So how <code>disp</code> and <code>mpg</code> are related, depends on the <code>hp</code> of the car.</p>
@@ -1086,7 +1086,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>Recall that previously we have fit the model</p>
-<p>[ Y = _0 + _1 x_1 + _2 x_2 + _3 x_1 x_2 + , ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + _2 x_2 + _3 x_1 x_2 + , ]</p>
 <p>where</p>
 <ul>
 <li><span class="math inline">\(Y\)</span> is <code>mpg</code>, the fuel efficiency in miles per gallon,</li>
@@ -1124,7 +1124,7 @@ Coefficients:
 <p>It seems that it doesn’t produce the same results. Right away we notice that the intercept is different, as is the coefficient in front of <code>disp</code>. We also notice that the remaining two coefficients are of the same magnitude as their respective counterparts using the domestic variable, but with a different sign. Why is this happening?</p>
 <p>It turns out that by using a factor variable, <code>R</code> is automatically creating a dummy variable for us. However, it is not the dummy variable that we had originally used ourselves.</p>
 <p><code>R</code> is fitting the model</p>
-<p>[ Y = _0 + _1 x_1 + _2 x_2 + _3 x_1 x_2 + , ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + _2 x_2 + _3 x_1 x_2 + , ]</p>
 <p>where</p>
 <ul>
 <li><span class="math inline">\(Y\)</span> is <code>mpg</code>, the fuel efficiency in miles per gallon,</li>
@@ -1152,19 +1152,19 @@ Coefficients:
 <p>Here the <code>cyl</code> variable has three possible levels: <code>4</code>, <code>6</code>, and <code>8</code>. You may wonder, why not simply use <code>cyl</code> as a numerical variable? You certainly could.</p>
 <p>However, that would force the difference in average <code>mpg</code> between <code>4</code> and <code>6</code> cylinders to be the same as the difference in average mpg between <code>6</code> and <code>8</code> cylinders. That usually makes sense for a continuous variable, but not for a discrete variable with so few possible values. In the case of this variable, there is no such thing as a 7-cylinder engine or a 6.23-cylinder engine in personal vehicles. For these reasons, we will simply consider <code>cyl</code> to be categorical. This is a decision that will commonly need to be made with ordinal variables. Often, with a large number of categories, the decision to treat them as numerical variables is appropriate because, otherwise, a large number of dummy variables are then needed to represent these variables.</p>
 <p>Let’s define three dummy variables related to the <code>cyl</code> factor variable.</p>
-[ v_1 =
+[ v_1 &lt;-
 <span class="math display">\[\begin{cases}
    1 &amp; \text{4 cylinder} \\
    0       &amp; \text{not 4 cylinder}
   \end{cases}\]</span>
 <p>]</p>
-[ v_2 =
+[ v_2 &lt;-
 <span class="math display">\[\begin{cases}
    1 &amp; \text{6 cylinder} \\
    0       &amp; \text{not 6 cylinder}
   \end{cases}\]</span>
 <p>]</p>
-[ v_3 =
+[ v_3 &lt;-
 <span class="math display">\[\begin{cases}
    1 &amp; \text{8 cylinder} \\
    0       &amp; \text{not 8 cylinder}
@@ -1184,7 +1184,7 @@ Coefficients:
 </div>
 </div>
 <p>The question is, what is the model that <code>R</code> has fit here? It has chosen to use the model</p>
-<p>[ Y = _0 + _1 x + _2 v_2 + _3 v_3 + , ]</p>
+<p>[ Y &lt;- _0 + _1 x + _2 v_2 + _3 v_3 + , ]</p>
 <p>where</p>
 <ul>
 <li><span class="math inline">\(Y\)</span> is <code>mpg</code>, the fuel efficiency in miles per gallon,</li>
@@ -1206,13 +1206,13 @@ Coefficients:
 <p>So because 4 cylinder is the reference level, <span class="math inline">\(\beta_0\)</span> is specific to 4 cylinders, but <span class="math inline">\(\beta_2\)</span> and <span class="math inline">\(\beta_3\)</span> are used to represent quantities relative to 4 cylinders.</p>
 <p>As we have done before, we can extract these intercepts and slopes for the three lines, and plot them accordingly.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>int_4cyl <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">1</span>]</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>int_6cyl <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">3</span>]</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>int_8cyl <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">4</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>int_4cyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">1</span>]</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>int_6cyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">3</span>]</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>int_8cyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">4</span>]</span>
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>slope_all_cyl <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">2</span>]</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>slope_all_cyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_add_cyl)[<span class="dv">2</span>]</span>
 <span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>plot_colors <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Darkorange"</span>, <span class="st">"Darkgrey"</span>, <span class="st">"Dodgerblue"</span>)</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>plot_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Darkorange"</span>, <span class="st">"Darkgrey"</span>, <span class="st">"Dodgerblue"</span>)</span>
 <span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> autompg, <span class="at">col =</span> plot_colors[cyl], <span class="at">pch =</span> <span class="fu">as.numeric</span>(cyl))</span>
 <span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(int_4cyl, slope_all_cyl, <span class="at">col =</span> plot_colors[<span class="dv">1</span>], <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(int_6cyl, slope_all_cyl, <span class="at">col =</span> plot_colors[<span class="dv">2</span>], <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
@@ -1249,7 +1249,7 @@ Coefficients:
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># could also use mpg ~ disp + cyl + disp:cyl</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>R</code> has again chosen to use 4 cylinder cars as the reference level, but this also now has an effect on the interaction terms. <code>R</code> has fit the model.</p>
-<p>[ Y = _0 + _1 x + _2 v_2 + _3 v_3 + _2 x v_2 + _3 x v_3 + ]</p>
+<p>[ Y &lt;- _0 + _1 x + _2 v_2 + _3 v_3 + _2 x v_2 + _3 x v_3 + ]</p>
 <p>We’re using <span class="math inline">\(\gamma\)</span> like a <span class="math inline">\(\beta\)</span> parameter for simplicity, so that, for example <span class="math inline">\(\beta_2\)</span> and <span class="math inline">\(\gamma_2\)</span> are both associated with <span class="math inline">\(v_2\)</span>.</p>
 <p>Now, the three “sub models” are:</p>
 <ul>
@@ -1266,15 +1266,15 @@ Coefficients:
 <p>Now, similarly <span class="math inline">\(\gamma_2\)</span> and <span class="math inline">\(\gamma_3\)</span> change the slopes for 6 and 8 cylinder cars relative to the reference level of <span class="math inline">\(\beta_1\)</span> for 4 cylinder cars.</p>
 <p>Once again, we extract the coefficients and plot the results.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>int_4cyl <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">1</span>]</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>int_6cyl <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">3</span>]</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>int_8cyl <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">4</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>int_4cyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">1</span>]</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>int_6cyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">3</span>]</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>int_8cyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">4</span>]</span>
 <span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>slope_4cyl <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">2</span>]</span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>slope_6cyl <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">5</span>]</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>slope_8cyl <span class="ot">=</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">6</span>]</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>slope_4cyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">2</span>]</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>slope_6cyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">5</span>]</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>slope_8cyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">coef</span>(mpg_disp_int_cyl)[<span class="dv">6</span>]</span>
 <span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>plot_colors <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Darkorange"</span>, <span class="st">"Darkgrey"</span>, <span class="st">"Dodgerblue"</span>)</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>plot_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Darkorange"</span>, <span class="st">"Darkgrey"</span>, <span class="st">"Dodgerblue"</span>)</span>
 <span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> autompg, <span class="at">col =</span> plot_colors[cyl], <span class="at">pch =</span> <span class="fu">as.numeric</span>(cyl))</span>
 <span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(int_4cyl, slope_4cyl, <span class="at">col =</span> plot_colors[<span class="dv">1</span>], <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(int_6cyl, slope_6cyl, <span class="at">col =</span> plot_colors[<span class="dv">2</span>], <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
@@ -1294,7 +1294,7 @@ Coefficients:
 <p>We will test,</p>
 <p>[ H_0: _2 = _3 = 0 ]</p>
 <p>which represents the parallel regression lines we saw before,</p>
-<p>[ Y = _0 + _1 x + _2 v_2 + _3 v_3 + . ]</p>
+<p>[ Y &lt;- _0 + _1 x + _2 v_2 + _3 v_3 + . ]</p>
 <p>Again, this is a difference of two parameters, thus no <span class="math inline">\(t\)</span>-test will be useful.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mpg_disp_add_cyl, mpg_disp_int_cyl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1345,7 +1345,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h2 data-number="11.4" class="anchored" data-anchor-id="parameterization"><span class="header-section-number">11.4</span> Parameterization</h2>
 <p>So far we have been simply letting <code>R</code> decide how to create the dummy variables, and thus <code>R</code> has been deciding the parameterization of the models. To illustrate the ability to use alternative parameterizations, we will recreate the data, but directly creating the dummy variables ourselves.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>new_param_data <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>new_param_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> autompg<span class="sc">$</span>mpg,</span>
 <span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> autompg<span class="sc">$</span>disp,</span>
 <span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">v1 =</span> <span class="dv">1</span> <span class="sc">*</span> <span class="fu">as.numeric</span>(autompg<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">4</span>),</span>
@@ -1413,7 +1413,7 @@ Coefficients:
 </div>
 </div>
 <p>Here, we are fitting the model</p>
-<p>[ Y = _1 v_1 + _2 v_2 + _3 v_3 + x +. ]</p>
+<p>[ Y &lt;- _1 v_1 + _2 v_2 + _3 v_3 + x +. ]</p>
 <p>Thus we have:</p>
 <ul>
 <li>4 Cylinder: <span class="math inline">\(Y = \mu_1 + \beta x + \epsilon\)</span></li>
@@ -1433,7 +1433,7 @@ Coefficients:
 43.59052  30.39026  22.73346  -0.13069  -0.04770  -0.02252  </code></pre>
 </div>
 </div>
-<p>[ Y = _1 v_1 + _2 v_2 + _3 v_3 + _1 x v_1 + _2 x v_2 + _3 x v_3 + ]</p>
+<p>[ Y &lt;- _1 v_1 + _2 v_2 + _3 v_3 + _1 x v_1 + _2 x v_2 + _3 x v_3 + ]</p>
 <ul>
 <li>4 Cylinder: <span class="math inline">\(Y = \mu_1 + \beta_1 x + \epsilon\)</span></li>
 <li>6 Cylinder: <span class="math inline">\(Y = \mu_2 + \beta_2 x + \epsilon\)</span></li>
@@ -1486,7 +1486,7 @@ Coefficients:
 <h2 data-number="11.5" class="anchored" data-anchor-id="building-larger-models"><span class="header-section-number">11.5</span> Building Larger Models</h2>
 <p>Now that we have seen how to incorporate categorical predictors as well as interaction terms, we can start to build much larger, much more flexible models which can potentially fit data better.</p>
 <p>Let’s define a “big” model,</p>
-<p>[ Y = _0 + _1 x_1 + _2 x_2 + _3 x_3 + _4 x_1 x_2 + _5 x_1 x_3 + _6 x_2 x_3 + _7 x_1 x_2 x_3 + . ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + _2 x_2 + _3 x_3 + _4 x_1 x_2 + _5 x_1 x_3 + _6 x_2 x_3 + _7 x_1 x_2 x_3 + . ]</p>
 <p>Here,</p>
 <ul>
 <li><span class="math inline">\(Y\)</span> is <code>mpg</code>.</li>
@@ -1497,7 +1497,7 @@ Coefficients:
 <p>First thing to note here, we have included a new term <span class="math inline">\(x_1 x_2 x_3\)</span> which is a three-way interaction. Interaction terms can be larger and larger, up to the number of predictors in the model.</p>
 <p>Since we are using the three-way interaction term, we also use all possible two-way interactions, as well as each of the first order (<strong>main effect</strong>) terms. This is the concept of a <strong>hierarchy</strong>. Any time a “higher-order” term is in a model, the related “lower-order” terms should also be included. Mathematically their inclusion or exclusion is sometimes irrelevant, but from an interpretation standpoint, it is best to follow the hierarchy rules.</p>
 <p>Let’s do some rearrangement to obtain a “coefficient” in front of <span class="math inline">\(x_1\)</span>.</p>
-<p>[ Y = _0 + _2 x_2 + _3 x_3 + _6 x_2 x_3 + (_1 + _4 x_2 + _5 x_3 + _7 x_2 x_3)x_1 + . ]</p>
+<p>[ Y &lt;- _0 + _2 x_2 + _3 x_3 + _6 x_2 x_3 + (_1 + _4 x_2 + _5 x_3 + _7 x_2 x_3)x_1 + . ]</p>
 <p>Specifically, the “coefficient” in front of <span class="math inline">\(x_1\)</span> is</p>
 <p>[ (_1 + _4 x_2 + _5 x_3 + _7 x_2 x_3). ]</p>
 <p>Let’s discuss this “coefficient” to help us understand the idea of the <em>flexibility</em> of a model. Recall that,</p>
@@ -1519,7 +1519,7 @@ Coefficients:
 <p>It is so flexible, it is becoming hard to interpret!</p>
 <p>Let’s fit this three-way interaction model in <code>R</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>big_model <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> hp <span class="sc">*</span> domestic, <span class="at">data =</span> autompg)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>big_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> hp <span class="sc">*</span> domestic, <span class="at">data =</span> autompg)</span>
 <span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(big_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1557,7 +1557,7 @@ F-statistic: 169.7 on 7 and 375 DF,  p-value: &lt; 2.2e-16</code></pre>
 </ul>
 <p>We fit the null model in <code>R</code> as <code>two_way_int_mod</code>, then use <code>anova()</code> to perform an <span class="math inline">\(F\)</span>-test as usual.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>two_way_int_mod <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> hp <span class="sc">+</span> disp <span class="sc">*</span> domestic <span class="sc">+</span> hp <span class="sc">*</span> domestic, <span class="at">data =</span> autompg)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>two_way_int_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> hp <span class="sc">+</span> disp <span class="sc">*</span> domestic <span class="sc">+</span> hp <span class="sc">*</span> domestic, <span class="at">data =</span> autompg)</span>
 <span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="co">#two_way_int_mod = lm(mpg ~ (disp + hp + domestic) ^ 2, data = autompg)</span></span>
 <span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(two_way_int_mod, big_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1592,7 +1592,7 @@ Model 2: mpg ~ disp * hp * domestic
 </ul>
 <p>We fit the null model in <code>R</code> as <code>additive_mod</code>, then use <code>anova()</code> to perform an <span class="math inline">\(F\)</span>-test as usual.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>additive_mod <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> domestic, <span class="at">data =</span> autompg)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>additive_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> domestic, <span class="at">data =</span> autompg)</span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(additive_mod, two_way_int_mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
@@ -1607,7 +1607,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>Here the p-value is small, so we reject the null, and we prefer the full (alternative) model. Of the models we have considered, our final preference is for</p>
-<p>[ Y = _0 + _1 x_1 + _2 x_2 + _3 x_3 + _4 x_1 x_2 + _5 x_1 x_3 + _6 x_2 x_3 + . ]</p>
+<p>[ Y &lt;- _0 + _1 x_1 + _2 x_2 + _3 x_3 + _4 x_1 x_2 + _5 x_1 x_3 + _6 x_2 x_3 + . ]</p>
 
 
 </section>

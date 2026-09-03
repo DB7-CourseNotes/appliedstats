@@ -684,7 +684,7 @@ sample estimates:
 <li><span class="math inline">\(j = 1, 2, \ldots n_i\)</span> where <span class="math inline">\(n_i\)</span> is the number of observations in group <span class="math inline">\(i\)</span>.</li>
 </ul>
 <p>Then the total sample size is</p>
-<p>[ N = _{i = 1}^{g} n_i ]</p>
+<p>[ N &lt;- _{i = 1}^{g} n_i ]</p>
 <p>Observations from group <span class="math inline">\(i\)</span> follow a normal distribution</p>
 <p>[ y_{ij} N(_i,^{2}) ]</p>
 <p>where the mean of each group is given by</p>
@@ -704,11 +704,11 @@ sample estimates:
 <li><span class="math inline">\(s_{i}^{2}\)</span> is the sample variance of group <span class="math inline">\(i\)</span>.</li>
 </ul>
 <p>We’ll then decompose the variance, as we’ve seen before in regression. The <strong>total</strong> variation measures how much the observations vary about the overall sample mean, <em>ignoring the groups</em>.</p>
-<p>[ SST = <em>{i = 1}^{g} </em>{j = 1}^{n_i} (y_{ij} - {y})^2 ]</p>
+<p>[ SST &lt;- <em>{i = 1}^{g} </em>{j = 1}^{n_i} (y_{ij} - {y})^2 ]</p>
 <p>The variation <strong>between</strong> groups looks at how far the individual sample means are from the overall sample mean.</p>
-<p>[ SSB = <em>{i = 1}^{g} </em>{j = 1}^{n_i} ({y}<em>i - {y})^2 = </em>{i = 1}^{g} n_i ({y}_i - {y})^2 ]</p>
+<p>[ SSB &lt;- <em>{i = 1}^{g} </em>{j = 1}^{n_i} ({y}<em>i - {y})^2 = </em>{i = 1}^{g} n_i ({y}_i - {y})^2 ]</p>
 <p>Lastly, the <strong>within</strong> group variation measures how far observations are from the sample mean of its group.</p>
-<p>[ SSW = <em>{i = 1}^{g} </em>{j = 1}^{n_i} (y_{ij} - {y}<em>i)^2 = </em>{i = 1}^{g} (n_i - 1) s_{i}^{2} ]</p>
+<p>[ SSW &lt;- <em>{i = 1}^{g} </em>{j = 1}^{n_i} (y_{ij} - {y}<em>i)^2 = </em>{i = 1}^{g} (n_i - 1) s_{i}^{2} ]</p>
 <p>This could also be thought of as the error sum of squares, where <span class="math inline">\(y_{ij}\)</span> is an observation and <span class="math inline">\(\bar{y}_i\)</span> is its fitted (predicted) value from the model.</p>
 <p>To develop the test statistic for ANOVA, we place this information into an ANVOA table.</p>
 <table class="caption-top table">
@@ -845,7 +845,7 @@ sample estimates:
 </div>
 <p>We first load the data and create the relevant boxplot. The plot alone suggests a difference of means. The <code>aov()</code> function is used to obtain the relevant sums of squares. Using the <code>summary()</code> function on the output from <code>aov()</code> creates the desired ANOVA table (without the unneeded row for total).</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coag_aov <span class="ot">=</span> <span class="fu">aov</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coag_aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>coag_aov</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
@@ -870,7 +870,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Were we to run this experiment, we would have pre-specified a significance level. However, notice that the p-value of this test is incredibly low, so using any reasonable significance level we would reject the null hypothesis. Thus we believe the diets had an effect on blood coagulation time.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>diets <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">diet =</span> <span class="fu">unique</span>(coagulation<span class="sc">$</span>diet))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>diets <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">diet =</span> <span class="fu">unique</span>(coagulation<span class="sc">$</span>diet))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(diets, <span class="at">coag =</span> <span class="fu">predict</span>(coag_aov, diets))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  diet coag
@@ -886,16 +886,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>When performing ANOVA in <code>R</code>, be sure the grouping variable is a factor variable. If it is not, your result might not be ANOVA, but instead a linear regression with the predictor variable considered numeric.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>response <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">15</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">15</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>group    <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">3</span>, <span class="dv">5</span>))</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>bad <span class="ot">=</span> <span class="fu">data.frame</span>(response, group)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>bad <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(response, group)</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(response <span class="sc">~</span> group, <span class="at">data =</span> bad)) <span class="co"># wrong DF!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
 group        1  0.017  0.0173   0.015  0.903
 Residuals   13 14.698  1.1306               </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>good <span class="ot">=</span> <span class="fu">data.frame</span>(response, <span class="at">group =</span> <span class="fu">as.factor</span>(group))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>good <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(response, <span class="at">group =</span> <span class="fu">as.factor</span>(group))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(response <span class="sc">~</span> group, <span class="at">data =</span> good))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
@@ -918,7 +918,7 @@ Residuals   12 14.484  1.2070               </code></pre>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sim_anova <span class="ot">=</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mu_a =</span> <span class="dv">0</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">0</span>, <span class="at">sigma =</span> <span class="dv">1</span>, <span class="at">stat =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sim_anova <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mu_a =</span> <span class="dv">0</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">0</span>, <span class="at">sigma =</span> <span class="dv">1</span>, <span class="at">stat =</span> <span class="cn">TRUE</span>) {</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create data from one-way ANOVA model with four groups of equal size</span></span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># response simulated from normal with group mean, shared variance</span></span>
@@ -944,7 +944,7 @@ Residuals   12 14.484  1.2070               </code></pre>
 <span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>f_stats <span class="ot">=</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">5000</span>, <span class="fu">sim_anova</span>(<span class="at">stat =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>f_stats <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">5000</span>, <span class="fu">sim_anova</span>(<span class="at">stat =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(f_stats, <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="cn">TRUE</span>, <span class="at">border =</span> <span class="st">"dodgerblue"</span>, <span class="at">main =</span> <span class="st">"Empirical Distribution of F"</span>)</span>
@@ -975,7 +975,7 @@ Residuals   12 14.484  1.2070               </code></pre>
 </ul>
 <p>The following simulations look at the effect of significance level, effect size, and noise level on the power of an ANOVA <span class="math inline">\(F\)</span>-test. Homework will look into sample size and balance.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">=</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="fu">sim_anova</span>(<span class="at">mu_a =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">1</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="fu">sim_anova</span>(<span class="at">mu_a =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">1</span>,</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">sigma =</span> <span class="fl">1.5</span>, <span class="at">stat =</span> <span class="cn">FALSE</span>))</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -987,7 +987,7 @@ Residuals   12 14.484  1.2070               </code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">=</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="fu">sim_anova</span>(<span class="at">mu_a =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">1</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="fu">sim_anova</span>(<span class="at">mu_a =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">1</span>,</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">sigma =</span> <span class="fl">2.0</span>, <span class="at">stat =</span> <span class="cn">FALSE</span>))</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -999,7 +999,7 @@ Residuals   12 14.484  1.2070               </code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">=</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="fu">sim_anova</span>(<span class="at">mu_a =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">2</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="fu">sim_anova</span>(<span class="at">mu_a =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">2</span>,</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">sigma =</span> <span class="fl">2.0</span>, <span class="at">stat =</span> <span class="cn">FALSE</span>))</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1057,7 +1057,7 @@ P value adjustment method: bonferroni </code></pre>
 <p>We see that these p-values are much higher than the unadjusted p-values, thus, we are less likely to reject each test. As a result, the FWER is 0.05, instead of an error rate of 0.05 for each test.</p>
 <p>We can simulate the 100 test scenarios to illustrate this point.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>get_p_val <span class="ot">=</span> <span class="cf">function</span>() {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>get_p_val <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create data for two groups, equal mean</span></span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
@@ -1303,12 +1303,12 @@ D-C   -7 -10.5770944 -3.422906 0.0001268</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>rats_int   <span class="ot">=</span> <span class="fu">aov</span>(time <span class="sc">~</span> poison <span class="sc">*</span> treat, <span class="at">data =</span> rats) <span class="co"># interaction model</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>rats_add   <span class="ot">=</span> <span class="fu">aov</span>(time <span class="sc">~</span> poison <span class="sc">+</span> treat, <span class="at">data =</span> rats) <span class="co"># additive model</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>rats_pois  <span class="ot">=</span> <span class="fu">aov</span>(time <span class="sc">~</span> poison , <span class="at">data =</span> rats)        <span class="co"># single factor model   </span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>rats_treat <span class="ot">=</span> <span class="fu">aov</span>(time <span class="sc">~</span> treat, <span class="at">data =</span> rats)          <span class="co"># single factor model</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>rats_treat <span class="ot">&lt;-</span> <span class="fu">aov</span>(time <span class="sc">~</span> treat, <span class="at">data =</span> rats)          <span class="co"># single factor model</span></span>
 <span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>rats_null  <span class="ot">=</span> <span class="fu">aov</span>(time <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> rats)              <span class="co"># null model</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To get the estimates, we’ll create a table which we will predict on.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>rats_table <span class="ot">=</span> <span class="fu">expand.grid</span>(<span class="at">poison =</span> <span class="fu">unique</span>(rats<span class="sc">$</span>poison), <span class="at">treat =</span> <span class="fu">unique</span>(rats<span class="sc">$</span>treat))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>rats_table <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">poison =</span> <span class="fu">unique</span>(rats<span class="sc">$</span>poison), <span class="at">treat =</span> <span class="fu">unique</span>(rats<span class="sc">$</span>treat))</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>rats_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   poison treat
@@ -1336,7 +1336,7 @@ D-C   -7 -10.5770944 -3.422906 0.0001268</code></pre>
 </div>
 <p>Since we’ll be repeating ourselves a number of times, we write a function to perform the prediction. Some housekeeping is done to keep the estimates in order, and provide row and column names. Above, we’ve shown where each of the estimates will be placed in the resulting matrix.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>get_est_means <span class="ot">=</span> <span class="cf">function</span>(model, table) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>get_est_means <span class="ot">&lt;-</span> <span class="cf">function</span>(model, table) {</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">predict</span>(model, table), <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(mat) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>)</span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(mat) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)</span>
@@ -1429,7 +1429,7 @@ D-C   -7 -10.5770944 -3.422906 0.0001268</code></pre>
 </div>
 <p>To understand the difference, let’s consider the effect of the treatments.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>additive_means <span class="ot">=</span> <span class="fu">get_est_means</span>(<span class="at">model =</span> rats_add, <span class="at">table =</span> rats_table)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>additive_means <span class="ot">&lt;-</span> <span class="fu">get_est_means</span>(<span class="at">model =</span> rats_add, <span class="at">table =</span> rats_table)</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>additive_means[<span class="st">"A"</span>,] <span class="sc">-</span> additive_means[<span class="st">"B"</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      I      II     III 
@@ -1437,7 +1437,7 @@ D-C   -7 -10.5770944 -3.422906 0.0001268</code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>interaction_means <span class="ot">=</span> <span class="fu">get_est_means</span>(<span class="at">model =</span> rats_int, <span class="at">table =</span> rats_table)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>interaction_means <span class="ot">&lt;-</span> <span class="fu">get_est_means</span>(<span class="at">model =</span> rats_int, <span class="at">table =</span> rats_table)</span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>interaction_means[<span class="st">"A"</span>,] <span class="sc">-</span> interaction_means[<span class="st">"B"</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      I      II     III 
