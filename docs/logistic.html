@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Devan Becker">
+<meta name="dcterms.date" content="2026-09-03">
+
+<title>17&nbsp; Logistic Regression – Applied Statistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./beyond.html" rel="next">
+<link href="./selection.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8a70c1d71e0781e3ee2592d48d156a72.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-e47931a894087a4f30139d39fc69dd56.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-8a70c1d71e0781e3ee2592d48d156a72.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./logistic.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./logistic.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Applied Statistics</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Applied Statistics with R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Background</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-and-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data and Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prob-and-stat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">OLS Basics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slr-inf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Inference for Simple Linear Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mlr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Choosing Models</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./model-building.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Model Building</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cat-int.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Collinearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variable Selection and Model Building</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Advanced Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logistic.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./beyond.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#generalized-linear-models" id="toc-generalized-linear-models" class="nav-link active" data-scroll-target="#generalized-linear-models"><span class="header-section-number">17.1</span> Generalized Linear Models</a></li>
+  <li><a href="#binary-response" id="toc-binary-response" class="nav-link" data-scroll-target="#binary-response"><span class="header-section-number">17.2</span> Binary Response</a>
+  <ul class="collapse">
+  <li><a href="#fitting-logistic-regression" id="toc-fitting-logistic-regression" class="nav-link" data-scroll-target="#fitting-logistic-regression">Fitting Logistic Regression</a></li>
+  <li><a href="#fitting-issues" id="toc-fitting-issues" class="nav-link" data-scroll-target="#fitting-issues">Fitting Issues</a></li>
+  <li><a href="#simulation-examples" id="toc-simulation-examples" class="nav-link" data-scroll-target="#simulation-examples">Simulation Examples</a></li>
+  </ul></li>
+  <li><a href="#working-with-logistic-regression" id="toc-working-with-logistic-regression" class="nav-link" data-scroll-target="#working-with-logistic-regression"><span class="header-section-number">17.3</span> Working with Logistic Regression</a>
+  <ul class="collapse">
+  <li><a href="#testing-with-glms" id="toc-testing-with-glms" class="nav-link" data-scroll-target="#testing-with-glms">Testing with GLMs</a></li>
+  <li><a href="#wald-test" id="toc-wald-test" class="nav-link" data-scroll-target="#wald-test">Wald Test</a></li>
+  <li><a href="#likelihood-ratio-test" id="toc-likelihood-ratio-test" class="nav-link" data-scroll-target="#likelihood-ratio-test">Likelihood-Ratio Test</a></li>
+  <li><a href="#saheart-example" id="toc-saheart-example" class="nav-link" data-scroll-target="#saheart-example"><code>SAheart</code> Example</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">Confidence Intervals</a></li>
+  <li><a href="#confidence-intervals-for-mean-response" id="toc-confidence-intervals-for-mean-response" class="nav-link" data-scroll-target="#confidence-intervals-for-mean-response">Confidence Intervals for Mean Response</a></li>
+  <li><a href="#formula-syntax" id="toc-formula-syntax" class="nav-link" data-scroll-target="#formula-syntax">Formula Syntax</a></li>
+  <li><a href="#deviance" id="toc-deviance" class="nav-link" data-scroll-target="#deviance">Deviance</a></li>
+  </ul></li>
+  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification"><span class="header-section-number">17.4</span> Classification</a>
+  <ul class="collapse">
+  <li><a href="#spam-example" id="toc-spam-example" class="nav-link" data-scroll-target="#spam-example"><code>spam</code> Example</a></li>
+  <li><a href="#evaluating-classifiers" id="toc-evaluating-classifiers" class="nav-link" data-scroll-target="#evaluating-classifiers">Evaluating Classifiers</a></li>
+  </ul></li>
+  <li><a href="#r-markdown" id="toc-r-markdown" class="nav-link" data-scroll-target="#r-markdown"><span class="header-section-number">17.5</span> <code>R</code> Markdown</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./logistic.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./logistic.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Wilfrid Laurier University
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-09-03</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Note to current readers:</strong> This chapter is slightly less tested than previous chapters. Please do not hesitate to report any errors, or suggest sections that need better explanation! Also, as a result, this material is more likely to receive edits.</p>
+<p>After reading this chapter you will be able to:</p>
+<ul>
+<li>Understand how generalized linear models are a generalization of ordinary linear models.</li>
+<li>Use logistic regression to model a binary response.</li>
+<li>Apply concepts learned for ordinary linear models to logistic regression.</li>
+<li>Use logistic regression to perform classification.</li>
+</ul>
+<p>So far we have only considered models for numeric response variables. What about response variables that only take integer values? What about a response variable that is categorical? Can we use linear models in these situations? Yes! The model that we have been using, which we will call <em>ordinary linear regression</em>, is actually a specific case of the more general, <em>generalized linear model</em>. (Aren’t statisticians great at naming things?)</p>
+<section id="generalized-linear-models" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="generalized-linear-models"><span class="header-section-number">17.1</span> Generalized Linear Models</h2>
+<p>So far, we’ve had response variables that, conditioned on the predictors, were modeled using a normal distribution with a mean that is some linear combination of the predictors. This linear combination is what made a linear model “linear.”</p>
+<p><span class="math display">\[
+Y \mid {\bf X} = {\bf x} \sim N(\beta_0 + \beta_1x_1 + \ldots + \beta_{p - 1}x_{p - 1}, \ \sigma^2)
+\]</span></p>
+<p>Now we’ll allow for two modifications of this situation, which will let us use linear models in many more situations. Instead of using a normal distribution for the response conditioned on the predictors, we’ll allow for other distributions. Also, instead of the conditional mean being a linear combination of the predictors, it can be some function of a linear combination of the predictors.</p>
+<p>In <em>general</em>, a generalized linear model has three parts:</p>
+<ul>
+<li>A <strong>distribution</strong> of the response conditioned on the predictors. (Technically this distribution needs to be from the <a href="https://en.wikipedia.org/wiki/Exponential_family" target="_blank">exponential family</a> of distributions.)</li>
+<li>A <strong>linear combination</strong> of the <span class="math inline">\(p - 1\)</span> predictors, <span class="math inline">\(\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots  + \beta_{p - 1} x_{p - 1}\)</span>, which we write as <span class="math inline">\(\eta({\bf x})\)</span>. That is,</li>
+</ul>
+<p><span class="math display">\[\eta({\bf x}) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots  + \beta_{p - 1} x_{p - 1}\]</span></p>
+<ul>
+<li>A <strong>link</strong> function, <span class="math inline">\(g()\)</span>, that defines how <span class="math inline">\(\eta({\bf x})\)</span>, the linear combination of the predictors, is related to the mean of the response conditioned on the predictors, <span class="math inline">\(\text{E}[Y \mid {\bf X} = {\bf x}]\)</span>.</li>
+</ul>
+<p><span class="math display">\[
+\eta({\bf x}) = g\left(\text{E}[Y \mid {\bf X} = {\bf x}]\right).
+\]</span></p>
+<p>The following table summarizes three examples of a generalized linear model:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 23%">
+<col style="width: 26%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Linear Regression</th>
+<th>Poisson Regression</th>
+<th>Logistic Regression</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(Y \mid {\bf X} = {\bf x}\)</span></td>
+<td><span class="math inline">\(N(\mu({\bf x}), \sigma^2)\)</span></td>
+<td><span class="math inline">\(\text{Pois}(\lambda({\bf x}))\)</span></td>
+<td><span class="math inline">\(\text{Bern}(p({\bf x}))\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Distribution Name</strong></td>
+<td>Normal</td>
+<td>Poisson</td>
+<td>Bernoulli (Binomial)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{E}[Y \mid {\bf X} = {\bf x}]\)</span></td>
+<td><span class="math inline">\(\mu({\bf x})\)</span></td>
+<td><span class="math inline">\(\lambda({\bf x})\)</span></td>
+<td><span class="math inline">\(p({\bf x})\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Support</strong></td>
+<td>Real: <span class="math inline">\((-\infty, \infty)\)</span></td>
+<td>Integer: <span class="math inline">\(0, 1, 2, \ldots\)</span></td>
+<td>Integer: <span class="math inline">\(0, 1\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Usage</strong></td>
+<td>Numeric Data</td>
+<td>Count (Integer) Data</td>
+<td>Binary (Class ) Data</td>
+</tr>
+<tr class="even">
+<td><strong>Link Name</strong></td>
+<td>Identity</td>
+<td>Log</td>
+<td>Logit</td>
+</tr>
+<tr class="odd">
+<td><strong>Link Function</strong></td>
+<td><span class="math inline">\(\eta({\bf x}) = \mu({\bf x})\)</span></td>
+<td><span class="math inline">\(\eta({\bf x}) = \log(\lambda({\bf x}))\)</span></td>
+<td><span class="math inline">\(\eta({\bf x}) = \log \left(\frac{p({\bf x})}{1 - p({\bf x})} \right)\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Mean Function</strong></td>
+<td><span class="math inline">\(\mu({\bf x}) = \eta({\bf x})\)</span></td>
+<td><span class="math inline">\(\lambda({\bf x}) = e^{\eta({\bf x})}\)</span></td>
+<td><span class="math inline">\(p({\bf x}) = \frac{e^{\eta({\bf x})}}{1 + e^{\eta({\bf x})}} = \frac{1}{1 + e^{-\eta({\bf x})}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Like ordinary linear regression, we will seek to “fit” the model by estimating the <span class="math inline">\(\beta\)</span> parameters. To do so, we will use the method of maximum likelihood.</p>
+<p>Note that a Bernoulli distribution is a specific case of a binomial distribution where the <span class="math inline">\(n\)</span> parameter of a binomial is <span class="math inline">\(1\)</span>. Binomial regression is also possible, but we’ll focus on the much more popular Bernoulli case.</p>
+<p>So, in general, GLMs relate the mean of the response to a linear combination of the predictors, <span class="math inline">\(\eta({\bf x})\)</span>, through the use of a link function, <span class="math inline">\(g()\)</span>. That is,</p>
+<p><span class="math display">\[
+\eta({\bf x}) = g\left(\text{E}[Y \mid {\bf X} = {\bf x}]\right).
+\]</span></p>
+<p>The mean is then</p>
+<p><span class="math display">\[
+\text{E}[Y \mid {\bf X} = {\bf x}] = g^{-1}(\eta({\bf x})).
+\]</span></p>
+</section>
+<section id="binary-response" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="binary-response"><span class="header-section-number">17.2</span> Binary Response</h2>
+<p>To illustrate the use of a GLM we’ll focus on the case of binary responses variable coded using <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. In practice, these <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>s will code for two classes such as yes/no, cat/dog, sick/healthy, etc.</p>
+<p><span class="math display">\[
+Y =
+\begin{cases}
+      1 &amp; \text{yes} \\
+      0 &amp; \text{no}
+\end{cases}
+\]</span></p>
+<p>First, we define some notation that we will use throughout.</p>
+<p><span class="math display">\[
+p({\bf x}) = P[Y = 1 \mid {\bf X} = {\bf x}]
+\]</span></p>
+<p>With a binary (Bernoulli) response, we’ll mostly focus on the case when <span class="math inline">\(Y = 1\)</span>, since with only two possibilities, it is trivial to obtain probabilities when <span class="math inline">\(Y = 0\)</span>.</p>
+<p><span class="math display">\[
+P[Y = 0 \mid {\bf X} = {\bf x}] + P[Y = 1 \mid {\bf X} = {\bf x}] = 1
+\]</span></p>
+<p><span class="math display">\[
+P[Y = 0 \mid {\bf X} = {\bf x}] = 1 - p({\bf x})
+\]</span></p>
+<p>We now define the <strong>logistic regression</strong> model.</p>
+<p><span class="math display">\[
+\log\left(\frac{p({\bf x})}{1 - p({\bf x})}\right) = \beta_0 + \beta_1 x_1 + \ldots  + \beta_{p - 1} x_{p - 1}
+\]</span></p>
+<p>Immediately we notice some similarities to ordinary linear regression, in particular, the right-hand side. This is our usual linear combination of the predictors. We have our usual <span class="math inline">\(p - 1\)</span> predictors for a total of <span class="math inline">\(p\)</span> <span class="math inline">\(\beta\)</span> parameters. (Note, many more machine learning focused texts will use <span class="math inline">\(p\)</span> as the number of predictors. This is an arbitrary choice, but you should be aware of it.)</p>
+<p>The left-hand side is called the <strong>log odds</strong>, which is the log of the odds. The odds are the probability for a positive event <span class="math inline">\((Y = 1)\)</span> divided by the probability of a negative event <span class="math inline">\((Y = 0)\)</span>. So when the odds are <span class="math inline">\(1\)</span>, the two events have equal probability. Odds greater than <span class="math inline">\(1\)</span> favor a positive event. The opposite is true when the odds are less than <span class="math inline">\(1\)</span>.</p>
+<p><span class="math display">\[
+\frac{p({\bf x})}{1 - p({\bf x})} = \frac{P[Y = 1 \mid {\bf X} = {\bf x}]}{P[Y = 0 \mid {\bf X} = {\bf x}]}
+\]</span></p>
+<p>Essentially, the log odds are the <a href="https://en.wikipedia.org/wiki/Logit" target="_blank">logit</a> transform applied to <span class="math inline">\(p({\bf x})\)</span>.</p>
+<p><span class="math display">\[
+\text{logit}(\xi) = \log\left(\frac{\xi}{1 - \xi}\right)
+\]</span></p>
+<p>It will also be useful to define the inverse logit, otherwise known as the “logistic” or <a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank">sigmoid</a> function.</p>
+<p><span class="math display">\[
+\text{logit}^{-1}(\xi) = \frac{e^\xi}{1 + e^{\xi}} = \frac{1}{1 + e^{-\xi}}
+\]</span></p>
+<p>Note that for <span class="math inline">\(x \in (-\infty, \infty))\)</span>, this function outputs values between 0 and 1.</p>
+<p>Students often ask, where is the error term? The answer is that it’s something that is specific to the normal model. First notice that the model with the error term,</p>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1x_1 + \ldots + \beta_qx_q + \epsilon, \ \ \epsilon \sim N(0, \sigma^2)
+\]</span> can instead be written as</p>
+<p><span class="math display">\[
+Y \mid {\bf X} = {\bf x} \sim N(\beta_0 + \beta_1x_1 + \ldots + \beta_qx_q, \ \sigma^2).
+\]</span></p>
+<p>While our main focus is on estimating the mean, <span class="math inline">\(\beta_0 + \beta_1x_1 + \ldots + \beta_qx_q\)</span>, there is also another parameter, <span class="math inline">\(\sigma^2\)</span> which needs to be estimated. This is the result of the normal distribution having two parameters.</p>
+<p>With logistic regression, which uses the Bernoulli distribution, we only need to estimate the Bernoulli distribution’s single parameter <span class="math inline">\(p({\bf x})\)</span>, which happens to be its mean.</p>
+<p><span class="math display">\[
+\log\left(\frac{p({\bf x})}{1 - p({\bf x})}\right) = \beta_0 + \beta_1 x_1 + \ldots  + \beta_{q} x_{q}
+\]</span></p>
+<p>So even though we introduced ordinary linear regression first, in some ways, logistic regression is actually simpler.</p>
+<p>Note that applying the inverse logit transformation allow us to obtain an expression for <span class="math inline">\(p({\bf x})\)</span>.</p>
+<p><span class="math display">\[
+p({\bf x}) = P[Y = 1 \mid {\bf X} = {\bf x}] = \frac{e^{\beta_0 + \beta_1 x_{1} + \cdots + \beta_{p-1} x_{(p-1)}}}{1 + e^{\beta_0 + \beta_1 x_{1} + \cdots + \beta_{p-1} x_{(p-1)}}}
+\]</span></p>
+<section id="fitting-logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-logistic-regression">Fitting Logistic Regression</h3>
+<p>With <span class="math inline">\(n\)</span> observations, we write the model indexed with <span class="math inline">\(i\)</span> to note that it is being applied to each observation.</p>
+<p><span class="math display">\[
+\log\left(\frac{p({\bf x_i})}{1 - p({\bf x_i})}\right) = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_{p-1} x_{i(p-1)}
+\]</span></p>
+<p>We can apply the inverse logit transformation to obtain <span class="math inline">\(P[Y_i = 1 \mid {\bf X_i} = {\bf x_i}]\)</span> for each observation. Since these are probabilities, it’s good that we used a function that returns values between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>.</p>
+<p><span class="math display">\[
+p({\bf x_i}) = P[Y_i = 1 \mid {\bf X_i} = {\bf x_i}] = \frac{e^{\beta_0 + \beta_1 x_{i1} + \cdots + \beta_{p-1} x_{i(p-1)}}}{1 + e^{\beta_0 + \beta_1 x_{i1} + \cdots + \beta_{p-1} x_{i(p-1)}}}
+\]</span></p>
+<p><span class="math display">\[
+1 - p({\bf x_i}) = P[Y_i = 0 \mid {\bf X} = {\bf x_i}] = \frac{1}{1 + e^{\beta_0 + \beta_1 x_{i1} + \cdots + \beta_{p-1} x_{i(p-1)}}}
+\]</span></p>
+<p>To “fit” this model, that is estimate the <span class="math inline">\(\beta\)</span> parameters, we will use maximum likelihood.</p>
+<p><span class="math display">\[
+\boldsymbol{{\beta}} = [\beta_0, \beta_1, \beta_2, \beta_3, \ldots, \beta_{p - 1}]
+\]</span></p>
+<p>We first write the likelihood given the observed data.</p>
+<p><span class="math display">\[
+L(\boldsymbol{{\beta}}) = \prod_{i = 1}^{n} P[Y_i = y_i \mid {\bf X_i} = {\bf x_i}]
+\]</span></p>
+<p>This is already technically a function of the <span class="math inline">\(\beta\)</span> parameters, but we’ll do some rearrangement to make this more explicit.</p>
+<p><span class="math display">\[
+L(\boldsymbol{{\beta}}) = \prod_{i = 1}^{n} p({\bf x_i})^{y_i} (1 - p({\bf x_i}))^{(1 - y_i)}
+\]</span></p>
+<p><span class="math display">\[
+L(\boldsymbol{{\beta}}) = \prod_{i : y_i = 1}^{n} p({\bf x_i}) \prod_{j : y_j = 0}^{n} (1 - p({\bf x_j}))
+\]</span></p>
+<p><span class="math display">\[
+L(\boldsymbol{{\beta}}) = \prod_{i : y_i = 1}^{} \frac{e^{\beta_0 + \beta_1 x_{i1} + \cdots + \beta_{p-1} x_{i(p-1)}}}{1 + e^{\beta_0 + \beta_1 x_{i1} + \cdots + \beta_{p-1} x_{i(p-1)}}} \prod_{j : y_j = 0}^{} \frac{1}{1 + e^{\beta_0 + \beta_1 x_{j1} + \cdots + \beta_{p-1} x_{j(p-1)}}}
+\]</span></p>
+<p>Unfortunately, unlike ordinary linear regression, there is no analytical solution for this maximization problem. Instead, it will need to be solved numerically. Fortunately, <code>R</code> will take care of this for us using an iteratively reweighted least squares algorithm. (We’ll leave the details for a machine learning or optimization course, which would likely also discuss alternative optimization strategies.)</p>
+</section>
+<section id="fitting-issues" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-issues">Fitting Issues</h3>
+<p>We should note that, if there exists some <span class="math inline">\(\beta^*\)</span> such that</p>
+<p><span class="math display">\[
+{\bf x_i}^{\top} \boldsymbol{{\beta}^*} &gt; 0 \implies y_i = 1
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+{\bf x_i}^{\top} \boldsymbol{{\beta}^*} &lt; 0 \implies y_i = 0
+\]</span></p>
+<p>for all observations, then the MLE is not unique. Such data is said to be separable.</p>
+<p>This, and similar numeric issues related to estimated probabilities near 0 or 1, will return a warning in <code>R</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+</div>
+</div>
+<p>When this happens, the model is still “fit,” but there are consequences, namely, the estimated coefficients are highly suspect. This is an issue when then trying to interpret the model. When this happens, the model will often still be useful for creating a classifier, which will be discussed later. However, it is still subject to the usual evaluations for classifiers to determine how well it is performing. For details, see <a href="https://link.springer.com/content/pdf/10.1007/978-1-4757-2719-7_7.pdf" target="_blank">Modern Applied Statistics with S-PLUS, Chapter 7</a>.</p>
+</section>
+<section id="simulation-examples" class="level3">
+<h3 class="anchored" data-anchor-id="simulation-examples">Simulation Examples</h3>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sim_logistic_data <span class="ot">=</span> <span class="cf">function</span>(<span class="at">sample_size =</span> <span class="dv">25</span>, <span class="at">beta_0 =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">beta_1 =</span> <span class="dv">3</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> sample_size)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">=</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> x</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">=</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>eta))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rbinom</span>(<span class="at">n =</span> sample_size, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>You might think, why not simply use ordinary linear regression? Even with a binary response, our goal is still to model (some function of) <span class="math inline">\(\text{E}[Y \mid {\bf X} = {\bf x}]\)</span>. However, with a binary response coded as <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, <span class="math inline">\(\text{E}[Y \mid {\bf X} = {\bf x}] = P[Y = 1 \mid {\bf X} = {\bf x}]\)</span> since</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{E}[Y \mid {\bf X} = {\bf x}] &amp;=  1 \cdot P[Y = 1 \mid {\bf X} = {\bf x}] + 0 \cdot P[Y = 0 \mid {\bf X} = {\bf x}] \\
+                                  &amp;= P[Y = 1 \mid {\bf X} = {\bf x}]
+\end{aligned}
+\]</span></p>
+<p>Then why can’t we just use ordinary linear regression to estimate <span class="math inline">\(\text{E}[Y \mid {\bf X} = {\bf x}]\)</span>, and thus <span class="math inline">\(P[Y = 1 \mid {\bf X} = {\bf x}]\)</span>?</p>
+<p>To investigate, let’s simulate data from the following model:</p>
+<p><span class="math display">\[
+\log\left(\frac{p({\bf x})}{1 - p({\bf x})}\right) = -2 + 3 x
+\]</span></p>
+<p>Another way to write this, which better matches the function we’re using to simulate the data:</p>
+<p><span class="math display">\[
+\begin{aligned}
+Y_i \mid {\bf X_i} = {\bf x_i} &amp;\sim \text{Bern}(p_i) \\
+p_i &amp;= p({\bf x_i}) = \frac{1}{1 + e^{-\eta({\bf x_i})}} \\
+\eta({\bf x_i}) &amp;= -2 + 3 x_i
+\end{aligned}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">=</span> <span class="fu">sim_logistic_data</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(example_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  y          x
+1 0 -0.6264538
+2 1  0.1836433
+3 0 -0.8356286
+4 1  1.5952808
+5 0  0.3295078
+6 0 -0.8204684</code></pre>
+</div>
+</div>
+<p>After simulating a dataset, we’ll then fit both ordinary linear regression and logistic regression. Notice that currently the responses variable <code>y</code> is a numeric variable that only takes values <code>0</code> and <code>1</code>. Later we’ll see that we can also fit logistic regression when the response is a factor variable with only two levels. (Generally, having a factor response is preferred, but having a dummy response allows us to make the comparison to using ordinary linear regression.)</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ordinary linear regression</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fit_lm  <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic regression</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">=</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data, <span class="at">family =</span> binomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Notice that the syntax is extremely similar. What’s changed?</p>
+<ul>
+<li><code>lm()</code> has become <code>glm()</code></li>
+<li>We’ve added <code>family = binomial</code> argument</li>
+</ul>
+<p>In a lot of ways, <code>lm()</code> is just a more specific version of <code>glm()</code>. For example</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>would actually fit the ordinary linear regression that we have seen in the past. By default, <code>glm()</code> uses <code>family = gaussian</code> argument. That is, we’re fitting a GLM with a normally distributed response and the identity function as the link.</p>
+<p>The <code>family</code> argument to <code>glm()</code> actually specifies both the distribution and the link function. If not made explicit, the link function is chosen to be the <strong>canonical link function</strong>, which is essentially the most mathematical convenient link function. See <code>?glm</code> and <code>?family</code> for details. For example, the following code explicitly specifies the link function which was previously used by default.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># more detailed call to glm for logistic regression</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">=</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Making predictions with an object of type <code>glm</code> is slightly different than making predictions after fitting with <code>lm()</code>. In the case of logistic regression, with <code>family = binomial</code>, we have:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 66%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><code>type</code></th>
+<th>Returned</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>"link"</code> [default]</td>
+<td><span class="math inline">\(\hat{\eta}({\bf x}) = \log\left(\frac{\hat{p}({\bf x})}{1 - \hat{p}({\bf x})}\right)\)</span></td>
+</tr>
+<tr class="even">
+<td><code>"response"</code></td>
+<td><span class="math inline">\(\hat{p}({\bf x}) = \frac{e^{\hat{\eta}({\bf x})}}{1 + e^{\hat{\eta}({\bf x})}} = \frac{1}{1 + e^{-\hat{\eta}({\bf x})}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>That is, <code>type = "link"</code> will get you the log odds, while <code>type = "response"</code> will return the estimated mean, in this case, <span class="math inline">\(P[Y = 1 \mid {\bf X} = {\bf x}]\)</span> for each observation.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit_glm, <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fl">1.2</span>)) <span class="co"># type = "link" as default</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+2.076166 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit_glm, <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fl">1.2</span>), <span class="at">type =</span> <span class="st">"link"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+2.076166 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit_glm, <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fl">1.2</span>), <span class="at">type =</span> <span class="st">"response"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+0.888565 </code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">ylab =</span> <span class="st">"Estimated Probability"</span>, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Ordinary vs Logistic Regression"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit_lm, <span class="at">col =</span> <span class="st">"darkorange"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">predict</span>(fit_glm, <span class="fu">data.frame</span>(x), <span class="at">type =</span> <span class="st">"response"</span>), </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="fu">c</span>(<span class="st">"Ordinary"</span>, <span class="st">"Logistic"</span>, <span class="st">"Data"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>), </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">20</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"dodgerblue"</span>, <span class="st">"black"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="logistic_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Since we only have a single predictor variable, we are able to graphically show this situation. First, note that the data, is plotted using black dots. The response <code>y</code> only takes values <code>0</code> and <code>1</code>.</p>
+<p>Next, we need to discuss the two added lines to the plot. The first, the solid orange line, is the fitted ordinary linear regression.</p>
+<p>The dashed blue curve is the estimated logistic regression. It is helpful to realize that we are not plotting an estimate of <span class="math inline">\(Y\)</span> for either. (Sometimes it might seem that way with ordinary linear regression, but that isn’t what is happening.) For both, we are plotting <span class="math inline">\(\hat{\text{E}}[Y \mid {\bf X} = {\bf x}]\)</span>, the estimated mean, which for a binary response happens to be an estimate of <span class="math inline">\(P[Y = 1 \mid {\bf X} = {\bf x}]\)</span>.</p>
+<p>We immediately see why ordinary linear regression is not a good idea. While it is estimating the mean, we see that it produces estimates that are less than 0! (And in other situations could produce estimates greater than 1!) If the mean is a probability, we don’t want probabilities less than 0 or greater than 1.</p>
+<p>Enter logistic regression. Since the output of the inverse logit function is restricted to be between 0 and 1, our estimates make much more sense as probabilities. Let’s look at our estimated coefficients. (With a lot of rounding, for simplicity.)</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(fit_glm), <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)           x 
+       -2.3         3.7 </code></pre>
+</div>
+</div>
+<p>Our estimated model is then:</p>
+<p><span class="math display">\[
+\log\left(\frac{\hat{p}({\bf x})}{1 - \hat{p}({\bf x})}\right) = -2.3 + 3.7 x
+\]</span></p>
+<p>Because we’re not directly estimating the mean, but instead a function of the mean, we need to be careful with our interpretation of <span class="math inline">\(\hat{\beta}_1 = 3.7\)</span>. This means that, for a one unit increase in <span class="math inline">\(x\)</span>, the log odds change (in this case increase) by <span class="math inline">\(3.7\)</span>. Also, since <span class="math inline">\(\hat{\beta}_1\)</span> is positive, as we increase <span class="math inline">\(x\)</span> we also increase <span class="math inline">\(\hat{p}({\bf x})\)</span>. To see how much, we have to consider the inverse logistic function.</p>
+<p>For example, we have:</p>
+<p><span class="math display">\[
+\hat{P}[Y = 1 \mid X = -0.5] = \frac{e^{-2.3 + 3.7 \cdot (-0.5)}}{1 + e^{-2.3 + 3.7 \cdot (-0.5)}} \approx 0.016
+\]</span></p>
+<p><span class="math display">\[
+\hat{P}[Y = 1 \mid X = 0] = \frac{e^{-2.3 + 3.7 \cdot (0)}}{1 + e^{-2.3 + 3.7 \cdot (0)}} \approx 0.09112296
+\]</span></p>
+<p><span class="math display">\[
+\hat{P}[Y = 1 \mid X = 1] = \frac{e^{-2.3 + 3.7 \cdot (1)}}{1 + e^{-2.3 + 3.7 \cdot (1)}} \approx 0.8021839
+\]</span></p>
+<p>Now that we know we should use logistic regression, and not ordinary linear regression, let’s consider another example. This time, let’s consider the model</p>
+<p><span class="math display">\[
+\log\left(\frac{p({\bf x})}{1 - p({\bf x})}\right) = 1 + -4 x.
+\]</span></p>
+<p>Again, we could re-write this to better match the function we’re using to simulate the data:</p>
+<p><span class="math display">\[
+\begin{aligned}
+Y_i \mid {\bf X_i} = {\bf x_i} &amp;\sim \text{Bern}(p_i) \\
+p_i &amp;= p({\bf x_i}) = \frac{1}{1 + e^{-\eta({\bf x_i})}} \\
+\eta({\bf x_i}) &amp;= 1 + -4 x_i
+\end{aligned}
+\]</span></p>
+<p>In this model, as <span class="math inline">\(x\)</span> increases, the log odds decrease.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">=</span> <span class="fu">sim_logistic_data</span>(<span class="at">sample_size =</span> <span class="dv">50</span>, <span class="at">beta_0 =</span> <span class="dv">1</span>, <span class="at">beta_1 =</span> <span class="sc">-</span><span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>We again simulate some observations form this model, then fit logistic regression.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">=</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data, <span class="at">family =</span> binomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">ylab =</span> <span class="st">"Estimated Probability"</span>, </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Logistic Regression, Decreasing Probability"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">predict</span>(fit_glm, <span class="fu">data.frame</span>(x), <span class="at">type =</span> <span class="st">"response"</span>), </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(boot<span class="sc">::</span><span class="fu">inv.logit</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> x), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"darkorange"</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomleft"</span>, <span class="fu">c</span>(<span class="st">"True Probability"</span>, <span class="st">"Estimated Probability"</span>, <span class="st">"Data"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>), </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">20</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"dodgerblue"</span>, <span class="st">"black"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="logistic_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We see that this time, as <span class="math inline">\(x\)</span> increases, <span class="math inline">\(\hat{p}({\bf x})\)</span> decreases.</p>
+<p>Now let’s look at an example where the estimated probability doesn’t always simply increase or decrease. Much like ordinary linear regression, the linear combination of predictors can contain transformations of predictors (in this case a quadratic term) and interactions.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sim_quadratic_logistic_data <span class="ot">=</span> <span class="cf">function</span>(<span class="at">sample_size =</span> <span class="dv">25</span>) {</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> sample_size)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">=</span> <span class="sc">-</span><span class="fl">1.5</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> x <span class="sc">+</span> x <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">=</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>eta))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rbinom</span>(<span class="at">n =</span> sample_size, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><span class="math display">\[
+\log\left(\frac{p({\bf x})}{1 - p({\bf x})}\right) = -1.5 + 0.5x + x^2.
+\]</span></p>
+<p>Again, we could re-write this to better match the function we’re using to simulate the data:</p>
+<p><span class="math display">\[
+\begin{aligned}
+Y_i \mid {\bf X_i} = {\bf x_i} &amp;\sim \text{Bern}(p_i) \\
+p_i &amp;= p({\bf x_i}) = \frac{1}{1 + e^{-\eta({\bf x_i})}} \\
+\eta({\bf x_i}) &amp;= -1.5 + 0.5x_i + x_i^2
+\end{aligned}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">=</span> <span class="fu">sim_quadratic_logistic_data</span>(<span class="at">sample_size =</span> <span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">=</span> <span class="fu">glm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> example_data, <span class="at">family =</span> binomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data, </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">ylab =</span> <span class="st">"Estimated Probability"</span>, </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Logistic Regression, Quadratic Relationship"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">predict</span>(fit_glm, <span class="fu">data.frame</span>(x), <span class="at">type =</span> <span class="st">"response"</span>), </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(boot<span class="sc">::</span><span class="fu">inv.logit</span>(<span class="sc">-</span><span class="fl">1.5</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> x <span class="sc">+</span> x <span class="sc">^</span> <span class="dv">2</span>), </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"darkorange"</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottomleft"</span>, <span class="fu">c</span>(<span class="st">"True Probability"</span>, <span class="st">"Estimated Probability"</span>, <span class="st">"Data"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>), </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">20</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"dodgerblue"</span>, <span class="st">"black"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="logistic_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="working-with-logistic-regression" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="working-with-logistic-regression"><span class="header-section-number">17.3</span> Working with Logistic Regression</h2>
+<p>While the logistic regression model isn’t exactly the same as the ordinary linear regression model, because they both use a <strong>linear</strong> combination of the predictors</p>
+<p><span class="math display">\[
+\eta({\bf x}) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots  + \beta_{p - 1} x_{p - 1}
+\]</span></p>
+<p>working with logistic regression is very similar. Many of the things we did with ordinary linear regression can be done with logistic regression in a very similar fashion. For example,</p>
+<ul>
+<li>Testing for a single <span class="math inline">\(\beta\)</span> parameter</li>
+<li>Testing for a set of <span class="math inline">\(\beta\)</span> parameters</li>
+<li>Formula specification in <code>R</code></li>
+<li>Interpreting parameters and estimates</li>
+<li>Confidence intervals for parameters</li>
+<li>Confidence intervals for mean response</li>
+<li>Variable selection</li>
+</ul>
+<p>After some introduction to the new tests, we’ll demonstrate each of these using an example.</p>
+<section id="testing-with-glms" class="level3">
+<h3 class="anchored" data-anchor-id="testing-with-glms">Testing with GLMs</h3>
+<p>Like ordinary linear regression, we’ll want to be able to perform hypothesis testing. We’ll again want both single parameter, and multiple parameter tests.</p>
+</section>
+<section id="wald-test" class="level3">
+<h3 class="anchored" data-anchor-id="wald-test">Wald Test</h3>
+<p>In ordinary linear regression, we performed the test of</p>
+<p><span class="math display">\[
+H_0: \beta_j = 0 \quad \text{vs} \quad H_1: \beta_j \neq 0
+\]</span></p>
+<p>using a <span class="math inline">\(t\)</span>-test.</p>
+<p>For the logistic regression model,</p>
+<p><span class="math display">\[
+\log\left(\frac{p({\bf x})}{1 - p({\bf x})}\right) = \beta_0 + \beta_1 x_1 + \ldots  + \beta_{p - 1} x_{p - 1}
+\]</span></p>
+<p>we can again perform a test of</p>
+<p><span class="math display">\[
+H_0: \beta_j = 0 \quad \text{vs} \quad H_1: \beta_j \neq 0
+\]</span></p>
+<p>however, the test statistic and its distribution are no longer <span class="math inline">\(t\)</span>. We see that the test statistic takes the same form</p>
+<p><span class="math display">\[
+z = \frac{\hat{\beta}_j - \beta_j}{\text{SE}[\hat{\beta}_j]} \overset{\text{approx}}{\sim} N(0, 1)
+\]</span></p>
+<p>but now we are performing a <span class="math inline">\(z\)</span>-test, as the test statistic is approximated by a standard normal distribution, <em>provided we have a large enough sample</em>. (The <span class="math inline">\(t\)</span>-test for ordinary linear regression, assuming the assumptions were correct, had an exact distribution for any sample size.)</p>
+<p>We’ll skip some of the exact details of the calculations, as <code>R</code> will obtain the standard error for us. The use of this test will be extremely similar to the <span class="math inline">\(t\)</span>-test for ordinary linear regression. Essentially the only thing that changes is the distribution of the test statistic.</p>
+</section>
+<section id="likelihood-ratio-test" class="level3">
+<h3 class="anchored" data-anchor-id="likelihood-ratio-test">Likelihood-Ratio Test</h3>
+<p>Consider the following <strong>full</strong> model,</p>
+<p><span class="math display">\[
+\log\left(\frac{p({\bf x_i})}{1 - p({\bf x_i})}\right) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{(p-1)} x_{i(p-1)}
+\]</span></p>
+<p>This model has <span class="math inline">\(p - 1\)</span> predictors, for a total of <span class="math inline">\(p\)</span> <span class="math inline">\(\beta\)</span>-parameters. We will denote the MLE of these <span class="math inline">\(\beta\)</span>-parameters as <span class="math inline">\(\hat{\beta}_{\text{Full}}\)</span></p>
+<p>Now consider a <strong>null</strong> (or <strong>reduced</strong>) model,</p>
+<p><span class="math display">\[
+\log\left(\frac{p({\bf x_i})}{1 - p({\bf x_i})}\right) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{(q-1)} x_{i(q-1)}
+\]</span></p>
+<p>where <span class="math inline">\(q &lt; p\)</span>. This model has <span class="math inline">\(q - 1\)</span> predictors, for a total of <span class="math inline">\(q\)</span> <span class="math inline">\(\beta\)</span>-parameters. We will denote the MLE of these <span class="math inline">\(\beta\)</span>-parameters as <span class="math inline">\(\hat{\beta}_{\text{Null}}\)</span></p>
+<p>The difference between these two models can be codified by the null hypothesis of a test.</p>
+<p><span class="math display">\[
+H_0: \beta_q = \beta_{q+1} = \cdots = \beta_{p - 1} = 0.
+\]</span></p>
+<p>This implies that the reduced model is nested inside the full model.</p>
+<p>We then define a test statistic, <span class="math inline">\(D\)</span>,</p>
+<p><span class="math display">\[
+D = -2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Null}}})} {L(\boldsymbol{\hat{\beta}_{\text{Full}}})} \right) = 2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Full}}})} {L(\boldsymbol{\hat{\beta}_{\text{Null}}})} \right) = 2 \left( \ell(\hat{\beta}_{\text{Full}}) - \ell(\hat{\beta}_{\text{Null}})\right)
+\]</span></p>
+<p>where <span class="math inline">\(L\)</span> denotes a likelihood and <span class="math inline">\(\ell\)</span> denotes a log-likelihood. For a large enough sample, this test statistic has an approximate Chi-square distribution</p>
+<p><span class="math display">\[
+D \overset{\text{approx}}{\sim} \chi^2_{k}
+\]</span></p>
+<p>where <span class="math inline">\(k = p - q\)</span>, the difference in number of parameters of the two models.</p>
+<p>This test, which we will call the <strong>Likelihood-Ratio Test</strong>, will be the analogue to the ANOVA <span class="math inline">\(F\)</span>-test for logistic regression. Interestingly, to perform the Likelihood-Ratio Test, we’ll actually again use the <code>anova()</code> function in <code>R</code>!.</p>
+<p>The Likelihood-Ratio Test is actually a rather general test, however, here we have presented a specific application to nested logistic regression models.</p>
+</section>
+<section id="saheart-example" class="level3">
+<h3 class="anchored" data-anchor-id="saheart-example"><code>SAheart</code> Example</h3>
+<p>To illustrate the use of logistic regression, we will use the <code>SAheart</code> dataset from the <code>bestglm</code> package.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># "leaps" is required for "bestglm"</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"leaps"</span>)) <span class="fu">install.packages</span>(<span class="st">"leaps"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"bestglm"</span>)) <span class="fu">install.packages</span>(<span class="st">"bestglm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"SAheart"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">sbp</th>
+<th style="text-align: right;">tobacco</th>
+<th style="text-align: right;">ldl</th>
+<th style="text-align: right;">adiposity</th>
+<th style="text-align: left;">famhist</th>
+<th style="text-align: right;">typea</th>
+<th style="text-align: right;">obesity</th>
+<th style="text-align: right;">alcohol</th>
+<th style="text-align: right;">age</th>
+<th style="text-align: right;">chd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">5.73</td>
+<td style="text-align: right;">23.11</td>
+<td style="text-align: left;">Present</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">25.30</td>
+<td style="text-align: right;">97.20</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">144</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">4.41</td>
+<td style="text-align: right;">28.61</td>
+<td style="text-align: left;">Absent</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">28.87</td>
+<td style="text-align: right;">2.06</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">118</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">3.48</td>
+<td style="text-align: right;">32.28</td>
+<td style="text-align: left;">Present</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">29.14</td>
+<td style="text-align: right;">3.81</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">170</td>
+<td style="text-align: right;">7.50</td>
+<td style="text-align: right;">6.41</td>
+<td style="text-align: right;">38.03</td>
+<td style="text-align: left;">Present</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">31.99</td>
+<td style="text-align: right;">24.26</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">134</td>
+<td style="text-align: right;">13.60</td>
+<td style="text-align: right;">3.50</td>
+<td style="text-align: right;">27.78</td>
+<td style="text-align: left;">Present</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">25.99</td>
+<td style="text-align: right;">57.34</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">132</td>
+<td style="text-align: right;">6.20</td>
+<td style="text-align: right;">6.47</td>
+<td style="text-align: right;">36.21</td>
+<td style="text-align: left;">Present</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">30.77</td>
+<td style="text-align: right;">14.14</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This data comes from a retrospective sample of males in a heart-disease high-risk region of the Western Cape, South Africa. The <code>chd</code> variable, which we will use as a response, indicates whether or not coronary heart disease is present in an individual. Note that this is coded as a numeric <code>0</code> / <code>1</code> variable. Using this as a response with <code>glm()</code> it is important to indicate <code>family = binomial</code>, otherwise ordinary linear regression will be fit. Later, we will see the use of a factor variable response, which is actually preferred, as you cannot accidentally fit ordinary linear regression.</p>
+<p>The predictors are various measurements for each individual, many related to heart health. For example <code>sbp</code>, systolic blood pressure, and <code>ldl</code>, low density lipoprotein cholesterol. For full details, use <code>?SAheart</code>.</p>
+<p>We’ll begin by attempting to model the probability of coronary heart disease based on low density lipoprotein cholesterol. That is, we will fit the model</p>
+<p><span class="math display">\[
+\log\left(\frac{P[\texttt{chd} = 1]}{1 - P[\texttt{chd} = 1]}\right) = \beta_0 + \beta_{\texttt{ldl}} x_{\texttt{ldl}}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>chd_mod_ldl <span class="ot">=</span> <span class="fu">glm</span>(chd <span class="sc">~</span> ldl, <span class="at">data =</span> SAheart, <span class="at">family =</span> binomial)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">jitter</span>(chd, <span class="at">factor =</span> <span class="fl">0.1</span>) <span class="sc">~</span> ldl, <span class="at">data =</span> SAheart, <span class="at">pch =</span> <span class="dv">20</span>, </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Probability of CHD"</span>, <span class="at">xlab =</span> <span class="st">"Low Density Lipoprotein Cholesterol"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">predict</span>(chd_mod_ldl, <span class="fu">data.frame</span>(<span class="at">ldl =</span> x), <span class="at">type =</span> <span class="st">"response"</span>), </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="logistic_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As before, we plot the data in addition to the estimated probabilities. Note that we have “jittered” the data to make it easier to visualize, but the data do only take values <code>0</code> and <code>1</code>.</p>
+<p>As we would expect, this plot indicates that as <code>ldl</code> increases, so does the probability of <code>chd</code>.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(chd_mod_ldl))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error   z value     Pr(&gt;|z|)
+(Intercept) -1.9686681 0.27307908 -7.209150 5.630207e-13
+ldl          0.2746613 0.05163983  5.318787 1.044615e-07</code></pre>
+</div>
+</div>
+<p>To perform the test</p>
+<p><span class="math display">\[
+H_0: \beta_{\texttt{ldl}} = 0
+\]</span></p>
+<p>we use the <code>summary()</code> function as we have done so many times before. Like the <span class="math inline">\(t\)</span>-test for ordinary linear regression, this returns the estimate of the parameter, its standard error, the relevant test statistic (<span class="math inline">\(z\)</span>), and its p-value. Here we have an incredibly low p-value, so we reject the null hypothesis. The <code>ldl</code> variable appears to be a significant predictor.</p>
+<p>When fitting logistic regression, we can use the same formula syntax as ordinary linear regression. So, to fit an additive model using all available predictors, we use:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>chd_mod_additive <span class="ot">=</span> <span class="fu">glm</span>(chd <span class="sc">~</span> ., <span class="at">data =</span> SAheart, <span class="at">family =</span> binomial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>We can then use the likelihood-ratio test to compare the two models. Specifically, we are testing</p>
+<p><span class="math display">\[
+H_0: \beta_{\texttt{sbp}} = \beta_{\texttt{tobacco}} = \beta_{\texttt{adiposity}} = \beta_{\texttt{famhist}} = \beta_{\texttt{typea}} = \beta_{\texttt{obesity}} = \beta_{\texttt{alcohol}} = \beta_{\texttt{age}} = 0
+\]</span></p>
+<p>We could manually calculate the test statistic,</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(chd_mod_ldl) <span class="sc">-</span> <span class="fu">logLik</span>(chd_mod_additive))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 92.13879</code></pre>
+</div>
+</div>
+<p>Or we could utilize the <code>anova()</code> function. By specifying <code>test = "LRT"</code>, <code>R</code> will use the likelihood-ratio test to compare the two models.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(chd_mod_ldl, chd_mod_additive, <span class="at">test =</span> <span class="st">"LRT"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: chd ~ ldl
+Model 2: chd ~ sbp + tobacco + ldl + adiposity + famhist + typea + obesity + 
+    alcohol + age
+  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+1       460     564.28                          
+2       452     472.14  8   92.139 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>We see that the test statistic that we had just calculated appears in the output. The very small p-value suggests that we prefer the larger model.</p>
+<p>While we prefer the additive model compared to the model with only a single predictor, do we actually need all of the predictors in the additive model? To select a subset of predictors, we can use a stepwise procedure as we did with ordinary linear regression. Recall that AIC and BIC were defined in terms of likelihoods. Here we demonstrate using AIC with a backwards selection procedure.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>chd_mod_selected <span class="ot">=</span> <span class="fu">step</span>(chd_mod_additive, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(chd_mod_selected)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   (Intercept)        tobacco            ldl famhistPresent          typea 
+   -6.44644451     0.08037533     0.16199164     0.90817526     0.03711521 
+           age 
+    0.05046038 </code></pre>
+</div>
+</div>
+<p>We could again compare this model to the additive models.</p>
+<p><span class="math display">\[
+H_0: \beta_{\texttt{sbp}} = \beta_{\texttt{adiposity}} = \beta_{\texttt{obesity}} = \beta_{\texttt{alcohol}} = 0
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(chd_mod_selected, chd_mod_additive, <span class="at">test =</span> <span class="st">"LRT"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: chd ~ tobacco + ldl + famhist + typea + age
+Model 2: chd ~ sbp + tobacco + ldl + adiposity + famhist + typea + obesity + 
+    alcohol + age
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+1       456     475.69                     
+2       452     472.14  4   3.5455    0.471</code></pre>
+</div>
+</div>
+<p>Here it seems that we would prefer the selected model.</p>
+</section>
+<section id="confidence-intervals" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-intervals">Confidence Intervals</h3>
+<p>We can create confidence intervals for the <span class="math inline">\(\beta\)</span> parameters using the <code>confint()</code> function as we did with ordinary linear regression.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(chd_mod_selected, <span class="at">level =</span> <span class="fl">0.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Waiting for profiling to be done...</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      0.5 %      99.5 %
+(Intercept)    -8.941825274 -4.18278990
+tobacco         0.015704975  0.14986616
+ldl             0.022923610  0.30784590
+famhistPresent  0.330033483  1.49603366
+typea           0.006408724  0.06932612
+age             0.024847330  0.07764277</code></pre>
+</div>
+</div>
+<p>Note that we could create intervals by rearranging the results of the Wald test to obtain the Wald confidence interval. This would be given by</p>
+<p><span class="math display">\[
+\hat{\beta}_j \pm z_{\alpha/2} \cdot \text{SE}[\hat{\beta}_j].
+\]</span></p>
+<p>However, <code>R</code> is using a slightly different approach based on a concept called the profile likelihood. (The details of which we will omit.) Ultimately the intervals reported will be similar, but the method used by <code>R</code> is more common in practice, probably at least partially because it is the default approach in <code>R</code>. Check to see how intervals using the formula above compare to those from the output of <code>confint()</code>. (Or, note that using <code>confint.default()</code> will return the results of calculating the Wald confidence interval.)</p>
+</section>
+<section id="confidence-intervals-for-mean-response" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-intervals-for-mean-response">Confidence Intervals for Mean Response</h3>
+<p>Confidence intervals for the mean response require some additional thought. With a “large enough” sample, we have</p>
+<p><span class="math display">\[
+\frac{\hat{\eta}({\bf x}) - \eta({\bf x})}{\text{SE}[\hat{\eta}({\bf x})]} \overset{\text{approx}}{\sim} N(0, 1)
+\]</span></p>
+<p>Then we can create an approximate <span class="math inline">\((1 - \alpha)\%\)</span> confidence intervals for <span class="math inline">\(\eta({\bf x})\)</span> using</p>
+<p><span class="math display">\[
+\hat{\eta}({\bf x}) \pm z_{\alpha/2} \cdot \text{SE}[\hat{\eta}({\bf x})]
+\]</span></p>
+<p>where <span class="math inline">\(z_{\alpha/2}\)</span> is the critical value such that <span class="math inline">\(P(Z &gt; z_{\alpha/2}) = \alpha/2\)</span>.</p>
+<p>This isn’t a particularly interesting interval. Instead, what we really want is an interval for the mean response, <span class="math inline">\(p({\bf x})\)</span>. To obtain an interval for <span class="math inline">\(p({\bf x})\)</span>, we simply apply the inverse logit transform to the endpoints of the interval for <span class="math inline">\(\eta.\)</span></p>
+<p><span class="math display">\[
+\left(\text{logit}^{-1}(\hat{\eta}({\bf x}) - z_{\alpha/2} \cdot \text{SE}[\hat{\eta}({\bf x})] ), \ \text{logit}^{-1}(\hat{\eta}({\bf x}) + z_{\alpha/2} \cdot \text{SE}[\hat{\eta}({\bf x})])\right)
+\]</span></p>
+<p>To demonstrate creating these intervals, we’ll consider a new observation.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>new_obs <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sbp =</span> <span class="fl">148.0</span>,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tobacco =</span> <span class="dv">5</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ldl =</span> <span class="dv">12</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">adiposity =</span> <span class="fl">31.23</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">famhist =</span> <span class="st">"Present"</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">typea =</span> <span class="dv">47</span>,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">obesity =</span> <span class="fl">28.50</span>,</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">alcohol =</span> <span class="fl">23.89</span>,</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">60</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>First, we’ll use the <code>predict()</code> function to obtain <span class="math inline">\(\hat{\eta}({\bf x})\)</span> for this observation.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>eta_hat <span class="ot">=</span> <span class="fu">predict</span>(chd_mod_selected, new_obs, <span class="at">se.fit =</span> <span class="cn">TRUE</span>, <span class="at">type =</span> <span class="st">"link"</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>eta_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>$fit
+       1 
+1.579545 
+
+$se.fit
+[1] 0.4114796
+
+$residual.scale
+[1] 1</code></pre>
+</div>
+</div>
+<p>By setting <code>se.fit = TRUE</code>, <code>R</code> also computes <span class="math inline">\(\text{SE}[\hat{\eta}({\bf x})]\)</span>. Note that we used <code>type = "link"</code>, but this is actually a default value. We added it here to stress that the output from <code>predict()</code> will be the value of the link function.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>z_crit <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(z_crit, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.96</code></pre>
+</div>
+</div>
+<p>After obtaining the correct critical value, we can easily create a <span class="math inline">\(95\%\)</span> confidence interval for <span class="math inline">\(\eta({\bf x})\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>eta_hat<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> z_crit <span class="sc">*</span> eta_hat<span class="sc">$</span>se.fit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7730599 2.3860302</code></pre>
+</div>
+</div>
+<p>Now we simply need to apply the correct transformation to make this a confidence interval for <span class="math inline">\(p({\bf x})\)</span>, the probability of coronary heart disease for this observation. Note that the <code>boot</code> package contains functions <code>logit()</code> and <code>inv.logit()</code> which are the logit and inverse logit transformations, respectively.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>boot<span class="sc">::</span><span class="fu">inv.logit</span>(eta_hat<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> z_crit <span class="sc">*</span> eta_hat<span class="sc">$</span>se.fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6841824 0.9157558</code></pre>
+</div>
+</div>
+<p>Notice, as we would expect, the bounds of this interval are both between 0 and 1. Also, since both bounds of the interval for <span class="math inline">\(\eta({\bf x})\)</span> are positive, both bounds of the interval for <span class="math inline">\(p({\bf x})\)</span> are greater than 0.5.</p>
+</section>
+<section id="formula-syntax" class="level3">
+<h3 class="anchored" data-anchor-id="formula-syntax">Formula Syntax</h3>
+<p>Without really thinking about it, we’ve been using our previous knowledge of <code>R</code>’s model formula syntax to fit logistic regression.</p>
+<section id="interactions" class="level4">
+<h4 class="anchored" data-anchor-id="interactions">Interactions</h4>
+<p>Let’s add an interaction between LDL and family history for the model we selected.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>chd_mod_interaction <span class="ot">=</span> <span class="fu">glm</span>(chd <span class="sc">~</span> alcohol <span class="sc">+</span> ldl <span class="sc">+</span> famhist <span class="sc">+</span> typea <span class="sc">+</span> age <span class="sc">+</span> ldl<span class="sc">:</span>famhist, </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data =</span> SAheart, <span class="at">family =</span> binomial)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(chd_mod_interaction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = chd ~ alcohol + ldl + famhist + typea + age + ldl:famhist, 
+    family = binomial, data = SAheart)
+
+Coefficients:
+                    Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)        -6.043472   0.937186  -6.449 1.13e-10 ***
+alcohol             0.003800   0.004332   0.877  0.38033    
+ldl                 0.035593   0.071448   0.498  0.61837    
+famhistPresent     -0.733836   0.618131  -1.187  0.23515    
+typea               0.036253   0.012172   2.978  0.00290 ** 
+age                 0.062416   0.009723   6.419 1.37e-10 ***
+ldl:famhistPresent  0.314311   0.114922   2.735  0.00624 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 596.11  on 461  degrees of freedom
+Residual deviance: 477.46  on 455  degrees of freedom
+AIC: 491.46
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<p>Based on the <span class="math inline">\(z\)</span>-test seen in the above summary, this interaction is significant. The effect of LDL on the probability of CHD is different depending on family history.</p>
+</section>
+<section id="polynomial-terms" class="level4">
+<h4 class="anchored" data-anchor-id="polynomial-terms">Polynomial Terms</h4>
+<p>Let’s take the previous model, and now add a polynomial term.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>chd_mod_int_quad <span class="ot">=</span> <span class="fu">glm</span>(chd <span class="sc">~</span> alcohol <span class="sc">+</span> ldl <span class="sc">+</span> famhist <span class="sc">+</span> typea <span class="sc">+</span> age <span class="sc">+</span> ldl<span class="sc">:</span>famhist <span class="sc">+</span> <span class="fu">I</span>(ldl<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> SAheart, <span class="at">family =</span> binomial)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(chd_mod_int_quad)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = chd ~ alcohol + ldl + famhist + typea + age + ldl:famhist + 
+    I(ldl^2), family = binomial, data = SAheart)
+
+Coefficients:
+                    Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)        -6.096747   1.065952  -5.720 1.07e-08 ***
+alcohol             0.003842   0.004350   0.883  0.37716    
+ldl                 0.056876   0.214420   0.265  0.79081    
+famhistPresent     -0.723769   0.625167  -1.158  0.24698    
+typea               0.036248   0.012171   2.978  0.00290 ** 
+age                 0.062299   0.009788   6.365 1.95e-10 ***
+I(ldl^2)           -0.001587   0.015076  -0.105  0.91617    
+ldl:famhistPresent  0.311615   0.117559   2.651  0.00803 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 596.11  on 461  degrees of freedom
+Residual deviance: 477.45  on 454  degrees of freedom
+AIC: 493.45
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+</div>
+<p>Unsurprisingly, since this additional transformed variable wasn’t intelligently chosen, it is not significant. However, this does allow us to stress the fact that the syntax notation that we had been using with <code>lm()</code> works basically exactly the same for <code>glm()</code>, however now we understand that this is specifying the linear combination of predictions, <span class="math inline">\(\eta({\bf x})\)</span>.</p>
+<p>That is, the above fits the model</p>
+<p><span class="math display">\[
+\log\left(\frac{p({\bf x})}{1 - p({\bf x})}\right) =
+\beta_0 +
+\beta_{1}x_{\texttt{alcohol}} +
+\beta_{2}x_{\texttt{ldl}} +
+\beta_{3}x_{\texttt{famhist}} +
+\beta_{4}x_{\texttt{typea}} +
+\beta_{5}x_{\texttt{age}} +
+\beta_{6}x_{\texttt{ldl}}x_{\texttt{famhist}} +
+\beta_{7}x_{\texttt{ldl}}^2
+\]</span></p>
+<p>You may have realized this before we actually explicitly wrote it down!</p>
+</section>
+</section>
+<section id="deviance" class="level3">
+<h3 class="anchored" data-anchor-id="deviance">Deviance</h3>
+<p>You have probably noticed that the output from <code>summary()</code> is also very similar to that of ordinary linear regression. One difference, is the “deviance” being reported. The <code>Null deviance</code> is the deviance for the null model, that is, a model with no predictors. The <code>Residual deviance</code> is the deviance for the model that was fit.</p>
+<p><a href="https://en.wikipedia.org/wiki/Deviance_(statistics)" target="_blank"><strong>Deviance</strong></a> compares the model to a saturated model. (Without repeated observations, a saturated model is a model that fits perfectly, using a parameter for each observation.) Essentially, deviance is a generalized <em>residual sum of squares</em> for GLMs. Like RSS, deviance decreases as the model complexity increases.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deviance</span>(chd_mod_ldl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 564.2788</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deviance</span>(chd_mod_selected)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 475.6856</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deviance</span>(chd_mod_additive)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 472.14</code></pre>
+</div>
+</div>
+<p>Note that these are nested, and we see that deviance does decrease as the model size becomes larger. So while a lower deviance is better, if the model becomes too big, it may be overfitting. Note that <code>R</code> also outputs AIC in the summary, which will penalize according to model size, to prevent overfitting.</p>
+</section>
+</section>
+<section id="classification" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="classification"><span class="header-section-number">17.4</span> Classification</h2>
+<p>So far we’ve mostly used logistic regression to estimate class probabilities. The somewhat obvious next step is to use these probabilities to make “predictions,” which in this context, we would call <strong>classifications</strong>. Based on the values of the predictors, should an observation be classified as <span class="math inline">\(Y = 1\)</span> or as <span class="math inline">\(Y = 0\)</span>?</p>
+<p>Suppose we didn’t need to estimate probabilities from data, and instead, we actually knew both</p>
+<p><span class="math display">\[
+p({\bf x}) = P[Y = 1 \mid {\bf X} = {\bf x}]
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+1 - p({\bf x}) = P[Y = 0 \mid {\bf X} = {\bf x}].
+\]</span></p>
+<p>With this information, classifying observations based on the values of the predictors is actually extremely easy. Simply classify an observation to the class (<span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>) with the larger probability. In general, this result is called the <strong>Bayes Classifier</strong>,</p>
+<p><span class="math display">\[
+C^B({\bf x}) = \underset{k}{\mathrm{argmax}} \ P[Y = k \mid {\bf X = x}].
+\]</span></p>
+<p>For a binary response, that is,</p>
+<p><span class="math display">\[
+\hat{C}(\bf x) =
+\begin{cases}
+      1 &amp; p({\bf x}) &gt; 0.5 \\
+      0 &amp; p({\bf x}) \leq 0.5
+\end{cases}
+\]</span></p>
+<p>Simply put, the Bayes classifier (not to be confused with the Naive Bayes Classifier) minimizes the probability of misclassification by classifying each observation to the class with the highest probability. Unfortunately, in practice, we won’t know the necessary probabilities to directly use the Bayes classifier. Instead we’ll have to use estimated probabilities. So to create a classifier that seeks to minimize misclassifications, we would use,</p>
+<p><span class="math display">\[
+\hat{C}({\bf x}) = \underset{k}{\mathrm{argmax}} \ \hat{P}[Y = k \mid {\bf X = x}].
+\]</span></p>
+<p>In the case of a binary response since <span class="math inline">\(\hat{p}({\bf x}) = 1 - \hat{p}({\bf x})\)</span>, this becomes</p>
+<p><span class="math display">\[
+\hat{C}(\bf x) =
+\begin{cases}
+      1 &amp; \hat{p}({\bf x}) &gt; 0.5 \\
+      0 &amp; \hat{p}({\bf x}) \leq 0.5
+\end{cases}
+\]</span></p>
+<p>Using this simple classification rule, we can turn logistic regression into a classifier. To use logistic regression for classification, we first use logistic regression to obtain estimated probabilities, <span class="math inline">\(\hat{p}({\bf x})\)</span>, then use these in conjunction with the above classification rule.</p>
+<p>Logistic regression is just one of many ways that these probabilities could be estimated. In a course completely focused on machine learning, you’ll learn many additional ways to do this, as well as methods to directly make classifications without needing to first estimate probabilities. But since we had already introduced logistic regression, it makes sense to discuss it in the context of classification.</p>
+<section id="spam-example" class="level3">
+<h3 class="anchored" data-anchor-id="spam-example"><code>spam</code> Example</h3>
+<p>To illustrate the use of logistic regression as a classifier, we will use the <code>spam</code> dataset from the <code>kernlab</code> package.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("kernlab")</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kernlab)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"spam"</span>)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">as.tibble</span>(spam)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `as.tibble()` was deprecated in tibble 2.0.0.
+ℹ Please use `as_tibble()` instead.
+ℹ The signature and semantics have changed, see `?as_tibble`.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,601 × 58
+    make address   all num3d   our  over remove internet order  mail receive
+   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+ 1  0       0.64  0.64     0  0.32  0      0        0     0     0       0   
+ 2  0.21    0.28  0.5      0  0.14  0.28   0.21     0.07  0     0.94    0.21
+ 3  0.06    0     0.71     0  1.23  0.19   0.19     0.12  0.64  0.25    0.38
+ 4  0       0     0        0  0.63  0      0.31     0.63  0.31  0.63    0.31
+ 5  0       0     0        0  0.63  0      0.31     0.63  0.31  0.63    0.31
+ 6  0       0     0        0  1.85  0      0        1.85  0     0       0   
+ 7  0       0     0        0  1.92  0      0        0     0     0.64    0.96
+ 8  0       0     0        0  1.88  0      0        1.88  0     0       0   
+ 9  0.15    0     0.46     0  0.61  0      0.3      0     0.92  0.76    0.76
+10  0.06    0.12  0.77     0  0.19  0.32   0.38     0     0.06  0       0   
+# ℹ 4,591 more rows
+# ℹ 47 more variables: will &lt;dbl&gt;, people &lt;dbl&gt;, report &lt;dbl&gt;, addresses &lt;dbl&gt;,
+#   free &lt;dbl&gt;, business &lt;dbl&gt;, email &lt;dbl&gt;, you &lt;dbl&gt;, credit &lt;dbl&gt;,
+#   your &lt;dbl&gt;, font &lt;dbl&gt;, num000 &lt;dbl&gt;, money &lt;dbl&gt;, hp &lt;dbl&gt;, hpl &lt;dbl&gt;,
+#   george &lt;dbl&gt;, num650 &lt;dbl&gt;, lab &lt;dbl&gt;, labs &lt;dbl&gt;, telnet &lt;dbl&gt;,
+#   num857 &lt;dbl&gt;, data &lt;dbl&gt;, num415 &lt;dbl&gt;, num85 &lt;dbl&gt;, technology &lt;dbl&gt;,
+#   num1999 &lt;dbl&gt;, parts &lt;dbl&gt;, pm &lt;dbl&gt;, direct &lt;dbl&gt;, cs &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>This dataset, created in the late 1990s at Hewlett-Packard Labs, contains 4601 emails, of which 1813 are considered spam. The remaining are not spam. (Which for simplicity, we might call, ham.) Additional details can be obtained by using <code>?spam</code> or by visiting the <a href="https://archive.ics.uci.edu/ml/datasets/spambase" target="_blank">UCI Machine Learning Repository</a>.</p>
+<p>The response variable, <code>type</code>, is a <strong>factor</strong> with levels that label each email as <code>spam</code> or <code>nonspam</code>. When fitting models, <code>nonspam</code> will be the reference level, <span class="math inline">\(Y = 0\)</span>, as it comes first alphabetically.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.factor</span>(spam<span class="sc">$</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(spam<span class="sc">$</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "nonspam" "spam"   </code></pre>
+</div>
+</div>
+<p>Many of the predictors (often called features in machine learning) are engineered based on the emails. For example, <code>charDollar</code> is the number of times an email contains the <code>$</code> character. Some variables are highly specific to this dataset, for example <code>george</code> and <code>num650</code>. (The name and area code for one of the researchers whose emails were used.) We should keep in mind that this dataset was created based on emails sent to academic type researchers in the 1990s. Any results we derive probably won’t generalize to modern emails for the general public.</p>
+<p>To get started, we’ll first test-train split the data.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="co"># spam_idx = sample(nrow(spam), round(nrow(spam) / 2))</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>spam_idx <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(spam), <span class="dv">1000</span>)</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>spam_trn <span class="ot">=</span> spam[spam_idx, ]</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>spam_tst <span class="ot">=</span> spam[<span class="sc">-</span>spam_idx, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>We’ve used a somewhat small train set relative to the total size of the dataset. In practice it should likely be larger, but this is simply to keep training time low for illustration and rendering of this document.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>fit_caps <span class="ot">=</span> <span class="fu">glm</span>(type <span class="sc">~</span> capitalTotal, </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> spam_trn, <span class="at">family =</span> binomial)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>fit_selected <span class="ot">=</span> <span class="fu">glm</span>(type <span class="sc">~</span> edu <span class="sc">+</span> money <span class="sc">+</span> capitalTotal <span class="sc">+</span> charDollar, </span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> spam_trn, <span class="at">family =</span> binomial)</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>fit_additive <span class="ot">=</span> <span class="fu">glm</span>(type <span class="sc">~</span> ., </span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> spam_trn, <span class="at">family =</span> binomial)</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>fit_over <span class="ot">=</span> <span class="fu">glm</span>(type <span class="sc">~</span> capitalTotal <span class="sc">*</span> (.), </span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> spam_trn, <span class="at">family =</span> binomial, <span class="at">maxit =</span> <span class="dv">75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>We’ll fit four logistic regressions, each more complex than the previous. Note that we’re suppressing two warnings. The first we briefly mentioned previously.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+</div>
+</div>
+<p>Note that, when we receive this warning, we should be highly suspicious of the parameter estimates.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit_selected)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept)           edu         money  capitalTotal    charDollar 
+-1.1199744712 -1.9837988840  0.9784675298  0.0007757011 11.5772904667 </code></pre>
+</div>
+</div>
+<p>However, the model can still be used to create a classifier, and we will evaluate that classifier on its own merits.</p>
+<p>We also, “suppressed” the warning:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: glm.fit: algorithm did not converge</code></pre>
+</div>
+</div>
+<p>In reality, we didn’t actually suppress it, but instead changed <code>maxit</code> to <code>75</code>, when fitting the model <code>fit_over</code>. This was enough additional iterations to allow the iteratively reweighted least squares algorithm to converge when fitting the model.</p>
+</section>
+<section id="evaluating-classifiers" class="level3">
+<h3 class="anchored" data-anchor-id="evaluating-classifiers">Evaluating Classifiers</h3>
+<p>The metric we’ll be most interested in for evaluating the overall performance of a classifier is the <strong>misclassification rate</strong>. (Sometimes, instead accuracy is reported, which is instead the proportion of correct classifications, so both metrics serve the same purpose.)</p>
+<p><span class="math display">\[
+\text{Misclass}(\hat{C}, \text{Data}) = \frac{1}{n}\sum_{i = 1}^{n}I(y_i \neq \hat{C}({\bf x_i}))
+\]</span></p>
+<p><span class="math display">\[
+I(y_i \neq \hat{C}({\bf x_i})) =
+\begin{cases}
+  0 &amp; y_i = \hat{C}({\bf x_i}) \\
+  1 &amp; y_i \neq \hat{C}({\bf x_i}) \\
+\end{cases}
+\]</span></p>
+<p>When using this metric on the training data, it will have the same issues as RSS did for ordinary linear regression, that is, it will only go down.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># training misclassification rate</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">ifelse</span>(<span class="fu">predict</span>(fit_caps) <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"spam"</span>, <span class="st">"nonspam"</span>) <span class="sc">!=</span> spam_trn<span class="sc">$</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.339</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">ifelse</span>(<span class="fu">predict</span>(fit_selected) <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"spam"</span>, <span class="st">"nonspam"</span>) <span class="sc">!=</span> spam_trn<span class="sc">$</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.224</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">ifelse</span>(<span class="fu">predict</span>(fit_additive) <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"spam"</span>, <span class="st">"nonspam"</span>) <span class="sc">!=</span> spam_trn<span class="sc">$</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.066</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">ifelse</span>(<span class="fu">predict</span>(fit_over) <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"spam"</span>, <span class="st">"nonspam"</span>) <span class="sc">!=</span> spam_trn<span class="sc">$</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.118</code></pre>
+</div>
+</div>
+<p>Because of this, training data isn’t useful for evaluating, as it would suggest that we should always use the largest possible model, when in reality, that model is likely overfitting. Recall, a model that is too complex will overfit. A model that is too simple will underfit. (We’re looking for something in the middle.)</p>
+<p>To overcome this, we’ll use cross-validation as we did with ordinary linear regression, but this time we’ll cross-validate the misclassification rate. To do so, we’ll use the <code>cv.glm()</code> function from the <code>boot</code> library. It takes arguments for the data (in this case training), a model fit via <code>glm()</code>, and <code>K</code>, the number of folds. It returns <code>delta</code>, a vector of the average mean-squared error (MSE) and the bias-corrected MSE. See <code>?cv.glm</code> for details.</p>
+<p>Previously, for cross-validating RMSE in ordinary linear regression, we used LOOCV. We certainly could do that here. However, with logistic regression, we no longer have the clever trick that would allow us to obtain a LOOCV metric without needing to fit the model <span class="math inline">\(n\)</span> times. So instead, we’ll use 5-fold cross-validation. (5 and 10 fold are the most common in practice.) Instead of leaving a single observation out repeatedly, we’ll leave out a fifth of the data.</p>
+<p>Essentially we’ll repeat the following process 5 times:</p>
+<ul>
+<li>Randomly set aside a fifth of the data (each observation will only be held-out once)</li>
+<li>Train model on remaining data</li>
+<li>Evaluate misclassification rate on held-out data</li>
+</ul>
+<p>The 5-fold cross-validated misclassification rate will be the average of these misclassification rates. By only needing to refit the model 5 times, instead of <span class="math inline">\(n\)</span> times, we will save a lot of computation time.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cv.glm</span>(spam_trn, fit_caps, <span class="at">K =</span> <span class="dv">5</span>)<span class="sc">$</span>delta[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2166961</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cv.glm</span>(spam_trn, fit_selected, <span class="at">K =</span> <span class="dv">5</span>)<span class="sc">$</span>delta[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1587043</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cv.glm</span>(spam_trn, fit_additive, <span class="at">K =</span> <span class="dv">5</span>)<span class="sc">$</span>delta[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.08684467</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cv.glm</span>(spam_trn, fit_over, <span class="at">K =</span> <span class="dv">5</span>)<span class="sc">$</span>delta[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.144</code></pre>
+</div>
+</div>
+<p>Note that we’re suppressing warnings again here. (Now there would be a lot more, since were fitting a total of 20 models.)</p>
+<p>Based on these results, <code>fit_caps</code> and <code>fit_selected</code> are underfitting relative to <code>fit_additive</code>. Similarly, <code>fit_over</code> is overfitting relative to <code>fit_additive</code>. Thus, based on these results, we prefer the classifier created based on the logistic regression fit and stored in <code>fit_additive</code>.</p>
+<p>Going forward, to evaluate and report on the efficacy of this classifier, we’ll use the test dataset. We’re going to take the position that the test data set should <strong>never</strong> be used in training, which is why we used cross-validation within the training dataset to select a model. Even though cross-validation uses hold-out sets to generate metrics, at some point all of the data is used for training.</p>
+<p>To quickly summarize how well this classifier works, we’ll create a confusion matrix.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/confusion.png" class="img-fluid figure-img"></p>
+<figcaption>Confusion Matrix</figcaption>
+</figure>
+</div>
+<p>It further breaks down the classification errors into false positives and false negatives.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>make_conf_mat <span class="ot">=</span> <span class="cf">function</span>(predicted, actual) {</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>(<span class="at">predicted =</span> predicted, <span class="at">actual =</span> actual)</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Let’s explicitly store the predicted values of our classifier on the test dataset.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>spam_tst_pred <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">predict</span>(fit_additive, spam_tst) <span class="sc">&gt;</span> <span class="dv">0</span>, </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"spam"</span>, </span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"nonspam"</span>)</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>spam_tst_pred <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">predict</span>(fit_additive, spam_tst, <span class="at">type =</span> <span class="st">"response"</span>) <span class="sc">&gt;</span> <span class="fl">0.5</span>, </span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"spam"</span>, </span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"nonspam"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>The previous two lines of code produce the same output, that is the same predictions, since</p>
+<p><span class="math display">\[
+\eta({\bf x}) = 0 \iff p({\bf x}) = 0.5
+\]</span> Now we’ll use these predictions to create a confusion matrix.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">conf_mat_50 =</span> <span class="fu">make_conf_mat</span>(<span class="at">predicted =</span> spam_tst_pred, <span class="at">actual =</span> spam_tst<span class="sc">$</span>type))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         actual
+predicted nonspam spam
+  nonspam    2057  157
+  spam        127 1260</code></pre>
+</div>
+</div>
+<p><span class="math display">\[
+\text{Prev} = \frac{\text{P}}{\text{Total Obs}}= \frac{\text{TP + FN}}{\text{Total Obs}}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(spam_tst<span class="sc">$</span>type) <span class="sc">/</span> <span class="fu">nrow</span>(spam_tst)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  nonspam      spam 
+0.6064982 0.3935018 </code></pre>
+</div>
+</div>
+<p>First, note that to be a reasonable classifier, it needs to outperform the obvious classifier of simply classifying all observations to the majority class. In this case, classifying everything as non-spam for a test misclassification rate of 0.3935018</p>
+<p>Next, we can see that using the classifier created from <code>fit_additive</code>, only a total of <span class="math inline">\(127 + 157 = 284\)</span> from the total of 3601 emails in the test set are misclassified. Overall, the accuracy in the test set it</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(spam_tst_pred <span class="sc">==</span> spam_tst<span class="sc">$</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.921133</code></pre>
+</div>
+</div>
+<p>In other words, the test misclassification is</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(spam_tst_pred <span class="sc">!=</span> spam_tst<span class="sc">$</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07886698</code></pre>
+</div>
+</div>
+<p>This seems like a decent classifier…</p>
+<p>However, are all errors created equal? In this case, absolutely not. The 127 non-spam emails that were marked as spam (false positives) are a problem. We can’t allow important information, say, a job offer, to miss our inbox and get sent to the spam folder. On the other hand, the 157 spam email that would make it to an inbox (false negatives) are easily dealt with, just delete them.</p>
+<p>Instead of simply evaluating a classifier based on its misclassification rate (or accuracy), we’ll define two additional metrics, sensitivity and specificity. Note that these are simply two of many more metrics that can be considered. The <a href="https://en.wikipedia.org/wiki/Sensitivity_and_specificity" target="_blank">Wikipedia page for sensitivity and specificity</a> details a large number of metrics that can be derived from a confusion matrix.</p>
+<p><strong>Sensitivity</strong> is essentially the true positive rate. So when sensitivity is high, the number of false negatives is low.</p>
+<p><span class="math display">\[
+\text{Sens} = \text{True Positive Rate} = \frac{\text{TP}}{\text{P}} = \frac{\text{TP}}{\text{TP + FN}}
+\]</span></p>
+<p>Here we have an <code>R</code> function to calculate the sensitivity based on the confusion matrix. Note that this function is good for illustrative purposes, but is easily broken. (Think about what happens if there are no “positives” predicted.)</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>get_sens <span class="ot">=</span> <span class="cf">function</span>(conf_mat) {</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  conf_mat[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(conf_mat[, <span class="dv">2</span>])</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><strong>Specificity</strong> is essentially the true negative rate. So when specificity is high, the number of false positives is low.</p>
+<p><span class="math display">\[
+\text{Spec} = \text{True Negative Rate} = \frac{\text{TN}}{\text{N}} = \frac{\text{TN}}{\text{TN + FP}}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>get_spec <span class="ot">=</span>  <span class="cf">function</span>(conf_mat) {</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  conf_mat[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sum</span>(conf_mat[, <span class="dv">1</span>])</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>We calculate both based on the confusion matrix we had created for our classifier.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_sens</span>(conf_mat_50)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8892025</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_spec</span>(conf_mat_50)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9418498</code></pre>
+</div>
+</div>
+<p>Recall that we had created this classifier using a probability of <span class="math inline">\(0.5\)</span> as a “cutoff” for how observations should be classified. Now we’ll modify this cutoff. We’ll see that by modifying the cutoff, <span class="math inline">\(c\)</span>, we can improve sensitivity or specificity at the expense of the overall accuracy (misclassification rate).</p>
+<p><span class="math display">\[
+\hat{C}(\bf x) =
+\begin{cases}
+      1 &amp; \hat{p}({\bf x}) &gt; c \\
+      0 &amp; \hat{p}({\bf x}) \leq c
+\end{cases}
+\]</span></p>
+<p>Additionally, if we change the cutoff to improve sensitivity, we’ll decrease specificity, and vice versa.</p>
+<p>First let’s see what happens when we lower the cutoff from <span class="math inline">\(0.5\)</span> to <span class="math inline">\(0.1\)</span> to create a new classifier, and thus new predictions.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>spam_tst_pred_10 <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">predict</span>(fit_additive, spam_tst, <span class="at">type =</span> <span class="st">"response"</span>) <span class="sc">&gt;</span> <span class="fl">0.1</span>, </span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"spam"</span>, </span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"nonspam"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>This is essentially <em>decreasing</em> the threshold for an email to be labeled as spam, so far <em>more</em> emails will be labeled as spam. We see that in the following confusion matrix.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">conf_mat_10 =</span> <span class="fu">make_conf_mat</span>(<span class="at">predicted =</span> spam_tst_pred_10, <span class="at">actual =</span> spam_tst<span class="sc">$</span>type))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         actual
+predicted nonspam spam
+  nonspam    1583   29
+  spam        601 1388</code></pre>
+</div>
+</div>
+<p>Unfortunately, while this does greatly reduce false negatives, false positives have almost quadrupled. We see this reflected in the sensitivity and specificity.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_sens</span>(conf_mat_10)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9795342</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_spec</span>(conf_mat_10)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7248168</code></pre>
+</div>
+</div>
+<p>This classifier, using <span class="math inline">\(0.1\)</span> instead of <span class="math inline">\(0.5\)</span> has a higher sensitivity, but a much lower specificity. Clearly, we should have moved the cutoff in the other direction. Let’s try <span class="math inline">\(0.9\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>spam_tst_pred_90 <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="fu">predict</span>(fit_additive, spam_tst, <span class="at">type =</span> <span class="st">"response"</span>) <span class="sc">&gt;</span> <span class="fl">0.9</span>, </span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"spam"</span>, </span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"nonspam"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>This is essentially <em>increasing</em> the threshold for an email to be labeled as spam, so far <em>fewer</em> emails will be labeled as spam. Again, we see that in the following confusion matrix.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">conf_mat_90 =</span> <span class="fu">make_conf_mat</span>(<span class="at">predicted =</span> spam_tst_pred_90, <span class="at">actual =</span> spam_tst<span class="sc">$</span>type))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         actual
+predicted nonspam spam
+  nonspam    2136  537
+  spam         48  880</code></pre>
+</div>
+</div>
+<p>This is the result we’re looking for. We have far fewer false positives. While sensitivity is greatly reduced, specificity has gone up.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_sens</span>(conf_mat_90)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6210303</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_spec</span>(conf_mat_90)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.978022</code></pre>
+</div>
+</div>
+<p>While this is far fewer false positives, is it acceptable though? Still probably not. Also, don’t forget, this would actually be a terrible spam detector today since this is based on data from a very different era of the internet, for a very specific set of people. Spam has changed a lot since the 90s! (Ironically, machine learning is probably partially to blame.)</p>
+<p>This chapter has provided a rather quick introduction to classification, and thus, machine learning. For a more complete coverage of machine learning, <a href="https://www.statlearning.com/" target="_blank">An Introduction to Statistical Learning</a> is a highly recommended resource. Additionally, <a href="https://daviddalpiaz.github.io/r4sl/" target="_blank"><code>R</code> for Statistical Learning</a> has been written as a supplement which provides additional detail on how to perform these methods using <code>R</code>. The <a href="https://daviddalpiaz.github.io/r4sl/classification-overview.html" target="_blank">classification</a> and <a href="https://daviddalpiaz.github.io/r4sl/logistic-regression.html" target="_blank">logistic regression</a> chapters might be useful.</p>
+<p>We should note that the code to perform classification using logistic regression is presented in a way that illustrates the concepts to the reader. In practice, you may prefer to use a more general machine learning pipeline such as <a href="http://topepo.github.io/caret/index.html" target="_blank"><code>caret</code></a> in <code>R</code>. This will streamline processes for creating predictions and generating evaluation metrics.</p>
+</section>
+</section>
+<section id="r-markdown" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="r-markdown"><span class="header-section-number">17.5</span> <code>R</code> Markdown</h2>
+<p>The <code>R</code> Markdown file for this chapter can be found here:</p>
+<ul>
+<li><a href="logistic.Rmd" target="_blank"><code>logistic.Rmd</code></a></li>
+</ul>
+<p>The file was created using <code>R</code> version <code>4.3.3</code>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./selection.html" class="pagination-link" aria-label="Variable Selection and Model Building">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variable Selection and Model Building</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./beyond.html" class="pagination-link" aria-label="Beyond">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

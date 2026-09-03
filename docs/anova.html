@@ -1,0 +1,2311 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Devan Becker">
+<meta name="dcterms.date" content="2026-09-03">
+
+<title>12&nbsp; Analysis of Variance – Applied Statistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./diagnostics.html" rel="next">
+<link href="./cat-int.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8a70c1d71e0781e3ee2592d48d156a72.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-e47931a894087a4f30139d39fc69dd56.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-8a70c1d71e0781e3ee2592d48d156a72.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./model-building.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./anova.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Applied Statistics</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Applied Statistics with R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Background</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-and-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data and Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prob-and-stat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">OLS Basics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./slr-inf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Inference for Simple Linear Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mlr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Choosing Models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./model-building.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Model Building</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cat-int.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Collinearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variable Selection and Model Building</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Advanced Topics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./beyond.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#experiments" id="toc-experiments" class="nav-link active" data-scroll-target="#experiments"><span class="header-section-number">12.1</span> Experiments</a></li>
+  <li><a href="#two-sample-t-test" id="toc-two-sample-t-test" class="nav-link" data-scroll-target="#two-sample-t-test"><span class="header-section-number">12.2</span> Two-Sample t-Test</a></li>
+  <li><a href="#one-way-anova" id="toc-one-way-anova" class="nav-link" data-scroll-target="#one-way-anova"><span class="header-section-number">12.3</span> One-Way ANOVA</a>
+  <ul class="collapse">
+  <li><a href="#factor-variables" id="toc-factor-variables" class="nav-link" data-scroll-target="#factor-variables">Factor Variables</a></li>
+  <li><a href="#some-simulation" id="toc-some-simulation" class="nav-link" data-scroll-target="#some-simulation">Some Simulation</a></li>
+  <li><a href="#power" id="toc-power" class="nav-link" data-scroll-target="#power">Power</a></li>
+  </ul></li>
+  <li><a href="#post-hoc-testing" id="toc-post-hoc-testing" class="nav-link" data-scroll-target="#post-hoc-testing"><span class="header-section-number">12.4</span> Post Hoc Testing</a></li>
+  <li><a href="#two-way-anova" id="toc-two-way-anova" class="nav-link" data-scroll-target="#two-way-anova"><span class="header-section-number">12.5</span> Two-Way ANOVA</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./model-building.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./anova.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Wilfrid Laurier University
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-09-03</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Chapter Status:</strong> This chapter should be considered optional for a first reading of this text. Its inclusion is mostly for the benefit of some courses that use the text. Additionally, this chapter is currently somewhat underdeveloped compared to the rest of the text. If you are interested in contributing, you can find several lines marked “TODO” in the source. Pull requests encouraged!</p>
+<style type="text/css">
+.table {
+
+    width: 70%;
+    margin-left:10%; 
+    margin-right:10%;
+
+}
+</style>
+<!-- TODO: use kable styling instead of custom CSS -->
+<blockquote class="blockquote">
+<p>“To find out what happens when you change something, it is necessary to change it.”</p>
+<p>— <strong>Box, Hunter, and Hunter</strong>, Statistics for Experimenters (1978)</p>
+</blockquote>
+<p>Thus far, we have built models for numeric responses, when the predictors are all numeric. We’ll take a minor detour to go back and consider models which <em>only</em> have <strong>categorical</strong> predictors. A categorical predictor is a variable which takes only a finite number of values, which are not ordered. For example a variable which takes possible values <code>red</code>, <code>blue</code>, <code>green</code> is categorical. In the context of using a categorical variable as a predictor, it would place observations into different groups (categories).</p>
+<p>We’ve also mostly been dealing with observational data. The methods in this section are most useful in experimental settings, but still work with observational data. (However, for determining causation, we require experiments.)</p>
+<section id="experiments" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="experiments"><span class="header-section-number">12.1</span> Experiments</h2>
+<p>The biggest difference between an observational study and an experiment is <em>how</em> the predictor data is obtained. Is the experimenter in control?</p>
+<ul>
+<li>In an <strong>observational</strong> study, both response and predictor data are obtained via observation.</li>
+<li>In an <strong>experiment</strong>, the predictor data are values determined by the experimenter. The experiment is run and the response is observed.</li>
+</ul>
+<p>In an experiment, the predictors, which are controlled by the experimenter, are called <strong>factors</strong>. The possible values of these factors are called <strong>levels</strong>. Subjects are <em>randomly</em> assigned to a level of each of the factors.</p>
+<p>The design of experiments could be a course by itself. The Wikipedia article on <a href="https://en.wikipedia.org/wiki/Design_of_experiments" target="_blank">design of experiments</a> gives a good overview. Originally, most of the methodology was developed for agricultural applications by <a href="https://en.wikipedia.org/wiki/Ronald_Fisher" target="_blank">R. A. Fisher</a>, but is still in use today, now in a wide variety of application areas. Notably, these methods have seen a resurgence as a part of “A/B Testing.”</p>
+<!-- TODO: In the future, discuss the Morrow Plots: http://cropsci.illinois.edu/research/morrow -->
+</section>
+<section id="two-sample-t-test" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="two-sample-t-test"><span class="header-section-number">12.2</span> Two-Sample t-Test</h2>
+<p>The simplest example of an experimental design is the setup for a two-sample <span class="math inline">\(t\)</span>-test. There is a single factor variable with two levels which split the subjects into two groups. Often, one level is considered the <strong>control</strong>, while the other is the <strong>treatment</strong>. The subjects are randomly assigned to one of the two groups. After being assigned to a group, each subject has some quantity measured, which is the response variable.</p>
+<p>Mathematically, we consider the model</p>
+<p>[ y_{ij} N(_i, ^2) ]</p>
+<p>where <span class="math inline">\(i = 1, 2\)</span> for the two groups and <span class="math inline">\(j = 1, 2, \ldots n_i\)</span>. Here <span class="math inline">\(n_i\)</span> is the number of subjects in group <span class="math inline">\(i\)</span>. So <span class="math inline">\(y_{13}\)</span> would be the measurement for the third member of the first group.</p>
+<p>So measurements of subjects in group <span class="math inline">\(1\)</span> follow a normal distribution with mean <span class="math inline">\(\mu_1\)</span>.</p>
+<p>[ y_{1j} N(_1, ^2) ]</p>
+<p>Then measurements of subjects in group <span class="math inline">\(2\)</span> follow a normal distribution with mean <span class="math inline">\(\mu_2\)</span>.</p>
+<p>[ y_{2j} N(_2, ^2) ]</p>
+<p>This model makes a number of assumptions. Specifically,</p>
+<ul>
+<li>The observations follow a <strong>normal</strong> distribution. The mean of each group is different.</li>
+<li><strong>Equal variance</strong> for each group.</li>
+<li><strong>Independence</strong>. Which is believable if groups were randomly assigned.</li>
+</ul>
+<p>Later, we will investigate the normal and equal variance assumptions. For now, we will continue to assume they are reasonable.</p>
+<p>The natural question to ask: Is there a difference between the two groups? The specific question we’ll answer: Are the means of the two groups different?</p>
+<p>Mathematically, that is</p>
+<p>[ H_0: _1 = _2 H_1: _1 _2 ]</p>
+<p>For the stated model and assuming the null hypothesis is true, the <span class="math inline">\(t\)</span> test statistic would follow a <span class="math inline">\(t\)</span> distribution with degrees of freedom <span class="math inline">\(n_1 + n_2 - 2\)</span>.</p>
+<p>As an example, suppose we are interested in the effect of <a href="https://en.wikipedia.org/wiki/Melatonin" target="_blank">melatonin</a> on sleep duration. A researcher obtains a random sample of 20 adult males. Of these subjects, 10 are randomly chosen for the control group, which will receive a placebo. The remaining 10 will be given 5mg of melatonin before bed. The sleep duration in hours of each subject is then measured. The researcher chooses a significance level of <span class="math inline">\(\alpha = 0.10\)</span>. Was sleep duration affected by the melatonin?</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>melatonin</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       sleep     group
+1   8.145150   control
+2   7.522362 treatment
+3   6.935754   control
+4   8.959435 treatment
+5   6.985122   control
+6   8.072651 treatment
+7   8.313826   control
+8   8.086409 treatment
+9   8.922108   control
+10  8.124743 treatment
+11  8.065844   control
+12 10.943974 treatment
+13  4.833367   control
+14  7.865453 treatment
+15  6.340014   control
+16  8.963140 treatment
+17  6.158896   control
+18  5.012253 treatment
+19  3.571440   control
+20  9.784136 treatment</code></pre>
+</div>
+</div>
+<p>Here, we would like to test,</p>
+<p>[ H_0: _C = _T H_1: _C _T ]</p>
+<p>To do so in <code>R</code>, we use the <code>t.test()</code> function, with the <code>var.equal</code> argument set to <code>TRUE</code>.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sleep <span class="sc">~</span> group, <span class="at">data =</span> melatonin, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two Sample t-test
+
+data:  sleep by group
+t = -2.0854, df = 18, p-value = 0.05154
+alternative hypothesis: true difference in means between group control and group treatment is not equal to 0
+95 percent confidence interval:
+ -3.02378261  0.01117547
+sample estimates:
+  mean in group control mean in group treatment 
+               6.827152                8.333456 </code></pre>
+</div>
+</div>
+<p>At a significance level of <span class="math inline">\(\alpha = 0.10\)</span>, we reject the null hypothesis. It seems that the melatonin had a <strong>statistically significant</strong> effect. Be aware that statistical significance is not always the same as scientific or <strong>practical significance</strong>. To determine practical significance, we need to investigate the <strong>effect size</strong> in the context of the situation. Here the effect size is the difference of the sample means.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sleep <span class="sc">~</span> group, <span class="at">data =</span> melatonin, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>estimate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  mean in group control mean in group treatment 
+               6.827152                8.333456 </code></pre>
+</div>
+</div>
+<p>Here we see that the subjects in the melatonin group sleep an average of about 1.5 hours longer than the control group. An hour and a half of sleep is certainly important!</p>
+<p>With a big enough sample size, we could make an effect size of say, four minutes statistically significant. Is it worth taking a pill every night to get an extra four minutes of sleep? (Probably not.)</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(sleep <span class="sc">~</span> group, <span class="at">data =</span> melatonin, <span class="at">col =</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<!-- TODO: other parametarization, explain identify -->
+</section>
+<section id="one-way-anova" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="one-way-anova"><span class="header-section-number">12.3</span> One-Way ANOVA</h2>
+<p>What if there are more than two groups? Consider the model</p>
+<p>[ y_{ij} = + <em>i + e</em>{ij} ]</p>
+<p>where</p>
+<p>[ _{i=1}^{g} _i = 0 ]</p>
+<p>and</p>
+<p>[ e_{ij} N(0,^{2}). ]</p>
+<p>Here,</p>
+<ul>
+<li><span class="math inline">\(i = 1, 2, \ldots g\)</span> where <span class="math inline">\(g\)</span> is the number of groups.</li>
+<li><span class="math inline">\(j = 1, 2, \ldots n_i\)</span> where <span class="math inline">\(n_i\)</span> is the number of observations in group <span class="math inline">\(i\)</span>.</li>
+</ul>
+<p>Then the total sample size is</p>
+<p>[ N = _{i = 1}^{g} n_i ]</p>
+<p>Observations from group <span class="math inline">\(i\)</span> follow a normal distribution</p>
+<p>[ y_{ij} N(_i,^{2}) ]</p>
+<p>where the mean of each group is given by</p>
+<p>[ _i = + _i. ]</p>
+<p>Here <span class="math inline">\(\alpha_i\)</span> measures the effect of group <span class="math inline">\(i\)</span>. It is the difference between the overall mean and the mean of group <span class="math inline">\(i\)</span>.</p>
+<p>Essentially, the assumptions here are the same as the two-sample case, however now, we simply have more groups.</p>
+<p>Much like the two-sample case, we would again like to test if the means of the groups are equal.</p>
+<p>[ H_0: _1 = _2 = _g H_1: _i ]</p>
+<p>Notice that the alternative simply indicates that some of the means are not equal, not specifically which are not equal. More on that later.</p>
+<p>Alternatively, we could write</p>
+<p>[ H_0: _1 = _2 = = _g = 0 H_1: _i 0. ]</p>
+<p>This test is called <strong>Analysis of Variance (ANOVA)</strong>. ANOVA compares the variation due to specific sources (between groups) with the variation among individuals who should be similar (within groups). In particular, ANOVA tests whether several populations have the same mean by comparing how far apart the sample means are with how much variation there is within the samples. We use variability of means to test for equality of means, thus the use of <em>variance</em> in the name for a test about means.</p>
+<p>We’ll leave out most of the details about how the estimation is done, but we’ll see later, that it is done via least squares. We’ll use <code>R</code> to obtain these estimates, but they are actually rather simple. We only need to think about the sample means of the groups.</p>
+<ul>
+<li><span class="math inline">\(\bar{y}_i\)</span> is the sample mean of group <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(\bar{y}\)</span> is the overall sample mean.</li>
+<li><span class="math inline">\(s_{i}^{2}\)</span> is the sample variance of group <span class="math inline">\(i\)</span>.</li>
+</ul>
+<p>We’ll then decompose the variance, as we’ve seen before in regression. The <strong>total</strong> variation measures how much the observations vary about the overall sample mean, <em>ignoring the groups</em>.</p>
+<p>[ SST = <em>{i = 1}^{g} </em>{j = 1}^{n_i} (y_{ij} - {y})^2 ]</p>
+<p>The variation <strong>between</strong> groups looks at how far the individual sample means are from the overall sample mean.</p>
+<p>[ SSB = <em>{i = 1}^{g} </em>{j = 1}^{n_i} ({y}<em>i - {y})^2 = </em>{i = 1}^{g} n_i ({y}_i - {y})^2 ]</p>
+<p>Lastly, the <strong>within</strong> group variation measures how far observations are from the sample mean of its group.</p>
+<p>[ SSW = <em>{i = 1}^{g} </em>{j = 1}^{n_i} (y_{ij} - {y}<em>i)^2 = </em>{i = 1}^{g} (n_i - 1) s_{i}^{2} ]</p>
+<p>This could also be thought of as the error sum of squares, where <span class="math inline">\(y_{ij}\)</span> is an observation and <span class="math inline">\(\bar{y}_i\)</span> is its fitted (predicted) value from the model.</p>
+<p>To develop the test statistic for ANOVA, we place this information into an ANVOA table.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 21%">
+<col style="width: 25%">
+<col style="width: 18%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Sum of Squares</th>
+<th>Degrees of Freedom</th>
+<th>Mean Square</th>
+<th><span class="math inline">\(F\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Between</td>
+<td>SSB</td>
+<td><span class="math inline">\(g - 1\)</span></td>
+<td>SSB / DFB</td>
+<td>MSB / MSW</td>
+</tr>
+<tr class="even">
+<td>Within</td>
+<td>SSW</td>
+<td><span class="math inline">\(N - g\)</span></td>
+<td>SSW / DFW</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>SST</td>
+<td><span class="math inline">\(N - 1\)</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>We reject the null (equal means) when the <span class="math inline">\(F\)</span> statistic is large. This occurs when the variation between groups is large compared to the variation within groups. Under the null hypothesis, the distribution of the test statistic is <span class="math inline">\(F\)</span> with degrees of freedom <span class="math inline">\(g - 1\)</span> and <span class="math inline">\(N - g\)</span>.</p>
+<!-- TODO: This should be a Shiny app. -->
+<!-- TODO: Should output entire ANOVA table. -->
+<!-- TODO: Do with ggplot2 and custom boxplots with show min, sd, mean, sd, max -->
+<p>Let’s see what this looks like in a few situations. In each of the following examples, we’ll consider sampling 20 observations (<span class="math inline">\(n_i = 20\)</span>) from three populations (groups; <span class="math inline">\(g = 3\)</span>).</p>
+<p>First, consider <span class="math inline">\(\mu_A = -5, \mu_B = 0, \mu_C = 5\)</span> with <span class="math inline">\(\sigma = 1\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The left panel shows the three normal distributions we are sampling from. The ticks along the <span class="math inline">\(x\)</span>-axis show the randomly sampled observations. The right panel re-displays only the sampled values in a boxplot. Note that the mid-line of the boxes is usually the sample median. These boxplots have been modified to use the sample mean.</p>
+<p>Here the sample means vary a lot around the overall sample mean, which is the solid grey line on the right panel. Within the groups there is variability, but it is still obvious that the sample means are very different.</p>
+<p>As a result, we obtain a <em>large</em> test statistic, thus <em>small</em> p-value.</p>
+<ul>
+<li><span class="math inline">\(F = 374.4469511\)</span></li>
+<li><span class="math inline">\(\text{p-value} = 1.6349862\times 10^{-33}\)</span></li>
+</ul>
+<p>Now consider <span class="math inline">\(\mu_A = 0, \mu_B = 0, \mu_C = 0\)</span> with <span class="math inline">\(\sigma = 1\)</span>. That is, equal means for the groups.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here the sample means vary only a tiny bit around the overall sample mean. Within the groups there is variability, this time much larger than the variability of the sample means.</p>
+<p>As a result, we obtain a <em>small</em> test statistic, thus <em>large</em> p-value.</p>
+<ul>
+<li><span class="math inline">\(F = 2.667892\)</span></li>
+<li><span class="math inline">\(\text{p-value} = 0.0780579\)</span></li>
+</ul>
+<p>The next two examples show different means, with different levels of noise. Notice how these affect the test statistic and p-value.</p>
+<ul>
+<li><span class="math inline">\(\mu_A = -1, \mu_B = 0, \mu_C = 1, \sigma = 1\)</span></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(F = 16.4879492\)</span></li>
+<li><span class="math inline">\(\text{p-value} = 2.2378806\times 10^{-6}\)</span></li>
+</ul>
+<p>Above, there isn’t obvious separation between the groups like the first example, but it is still obvious the means are different. Below, there is more noise. Visually it is somewhat hard to tell, but the test still suggests a difference of means. (At an <span class="math inline">\(\alpha\)</span> of 0.05.)</p>
+<ul>
+<li><span class="math inline">\(\mu_A = -1, \mu_B = 0, \mu_C = 1, \sigma = 2\)</span></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(F = 4.6256472\)</span></li>
+<li><span class="math inline">\(\text{p-value} = 0.0137529\)</span></li>
+</ul>
+<p>Let’s consider an example with real data. We’ll use the <code>coagulation</code> dataset from the <code>faraway</code> package. Here four different diets (<code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>) were administered to a random sample of 24 animals. The subjects were randomly assigned to one of the four diets. For each, their blood coagulation time was measured in seconds.</p>
+<p>Here we would like to test</p>
+<p>[ H_0: _A = _B = _C = _D ]</p>
+<p>where, for example, <span class="math inline">\(\mu_A\)</span> is the mean blood coagulation time for an animal that ate diet <code>A</code>.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(faraway)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(coagulation)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "coag" "diet"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation, <span class="at">col =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We first load the data and create the relevant boxplot. The plot alone suggests a difference of means. The <code>aov()</code> function is used to obtain the relevant sums of squares. Using the <code>summary()</code> function on the output from <code>aov()</code> creates the desired ANOVA table (without the unneeded row for total).</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coag_aov <span class="ot">=</span> <span class="fu">aov</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>coag_aov</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+   aov(formula = coag ~ diet, data = coagulation)
+
+Terms:
+                diet Residuals
+Sum of Squares   228       112
+Deg. of Freedom    3        20
+
+Residual standard error: 2.366432
+Estimated effects may be unbalanced</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(coag_aov)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+diet         3    228    76.0   13.57 4.66e-05 ***
+Residuals   20    112     5.6                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Were we to run this experiment, we would have pre-specified a significance level. However, notice that the p-value of this test is incredibly low, so using any reasonable significance level we would reject the null hypothesis. Thus we believe the diets had an effect on blood coagulation time.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>diets <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">diet =</span> <span class="fu">unique</span>(coagulation<span class="sc">$</span>diet))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(diets, <span class="at">coag =</span> <span class="fu">predict</span>(coag_aov, diets))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  diet coag
+1    A   61
+2    B   66
+3    C   68
+4    D   61</code></pre>
+</div>
+</div>
+<p>Here, we’ve created a dataframe with a row for each diet. By predicting on this dataframe, we obtain the sample means of each diet (group).</p>
+<section id="factor-variables" class="level3">
+<h3 class="anchored" data-anchor-id="factor-variables">Factor Variables</h3>
+<p>When performing ANOVA in <code>R</code>, be sure the grouping variable is a factor variable. If it is not, your result might not be ANOVA, but instead a linear regression with the predictor variable considered numeric.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>response <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">15</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>group    <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">3</span>, <span class="dv">5</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>bad <span class="ot">=</span> <span class="fu">data.frame</span>(response, group)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(response <span class="sc">~</span> group, <span class="at">data =</span> bad)) <span class="co"># wrong DF!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+group        1  0.017  0.0173   0.015  0.903
+Residuals   13 14.698  1.1306               </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>good <span class="ot">=</span> <span class="fu">data.frame</span>(response, <span class="at">group =</span> <span class="fu">as.factor</span>(group))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(response <span class="sc">~</span> group, <span class="at">data =</span> good))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+group        2  0.232  0.1158   0.096  0.909
+Residuals   12 14.484  1.2070               </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.factor</span>(bad<span class="sc">$</span>group)  <span class="co"># 1, 2, and 3 are numbers.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.factor</span>(good<span class="sc">$</span>group) <span class="co"># 1, 2, and 3 are labels.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="some-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="some-simulation">Some Simulation</h3>
+<p>Here we verify the distribution of the test statistic under the null hypothesis. We simulate from a null model (equal variance) to obtain an empirical distribution of the <span class="math inline">\(F\)</span> statistic. We add the curve for the expected distribution.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sim_anova <span class="ot">=</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mu_a =</span> <span class="dv">0</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">0</span>, <span class="at">sigma =</span> <span class="dv">1</span>, <span class="at">stat =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create data from one-way ANOVA model with four groups of equal size</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># response simulated from normal with group mean, shared variance</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group variable indicates group A, B, C or D</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  sim_data <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">response =</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> n, <span class="at">mean =</span> mu_a, <span class="at">sd =</span> sigma),</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rnorm</span>(<span class="at">n =</span> n, <span class="at">mean =</span> mu_b, <span class="at">sd =</span> sigma),</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rnorm</span>(<span class="at">n =</span> n, <span class="at">mean =</span> mu_c, <span class="at">sd =</span> sigma),</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">rnorm</span>(<span class="at">n =</span> n, <span class="at">mean =</span> mu_d, <span class="at">sd =</span> sigma)),</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"A"</span>, <span class="at">times =</span> n), <span class="fu">rep</span>(<span class="st">"B"</span>, <span class="at">times =</span> n), </span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">rep</span>(<span class="st">"C"</span>, <span class="at">times =</span> n), <span class="fu">rep</span>(<span class="st">"D"</span>, <span class="at">times =</span> n))</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obtain F-statistic and p-value for testing difference of means</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use lm instead of aov for better result formatting with glance</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  aov_results <span class="ot">=</span> <span class="fu">lm</span>(response <span class="sc">~</span> group, <span class="at">data =</span> sim_data)</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>  f_stat <span class="ot">=</span> <span class="fu">glance</span>(aov_results)<span class="sc">$</span>statistic</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>  p_val  <span class="ot">=</span> <span class="fu">glance</span>(aov_results)<span class="sc">$</span>p.value</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return f_stat if stat = TRUE, otherwise, p-value</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(stat, f_stat, p_val)</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>f_stats <span class="ot">=</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">5000</span>, <span class="fu">sim_anova</span>(<span class="at">stat =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(f_stats, <span class="at">breaks =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="cn">TRUE</span>, <span class="at">border =</span> <span class="st">"dodgerblue"</span>, <span class="at">main =</span> <span class="st">"Empirical Distribution of F"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1 =</span> <span class="dv">4</span> <span class="sc">-</span> <span class="dv">1</span>, <span class="at">df2 =</span> <span class="dv">40</span> <span class="sc">-</span> <span class="dv">4</span>), <span class="at">col =</span> <span class="st">"darkorange"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_files/figure-html/sim-anova-graphs-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="power" class="level3">
+<h3 class="anchored" data-anchor-id="power">Power</h3>
+<p>Now that we’re performing experiments, getting more data means finding more test subjects, running more lab tests, etc. In other words, it will cost more time and money.</p>
+<p>We’d like to design our experiment so that we have a good chance of detecting an interesting effect size, without spending too much money. There’s no point in running an experiment if there’s only a very low chance that it has a significant result that you care about. (Remember, not all statistically significant results have practical value.)</p>
+<p>We’d like the ANOVA test to have high <strong>power</strong> for an alternative hypothesis with a minimum desired effect size.</p>
+<p>[ = P( H_0 H_0 ) ]</p>
+<p>That is, for a true difference of means that we deem interesting, we want the test to reject with high probability.</p>
+<p>A number of things can affect the power of a test:</p>
+<ul>
+<li><strong>Effect size</strong>. It is easier to detect larger effects.</li>
+<li><strong>Noise level</strong> <span class="math inline">\(\sigma\)</span>. The less noise, the easier it is to detect signal (effect). We don’t have much ability to control this, except maybe to measure more accurately.</li>
+<li><strong>Significance level</strong> <span class="math inline">\(\alpha\)</span>. Lower significance level makes rejecting more difficult. (But also allows for fewer false positives.)</li>
+<li><strong>Sample size</strong>. Large samples mean easier to detect effects.</li>
+<li><strong>Balanced design</strong>. An equal number of observations per group leads to higher power.</li>
+</ul>
+<p>The following simulations look at the effect of significance level, effect size, and noise level on the power of an ANOVA <span class="math inline">\(F\)</span>-test. Homework will look into sample size and balance.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">=</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="fu">sim_anova</span>(<span class="at">mu_a =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">1</span>,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">sigma =</span> <span class="fl">1.5</span>, <span class="at">stat =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.661</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.01</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.384</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">=</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="fu">sim_anova</span>(<span class="at">mu_a =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">1</span>,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">sigma =</span> <span class="fl">2.0</span>, <span class="at">stat =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.425</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.01</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.19</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">=</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="fu">sim_anova</span>(<span class="at">mu_a =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">mu_b =</span> <span class="dv">0</span>, <span class="at">mu_c =</span> <span class="dv">0</span>, <span class="at">mu_d =</span> <span class="dv">2</span>,</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">sigma =</span> <span class="fl">2.0</span>, <span class="at">stat =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.956</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.01</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.837</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="post-hoc-testing" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="post-hoc-testing"><span class="header-section-number">12.4</span> Post Hoc Testing</h2>
+<p>Suppose we reject the null hypothesis from the ANOVA test for equal means. That tells us that the means are different. But which means? All of them? Some of them? The obvious strategy is to test all possible comparisons of two means. We can do this easily in <code>R</code>.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(coagulation, <span class="fu">pairwise.t.test</span>(coag, diet, <span class="at">p.adj =</span> <span class="st">"none"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pairwise comparisons using t tests with pooled SD 
+
+data:  coag and diet 
+
+  A       B       C      
+B 0.00380 -       -      
+C 0.00018 0.15878 -      
+D 1.00000 0.00086 2.3e-05
+
+P value adjustment method: none </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pairwise.t.test(coagulation$coag, coagulation$diet, p.adj = "none")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Notice the <code>pairwise.t.test()</code> function does not have a <code>data</code> argument. To avoid using <code>attach()</code> or the <code>$</code> operator, we introduce the <code>with()</code> function. The commented line would perform the same operation.</p>
+<p>Also note that we are using the argument <code>p.adj = "none"</code>. What is this? An adjustment (in this case not an adjustment) to the p-value of each test. Why would we need to do this?</p>
+<p>The adjustment is an attempt to correct for the <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem" target="_blank">multiple testing problem</a>. (See also: <a href="https://xkcd.com/882/" target="_blank">Relevant XKCD</a>. ) Imagine that you knew ahead of time that you were going to perform 100 <span class="math inline">\(t\)</span>-tests. Suppose you wish to do this with a false positive rate of <span class="math inline">\(\alpha = 0.05\)</span>. If we use this significance level for each test, for 100 tests, we then expect 5 false positives. That means, with 100 tests, we’re almost guaranteed to have at least one error.</p>
+<p>What we’d really like is for the <a href="https://en.wikipedia.org/wiki/Family-wise_error_rate" target="_blank">family-wise error rate (FWER)</a> to be 0.05. If we consider the 100 tests to be a single “experiment,” the FWER is the rate of one or more false positives for the full experiment (100 tests). Consider it an error rate for an entire procedure, instead of a single test.</p>
+<p>With this in mind, one of the simplest adjustments we can make, is to increase the p-values for each test, depending on the number of tests. In particular the Bonferroni correction simply multiplies by the number of tests.</p>
+<p>[ = (1, n_{tests} ) ]</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(coagulation, <span class="fu">pairwise.t.test</span>(coag, diet, <span class="at">p.adj =</span> <span class="st">"bonferroni"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pairwise comparisons using t tests with pooled SD 
+
+data:  coag and diet 
+
+  A       B       C      
+B 0.02282 -       -      
+C 0.00108 0.95266 -      
+D 1.00000 0.00518 0.00014
+
+P value adjustment method: bonferroni </code></pre>
+</div>
+</div>
+<p>We see that these p-values are much higher than the unadjusted p-values, thus, we are less likely to reject each test. As a result, the FWER is 0.05, instead of an error rate of 0.05 for each test.</p>
+<p>We can simulate the 100 test scenarios to illustrate this point.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>get_p_val <span class="ot">=</span> <span class="cf">function</span>() {</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create data for two groups, equal mean</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  g <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"A"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"B"</span>, <span class="dv">10</span>))</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># p-value of t-test when null is true</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(<span class="fu">t.test</span>(y <span class="sc">~</span> g, <span class="at">var.equal =</span> <span class="cn">TRUE</span>))<span class="sc">$</span>p.value</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># FWER with 100 tests</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># desired rate = 0.05</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># no adjustment</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">any</span>(<span class="fu">replicate</span>(<span class="dv">100</span>, <span class="fu">get_p_val</span>()) <span class="sc">&lt;</span> <span class="fl">0.05</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.994</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># FWER with 100 tests</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># desired rate = 0.05</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># bonferroni adjustment</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">any</span>(<span class="fu">p.adjust</span>(<span class="fu">replicate</span>(<span class="dv">100</span>, <span class="fu">get_p_val</span>()), <span class="st">"bonferroni"</span>) <span class="sc">&lt;</span> <span class="fl">0.05</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.058</code></pre>
+</div>
+</div>
+<p>For the specific case of testing all two-way mean differences after an ANOVA test, there are <a href="https://en.wikipedia.org/wiki/Post_hoc_analysis" target="_blank">a number of potential methods</a> for making an adjustment of this type. The pros and cons of the potential methods are beyond the scope of this course. We choose a method for its ease of use, and to a lesser extent, its developer.</p>
+<p>Tukey’s Honest Significance difference can be applied directly to an object which was created using <code>aov()</code>. It will adjust the p-values of the pairwise comparisons of the means to control the FWER, in this case, for 0.05. Notice it also gives confidence intervals for the difference of the means.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(coag_aov, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = coag ~ diet, data = coagulation)
+
+$diet
+    diff         lwr       upr     p adj
+B-A    5   0.7245544  9.275446 0.0183283
+C-A    7   2.7245544 11.275446 0.0009577
+D-A    0  -4.0560438  4.056044 1.0000000
+C-B    2  -1.8240748  5.824075 0.4766005
+D-B   -5  -8.5770944 -1.422906 0.0044114
+D-C   -7 -10.5770944 -3.422906 0.0001268</code></pre>
+</div>
+</div>
+<p>Based on these results, we see no difference between <code>A</code> and <code>D</code> as well as <code>B</code> and <code>C</code>. All other pairwise comparisons are significant. If you return to the original boxplot, these results should not be surprising.</p>
+<p>Also, nicely, we can easily produce a plot of these confidence intervals.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(coag_aov, <span class="at">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The creator of this method, <a href="https://en.wikipedia.org/wiki/John_Tukey" target="_blank">John Tukey</a>, is an important figure in the history of data science. He essentially <a href="https://projecteuclid.org/euclid.aoms/1177704711" target="_blank">predicted the rise of data science over 50 years ago</a>. For some retrospective thoughts on those 50 years, see <a href="http://courses.csail.mit.edu/18.337/2015/docs/50YearsDataScience.pdf" target="_blank">this paper from David Donoho</a>.</p>
+</section>
+<section id="two-way-anova" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="two-way-anova"><span class="header-section-number">12.5</span> Two-Way ANOVA</h2>
+<p>What if there is more than one factor variable? Why do we need to limit ourselves to experiments with only one factor? We don’t! Consider the model</p>
+<p>[ y_{ijk} = + <em>i + <em>j + ()</em>{ij} + </em>{ijk} ]</p>
+<p>where <span class="math inline">\(\epsilon_{ijk}\)</span> are <span class="math inline">\(N(0, \sigma^2)\)</span> random variables.</p>
+<p>We add constraints</p>
+<p>[ _{i=1}^{I} <em>i = 0 </em>{j=1}^{J} _j = 0. ]</p>
+<p>and</p>
+<p>[ ()<em>{1j} + ()</em>{2j} + ()<em>{3j} = 0 \ ()</em>{i1} + ()<em>{i2} + ()</em>{i3} + ()_{i4} = 0 ]</p>
+<p>for any <span class="math inline">\(i\)</span> or <span class="math inline">\(j\)</span>.</p>
+<p>Here,</p>
+<ul>
+<li><span class="math inline">\(i = 1, 2, \ldots I\)</span> where <span class="math inline">\(I\)</span> is the number of levels of factor <span class="math inline">\(A\)</span>.</li>
+<li><span class="math inline">\(j = 1, 2, \ldots J\)</span> where <span class="math inline">\(J\)</span> is the number of levels of factor <span class="math inline">\(B\)</span>.</li>
+<li><span class="math inline">\(k = 1, 2, \ldots K\)</span> where <span class="math inline">\(K\)</span> is the number of replicates per group.</li>
+</ul>
+<p>Here, we can think of a group as a combination of a level from each of the factors. So for example, one group will receive level <span class="math inline">\(2\)</span> of factor <span class="math inline">\(A\)</span> and level <span class="math inline">\(3\)</span> of factor <span class="math inline">\(B\)</span>. The number of replicates is the number of subjects in each group. Here <span class="math inline">\(y_{135}\)</span> would be the measurement for the fifth member (replicate) of the group for level <span class="math inline">\(1\)</span> of factor <span class="math inline">\(A\)</span> and level <span class="math inline">\(3\)</span> of factor <span class="math inline">\(B\)</span>.</p>
+<p>We call this setup an <span class="math inline">\(I \times J\)</span> <strong>factorial design</strong> with <span class="math inline">\(K\)</span> replicates. (Our current notation only allows for equal replicates in each group. It isn’t difficult to allow for different replicates for different groups, but we’ll proceed using equal replicates per group, which if possible, is desirable.)</p>
+<ul>
+<li><span class="math inline">\(\alpha_i\)</span> measures the effect of level <span class="math inline">\(i\)</span> of factor <span class="math inline">\(A\)</span>. We call these the <strong>main effects</strong> of factor <span class="math inline">\(A\)</span>.</li>
+<li><span class="math inline">\(\beta_j\)</span> measures the effect of level <span class="math inline">\(j\)</span> of factor <span class="math inline">\(B\)</span>. We call these the <strong>main effects</strong> of factor <span class="math inline">\(B\)</span>.</li>
+<li><span class="math inline">\((\alpha \beta)_{ij}\)</span> is a single parameter. We use <span class="math inline">\(\alpha \beta\)</span> to note that this parameter measures the <strong>interaction</strong> between the two main effects.</li>
+</ul>
+<p>Under this setup, there are a number of models that we can compare. Consider a <span class="math inline">\(2 \times 2\)</span> factorial design. The following tables show the means for each of the possible groups under each model.</p>
+<p><strong>Interaction</strong> Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij} + \epsilon_{ijk}\)</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Factor B, Level 1</strong></th>
+<th><strong>Factor B, Level 2</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Factor A, Level 1</strong></td>
+<td><span class="math inline">\(\mu + \alpha_1 + \beta_1 + (\alpha\beta)_{11}\)</span></td>
+<td><span class="math inline">\(\mu + \alpha_1 + \beta_2 + (\alpha\beta)_{12}\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Factor A, Level 2</strong></td>
+<td><span class="math inline">\(\mu + \alpha_2 + \beta_1 + (\alpha\beta)_{21}\)</span></td>
+<td><span class="math inline">\(\mu + \alpha_2 + \beta_2 + (\alpha\beta)_{22}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Additive</strong> Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \beta_j + \epsilon_{ijk}\)</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Factor B, Level 1</strong></th>
+<th><strong>Factor B, Level 2</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Factor A, Level 1</strong></td>
+<td><span class="math inline">\(\mu + \alpha_1 + \beta_1\)</span></td>
+<td><span class="math inline">\(\mu + \alpha_1 + \beta_2\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Factor A, Level 2</strong></td>
+<td><span class="math inline">\(\mu + \alpha_2 + \beta_1\)</span></td>
+<td><span class="math inline">\(\mu + \alpha_2 + \beta_2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Factor B</strong> Only Model (One-Way): <span class="math inline">\(y_{ijk} = \mu + \beta_j + \epsilon_{ijk}\)</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Factor B, Level 1</strong></th>
+<th><strong>Factor B, Level 2</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Factor A, Level 1</strong></td>
+<td><span class="math inline">\(\mu + \beta_1\)</span></td>
+<td><span class="math inline">\(\mu + \beta_2\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Factor A, Level 2</strong></td>
+<td><span class="math inline">\(\mu + \beta_1\)</span></td>
+<td><span class="math inline">\(\mu + \beta_2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Factor A</strong> Only Model (One-Way): <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \epsilon_{ijk}\)</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Factor B, Level 1</strong></th>
+<th><strong>Factor B, Level 2</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Factor A, Level 1</strong></td>
+<td><span class="math inline">\(\mu + \alpha_1\)</span></td>
+<td><span class="math inline">\(\mu + \alpha_1\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Factor A, Level 2</strong></td>
+<td><span class="math inline">\(\mu + \alpha_2\)</span></td>
+<td><span class="math inline">\(\mu + \alpha_2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Null</strong> Model: <span class="math inline">\(y_{ijk} = \mu + \epsilon_{ijk}\)</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Factor B, Level 1</strong></th>
+<th><strong>Factor B, Level 2</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Factor A, Level 1</strong></td>
+<td><span class="math inline">\(\mu\)</span></td>
+<td><span class="math inline">\(\mu\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Factor A, Level 2</strong></td>
+<td><span class="math inline">\(\mu\)</span></td>
+<td><span class="math inline">\(\mu\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The question then, is which of these models should we use if we have two factors? The most important question to consider is whether or not we should model the <strong>interaction</strong>. Is the effect of Factor A the <em>same</em> for all levels of Factor B? In the additive model, yes. In the interaction model, no. Both models would use a different mean for each group, but in a very specific way in both cases.</p>
+<p>Let’s discuss these comparisons by looking at some examples. We’ll first look at the <code>rats</code> data from the <code>faraway</code> package. There are two factors here: <code>poison</code> and <code>treat</code>. We use the <code>levels()</code> function to extract the levels of a factor variable.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(rats<span class="sc">$</span>poison)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "I"   "II"  "III"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(rats<span class="sc">$</span>treat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "A" "B" "C" "D"</code></pre>
+</div>
+</div>
+<p>Here, 48 rats were randomly assigned both one of three poisons and one of four possible treatments. The experimenters then measured their survival time in tens of hours. A total of 12 groups, each with 4 replicates.</p>
+<p>Before running any tests, we should first look at the data. We will create <strong>interaction plots</strong>, which will help us visualize the effect of one factor, as we move through the levels of another factor.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(rats, <span class="fu">interaction.plot</span>(poison, treat, time, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(rats, <span class="fu">interaction.plot</span>(treat, poison, time, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If there is not interaction, thus an additive model, we would expect to see parallel lines. That would mean, when we change the level of one factor, there can be an effect on the response. However, the difference between the levels of the other factor should still be the same.</p>
+<p>The obvious indication of interaction would be lines that cross while heading in different directions. Here we don’t see that, but the lines aren’t strictly parallel, and there is some overlap on the right panel. However, is this interaction effect significant?</p>
+<p>Let’s fit each of the possible models, then investigate their estimates for each of the group means.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>rats_int   <span class="ot">=</span> <span class="fu">aov</span>(time <span class="sc">~</span> poison <span class="sc">*</span> treat, <span class="at">data =</span> rats) <span class="co"># interaction model</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>rats_add   <span class="ot">=</span> <span class="fu">aov</span>(time <span class="sc">~</span> poison <span class="sc">+</span> treat, <span class="at">data =</span> rats) <span class="co"># additive model</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>rats_pois  <span class="ot">=</span> <span class="fu">aov</span>(time <span class="sc">~</span> poison , <span class="at">data =</span> rats)        <span class="co"># single factor model   </span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>rats_treat <span class="ot">=</span> <span class="fu">aov</span>(time <span class="sc">~</span> treat, <span class="at">data =</span> rats)          <span class="co"># single factor model</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>rats_null  <span class="ot">=</span> <span class="fu">aov</span>(time <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> rats)              <span class="co"># null model</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>To get the estimates, we’ll create a table which we will predict on.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>rats_table <span class="ot">=</span> <span class="fu">expand.grid</span>(<span class="at">poison =</span> <span class="fu">unique</span>(rats<span class="sc">$</span>poison), <span class="at">treat =</span> <span class="fu">unique</span>(rats<span class="sc">$</span>treat))</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>rats_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   poison treat
+1       I     A
+2      II     A
+3     III     A
+4       I     B
+5      II     B
+6     III     B
+7       I     C
+8      II     C
+9     III     C
+10      I     D
+11     II     D
+12    III     D</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">paste0</span>(rats_table<span class="sc">$</span>poison, <span class="st">"-"</span>, rats_table<span class="sc">$</span>treat) , <span class="dv">4</span>, <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]  [,2]   [,3]   
+[1,] "I-A" "II-A" "III-A"
+[2,] "I-B" "II-B" "III-B"
+[3,] "I-C" "II-C" "III-C"
+[4,] "I-D" "II-D" "III-D"</code></pre>
+</div>
+</div>
+<p>Since we’ll be repeating ourselves a number of times, we write a function to perform the prediction. Some housekeeping is done to keep the estimates in order, and provide row and column names. Above, we’ve shown where each of the estimates will be placed in the resulting matrix.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>get_est_means <span class="ot">=</span> <span class="cf">function</span>(model, table) {</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">predict</span>(model, table), <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(mat) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>)</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(mat) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  mat</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>First, we obtain the estimates from the <strong>interaction</strong> model. Note that each cell has a different value.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">get_est_means</span>(<span class="at">model =</span> rats_int, <span class="at">table =</span> rats_table))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">I</th>
+<th style="text-align: right;">II</th>
+<th style="text-align: right;">III</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.4125</td>
+<td style="text-align: right;">0.3200</td>
+<td style="text-align: right;">0.210</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.8800</td>
+<td style="text-align: right;">0.8150</td>
+<td style="text-align: right;">0.335</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">0.5675</td>
+<td style="text-align: right;">0.3750</td>
+<td style="text-align: right;">0.235</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">0.6100</td>
+<td style="text-align: right;">0.6675</td>
+<td style="text-align: right;">0.325</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Next, we obtain the estimates from the <strong>additive</strong> model. Again, each cell has a different value. We also see that these estimates are somewhat close to those from the interaction model.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">get_est_means</span>(<span class="at">model =</span> rats_add, <span class="at">table =</span> rats_table))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">I</th>
+<th style="text-align: right;">II</th>
+<th style="text-align: right;">III</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.4522917</td>
+<td style="text-align: right;">0.3791667</td>
+<td style="text-align: right;">0.1110417</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.8147917</td>
+<td style="text-align: right;">0.7416667</td>
+<td style="text-align: right;">0.4735417</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">0.5306250</td>
+<td style="text-align: right;">0.4575000</td>
+<td style="text-align: right;">0.1893750</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">0.6722917</td>
+<td style="text-align: right;">0.5991667</td>
+<td style="text-align: right;">0.3310417</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>To understand the difference, let’s consider the effect of the treatments.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>additive_means <span class="ot">=</span> <span class="fu">get_est_means</span>(<span class="at">model =</span> rats_add, <span class="at">table =</span> rats_table)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>additive_means[<span class="st">"A"</span>,] <span class="sc">-</span> additive_means[<span class="st">"B"</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      I      II     III 
+-0.3625 -0.3625 -0.3625 </code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>interaction_means <span class="ot">=</span> <span class="fu">get_est_means</span>(<span class="at">model =</span> rats_int, <span class="at">table =</span> rats_table)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>interaction_means[<span class="st">"A"</span>,] <span class="sc">-</span> interaction_means[<span class="st">"B"</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      I      II     III 
+-0.4675 -0.4950 -0.1250 </code></pre>
+</div>
+</div>
+<p>This is the key difference between the interaction and additive models. The difference between the effect of treatments <code>A</code> and <code>B</code> is the <strong>same</strong> for each poison in the additive model. They are <strong>different</strong> in the interaction model.</p>
+<p>The remaining three models are much simpler, having either only row or only column effects. Or no effects in the case of the null model.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">get_est_means</span>(<span class="at">model =</span> rats_pois, <span class="at">table =</span> rats_table))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">I</th>
+<th style="text-align: right;">II</th>
+<th style="text-align: right;">III</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.6175</td>
+<td style="text-align: right;">0.544375</td>
+<td style="text-align: right;">0.27625</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.6175</td>
+<td style="text-align: right;">0.544375</td>
+<td style="text-align: right;">0.27625</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">0.6175</td>
+<td style="text-align: right;">0.544375</td>
+<td style="text-align: right;">0.27625</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">0.6175</td>
+<td style="text-align: right;">0.544375</td>
+<td style="text-align: right;">0.27625</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">get_est_means</span>(<span class="at">model =</span> rats_treat, <span class="at">table =</span> rats_table))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">I</th>
+<th style="text-align: right;">II</th>
+<th style="text-align: right;">III</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.3141667</td>
+<td style="text-align: right;">0.3141667</td>
+<td style="text-align: right;">0.3141667</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.6766667</td>
+<td style="text-align: right;">0.6766667</td>
+<td style="text-align: right;">0.6766667</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">0.3925000</td>
+<td style="text-align: right;">0.3925000</td>
+<td style="text-align: right;">0.3925000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">0.5341667</td>
+<td style="text-align: right;">0.5341667</td>
+<td style="text-align: right;">0.5341667</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">get_est_means</span>(<span class="at">model =</span> rats_null, <span class="at">table =</span> rats_table))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">I</th>
+<th style="text-align: right;">II</th>
+<th style="text-align: right;">III</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.479375</td>
+<td style="text-align: right;">0.479375</td>
+<td style="text-align: right;">0.479375</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.479375</td>
+<td style="text-align: right;">0.479375</td>
+<td style="text-align: right;">0.479375</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">0.479375</td>
+<td style="text-align: right;">0.479375</td>
+<td style="text-align: right;">0.479375</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">0.479375</td>
+<td style="text-align: right;">0.479375</td>
+<td style="text-align: right;">0.479375</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>To perform the needed tests, we will need to create another ANOVA table. (We’ll skip the details of the sums of squares calculations and simply let <code>R</code> take care of them.)</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 17%">
+<col style="width: 28%">
+<col style="width: 19%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Sum of Squares</th>
+<th>Degrees of Freedom</th>
+<th>Mean Square</th>
+<th><span class="math inline">\(F\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Factor A</td>
+<td>SSA</td>
+<td><span class="math inline">\(I -1\)</span></td>
+<td>SSA / DFA</td>
+<td>MSA / MSE</td>
+</tr>
+<tr class="even">
+<td>Factor B</td>
+<td>SSB</td>
+<td><span class="math inline">\(J -1\)</span></td>
+<td>SSB / DFB</td>
+<td>MSB / MSE</td>
+</tr>
+<tr class="odd">
+<td>AB Interaction</td>
+<td>SSAB</td>
+<td><span class="math inline">\((I -1)(J -1)\)</span></td>
+<td>SSAB / DFAB</td>
+<td>MSAB / MSE</td>
+</tr>
+<tr class="even">
+<td>Error</td>
+<td>SSE</td>
+<td><span class="math inline">\(IJ(K - 1)\)</span></td>
+<td>SSE / DFE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>SST</td>
+<td><span class="math inline">\(IJK - 1\)</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The row for <strong>AB Interaction</strong> tests:</p>
+<p>[ H_0: ()<em>{ij} = 0. H_1: ()</em>{ij} 0. ]</p>
+<ul>
+<li>Null Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \beta_j + \epsilon_{ijk}.\)</span> (Additive Model.)</li>
+<li>Alternative Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij} + \epsilon_{ijk}.\)</span> (Interaction Model.)</li>
+</ul>
+<p>We reject the null when the <span class="math inline">\(F\)</span> statistic is large. Under the null hypothesis, the distribution of the test statistic is <span class="math inline">\(F\)</span> with degrees of freedom <span class="math inline">\((I -1)(J -1)\)</span> and <span class="math inline">\(IJ(K - 1)\)</span>.</p>
+<p>The row for <strong>Factor B</strong> tests:</p>
+<p>[ H_0: <em>{j} = 0. H_1: </em>{j} 0. ]</p>
+<ul>
+<li>Null Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \epsilon_{ijk}.\)</span> (Only Factor A Model.)</li>
+<li>Alternative Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \beta_j + \epsilon_{ijk}.\)</span> (Additive Model.)</li>
+</ul>
+<p>We reject the null when the <span class="math inline">\(F\)</span> statistic is large. Under the null hypothesis, the distribution of the test statistic is <span class="math inline">\(F\)</span> with degrees of freedom <span class="math inline">\(J - 1\)</span> and <span class="math inline">\(IJ(K - 1)\)</span>.</p>
+<p>The row for <strong>Factor A</strong> tests:</p>
+<p>[ H_0: <em>{i} = 0. H_1: </em>{i} 0. ]</p>
+<ul>
+<li>Null Model: <span class="math inline">\(y_{ijk} = \mu + \beta_j + \epsilon_{ijk}.\)</span> (Only Factor B Model.)</li>
+<li>Alternative Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \beta_j + \epsilon_{ijk}.\)</span> (Additive Model.)</li>
+</ul>
+<p>We reject the null when the <span class="math inline">\(F\)</span> statistic is large. Under the null hypothesis, the distribution of the test statistic is <span class="math inline">\(F\)</span> with degrees of freedom <span class="math inline">\(I - 1\)</span> and <span class="math inline">\(IJ(K - 1)\)</span>.</p>
+<p>These tests should be performed according to the model <strong>hierarchy</strong>. First consider the test of interaction. If it is significant, we select the interaction model and perform no further testing. If interaction is not significant, we then consider the necessity of the individual factors of the additive model.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hierarchy.png" class="img-fluid figure-img"></p>
+<figcaption>Model Hierarchy</figcaption>
+</figure>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(time <span class="sc">~</span> poison <span class="sc">*</span> treat, <span class="at">data =</span> rats))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+poison        2 1.0330  0.5165  23.222 3.33e-07 ***
+treat         3 0.9212  0.3071  13.806 3.78e-06 ***
+poison:treat  6 0.2501  0.0417   1.874    0.112    
+Residuals    36 0.8007  0.0222                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Using a significance level of <span class="math inline">\(\alpha = 0.05\)</span>, we see that the interaction is not significant. Within the additive model, both factors are significant, so we select the additive model.</p>
+<!-- - TODO: mention no replication, interaction issue -->
+<!-- - TODO: correct if int is not significant? -->
+<!-- - TODO: here we pick the full additive model -->
+<p>Within the additive model, we could do further testing about the main effects.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(time <span class="sc">~</span> poison <span class="sc">+</span> treat, <span class="at">data =</span> rats))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = time ~ poison + treat, data = rats)
+
+$poison
+            diff        lwr        upr     p adj
+II-I   -0.073125 -0.2089936  0.0627436 0.3989657
+III-I  -0.341250 -0.4771186 -0.2053814 0.0000008
+III-II -0.268125 -0.4039936 -0.1322564 0.0000606
+
+$treat
+           diff         lwr         upr     p adj
+B-A  0.36250000  0.18976135  0.53523865 0.0000083
+C-A  0.07833333 -0.09440532  0.25107198 0.6221729
+D-A  0.22000000  0.04726135  0.39273865 0.0076661
+C-B -0.28416667 -0.45690532 -0.11142802 0.0004090
+D-B -0.14250000 -0.31523865  0.03023865 0.1380432
+D-C  0.14166667 -0.03107198  0.31440532 0.1416151</code></pre>
+</div>
+</div>
+<p>For an example <strong>with</strong> interaction, we investigate the <code>warpbreaks</code> dataset, a default dataset in <code>R</code>.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(warpbreaks, <span class="fu">interaction.plot</span>(wool, tension, breaks, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>))</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(warpbreaks, <span class="fu">interaction.plot</span>(tension, wool, breaks, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Either plot makes it rather clear that the <code>wool</code> and <code>tensions</code> factors interact.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(breaks <span class="sc">~</span> wool <span class="sc">*</span> tension, <span class="at">data =</span> warpbreaks))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+wool          1    451   450.7   3.765 0.058213 .  
+tension       2   2034  1017.1   8.498 0.000693 ***
+wool:tension  2   1003   501.4   4.189 0.021044 *  
+Residuals    48   5745   119.7                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Using an <span class="math inline">\(\alpha\)</span> of <span class="math inline">\(0.05\)</span>, the ANOVA test finds that the interaction is significant, so we use the interaction model here.</p>
+<!-- TODO: two-way calculation details in an appendix -->
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cat-int.html" class="pagination-link" aria-label="Categorical Predictors and Interactions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./diagnostics.html" class="pagination-link" aria-label="Model Diagnostics">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
