@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Applied Statistics",
+    "title": "Applied Statistics with R",
     "section": "",
     "text": "1 Introduction\nWelcome to Applied Statistics with R!",
     "crumbs": [
@@ -12,7 +12,7 @@
   {
     "objectID": "index.html#about-this-book",
     "href": "index.html#about-this-book",
-    "title": "Applied Statistics",
+    "title": "Applied Statistics with R",
     "section": "1.1 About This Book",
     "text": "1.1 About This Book\nThis book was originally (and currently) designed for use with STAT 420, Methods of Applied Statistics, at the University of Illinois Urbana-Champaign. It may certainly be used elsewhere, but any references to “this course” in this book specifically refer to STAT 420.\nThis book is under active development. When possible, it would be best to always access the text online to be sure you are using the most up-to-date version. Also, the html version provides additional features such as changing text size, font, and colors. If you are in need of a local copy, a pdf version is continuously maintained, however, because a pdf uses pages, the formatting may not be as functional. (In other words, the author needs to go back and spend some time working on the pdf formatting.)\nSince this book is under active development you may encounter errors ranging from typos, to broken code, to poorly explained topics. If you do, please let us know! Simply send an email and we will make the changes as soon as possible. (dalpiaz2 AT illinois DOT edu) Or, if you know RMarkdown and are familiar with GitHub, make a pull request and fix an issue yourself! This process is partially automated by the edit button in the top-left corner of the html version. If your suggestion or fix becomes part of the book, you will be added to the list at the end of this chapter. We’ll also link to your GitHub account, or personal website upon request.\nThis text uses MathJax to render mathematical notation for the web. Occasionally, but rarely, a JavaScript error will prevent MathJax from rendering correctly. In this case, you will see the “code” instead of the expected mathematical equations. From experience, this is almost always fixed by simply refreshing the page. You’ll also notice that if you right-click any equation you can obtain the MathML Code (for copying into Microsoft Word) or the TeX command used to generate the equation.\n\\[\na^2 + b^2 = c^2\n\\]",
     "crumbs": [
@@ -22,7 +22,7 @@
   {
     "objectID": "index.html#conventions",
     "href": "index.html#conventions",
-    "title": "Applied Statistics",
+    "title": "Applied Statistics with R",
     "section": "1.2 Conventions",
     "text": "1.2 Conventions\nR code will be typeset using a monospace font which is syntax highlighted.\n\n\nShow the code\na = 3\nb = 4\nsqrt(a^2 + b^2)\n\n\nR output lines, which would appear in the console will begin with ##. They will generally not be syntax highlighted.\n\n\n[1] 5\n\n\nWe use the quantity \\(p\\) to refer to the number of \\(\\beta\\) parameters in a linear model, not the number of predictors. Don’t worry if you don’t know what this means yet!",
     "crumbs": [
@@ -32,7 +32,7 @@
   {
     "objectID": "index.html#acknowledgements",
     "href": "index.html#acknowledgements",
-    "title": "Applied Statistics",
+    "title": "Applied Statistics with R",
     "section": "1.3 Acknowledgements",
     "text": "1.3 Acknowledgements\nMaterial in this book was heavily influenced by:\n\nAlex Stepanov\n\nLongtime instructor of STAT 420 at the University of Illinois at Urbana-Champaign. The author of this book actually took Alex’s STAT 420 class many years ago! Alex provided or inspired many of the examples in the text.\n\nDavid Unger\n\nAnother STAT 420 instructor at the University of Illinois at Urbana-Champaign. Co-taught with the author during the summer of 2016 while this book was first being developed. Provided endless hours of copy editing and countless suggestions.\n\nJames Balamuta\n\nCurrent graduate student at the University of Illinois at Urbana-Champaign. Provided the initial push to write this book by introducing the author to the bookdown package in R. Also a frequent contributor via GitHub.\n\n\nYour name could be here! Suggest an edit! Correct a typo! If you submit a correction and would like to be listed below, please provide your name as you would like it to appear, as well as a link to a GitHub, LinkedIn, or personal website.\n\nDaniel McQuillan\nMason Rubenstein\nYuhang Wang\nZhao Liu\nJinfeng Xiao\nSomu Palaniappan\nMichael Hung-Yiu Chan\nEloise Rosen\nKiomars Nassiri\nJeff Gerlach\nBrandon Ching\nRay Fix\nTyler Kim\nYeongho Kim\nElmar Langholz\nThai Duy Cuong Nguyen\nJunyoung Kim\nSezgin Kucukcoban\nTony Ma\nRadu Manolescu\nDileep Pasumarthi\nSihun Wang\nJoseph Wilson\nYingkui Lin\nAndy Siddall\nNishant Balepur\nDurga Krovi\nRaj Krishnan\nEd Pureza\nSiddharth Singh\nSchillaci Mcinnis\nIvan Valdes Castillo\nTony Mu\nSalman Yousaf\nYutaro Nishiyama\nRegina Sahani Goonetilleke\nPaul Zuradzki\nWill Tsai\nEllen Veomett\nDavid Newman\nYixing Zheng\nOssama Sybesma\nShaneal Findley",
     "crumbs": [
@@ -42,7 +42,7 @@
   {
     "objectID": "index.html#license",
     "href": "index.html#license",
-    "title": "Applied Statistics",
+    "title": "Applied Statistics with R",
     "section": "1.4 License",
     "text": "1.4 License\n\n\n\nThis work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.",
     "crumbs": [

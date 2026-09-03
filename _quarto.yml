@@ -10,7 +10,7 @@ date: "last-modified"
 date-format: iso
 institute: "Wilfrid Laurier University"
 number-depth: 2
-author: "Dr. Devan Becker"
+author: "[David Dalpiaz](https://daviddalpiaz.org/), modified by Devan Becker"
 execute:
     warning: false
 

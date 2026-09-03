@@ -1,8 +1,5 @@
 --- 
 title: "Applied Statistics with R"
-author: "[David Dalpiaz](https://daviddalpiaz.org/)"
-github-repo: daviddalpiaz/appliedstats
-url: 'https\://daviddalpiaz.github.io/appliedstats/'
 ---
 
 # Introduction
