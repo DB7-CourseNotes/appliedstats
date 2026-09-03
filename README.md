@@ -1,8 +1,8 @@
-<!-- badges: start -->
-[![Book Build Status](https://github.com/daviddalpiaz/appliedstats/workflows/bookdown/badge.svg)](https://github.com/daviddalpiaz/appliedstats/actions)
-<!-- badges: end -->
+
 
 # Applied Statistics with `R` (`appliedstats`)
+
+This is a fork of "Applied Statistics with R" by David Dalpiaz.
 
 Textbook to accompany [STAT 420](http://catalog.illinois.edu/courses-of-instruction/stat/) at [UIUC](http://illinois.edu/). Currently under active development for use in Summer 2018 and future Coursera MOOC offerings.
 
