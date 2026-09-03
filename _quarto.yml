@@ -15,7 +15,7 @@ execute:
     warning: false
 
 book:
-  title: "Applied Statistics"
+  title: "Applied Statistics with R"
   subtitle: "Forked from daviddalpiaz/appliedstats"
   author: "[David Dalpiaz](https://daviddalpiaz.org/), modified by Devan Becker"
   date: "last-modified"
