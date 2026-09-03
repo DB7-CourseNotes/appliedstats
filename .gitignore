@@ -9,3 +9,9 @@ _bookdown_files
 libs
 applied_statistics.log
 applied_statistics.rds
+
+/.quarto/
+**/*.quarto_ipynb
+*_cache
+*_files
+
