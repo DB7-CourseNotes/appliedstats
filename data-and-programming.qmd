@@ -1,5 +1,9 @@
 ---
 format: live-html
+webr:
+  render-df: gt-interactive
+execute:
+  code-fold: false
 ---
 
 # Data and Programming
