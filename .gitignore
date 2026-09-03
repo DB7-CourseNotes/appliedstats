@@ -14,4 +14,4 @@ applied_statistics.rds
 **/*.quarto_ipynb
 *_cache
 *_files
-
+_extensions
