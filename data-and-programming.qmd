@@ -1,13 +1,3 @@
----
-format: 
-  live-html:
-    code-fold: false
-engine: knitr
-webr:
-  render-df: gt-interactive
----
-
-{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
 
 # Data and Programming
 
@@ -45,13 +35,13 @@ Many operations in `R` make heavy use of **vectors**. Vectors in `R` are indexed
 
 Possibly the most common way to create a vector in `R` is using the `c()` function, which is short for "combine." As the name suggests, it combines a list of elements separated by commas. 
 
-```{webr}
+```{webr-r}
 c(1, 3, 5, 7, 8, 9)
 ```
 
 Here `R` simply outputs this vector. If we would like to store this vector in a **variable**, we can do so with the **assignment** operator `=`. In this case the variable `x` now holds the vector we just created, and we can access the vector by typing `x`.
 
-```{webr}
+```{webr-r}
 x = c(1, 3, 5, 7, 8, 9)
 x
 ```
@@ -64,14 +54,14 @@ If you wish to use `<-`, you will still need to use `=`, however only for argume
 
 Because vectors must contain elements that are all the same type, `R` will automatically coerce to a single type when attempting to create a vector that combines multiple types.
 
-```{webr}
+```{webr-r}
 c(42, "Statistics", TRUE)
 c(42, TRUE)
 ```
 
 Frequently you may wish to create a vector based on a sequence of numbers. The quickest and easiest way to do this is with the `:` operator, which creates a sequence of integers between two specified integers.
 
-```{webr}
+```{webr-r}
 (y = 1:100)
 ```
 
@@ -79,31 +69,31 @@ Here we see `R` labeling the rows after the first since this is a large vector. 
 
 Note that scalars do not exist in `R`. They are simply vectors of length `1`.
 
-```{webr}
+```{webr-r}
 2
 ```
 
 To create a sequence that is not limited to consecutive integers, use the `seq()` function to define a sequence by its start, end, and increment.
 
-```{webr}
+```{webr-r}
 seq(from = 1.5, to = 4.2, by = 0.1)
 ```
 
 We will discuss functions in detail later, but note here that the input labels `from`, `to`, and `by` are optional.
 
-```{webr}
+```{webr-r}
 seq(1.5, 4.2, 0.1)
 ```
 
 Another common operation to create a vector is `rep()`, which can repeat a single value a number of times.
 
-```{webr}
+```{webr-r}
 rep("A", times = 10)
 ```
 
 The `rep()` function can be used to repeat a vector some number of times.
 
-```{webr}
+```{webr-r}
 rep(x, times = 3)
 ```
 
@@ -116,13 +106,13 @@ We have now seen four different ways to create vectors:
 
 So far we have mostly used them in isolation, but they are often used together.
 
-```{webr}
+```{webr-r}
 c(x, rep(seq(1, 9, 2), 3), c(1, 2, 3), 42, 2:4)
 ```
 
 The length of a vector can be obtained with the `length()` function.
 
-```{webr}
+```{webr-r}
 length(x)
 length(y)
 ```
@@ -131,7 +121,7 @@ length(y)
 
 To subset a vector, we use square brackets, `[]`. 
 
-```{webr}
+```{webr-r}
 x
 x[1]
 x[3]
@@ -139,13 +129,13 @@ x[3]
 
 We see that `x[1]` returns the first element, and `x[3]` returns the third element.
 
-```{webr}
+```{webr-r}
 x[-2]
 ```
 
 We can also exclude certain indexes, in this case the second element.
 
-```{webr}
+```{webr-r}
 x[1:3]
 x[c(1,3,4)]
 ```
@@ -154,12 +144,12 @@ Lastly we see that we can subset based on a vector of indices.
 
 All of the above are subsetting a vector using a vector of indexes. (Remember a single number is still a vector.) We could instead use a vector of logical values.
 
-```{webr}
+```{webr-r}
 z = c(TRUE, TRUE, FALSE, TRUE, TRUE, FALSE)
 z
 ```
 
-```{webr}
+```{webr-r}
 x[z]
 ```
 
@@ -167,7 +157,7 @@ x[z]
 
 One of the biggest strengths of `R` is its use of vectorized operations. (Frequently the lack of understanding of this concept leads to a belief that `R` is *slow*. `R` is not the fastest language, but it has a reputation for being slower than it really is.)
 
-```{webr}
+```{webr-r}
 x = 1:10
 x + 1
 2 * x
@@ -195,37 +185,37 @@ We see that when a function like `log()` is called on a vector `x`, a vector is 
 
 In `R`, logical operators are vectorized. 
 
-```{webr}
+```{webr-r}
 x = c(1, 3, 5, 7, 8, 9)
 ```
 
-```{webr}
+```{webr-r}
 x > 3
 x < 3
 x == 3
 x != 3
 ```
 
-```{webr}
+```{webr-r}
 x == 3 & x != 3
 x == 3 | x != 3
 ```
 
 This is extremely useful for subsetting.
 
-```{webr}
+```{webr-r}
 x[x > 3]
 x[x != 3]
 ```
 
-```{webr}
+```{webr-r}
 sum(x > 3)
 as.numeric(x > 3)
 ```
 
 Here we see that using the `sum()` function on a vector of logical `TRUE` and `FALSE` values that is the result of `x > 3` results in a numeric result. `R` is first automatically coercing the logical to numeric where `TRUE` is `1` and `FALSE` is `0`. This coercion from logical to numeric happens for most mathematical operations. If you are interested in more detail, check out [Advanced R](https://adv-r.hadley.nz/vectors-chap.html?q=coercion#testing-and-coercion).
 
-```{webr}
+```{webr-r}
 which(x > 3)
 x[which(x > 3)]
 
@@ -236,22 +226,22 @@ which.max(x)
 
 ### More Vectorization
 
-```{webr}
+```{webr-r}
 x = c(1, 3, 5, 7, 8, 9)
 y = 1:100
 ```
 
-```{webr}
+```{webr-r}
 x + 2
 x + rep(2, 6)
 ```
 
-```{webr}
+```{webr-r}
 x > 3
 x > rep(3, 6)
 ```
 
-```{webr}
+```{webr-r}
 x + y
 length(x)
 length(y)
@@ -259,27 +249,27 @@ length(y) / length(x)
 (x + y) - y
 ```
 
-```{webr}
+```{webr-r}
 y = 1:60
 x + y
 length(y) / length(x)
 ```
 
-```{webr}
+```{webr-r}
 rep(x, 10) + y
 ```
 
-```{webr}
+```{webr-r}
 all(x + y == rep(x, 10) + y)
 identical(x + y, rep(x, 10) + y)
 ```
 
-```{webr}
+```{webr-r}
 # ?any
 # ?all.equal
 ```
 
-```{webr}
+```{webr-r}
 x = c(1, 3, 5)
 y = c(1, 2, 4)
 x == y
@@ -289,7 +279,7 @@ any(x == y)
 
 While `all` returns `TRUE` only when all of its arguments are `TRUE`, `any` returns `TRUE` when at least one of its arguments is `TRUE`.
 
-```{webr}
+```{webr-r}
 x = c(10 ^ (-8))
 y = c(10 ^ (-9))
 all(x == y)
@@ -304,7 +294,7 @@ The `all.equal` function tests "near equality" with a default tolerance value ar
 
 Matrices can be created using the `matrix` function. 
 
-```{webr}
+```{webr-r}
 x = 1:9
 x
 X = matrix(x, nrow = 3, ncol = 3)
@@ -315,51 +305,51 @@ Note here that we are using two different variables: lower case `x`, which store
 
 By default the `matrix` function reorders a vector into columns, but we can also tell `R` to use rows instead.
 
-```{webr}
+```{webr-r}
 Y = matrix(x, nrow = 3, ncol = 3, byrow = TRUE)
 Y
 ```
 
 We can also create a matrix of a specified dimension where every element is the same, in this case `0`.
 
-```{webr}
+```{webr-r}
 Z = matrix(0, 2, 4)
 Z
 ```
 
 Like vectors, matrices can be subsetted using square brackets, `[]`. However, since matrices are two-dimensional, we need to specify both a row and a column when subsetting.
 
-```{webr}
+```{webr-r}
 X
 X[1, 2]
 ```
 
 Here we accessed the element in the first row and the second column. We could also subset an entire row or column.
 
-```{webr}
+```{webr-r}
 X[1, ]
 X[, 2]
 ```
 
 We can also use vectors to subset more than one row or column at a time. Here we subset to the first and third column of the second row.
 
-```{webr}
+```{webr-r}
 X[2, c(1, 3)]
 ```
 
 Matrices can also be created by combining vectors as columns, using `cbind`, or combining vectors as rows, using `rbind`.
 
-```{webr}
+```{webr-r}
 x = 1:9
 rev(x)
 rep(1, 9)
 ```
 
-```{webr}
+```{webr-r}
 rbind(x, rev(x), rep(1, 9))
 ```
 
-```{webr}
+```{webr-r}
 cbind(col_1 = x, col_2 = rev(x), col_3 = rep(1, 9))
 ```
 
@@ -367,7 +357,7 @@ When using `rbind` and `cbind` you can specify "argument" names that will be use
 
 `R` can then be used to perform matrix calculations.
 
-```{webr}
+```{webr-r}
 x = 1:9
 y = 9:1
 X = matrix(x, 3, 3)
@@ -376,7 +366,7 @@ X
 Y
 ```
 
-```{webr}
+```{webr-r}
 X + Y
 X - Y
 X * Y
@@ -385,12 +375,12 @@ X / Y
 
 Note that `X * Y` is not matrix multiplication. It is element by element multiplication. (Same for `X / Y`). Instead, matrix multiplication uses `%*%`. Other matrix functions include `t()` which gives the transpose of a matrix and `solve()` which returns the inverse of a square matrix if it is invertible.
 
-```{webr}
+```{webr-r}
 X %*% Y
 t(X)
 ```
 
-```{webr}
+```{webr-r}
 Z = matrix(c(9, 2, -3, 2, 4, -2, -3, -2, 16), 3, byrow = TRUE)
 Z
 solve(Z)
@@ -398,7 +388,7 @@ solve(Z)
 
 To verify that `solve(Z)` returns the inverse, we multiply it by `Z`. We would expect this to return the identity matrix, however we see that this is not the case due to some computational issues. However, `R` also has the `all.equal()` function which checks for equality, with some small tolerance which accounts for some computational issues. The `identical()` function is used to check for exact equality.
 
-```{webr}
+```{webr-r}
 solve(Z) %*% Z
 diag(3)
 all.equal(solve(Z) %*% Z, diag(3))
@@ -406,7 +396,7 @@ all.equal(solve(Z) %*% Z, diag(3))
 
 `R` has a number of matrix specific functions for obtaining dimension and summary information.
 
-```{webr}
+```{webr-r}
 X = matrix(1:6, 2, 3)
 X
 dim(X)
@@ -418,19 +408,19 @@ colMeans(X)
 
 The `diag()` function can be used in a number of ways. We can extract the diagonal of a matrix.
 
-```{webr}
+```{webr-r}
 diag(Z)
 ```
 
 Or create a matrix with specified elements on the diagonal. (And `0` on the off-diagonals.)
 
-```{webr}
+```{webr-r}
 diag(1:5)
 ```
 
 Or, lastly, create a square matrix of a certain dimension with `1` for every element of the diagonal and `0` for the off-diagonals.
 
-```{webr}
+```{webr-r}
 diag(5)
 ```
 
@@ -438,14 +428,14 @@ diag(5)
 
 Certain operations in `R`, for example `%*%` have different behavior on vectors and matrices. To illustrate this, we will first create two vectors.
 
-```{webr}
+```{webr-r}
 a_vec = c(1, 2, 3)
 b_vec = c(2, 2, 2)
 ```
 
 Note that these are indeed vectors. They are not matrices.
 
-```{webr}
+```{webr-r}
 c(is.vector(a_vec), is.vector(b_vec))
 c(is.matrix(a_vec), is.matrix(b_vec))
 ```
@@ -458,7 +448,7 @@ The dot product of vectors $\boldsymbol{a} = \lbrack a_1, a_2, \cdots a_n \rbrac
 \boldsymbol{a} \cdot \boldsymbol{b} = \sum_{i = 1}^{n} a_i b_i = a_1 b_1 + a_2 b_2 + \cdots a_n b_n.
 \]
 
-```{webr}
+```{webr-r}
 a_vec %*% b_vec # inner product
 a_vec %o% b_vec # outer product
 ```
@@ -467,13 +457,13 @@ The `%o%` operator is used to calculate the **outer product** of the two vectors
 
 When vectors are coerced to become matrices, they are column vectors. So a vector of length $n$ becomes an $n \times 1$ matrix after coercion.
 
-```{webr}
+```{webr-r}
 as.matrix(a_vec)
 ```
 
 If we use the `%*%` operator on matrices, `%*%` again performs the expected matrix multiplication. So you might expect the following to produce an error, because the dimensions are incorrect.
 
-```{webr}
+```{webr-r}
 as.matrix(a_vec) %*% b_vec
 ```
 
@@ -487,7 +477,7 @@ as.matrix(a_vec) %*% as.matrix(b_vec)
 
 Another way to calculate a *dot product* is with the `crossprod()` function. Given two vectors, the `crossprod()` function calculates their dot product. The function has a rather misleading name.
 
-```{webr}
+```{webr-r}
 crossprod(a_vec, b_vec)  # inner product
 tcrossprod(a_vec, b_vec)  # outer product
 ```
@@ -506,20 +496,20 @@ X^\top X
 
 is used repeatedly.
 
-```{webr}
+```{webr-r}
 C_mat = matrix(c(1, 2, 3, 4, 5, 6), 2, 3)
 D_mat = matrix(c(2, 2, 2, 2, 2, 2), 2, 3)
 ```
 
 This is useful both as a shortcut for a frequent calculation and as a more efficient implementation than using `t()` and `%*%`.
 
-```{webr}
+```{webr-r}
 crossprod(C_mat, D_mat)
 t(C_mat) %*% D_mat
 all.equal(crossprod(C_mat, D_mat), t(C_mat) %*% D_mat)
 ```
 
-```{webr}
+```{webr-r}
 crossprod(C_mat, C_mat)
 t(C_mat) %*% C_mat
 all.equal(crossprod(C_mat, C_mat), t(C_mat) %*% C_mat)
@@ -529,7 +519,7 @@ all.equal(crossprod(C_mat, C_mat), t(C_mat) %*% C_mat)
 
 A list is a one-dimensional heterogeneous data structure. So it is indexed like a vector with a single integer value, but each element can contain an element of any type.
 
-```{webr}
+```{webr-r}
 # creation
 list(42, "Hello", TRUE)
 
@@ -547,7 +537,7 @@ Lists can be subset using two syntaxes, the `$` operator, and square brackets `[
 - `ex_list[1]` returns a list containing the first element.
 - `ex_list[[1]]` returns the first element of the list, in this case, a vector.
 
-```{webr}
+```{webr-r}
 # subsetting
 ex_list$e
 
@@ -566,7 +556,7 @@ ex_list$d(arg = 1)
 
 We have previously seen vectors and matrices for storing data as we introduced `R`. We will now introduce a **data frame** which will be the most common way that we store and interact with data in this course.
 
-```{webr}
+```{webr-r}
 example_data <- data.frame(x = c(1, 3, 5, 7, 9, 1, 3, 5, 7, 9),
                           y = c(rep("Hello", 9), "Goodbye"),
                           z = rep(c(TRUE, FALSE), 5))
@@ -574,13 +564,13 @@ example_data <- data.frame(x = c(1, 3, 5, 7, 9, 1, 3, 5, 7, 9),
 
 Unlike a matrix, which can be thought of as a vector rearranged into rows and columns, a data frame is not required to have the same data type for each element. A data frame is a **list** of vectors. So, each vector must contain the same data type, but the different vectors can store different data types. 
 
-```{webr}
+```{webr-r}
 example_data
 ```
 
 Unlike a list which has more flexibility, the elements of a data frame must all be vectors, and have the same length.
 
-```{webr}
+```{webr-r}
 example_data$x
 
 all.equal(length(example_data$x),
@@ -609,7 +599,7 @@ example_data_from_csv = read_csv("data/example-data.csv")
 
 This particular line of code assumes that the file `example_data.csv` exists in a folder called `data` in your current working directory.
 
-```{webr}
+```{webr-r}
 example_data_from_csv
 ```
 
@@ -617,7 +607,7 @@ A tibble is simply a data frame that prints with sanity. Notice in the output ab
 
 The `as_tibble()` function can be used to coerce a regular data frame to a tibble.
 
-```{webr}
+```{webr-r}
 library(tibble)
 example_data = as_tibble(example_data)
 example_data
@@ -627,7 +617,7 @@ Alternatively, we could use the "Import Dataset" feature in RStudio which can be
 
 Earlier we looked at installing packages, in particular the `ggplot2` package. (A package for visualization. While not necessary for this course, it is quickly growing in popularity.) 
 
-```{webr, message = FALSE, warning = FALSE}
+```{webr-r, message = FALSE, warning = FALSE}
 library(ggplot2)
 ```
 
@@ -641,19 +631,19 @@ When using data from inside a package, there are three things we would generally
 
 To look at the data, we have two useful commands: `head()` and `str()`.
 
-```{webr}
+```{webr-r}
 head(mpg, n = 10)
 ```
 
 The function `head()` will display the first `n` observations of the data frame. The `head()` function was more useful before tibbles. Notice that `mpg` is a tibble already, so the output from `head()` indicates there are only `10` observations. Note that this applies to `head(mpg, n = 10)` and not `mpg` itself. Also note that tibbles print a limited number of rows and columns by default. The last line of the printed output indicates which rows and columns were omitted.
 
-```{webr}
+```{webr-r}
 mpg
 ```
 
 The function `str()` will display the "structure" of the data frame. It will display the number of **observations** and **variables**, list the variables, give the type of each variable, and show some elements of each variable. This information can also be found in the "Environment" window in RStudio.
 
-```{webr}
+```{webr-r}
 str(mpg)
 ```
 
@@ -663,26 +653,26 @@ In this dataset an observation is for a particular model-year of a car, and the 
 
 To understand more about the data set, we use the `?` operator to pull up the documentation for the data.
 
-```{webr, eval = FALSE}
+```{webr-r, eval = FALSE}
 ?mpg
 ```
 
 `R` has a number of functions for quickly working with and extracting basic information from data frames. To quickly obtain a vector of the variable names, we use the `names()` function.
 
-```{webr}
+```{webr-r}
 names(mpg)
 ```
 
 To access one of the variables **as a vector**, we use the `$` operator.
 
-```{webr}
+```{webr-r}
 mpg$year
 mpg$hwy
 ```
 
 We can use the `dim()`, `nrow()` and `ncol()` functions to obtain information about the dimension of the data frame.
 
-```{webr}
+```{webr-r}
 dim(mpg)
 nrow(mpg)
 ncol(mpg)
@@ -692,19 +682,19 @@ Here `nrow()` is also the number of observations, which in most cases is the *sa
 
 Subsetting data frames can work much like subsetting matrices using square brackets, `[,]`. Here, we find fuel efficient vehicles earning over 35 miles per gallon and only display `manufacturer`, `model` and `year`.
 
-```{webr}
+```{webr-r}
 mpg[mpg$hwy > 35, c("manufacturer", "model", "year")]
 ```
 
 An alternative would be to use the `subset()` function, which has a much more readable syntax.
 
-```{webr, eval = FALSE}
+```{webr-r, eval = FALSE}
 subset(mpg, subset = hwy > 35, select = c("manufacturer", "model", "year"))
 ```
 
 Lastly, we could use the `filter` and `select` functions from the `dplyr` package which introduces the `%>%` operator from the `magrittr` package. This is not necessary for this course, however the `dplyr` package is something you should be aware of as it is becoming a popular tool in the `R` world.
 
-```{webr, eval = FALSE}
+```{webr-r, eval = FALSE}
 library(dplyr)
 mpg %>% filter(hwy > 35) %>% select(manufacturer, model, year)
 ```
@@ -729,7 +719,7 @@ if (...) {
 
 For example,
 
-```{webr}
+```{webr-r}
 x = 1
 y = 3
 if (x > y) {
@@ -745,20 +735,20 @@ z
 
 `R` also has a special function `ifelse()` which is very useful. It returns one of two specified values based on a conditional statement.
 
-```{webr}
+```{webr-r}
 ifelse(4 > 3, 1, 0)
 ```
 
 The real power of `ifelse()` comes from its ability to be applied to vectors.
 
-```{webr}
+```{webr-r}
 fib = c(1, 1, 2, 3, 5, 8, 13, 21)
 ifelse(fib > 6, "Foo", "Bar")
 ```
 
 Now a `for` loop example,
 
-```{webr}
+```{webr-r}
 x = 11:15
 for (i in 1:5) {
   x[i] = x[i] * 2
@@ -769,7 +759,7 @@ x
 
 Note that this `for` loop is very normal in many programming languages, but not in `R`. In `R` we would not use a loop, instead we would simply use a vectorized operation.
 
-```{webr}
+```{webr-r}
 x = 11:15
 x = x * 2
 x
@@ -799,7 +789,7 @@ In `R` we would write a function to do this. When writing a function, there are 
 - Specify the arguments using `function()`.
 - Write the body of the function within curly braces, `{}`.
 
-```{webr}
+```{webr-r}
 standardize = function(x) {
   m = mean(x)
   std = sd(x)
@@ -812,14 +802,14 @@ Here the name of the function is `standardize`, and the function has a single ar
 
 To test our function, we will take a random sample of size `n = 10` from a normal distribution with a mean of `2` and a standard deviation of `5`.
 
-```{webr}
+```{webr-r}
 (test_sample = rnorm(n = 10, mean = 2, sd = 5))
 standardize(x = test_sample)
 ```
 
 This function could be written much more succinctly, simply performing all the operations on one line and immediately returning the result, without storing any of the intermediate results.
 
-```{webr}
+```{webr-r}
 standardize = function(x) {
   (x - mean(x)) / sd(x)
 }
@@ -827,7 +817,7 @@ standardize = function(x) {
 
 When specifying arguments, you can provide default arguments.
 
-```{webr}
+```{webr-r}
 power_of_num = function(num, power = 2) {
   num ^ power
 }
@@ -835,7 +825,7 @@ power_of_num = function(num, power = 2) {
 
 Let's look at a number of ways that we could run this function to perform the operation `10^2` resulting in `100`.
 
-```{webr}
+```{webr-r}
 power_of_num(10)
 power_of_num(10, 2)
 power_of_num(num = 10, power = 2)
@@ -845,7 +835,7 @@ power_of_num(power = 2, num = 10)
 
 Note that without using the argument names, the order matters. The following code will not evaluate to the same output as the previous example.
 
-```{webr}
+```{webr-r}
 power_of_num(2, 10)
 ```
 
@@ -869,14 +859,14 @@ It will also have the ability to return the biased estimate (based on maximum li
 \hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^{n}(x - \bar{x})^2
 \]
 
-```{webr}
+```{webr-r}
 get_var = function(x, biased = FALSE) {
   n = length(x) - 1 * !biased
   (1 / n) * sum((x - mean(x)) ^ 2)
 }
 ```
 
-```{webr}
+```{webr-r}
 get_var(test_sample)
 get_var(test_sample, biased = FALSE)
 var(test_sample)
@@ -884,7 +874,7 @@ var(test_sample)
 
 We see the function is working as expected, and when returning the unbiased estimate it matches `R`'s built-in function `var()`. Finally, let's examine the biased estimate of $\sigma^2$.
 
-```{webr}
+```{webr-r}
 get_var(test_sample, biased = TRUE)
 ```
 

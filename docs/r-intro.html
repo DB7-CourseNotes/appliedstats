@@ -522,23 +522,16 @@ window.Quarto = {
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://daviddalpiaz.org/">David Dalpiaz</a>, modified by Devan Becker </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Wilfrid Laurier University
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p><a href="https://daviddalpiaz.org/">David Dalpiaz</a>, modified by Devan Becker </p>
+          </div>
+  </div>
+    
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
@@ -743,13 +736,10 @@ window.Quarto = {
 <h2 data-number="2.3" class="anchored" data-anchor-id="getting-help"><span class="header-section-number">2.3</span> Getting Help</h2>
 <p>In using <code>R</code> as a calculator, we have seen a number of functions: <code>sqrt()</code>, <code>exp()</code>, <code>log()</code> and <code>sin()</code>. To get documentation about a function in <code>R</code>, simply put a question mark in front of the function name and RStudio will display the documentation, for example:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>?log</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>?sin</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>?paste</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>?lm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>Frequently one of the most difficult things to do when learning <code>R</code> is asking for help. First, you need to decide to ask for help, then you need to know <em>how</em> to ask for help. Your very first line of defense should be to Google your error message or a short description of your issue. (The ability to solve problems using this method is quickly becoming an extremely valuable skill.) If that fails, and it eventually will, you should ask for help. There are a number of things you should include when emailing an instructor, or posting to a help website such as <a href="http://stats.stackexchange.com/" target="_blank">Stack Exchange</a>.</p>
 <ul>
@@ -766,17 +756,11 @@ window.Quarto = {
 <p><code>R</code> comes with a number of built-in functions and datasets, but one of the main strengths of <code>R</code> as an open-source project is its package system. Packages add additional functions and data. Frequently if you want to do something in <code>R</code>, and it is not available by default, there is a good chance that there is a package that will fulfill your needs.</p>
 <p>To install a package, use the <code>install.packages()</code> function. Think of this as buying a recipe book from the store, bringing it home, and putting it on your shelf.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>Once a package is installed, it must be loaded into your current <code>R</code> session before being used. Think of this as taking the book off of the shelf and opening it up to read.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>Once you close <code>R</code>, all the packages are closed and put back on the imaginary shelf. The next time you open <code>R</code>, you do not have to install the package again, but you do have to load any packages you intend to use by invoking <code>library()</code>.</p>
 

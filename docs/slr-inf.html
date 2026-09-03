@@ -536,23 +536,16 @@ window.Quarto = {
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://daviddalpiaz.org/">David Dalpiaz</a>, modified by Devan Becker </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Wilfrid Laurier University
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p><a href="https://daviddalpiaz.org/">David Dalpiaz</a>, modified by Devan Becker </p>
+          </div>
+  </div>
+    
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
@@ -594,11 +587,8 @@ window.Quarto = {
 <p>which we also called <span class="math inline">\(\text{RSE}\)</span>, for “Residual Standard Error.”</p>
 <p>When applied to the <code>cars</code> data, we obtained the following results:</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>stop_dist_model <span class="ot">=</span> <span class="fu">lm</span>(dist <span class="sc">~</span> speed, <span class="at">data =</span> cars)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stop_dist_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -622,8 +612,6 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 </div>
 <p>Last chapter, we only discussed the <code>Estimate</code>, <code>Residual standard error</code>, and <code>Multiple R-squared</code> values. In this chapter, we will discuss all of the information under <code>Coefficients</code> as well as <code>F-statistic</code>.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dist <span class="sc">~</span> speed, <span class="at">data =</span> cars,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Speed (in Miles Per Hour)"</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Stopping Distance (in Feet)"</span>,</span>
@@ -632,7 +620,6 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex  =</span> <span class="dv">2</span>,</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col  =</span> <span class="st">"grey"</span>)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(stop_dist_model, <span class="at">lwd =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="st">"darkorange"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -727,36 +714,24 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 <p>[ _0 N( _0, ^2 ( + ) ). ]</p>
 <p>First we need to decide ahead of time what our <span class="math inline">\(x\)</span> values will be for this simulation, since the <span class="math inline">\(x\)</span> values in SLR are also considered known quantities. The choice of <span class="math inline">\(x\)</span> values is arbitrary. Here we also set a seed for randomization, and calculate <span class="math inline">\(S_{xx}\)</span> which we will need going forward.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">=</span> <span class="dv">100</span> <span class="co"># this is n</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">length =</span> sample_size)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Sxx <span class="ot">=</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">^</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>We also fix our parameter values.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>beta_0 <span class="ot">=</span> <span class="dv">3</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">=</span> <span class="dv">6</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sigma  <span class="ot">=</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>With this information, we know the sampling distributions should be:</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">var_beta_1_hat =</span> sigma <span class="sc">^</span> <span class="dv">2</span> <span class="sc">/</span> Sxx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1176238</code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">var_beta_0_hat =</span> sigma <span class="sc">^</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> sample_size <span class="sc">+</span> <span class="fu">mean</span>(x) <span class="sc">^</span> <span class="dv">2</span> <span class="sc">/</span> Sxx))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04</code></pre>
 </div>
@@ -780,8 +755,6 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 <p>]</p>
 <p>We now simulate data from this model 10,000 times. Note this may not be the most <code>R</code> way of doing the simulation. We perform the simulation in this manner in an attempt at clarity. For example, we could have used the <code>sim_slr()</code> function from the previous chapter. We also simply store variables in the global environment instead of creating a data frame for each new simulated dataset.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>num_samples <span class="ot">=</span> <span class="dv">10000</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>beta_0_hats <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, num_samples)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>beta_1_hats <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, num_samples)</span>
@@ -795,50 +768,34 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  beta_0_hats[i] <span class="ot">=</span> <span class="fu">coef</span>(sim_model)[<span class="dv">1</span>]</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  beta_1_hats[i] <span class="ot">=</span> <span class="fu">coef</span>(sim_model)[<span class="dv">2</span>]</span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>Each time we simulated the data, we obtained values of the estimated coefficients. The variables <code>beta_0_hats</code> and <code>beta_1_hats</code> now store 10,000 simulated values of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> respectively.</p>
 <p>We first verify the distribution of <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(beta_1_hats) <span class="co"># empirical mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.001998</code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>beta_1            <span class="co"># true mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(beta_1_hats)  <span class="co"># empirical variance</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.11899</code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>var_beta_1_hat    <span class="co"># true variance</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1176238</code></pre>
 </div>
 </div>
 <p>We see that the empirical and true means and variances are <em>very</em> similar. We also verify that the empirical distribution is normal. To do so, we plot a histogram of the <code>beta_1_hats</code>, and add the curve for the true distribution of <span class="math inline">\(\hat{\beta}_1\)</span>. We use <code>prob = TRUE</code> to put the histogram on the same scale as the normal curve.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note need to use prob = TRUE</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(beta_1_hats, <span class="at">prob =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="dv">20</span>, </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta)[<span class="dv">1</span>]), <span class="at">main =</span> <span class="st">""</span>, <span class="at">border =</span> <span class="st">"dodgerblue"</span>)</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="at">mean =</span> beta_1, <span class="at">sd =</span> <span class="fu">sqrt</span>(var_beta_1_hat)), </span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"darkorange"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -849,43 +806,28 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 </div>
 <p>We then repeat the process for <span class="math inline">\(\hat{\beta}_0\)</span>.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(beta_0_hats) <span class="co"># empirical mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.001147</code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>beta_0            <span class="co"># true mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(beta_0_hats)  <span class="co"># empirical variance</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04017924</code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>var_beta_0_hat    <span class="co"># true variance</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04</code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(beta_0_hats, <span class="at">prob =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="dv">25</span>, </span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta)[<span class="dv">0</span>]), <span class="at">main =</span> <span class="st">""</span>, <span class="at">border =</span> <span class="st">"dodgerblue"</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="at">mean =</span> beta_0, <span class="at">sd =</span> <span class="fu">sqrt</span>(var_beta_0_hat)),</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"darkorange"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -896,15 +838,12 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 </div>
 <p>In this simulation study, we have only simulated a finite number of samples. To truly verify the distributional results, we would need to observe an infinite number of samples. However, the following plot should make it clear that if we continued simulating, the empirical results would get closer and closer to what we should expect.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>)) <span class="co"># adjusted plot margins, otherwise the "hat" does not display</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cumsum</span>(beta_1_hats) <span class="sc">/</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(beta_1_hats)), <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">5.95</span>, <span class="fl">6.05</span>),</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Number of Simulations"</span>,</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="st">"Empirical Mean of "</span> <span class="sc">~</span> <span class="fu">hat</span>(beta)[<span class="dv">1</span>]),</span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col  =</span> <span class="st">"dodgerblue"</span>)</span>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">6</span>, <span class="at">col =</span> <span class="st">"darkorange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -912,15 +851,12 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 </figure>
 </div>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>)) <span class="co"># adjusted plot margins, otherwise the "hat" does not display</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">cumsum</span>(beta_0_hats) <span class="sc">/</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(beta_0_hats)), <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">2.95</span>, <span class="fl">3.05</span>),</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Number of Simulations"</span>,</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="st">"Empirical Mean of "</span> <span class="sc">~</span> <span class="fu">hat</span>(beta)[<span class="dv">0</span>]),</span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col  =</span> <span class="st">"dodgerblue"</span>)</span>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"darkorange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -979,8 +915,6 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 <p>where <span class="math inline">\(Z \sim N(0,1)\)</span>.</p>
 <p>Recall that a <span class="math inline">\(t\)</span> distribution is similar to a standard normal, but with heavier tails. As the degrees of freedom increases, the <span class="math inline">\(t\)</span> distribution becomes more and more like a standard normal. Below we plot a standard normal distribution as well as two examples of a <span class="math inline">\(t\)</span> distribution with different degrees of freedom. Notice how the <span class="math inline">\(t\)</span> distribution with the larger degrees of freedom is more similar to the standard normal curve.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define grid of x values</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -995,7 +929,6 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 <span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">title =</span> <span class="st">"Distributions"</span>,</span>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"t, df = 1"</span>, <span class="st">"t, df = 10"</span>, <span class="st">"Standard Normal"</span>), </span>
 <span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"dodgerblue"</span>, <span class="st">"black"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1042,11 +975,8 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 <h2 data-number="8.6" class="anchored" data-anchor-id="cars-example"><span class="header-section-number">8.6</span> <code>cars</code> Example</h2>
 <p>We now return to the <code>cars</code> example from last chapter to illustrate these concepts. We first fit the model using <code>lm()</code> then use <code>summary()</code> to view the results in greater detail.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>stop_dist_model <span class="ot">=</span> <span class="fu">lm</span>(dist <span class="sc">~</span> speed, <span class="at">data =</span> cars)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stop_dist_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1072,19 +1002,13 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 <h3 class="anchored" data-anchor-id="tests-in-r">Tests in <code>R</code></h3>
 <p>We will now discuss the results displayed called <code>Coefficients</code>. First recall that we can extract this information directly.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">summary</span>(stop_dist_model))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "call"          "terms"         "residuals"     "coefficients" 
  [5] "aliased"       "sigma"         "df"            "r.squared"    
  [9] "adj.r.squared" "fstatistic"    "cov.unscaled" </code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stop_dist_model)<span class="sc">$</span>coefficients</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>              Estimate Std. Error   t value     Pr(&gt;|t|)
 (Intercept) -17.579095  6.7584402 -2.601058 1.231882e-02
@@ -1098,10 +1022,7 @@ speed         3.932409  0.4155128  9.463990 1.489836e-12</code></pre>
 <p>which are our estimates for the model parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
 <p>Let’s now focus on the second row of output, which is relevant to <span class="math inline">\(\beta_1\)</span>.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stop_dist_model)<span class="sc">$</span>coefficients[<span class="dv">2</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Estimate   Std. Error      t value     Pr(&gt;|t|) 
 3.932409e+00 4.155128e-01 9.463990e+00 1.489836e-12 </code></pre>
@@ -1118,10 +1039,7 @@ speed         3.932409  0.4155128  9.463990 1.489836e-12</code></pre>
 <p>Note here, we are specifically testing whether or not <span class="math inline">\(\beta_1 = 0\)</span>.</p>
 <p>The first row of output reports the same values, but for <span class="math inline">\(\beta_0\)</span>.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stop_dist_model)<span class="sc">$</span>coefficients[<span class="dv">1</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Estimate   Std. Error      t value     Pr(&gt;|t|) 
 -17.57909489   6.75844017  -2.60105800   0.01231882 </code></pre>
@@ -1129,8 +1047,6 @@ speed         3.932409  0.4155128  9.463990 1.489836e-12</code></pre>
 </div>
 <p>In summary, the following code stores the information of <code>summary(stop_dist_model)$coefficients</code> in a new variable <code>stop_dist_model_test_info</code>, then extracts each element into a new variable which describes the information it contains.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>stop_dist_model_test_info <span class="ot">=</span> <span class="fu">summary</span>(stop_dist_model)<span class="sc">$</span>coefficients</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>beta_0_hat      <span class="ot">=</span> stop_dist_model_test_info[<span class="dv">1</span>, <span class="dv">1</span>] <span class="co"># Estimate</span></span>
@@ -1142,37 +1058,24 @@ speed         3.932409  0.4155128  9.463990 1.489836e-12</code></pre>
 <span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>beta_1_hat_se   <span class="ot">=</span> stop_dist_model_test_info[<span class="dv">2</span>, <span class="dv">2</span>] <span class="co"># Std. Error</span></span>
 <span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>beta_1_hat_t    <span class="ot">=</span> stop_dist_model_test_info[<span class="dv">2</span>, <span class="dv">3</span>] <span class="co"># t value</span></span>
 <span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>beta_1_hat_pval <span class="ot">=</span> stop_dist_model_test_info[<span class="dv">2</span>, <span class="dv">4</span>] <span class="co"># Pr(&gt;|t|)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>We can then verify some equivalent expressions: the <span class="math inline">\(t\)</span> test statistic for <span class="math inline">\(\hat{\beta}_1\)</span> and the two-sided p-value associated with that test statistic.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>(beta_1_hat <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> beta_1_hat_se</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9.46399</code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>beta_1_hat_t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9.46399</code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="fu">abs</span>(beta_1_hat_t), <span class="at">df =</span> <span class="fu">length</span>(<span class="fu">resid</span>(stop_dist_model)) <span class="sc">-</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.489836e-12</code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>beta_1_hat_pval</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.489836e-12</code></pre>
 </div>
@@ -1215,10 +1118,7 @@ speed         3.932409  0.4155128  9.463990 1.489836e-12</code></pre>
 <h3 class="anchored" data-anchor-id="confidence-intervals-in-r">Confidence Intervals in <code>R</code></h3>
 <p>Using <code>R</code> we can very easily obtain the confidence intervals for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 0.5 %    99.5 %
 (Intercept) -35.706610 0.5484205
@@ -1231,8 +1131,6 @@ speed         2.817919 5.0468988</code></pre>
 <p>You should be somewhat suspicious of the confidence interval for <span class="math inline">\(\beta_0\)</span>, as it covers negative values, which correspond to negative stopping distances. Technically the interpretation would be that we are 99% confident that the average stopping distance of a car traveling 0 miles per hour is between -35.7066103 and 0.5484205 feet, but we don’t really believe that, since we are actually certain that it would be non-negative.</p>
 <p>Note, we can extract specific values from this output a number of ways. This code is not run, and instead, you should check how it relates to the output of the code above.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">1</span>,]</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">1</span>, <span class="dv">1</span>]</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">1</span>, <span class="dv">2</span>]</span>
@@ -1241,12 +1139,9 @@ speed         2.817919 5.0468988</code></pre>
 <span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">2</span>, <span class="dv">1</span>]</span>
 <span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">2</span>, <span class="dv">2</span>]</span>
 <span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">parm =</span> <span class="st">"speed"</span>, <span class="at">level =</span> <span class="fl">0.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>We can also verify that calculations that <code>R</code> is performing for the <span class="math inline">\(\beta_1\)</span> interval.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store estimate</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>beta_1_hat <span class="ot">=</span> <span class="fu">coef</span>(stop_dist_model)[<span class="dv">2</span>]</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1258,7 +1153,6 @@ speed         2.817919 5.0468988</code></pre>
 <span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co"># est - margin, est + margin</span></span>
 <span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(beta_1_hat <span class="sc">-</span> crit <span class="sc">*</span> beta_1_hat_se, beta_1_hat <span class="sc">+</span> crit <span class="sc">*</span> beta_1_hat_se)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   speed    speed 
 2.817919 5.046899 </code></pre>
@@ -1285,12 +1179,9 @@ speed         2.817919 5.0468988</code></pre>
 <p>[ (x) t_{/2, n - 2} s_e ]</p>
 <p>To find confidence intervals for the mean response using <code>R</code>, we use the <code>predict()</code> function. We give the function our fitted model as well as new data, stored as a data frame. (This is important, so that <code>R</code> knows the name of the predictor variable.) Here, we are finding the confidence interval for the mean stopping distance when a car is travelling 5 miles per hour and when a car is travelling 21 miles per hour.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>new_speeds <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">speed =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">21</span>))</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(stop_dist_model, <span class="at">newdata =</span> new_speeds, </span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">interval =</span> <span class="fu">c</span>(<span class="st">"confidence"</span>), <span class="at">level =</span> <span class="fl">0.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        fit       lwr      upr
 1  2.082949 -10.89309 15.05898
@@ -1315,11 +1206,8 @@ speed         2.817919 5.0468988</code></pre>
 <p>[ (x) t_{/2, n - 2} s_e. ]</p>
 <p>To calculate this for a set of points in <code>R</code> notice there is only a minor change in syntax from finding a confidence interval for the mean response.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(stop_dist_model, <span class="at">newdata =</span> new_speeds, </span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">interval =</span> <span class="fu">c</span>(<span class="st">"prediction"</span>), <span class="at">level =</span> <span class="fl">0.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        fit       lwr       upr
 1  2.082949 -41.16099  45.32689
@@ -1332,8 +1220,6 @@ speed         2.817919 5.0468988</code></pre>
 <h2 data-number="8.9" class="anchored" data-anchor-id="confidence-and-prediction-bands"><span class="header-section-number">8.9</span> Confidence and Prediction Bands</h2>
 <p>Often we will like to plot both confidence intervals for the mean response and prediction intervals for all possible values of <span class="math inline">\(x\)</span>. We calls these confidence and prediction bands.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>speed_grid <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">min</span>(cars<span class="sc">$</span>speed), <span class="fu">max</span>(cars<span class="sc">$</span>speed), <span class="at">by =</span> <span class="fl">0.01</span>)</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>dist_ci_band <span class="ot">=</span> <span class="fu">predict</span>(stop_dist_model, </span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">speed =</span> speed_grid), </span>
@@ -1357,7 +1243,6 @@ speed         2.817919 5.0468988</code></pre>
 <span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(speed_grid, dist_pi_band[,<span class="st">"lwr"</span>], <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
 <span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(speed_grid, dist_pi_band[,<span class="st">"upr"</span>], <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
 <span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">mean</span>(cars<span class="sc">$</span>speed), <span class="fu">mean</span>(cars<span class="sc">$</span>dist), <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1438,10 +1323,7 @@ speed         2.817919 5.0468988</code></pre>
 <p>In particular, we will reject the null when the <span class="math inline">\(F\)</span> statistic is large, that is, when there is a low probability that the observations could have come from the null model by chance. We will let <code>R</code> calculate the p-value for us.</p>
 <p>To perform the <span class="math inline">\(F\)</span> test in <code>R</code> you can look at the last row of the output from <code>summary()</code> called <code>F-statistic</code> which gives the value of the test statistic, the relevant degrees of freedom, as well as the p-value of the test.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stop_dist_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1465,10 +1347,7 @@ F-statistic: 89.57 on 1 and 48 DF,  p-value: 1.49e-12</code></pre>
 </div>
 <p>Additionally, you can use the <code>anova()</code> function to display the information in an ANOVA table.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(stop_dist_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1483,10 +1362,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>This also gives a p-value for the test. You should notice that the p-value from the <span class="math inline">\(t\)</span> test was the same. You might also notice that the value of the test statistic for the <span class="math inline">\(t\)</span> test, <span class="math inline">\(9.46399\)</span>, can be squared to obtain the value of the <span class="math inline">\(F\)</span> statistic, <span class="math inline">\(89.5671065\)</span>.</p>
 <p>Note that there is another equivalent way to do this in <code>R</code>, which we will return to often to compare two models.</p>
 <div class="cell" data-layout-align="center">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(dist <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> cars), <span class="fu">lm</span>(dist <span class="sc">~</span> speed, <span class="at">data =</span> cars))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 

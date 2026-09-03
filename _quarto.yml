@@ -3,12 +3,11 @@ project:
   output-dir: docs
 
 engine: knitr
-#filters:
-#  - webr
+filters:
+  - webr
 
 date: "last-modified"
 date-format: iso
-institute: "Wilfrid Laurier University"
 number-depth: 2
 author: "[David Dalpiaz](https://daviddalpiaz.org/), modified by Devan Becker"
 execute:
@@ -56,5 +55,5 @@ format:
       light: [flatly, smaller_lists.scss]
       dark: [darkly, smaller_lists.scss]
     mainfont: ubuntu, sans-serif
-    code-fold: true
+    code-fold: false
     code-summary: "Show the code"

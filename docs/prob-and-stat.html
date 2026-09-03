@@ -534,23 +534,16 @@ window.Quarto = {
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://daviddalpiaz.org/">David Dalpiaz</a>, modified by Devan Becker </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Wilfrid Laurier University
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p><a href="https://daviddalpiaz.org/">David Dalpiaz</a>, modified by Devan Becker </p>
+          </div>
+  </div>
+    
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
@@ -590,43 +583,31 @@ window.Quarto = {
 <p>For example, consider a random variable <span class="math inline">\(X\)</span> which is <span class="math inline">\(N(\mu = 2, \sigma^2 = 25)\)</span>. (Note, we are parameterizing using the variance <span class="math inline">\(\sigma^2\)</span>. <code>R</code> however uses the standard deviation.)</p>
 <p>To calculate the value of the pdf at <code>x = 3</code>, that is, the height of the curve at <code>x = 3</code>, use:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.07820854</code></pre>
 </div>
 </div>
 <p>To calculate the value of the cdf at <code>x = 3</code>, that is, <span class="math inline">\(P(X \leq 3)\)</span>, the probability that <span class="math inline">\(X\)</span> is less than or equal to <code>3</code>, use:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">3</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5792597</code></pre>
 </div>
 </div>
 <p>Or, to calculate the quantile for probability 0.975, use:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.975</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11.79982</code></pre>
 </div>
 </div>
 <p>Lastly, to generate a random sample of size <code>n = 10</code>, use:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  -2.760647   5.191808 -12.209379   6.730554  -8.190510  -1.742879
- [7]  -1.568761   1.445503   2.935035   8.936161</code></pre>
+<pre><code> [1]  7.9118377  6.2757062  2.9439127  3.7110486 -3.2928610 -5.1707142
+ [7]  0.5699001  4.7097197  7.5931615  3.0771645</code></pre>
 </div>
 </div>
 <p>These functions exist for many other distributions, including but not limited to:</p>
@@ -662,10 +643,7 @@ window.Quarto = {
 </table>
 <p>Where <code>*</code> can be <code>d</code>, <code>p</code>, <code>q</code>, and <code>r</code>. Each distribution will have its own set of parameters which need to be passed to the functions as arguments. For example, <code>dbinom()</code> would not have arguments for <code>mean</code> and <code>sd</code>, since those are not parameters of the distribution. Instead a binomial distribution is usually parameterized by <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>, however <code>R</code> chooses to call them something else. To find the names that <code>R</code> uses we would use <code>?dbinom</code> and see that <code>R</code> instead calls the arguments <code>size</code> and <code>prob</code>. For example:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">6</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.145998</code></pre>
 </div>
@@ -703,31 +681,22 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="one-sample-t-test-example">One Sample t-Test: Example</h3>
 <p>Suppose a grocery store sells “16 ounce” boxes of <em>Captain Crisp</em> cereal. A random sample of 9 boxes was taken and weighed. The weight in ounces is stored in the data frame <code>capt_crisp</code>.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>capt_crisp <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">weight =</span> <span class="fu">c</span>(<span class="fl">15.5</span>, <span class="fl">16.2</span>, <span class="fl">16.1</span>, <span class="fl">15.8</span>, <span class="fl">15.6</span>, <span class="fl">16.0</span>, <span class="fl">15.8</span>, <span class="fl">15.9</span>, <span class="fl">16.2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>The company that makes <em>Captain Crisp</em> cereal claims that the average weight of a box is at least 16 ounces. We will assume the weight of cereal in a box is normally distributed and use a 0.05 level of significance to test the company’s claim.</p>
 <p>To test <span class="math inline">\(H_{0}: \mu \geq 16\)</span> versus <span class="math inline">\(H_{1}: \mu &lt; 16\)</span>, the test statistic is</p>
 <p>[ t = ]</p>
 <p>The sample mean <span class="math inline">\(\bar{x}\)</span> and the sample standard deviation <span class="math inline">\(s\)</span> can be easily computed using <code>R</code>. We also create variables which store the hypothesized mean and the sample size.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">=</span> <span class="fu">mean</span>(capt_crisp<span class="sc">$</span>weight)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>s     <span class="ot">=</span> <span class="fu">sd</span>(capt_crisp<span class="sc">$</span>weight)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>mu_0  <span class="ot">=</span> <span class="dv">16</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>n     <span class="ot">=</span> <span class="dv">9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>We can then easily compute the test statistic.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> (x_bar <span class="sc">-</span> mu_0) <span class="sc">/</span> (s <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.2</code></pre>
 </div>
@@ -736,10 +705,7 @@ window.Quarto = {
 <p>To complete the test, we need to obtain the p-value of the test. Since this is a one-sided test with a less-than alternative, we need the area to the left of -1.2 for a <span class="math inline">\(t\)</span> distribution with 8 degrees of freedom. That is,</p>
 <p>[ P(t_{8} &lt; -1.2) ]</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(t, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1322336</code></pre>
 </div>
@@ -747,10 +713,7 @@ window.Quarto = {
 <p>We now have the p-value of our test, which is greater than our significance level (0.05), so we fail to reject the null hypothesis.</p>
 <p>Alternatively, this entire process could have been completed using one line of <code>R</code> code.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x =</span> capt_crisp<span class="sc">$</span>weight, <span class="at">mu =</span> <span class="dv">16</span>, <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">"less"</span>), <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -775,18 +738,12 @@ mean of x
 </ul>
 <p>Since the test was one-sided, <code>R</code> returned a one-sided confidence interval. If instead we wanted a two-sided interval for the mean weight of boxes of <em>Captain Crisp</em> cereal we could modify our code.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>capt_test_results <span class="ot">=</span> <span class="fu">t.test</span>(capt_crisp<span class="sc">$</span>weight, <span class="at">mu =</span> <span class="dv">16</span>,</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">"two.sided"</span>), <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>This time we have stored the results. By doing so, we can directly access portions of the output from <code>t.test()</code>. To see what information is available we use the <code>names()</code> function.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(capt_test_results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"   
  [6] "null.value"  "stderr"      "alternative" "method"      "data.name"  </code></pre>
@@ -794,10 +751,7 @@ mean of x
 </div>
 <p>We are interested in the confidence interval which is stored in <code>conf.int</code>.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>capt_test_results<span class="sc">$</span>conf.int</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15.70783 16.09217
 attr(,"conf.level")
@@ -806,10 +760,7 @@ attr(,"conf.level")
 </div>
 <p>Let’s check this interval “by hand.” The one piece of information we are missing is the critical value, <span class="math inline">\(t_{\alpha/2, n-1} = t_{8}(0.025)\)</span>, which can be calculated in <code>R</code> using the <code>qt()</code> function.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.306004</code></pre>
 </div>
@@ -817,11 +768,8 @@ attr(,"conf.level")
 <p>So, the 95% CI for the mean weight of a cereal box is calculated by plugging into the formula,</p>
 <p>[ {x} t_{/2, n-1} ]</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(capt_crisp<span class="sc">$</span>weight) <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">8</span>) <span class="sc">*</span> <span class="fu">sd</span>(capt_crisp<span class="sc">$</span>weight) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">9</span>),</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(capt_crisp<span class="sc">$</span>weight) <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">8</span>) <span class="sc">*</span> <span class="fu">sd</span>(capt_crisp<span class="sc">$</span>weight) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">9</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15.70783 16.09217</code></pre>
 </div>
@@ -842,47 +790,32 @@ attr(,"conf.level")
 <h3 class="anchored" data-anchor-id="two-sample-t-test-example">Two Sample t-Test: Example</h3>
 <p>Assume that the distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are <span class="math inline">\(\mathrm{N}(\mu_{1},\sigma^{2})\)</span> and <span class="math inline">\(\mathrm{N}(\mu_{2},\sigma^{2})\)</span>, respectively. Given the <span class="math inline">\(n = 6\)</span> observations of <span class="math inline">\(X\)</span>,</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">82</span>, <span class="dv">78</span>, <span class="dv">74</span>, <span class="dv">94</span>, <span class="dv">82</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>and the <span class="math inline">\(m = 8\)</span> observations of <span class="math inline">\(Y\)</span>,</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">64</span>, <span class="dv">72</span>, <span class="dv">60</span>, <span class="dv">76</span>, <span class="dv">72</span>, <span class="dv">80</span>, <span class="dv">84</span>, <span class="dv">68</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">=</span> <span class="fu">length</span>(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>we will test <span class="math inline">\(H_{0}: \mu_{1} = \mu_{2}\)</span> versus <span class="math inline">\(H_{1}: \mu_{1} &gt; \mu_{2}\)</span>.</p>
 <p>First, note that we can calculate the sample means and standard deviations.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">=</span> <span class="fu">mean</span>(x)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>s_x   <span class="ot">=</span> <span class="fu">sd</span>(x)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>y_bar <span class="ot">=</span> <span class="fu">mean</span>(y)</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>s_y   <span class="ot">=</span> <span class="fu">sd</span>(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>We can then calculate the pooled standard deviation.</p>
 <p>[ s_{p} = ]</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>s_p <span class="ot">=</span> <span class="fu">sqrt</span>(((n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s_x <span class="sc">^</span> <span class="dv">2</span> <span class="sc">+</span> (m <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s_y <span class="sc">^</span> <span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">+</span> m <span class="sc">-</span> <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>Thus, the relevant <span class="math inline">\(t\)</span> test statistic is given by</p>
 <p>[ t = . ]</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> ((x_bar <span class="sc">-</span> y_bar) <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> (s_p <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> n <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> m))</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.823369</code></pre>
 </div>
@@ -890,20 +823,14 @@ attr(,"conf.level")
 <p>Note that <span class="math inline">\(t \sim t_{n + m - 2} = t_{12}\)</span>, so we can calculate the p-value, which is</p>
 <p>[ P(t_{12} &gt; 1.8233692). ]</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(t, <span class="at">df =</span> n <span class="sc">+</span> m <span class="sc">-</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04661961</code></pre>
 </div>
 </div>
 <p>But, then again, we could have simply performed this test in one line of <code>R</code>.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, y, <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">"greater"</span>), <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Two Sample t-test
@@ -921,18 +848,12 @@ mean of x mean of y
 <p>Recall that a two-sample <span class="math inline">\(t\)</span>-test can be done with or without an equal variance assumption. Here <code>var.equal = TRUE</code> tells <code>R</code> we would like to perform the test under the equal variance assumption.</p>
 <p>Above we carried out the analysis using two vectors <code>x</code> and <code>y</code>. In general, we will have a preference for using data frames.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>t_test_data <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">values =</span> <span class="fu">c</span>(x, y),</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">group  =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"A"</span>, <span class="fu">length</span>(x)), <span class="fu">rep</span>(<span class="st">"B"</span>, <span class="fu">length</span>(y))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>We now have the data stored in a single variables (<code>values</code>) and have created a second variable (<code>group</code>) which indicates which “sample” the value belongs to.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>t_test_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   values group
 1      70     A
@@ -953,11 +874,8 @@ mean of x mean of y
 </div>
 <p>Now to perform the test, we still use the <code>t.test()</code> function but with the <code>~</code> syntax and a <code>data</code> argument.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(values <span class="sc">~</span> group, <span class="at">data =</span> t_test_data,</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">"greater"</span>), <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Two Sample t-test
@@ -1020,10 +938,7 @@ D &amp;= \bar{X}_1 - \bar{X}_2.
 <p>[ P(0 &lt; D &lt; 2) = P(D &lt; 2) - P(D &lt; 0). ]</p>
 <p>This can then be calculated using <code>R</code> without a need to first standardize, or use a table.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(<span class="fl">0.32</span>)) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">0</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(<span class="fl">0.32</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9229001</code></pre>
 </div>
@@ -1037,31 +952,22 @@ D &amp;= \bar{X}_1 - \bar{X}_2.
 </ul>
 <p>We will repeat the process a large number of times. Then we will use the distribution of the simulated observations of <span class="math inline">\(d_s\)</span> as an estimate for the true distribution of <span class="math inline">\(D\)</span>.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>num_samples <span class="ot">=</span> <span class="dv">10000</span></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>differences <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, num_samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>Before starting our <code>for</code> loop to perform the operation, we set a seed for reproducibility, create and set a variable <code>num_samples</code> which will define the number of repetitions, and lastly create a variables <code>differences</code> which will store the simulate values, <span class="math inline">\(d_s\)</span>.</p>
 <p>By using <code>set.seed()</code> we can reproduce the random results of <code>rnorm()</code> each time starting from that line.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>num_samples) {</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">25</span>, <span class="at">mean =</span> <span class="dv">6</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  x2 <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">25</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  differences[s] <span class="ot">=</span> <span class="fu">mean</span>(x1) <span class="sc">-</span> <span class="fu">mean</span>(x2)</span>
 <span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>To estimate <span class="math inline">\(P(0 &lt; D &lt; 2)\)</span> we will find the proportion of values of <span class="math inline">\(d_s\)</span> (among the 10^{4} values of <span class="math inline">\(d_s\)</span> generated) that are between 0 and 2.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="dv">0</span> <span class="sc">&lt;</span> differences <span class="sc">&amp;</span> differences <span class="sc">&lt;</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9222</code></pre>
 </div>
@@ -1069,14 +975,11 @@ D &amp;= \bar{X}_1 - \bar{X}_2.
 <p>Recall that above we derived the distribution of <span class="math inline">\(D\)</span> to be <span class="math inline">\(N(\mu = 1, \sigma^2 = 0.32)\)</span></p>
 <p>If we look at a histogram of the differences, we find that it looks very much like a normal distribution.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(differences, <span class="at">breaks =</span> <span class="dv">20</span>, </span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main   =</span> <span class="st">"Empirical Distribution of D"</span>,</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab   =</span> <span class="st">"Simulated Values of D"</span>,</span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col    =</span> <span class="st">"dodgerblue"</span>,</span>
 <span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">"darkorange"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1087,35 +990,23 @@ D &amp;= \bar{X}_1 - \bar{X}_2.
 </div>
 <p>Also the sample mean and variance are very close to what we would expect.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(differences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.001423</code></pre>
 </div>
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(differences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3230183</code></pre>
 </div>
 </div>
 <p>We could have also accomplished this task with a single line of more “idiomatic” <code>R</code>.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>diffs <span class="ot">=</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">25</span>, <span class="dv">6</span>, <span class="dv">2</span>)) <span class="sc">-</span> <span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">25</span>, <span class="dv">5</span>, <span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <p>Use <code>?replicate</code> to take a look at the documentation for the <code>replicate</code> function and see if you can understand how this line performs the same operations that our <code>for</code> loop above executed.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(differences <span class="sc">==</span> diffs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
@@ -1135,30 +1026,21 @@ D &amp;= \bar{X}_1 - \bar{X}_2.
 <p>[ {X} N(, ). ]</p>
 <p>The following verifies this result for a Poisson distribution with <span class="math inline">\(\mu = 10\)</span> and a sample size of <span class="math inline">\(n = 50\)</span>.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>mu          <span class="ot">=</span> <span class="dv">10</span></span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">=</span> <span class="dv">50</span></span>
 <span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>samples     <span class="ot">=</span> <span class="dv">100000</span></span>
 <span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>x_bars      <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>samples){</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  x_bars[i] <span class="ot">=</span> <span class="fu">mean</span>(<span class="fu">rpois</span>(sample_size, <span class="at">lambda =</span> mu))</span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>x_bar_hist <span class="ot">=</span> <span class="fu">hist</span>(x_bars, <span class="at">breaks =</span> <span class="dv">50</span>, </span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">main =</span> <span class="st">"Histogram of Sample Means"</span>,</span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xlab =</span> <span class="st">"Sample Means"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1169,47 +1051,33 @@ D &amp;= \bar{X}_1 - \bar{X}_2.
 </div>
 <p>Now we will compare sample statistics from the empirical distribution with their known values based on the parent distribution.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(x_bars), mu)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10.00008 10.00000</code></pre>
 </div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">var</span>(x_bars), mu <span class="sc">/</span> sample_size)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1989732 0.2000000</code></pre>
 </div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">sd</span>(x_bars), <span class="fu">sqrt</span>(mu) <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4460641 0.4472136</code></pre>
 </div>
 </div>
 <p>And here, we will calculate the proportion of sample means that are within 2 standard deviations of the population mean.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x_bars <span class="sc">&gt;</span> mu <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(mu) <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size) <span class="sc">&amp;</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>     x_bars <span class="sc">&lt;</span> mu <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(mu) <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.95429</code></pre>
 </div>
 </div>
 <p>This last histogram uses a bit of a trick to approximately shade the bars that are within two standard deviations of the mean.)</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>shading <span class="ot">=</span> <span class="fu">ifelse</span>(x_bar_hist<span class="sc">$</span>breaks <span class="sc">&gt;</span> mu <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(mu) <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size) <span class="sc">&amp;</span> </span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>                   x_bar_hist<span class="sc">$</span>breaks <span class="sc">&lt;</span> mu <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(mu) <span class="sc">/</span> <span class="fu">sqrt</span>(sample_size),</span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"darkorange"</span>, <span class="st">"dodgerblue"</span>)</span>
@@ -1217,7 +1085,6 @@ D &amp;= \bar{X}_1 - \bar{X}_2.
 <span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>x_bar_hist <span class="ot">=</span> <span class="fu">hist</span>(x_bars, <span class="at">breaks =</span> <span class="dv">50</span>, <span class="at">col =</span> shading,</span>
 <span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">main =</span> <span class="st">"Histogram of Sample Means, Two Standard Deviations"</span>,</span>
 <span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xlab =</span> <span class="st">"Sample Means"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
