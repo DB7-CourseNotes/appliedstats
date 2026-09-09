@@ -16,6 +16,7 @@ number-depth: 2
 author: "David Dalpiaz, modified by Devan Becker"
 execute:
     warning: false
+    cache: true
 
 book:
   title: "Applied Statistics with R"
@@ -56,7 +57,7 @@ book:
 format:
   html:
     theme:
-      light: [flatly, smaller_lists.scss]
+      light: [smaller_lists.scss]
       dark: [darkly, smaller_lists.scss]
     mainfont: ubuntu, sans-serif
     code-fold: false

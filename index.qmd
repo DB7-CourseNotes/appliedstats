@@ -1,5 +1,6 @@
 --- 
 title: "Applied Statistics with R"
+number: false
 ---
 
 # Introduction
