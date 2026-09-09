@@ -411,7 +411,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"str(cars)","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"dim(cars)\nnrow(cars)\nncol(cars)","id":2,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"plot(dist ~ speed, data = cars,\n     xlab = \"Speed (in Miles Per Hour)\",\n     ylab = \"Stopping Distance (in Feet)\",\n     main = \"Stopping Distance vs Speed\",\n     pch  = 20,\n     cex  = 2,\n     col  = \"grey\")","id":3,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x <- cars$speed\ny <- cars$dist","id":4,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"Sxy <- sum((x - mean(x)) * (y - mean(y)))\nSxx <- sum((x - mean(x)) ^ 2)\nSyy <- sum((y - mean(y)) ^ 2)\nc(Sxy, Sxx, Syy)","id":5,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"beta_1_hat <- Sxy / Sxx\nbeta_0_hat <- mean(y) - beta_1_hat * mean(x)\nc(beta_0_hat, beta_1_hat)","id":6,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-6","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"unique(cars$speed)","id":7,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-7","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"beta_0_hat + beta_1_hat * 8","id":8,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-8","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"8 %in% unique(cars$speed)\n21 %in% unique(cars$speed)","id":9,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-9","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"min(cars$speed) < 21 & 21 < max(cars$speed)","id":10,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-10","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"beta_0_hat + beta_1_hat * 21","id":11,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-11","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"range(cars$speed)\nrange(cars$speed)[1] < 50 & 50 < range(cars$speed)[2] ","id":12,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-12","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"beta_0_hat + beta_1_hat * 50","id":13,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-13","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"which(cars$speed == 8)\ncars[5, ]\ncars[which(cars$speed == 8), ]","id":14,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-14","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"16 - (beta_0_hat + beta_1_hat * 8)","id":15,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-15","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"y_hat <- beta_0_hat + beta_1_hat * x\ne     = y - y_hat\nn     = length(e)\ns2_e  = sum(e^2) / (n - 2)\ns2_e","id":16,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-16","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"s_e <- sqrt(s2_e)\ns_e","id":17,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-17","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"SST   = sum((y - mean(y)) ^ 2)\nSSReg = sum((y_hat - mean(y)) ^ 2)\nSSE   = sum((y - y_hat) ^ 2)\nc(SST = SST, SSReg = SSReg, SSE = SSE)","id":18,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-18","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"SSE / (n - 2)","id":19,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-19","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"s2_e == SSE / (n - 2)","id":20,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-20","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"R2 <- SSReg / SST\nR2","id":21,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-21","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"stop_dist_model <- lm(dist ~ speed, data = cars)","id":22,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-22","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"stop_dist_model","id":23,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-23","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"c(beta_0_hat, beta_1_hat)","id":24,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-24","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"plot(dist ~ speed, data = cars,\n     xlab = \"Speed (in Miles Per Hour)\",\n     ylab = \"Stopping Distance (in Feet)\",\n     main = \"Stopping Distance vs Speed\",\n     pch  = 20,\n     cex  = 2,\n     col  = \"grey\")\nabline(stop_dist_model, lwd = 3, col = \"darkorange\")","id":25,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-25","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"names(stop_dist_model)","id":26,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-26","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"stop_dist_model$residuals","id":27,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-27","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"coef(stop_dist_model)\nresid(stop_dist_model)\nfitted(stop_dist_model)","id":28,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-28","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)","id":29,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-29","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"names(summary(stop_dist_model))","id":30,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-30","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)$r.squared","id":31,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-31","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)$sigma","id":32,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-32","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"predict(stop_dist_model, newdata = data.frame(speed = 8))","id":33,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-33","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"predict(stop_dist_model, newdata = data.frame(speed = c(8, 21, 50)))","id":34,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-34","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"predict(stop_dist_model, newdata = cars)\n# predict(stop_dist_model, newdata = data.frame(speed = cars$speed))","id":35,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-35","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"predict(stop_dist_model)","id":36,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-36","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"fitted(stop_dist_model)","id":37,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-37","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"num_obs <- 21\nbeta_0  = 5\nbeta_1  = -2\nsigma   = 3","id":38,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-38","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"set.seed(1)\nepsilon <- rnorm(n = num_obs, mean = 0, sd = sigma)","id":39,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-39","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x_vals <- seq(from = 0, to = 10, length.out = num_obs)\n# set.seed(1)\n# x_vals = runif(num_obs, 0, 10)","id":40,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-40","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"y_vals <- beta_0 + beta_1 * x_vals + epsilon","id":41,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-41","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"sim_fit <- lm(y_vals ~ x_vals)\ncoef(sim_fit)","id":42,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-42","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"plot(y_vals ~ x_vals)\nabline(sim_fit)","id":43,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-43","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"sim_slr <- function(x, beta_0 = 10, beta_1 = 5, sigma = 1) {\n  n = length(x)\n  epsilon = rnorm(n, mean = 0, sd = sigma)\n  y = beta_0 + beta_1 * x + epsilon\n  data.frame(predictor = x, response = y)\n}","id":44,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-44","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"set.seed(1)\nsim_data <- sim_slr(x = x_vals, beta_0 = 5, beta_1 = -2, sigma = 3)","id":45,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-45","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(sim_data)","id":46,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-46","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"sim_fit <- lm(response ~ predictor, data = sim_data)\ncoef(sim_fit)","id":47,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-47","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"plot(response ~ predictor, data = sim_data,\n     xlab = \"Simulated Predictor Variable\",\n     ylab = \"Simulated Response Variable\",\n     main = \"Simulated Regression Data\",\n     pch  = 20,\n     cex  = 2,\n     col  = \"grey\")\nabline(sim_fit, lwd = 3, lty = 1, col = \"darkorange\")\nabline(beta_0, beta_1, lwd = 3, lty = 2, col = \"dodgerblue\")\nlegend(\"topright\", c(\"Estimate\", \"Truth\"), lty = c(1, 2), lwd = 2,\n       col = c(\"darkorange\", \"dodgerblue\"))","id":48,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-48","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"str(cars)","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"dim(cars)\nnrow(cars)\nncol(cars)","id":2,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"plot(dist ~ speed, data = cars,\n     xlab = \"Speed (in Miles Per Hour)\",\n     ylab = \"Stopping Distance (in Feet)\",\n     main = \"Stopping Distance vs Speed\",\n     pch  = 20,\n     cex  = 2,\n     col  = \"grey\")","id":3,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x <- cars$speed\ny <- cars$dist","id":4,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"Sxy <- sum((x - mean(x)) * (y - mean(y)))\nSxx <- sum((x - mean(x)) ^ 2)\nSyy <- sum((y - mean(y)) ^ 2)\nc(Sxy, Sxx, Syy)","id":5,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"beta_1_hat <- Sxy / Sxx\nbeta_0_hat <- mean(y) - beta_1_hat * mean(x)\nc(beta_0_hat, beta_1_hat)","id":6,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-6","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"unique(cars$speed)","id":7,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-7","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"beta_0_hat + beta_1_hat * 8","id":8,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-8","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"8 %in% unique(cars$speed)\n21 %in% unique(cars$speed)","id":9,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-9","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"min(cars$speed) < 21 & 21 < max(cars$speed)","id":10,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-10","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"beta_0_hat + beta_1_hat * 21","id":11,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-11","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"range(cars$speed)\nrange(cars$speed)[1] < 50 & 50 < range(cars$speed)[2] ","id":12,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-12","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"beta_0_hat + beta_1_hat * 50","id":13,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-13","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"which(cars$speed == 8) # Returns the index of all cars with a speed of 8\ncars[which(cars$speed == 8), ]","id":14,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-14","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"16 - (beta_0_hat + beta_1_hat * 8)","id":15,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-15","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"y_hat <- beta_0_hat + beta_1_hat * x\ne     = y - y_hat\nn     = length(e)\ns2_e  = sum(e^2) / (n - 2)\ns2_e","id":16,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-16","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"s_e <- sqrt(s2_e)\ns_e","id":17,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-17","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"SST   = sum((y - mean(y)) ^ 2)\nSSReg = sum((y_hat - mean(y)) ^ 2)\nSSE   = sum((y - y_hat) ^ 2)\nc(SST = SST, SSReg = SSReg, SSE = SSE)","id":18,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-18","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"SSE / (n - 2)","id":19,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-19","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"s2_e == SSE / (n - 2)","id":20,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-20","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"R2 <- SSReg / SST\nR2","id":21,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-21","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"stop_dist_model <- lm(dist ~ speed, data = cars)","id":22,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-22","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"stop_dist_model","id":23,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-23","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"c(beta_0_hat, beta_1_hat)","id":24,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-24","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"plot(dist ~ speed, data = cars,\n     xlab = \"Speed (in Miles Per Hour)\",\n     ylab = \"Stopping Distance (in Feet)\",\n     main = \"Stopping Distance vs Speed\",\n     pch  = 20,\n     cex  = 2,\n     col  = \"grey\")\nabline(stop_dist_model, lwd = 3, col = \"darkorange\")","id":25,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-25","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"names(stop_dist_model)","id":26,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-26","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"stop_dist_model$residuals","id":27,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-27","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"coef(stop_dist_model)\nresid(stop_dist_model)\nfitted(stop_dist_model)","id":28,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-28","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)","id":29,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-29","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"names(summary(stop_dist_model))","id":30,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-30","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)$r.squared","id":31,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-31","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)$sigma","id":32,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-32","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"predict(stop_dist_model, newdata = data.frame(speed = 8))","id":33,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-33","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"predict(stop_dist_model, newdata = data.frame(speed = c(8, 21, 50)))","id":34,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-34","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"predict(stop_dist_model, newdata = cars)\n# predict(stop_dist_model, newdata = data.frame(speed = cars$speed))","id":35,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-35","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"predict(stop_dist_model)","id":36,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-36","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"fitted(stop_dist_model)","id":37,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-37","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"num_obs <- 21\nbeta_0  = 5\nbeta_1  = -2\nsigma   = 3","id":38,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-38","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"set.seed(1)\nepsilon <- rnorm(n = num_obs, mean = 0, sd = sigma)","id":39,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-39","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x_vals <- seq(from = 0, to = 10, length.out = num_obs)\n# set.seed(1)\n# x_vals = runif(num_obs, 0, 10)","id":40,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-40","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"y_vals <- beta_0 + beta_1 * x_vals + epsilon","id":41,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-41","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"sim_fit <- lm(y_vals ~ x_vals)\ncoef(sim_fit)","id":42,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-42","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"plot(y_vals ~ x_vals)\nabline(sim_fit)","id":43,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-43","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"sim_slr <- function(x, beta_0 = 10, beta_1 = 5, sigma = 1) {\n  n = length(x)\n  epsilon = rnorm(n, mean = 0, sd = sigma)\n  y = beta_0 + beta_1 * x + epsilon\n  data.frame(predictor = x, response = y)\n}","id":44,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-44","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"set.seed(1)\nsim_data <- sim_slr(x = x_vals, beta_0 = 5, beta_1 = -2, sigma = 3)","id":45,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-45","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(sim_data)","id":46,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-46","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"sim_fit <- lm(response ~ predictor, data = sim_data)\ncoef(sim_fit)","id":47,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-47","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"plot(response ~ predictor, data = sim_data,\n     xlab = \"Simulated Predictor Variable\",\n     ylab = \"Simulated Response Variable\",\n     main = \"Simulated Regression Data\",\n     pch  = 20,\n     cex  = 2,\n     col  = \"grey\")\nabline(sim_fit, lwd = 3, lty = 1, col = \"darkorange\")\nabline(beta_0, beta_1, lwd = 3, lty = 2, col = \"dodgerblue\")\nlegend(\"topright\", c(\"Estimate\", \"Truth\"), lty = c(1, 2), lwd = 2,\n       col = c(\"darkorange\", \"dodgerblue\"))","id":48,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-48","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -2413,7 +2413,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <section id="modeling" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="modeling"><span class="header-section-number">7.1</span> Modeling</h2>
 <p>Let’s consider a simple example of how the speed of a car affects its stopping distance, that is, how far it travels before it comes to a stop. To examine this relationship, we will use the <code>cars</code> dataset, which is a default <code>R</code> dataset. Thus, we don’t need to load a package first; it is immediately available.</p>
-<p>To get a first look at the data you can use the <code>View()</code> function inside RStudio.</p>
+<p>To get a first look at the data you can use the <code>View()</code> function inside RStudio. <strong>Never include this in an Rmd or qmd!!!</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -2434,10 +2434,23 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>We use <span class="math inline">\(i\)</span> as an index, simply for notation. We use <span class="math inline">\(x_i\)</span> as the <strong>predictor</strong> (explanatory) variable. The predictor variable is used to help <em>predict</em> or explain the <strong>response</strong> (target, outcome) variable, <span class="math inline">\(y_i\)</span>.</p>
 <p>Other texts may use the term independent variable instead of predictor and dependent variable in place of response. However, those monikers imply mathematical characteristics that might not be true. While these other terms are not incorrect, independence is already a strictly defined concept in probability. For example, when trying to predict a person’s weight given their height, would it be accurate to say that height is independent of weight? Certainly not, but that is an unintended implication of saying “independent variable.” We prefer to stay away from this nomenclature.</p>
 <p>In the <code>cars</code> example, we are interested in using the predictor variable <code>speed</code> to predict and explain the response variable <code>dist</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>General Functional Form
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Broadly speaking, we would like to model the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> using the form</p>
-<p><span class="math display">\[$
+<p><span class="math display">\[
 Y = f(X) + \epsilon.
-\]</span>$</p>
+\]</span></p>
+<p>Note that this form is <em>additive</em> in the error term.</p>
+</div>
+</div>
 <p>The function <span class="math inline">\(f\)</span> describes the functional relationship between the two variables, and the <span class="math inline">\(\epsilon\)</span> term is used to account for error. This indicates that if we plug in a given value of <span class="math inline">\(X\)</span> as input, our output is a value of <span class="math inline">\(Y\)</span>, within a certain range of error. You could think of this a number of ways:</p>
 <ul>
 <li>Response = Prediction + Error</li>
@@ -2477,21 +2490,46 @@ Y = f(X) + \epsilon.
 </div>
 </div>
 </div>
-<p>With this in mind, we would like to restrict our choice of <span class="math inline">\(f(X)\)</span> to <em>linear</em> functions of <span class="math inline">\(X\)</span>. We will write our model using <span class="math inline">\(\beta_1\)</span> for the slope, and <span class="math inline">\(\beta_0\)</span> for the intercept,</p>
-<p><span class="math display">\[$
+<p>With this in mind, we would like to restrict our choice of <span class="math inline">\(f(X)\)</span> to <em>linear</em> functions of <span class="math inline">\(X\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Linear Functional Form
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We will write our model using <span class="math inline">\(\beta_1\)</span> for the slope, and <span class="math inline">\(\beta_0\)</span> for the intercept,</p>
+<p><span class="math display">\[
 Y = \beta_0 + \beta_1 X + \epsilon.
-\]</span>$</p>
+\]</span></p>
+</div>
+</div>
 <section id="simple-linear-regression-model" class="level3">
 <h3 class="anchored" data-anchor-id="simple-linear-regression-model">Simple Linear Regression Model</h3>
 <p>We now define what we will call the simple linear regression model,</p>
-<p><span class="math display">\[$
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Simple Linear Regression
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
-\]</span>$</p>
+\]</span></p>
 <p>where</p>
 <p><span class="math display">\[
-\epsilon_i \sim N(0, \sigma^2).
+\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2).
 \]</span></p>
 <p>That is, the <span class="math inline">\(\epsilon_i\)</span> are <em>independent and identically distributed</em> (iid) normal random variables with mean <span class="math inline">\(0\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. This model has three parameters to be estimated: <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\sigma^2\)</span>, which are fixed, but unknown constants.</p>
+</div>
+</div>
 <p>We have slightly modified our notation here. We are now using <span class="math inline">\(Y_i\)</span> and <span class="math inline">\(x_i\)</span>, since we will be fitting this model to a set of <span class="math inline">\(n\)</span> data points, for <span class="math inline">\(i = 1, 2, \ldots n\)</span>.</p>
 <p>Recall that we use capital <span class="math inline">\(Y\)</span> to indicate a random variable, and lower case <span class="math inline">\(y\)</span> to denote a potential value of the random variable. Since we will have <span class="math inline">\(n\)</span> observations, we have <span class="math inline">\(n\)</span> random variables <span class="math inline">\(Y_i\)</span> and their possible values <span class="math inline">\(y_i\)</span>.</p>
 <p>In the simple linear regression model, the <span class="math inline">\(x_i\)</span> are assumed to be fixed, known constants, and are thus notated with a lower case variable. The response <span class="math inline">\(Y_i\)</span> remains a random variable because of the random behavior of the error variable, <span class="math inline">\(\epsilon_i\)</span>. That is, each response <span class="math inline">\(Y_i\)</span> is tied to an observable <span class="math inline">\(x_i\)</span> and a random, unobservable, <span class="math inline">\(\epsilon_i\)</span>.</p>
@@ -2514,6 +2552,16 @@ Y_i \mid X_i \sim N(\beta_0 + \beta_1 x_i, \sigma^2)
 <figcaption>Simple Linear Regression Model <a href="https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Introductory_Statistics_(Shafer_and_Zhang)/10%3A_Correlation_and_Regression/10.03%3A_Modelling_Linear_Relationships_with_Randomness_Present" target="_blank">Introductory Statistics (Shafer and Zhang), UC Davis Stat Wiki</a></figcaption>
 </figure>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Assumptions of Simple Linear Regression
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Often, we directly talk about the assumptions that this model makes. They can be cleverly shortened to <strong>LINE</strong>.</p>
 <ul>
 <li><strong>L</strong>inear. The relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(x\)</span> is linear, of the form <span class="math inline">\(\beta_0 + \beta_1 x\)</span>.</li>
@@ -2522,6 +2570,8 @@ Y_i \mid X_i \sim N(\beta_0 + \beta_1 x_i, \sigma^2)
 <li><strong>E</strong>qual Variance. At each value of <span class="math inline">\(x\)</span>, the variance of <span class="math inline">\(Y\)</span> is the same, <span class="math inline">\(\sigma^2\)</span>.</li>
 </ul>
 <p>We are also assuming that the values of <span class="math inline">\(x\)</span> are fixed, that is, not random. We do not make a distributional assumption about the predictor variable.</p>
+</div>
+</div>
 <p>As a side note, we will often refer to simple linear regression as <strong>SLR</strong>. Some explanation of the name SLR:</p>
 <ul>
 <li><strong>Simple</strong> refers to the fact that we are using a single predictor variable. Later we will use multiple predictor variables.</li>
@@ -2546,11 +2596,23 @@ Y_i \mid X_i \sim N(\beta_0 + \beta_1 x_i, \sigma^2)
 </section>
 <section id="least-squares-approach" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="least-squares-approach"><span class="header-section-number">7.2</span> Least Squares Approach</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Least Squares Estimation
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Given observations <span class="math inline">\((x_i, y_i)\)</span>, for <span class="math inline">\(i = 1, 2, \ldots n\)</span>, we want to find values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> which minimize</p>
 <p><span class="math display">\[
 f(\beta_0, \beta_1) = \sum_{i = 1}^{n}(y_i - (\beta_0 + \beta_1 x_i))^2 = \sum_{i = 1}^{n}(y_i - \beta_0 - \beta_1 x_i)^2.
 \]</span></p>
 <p>We will call these values <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
+</div>
+</div>
 <p>First, we take a partial derivative with respect to both <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -2573,13 +2635,35 @@ n \beta_0 + \beta_1 \sum_{i = 1}^{n} x_i &amp;= \sum_{i = 1}^{n} y_i\\
 \end{aligned}
 \]</span></p>
 <p>Finally, we finish solving the system of equations.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>SLR Coefficient Estimates
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><span class="math display">\[
 \begin{aligned}
 \hat{\beta}_1 &amp;= \frac{\sum_{i = 1}^{n} x_i y_i - \frac{(\sum_{i = 1}^{n} x_i)(\sum_{i = 1}^{n} y_i)}{n}}{\sum_{i = 1}^{n} x_i^2 - \frac{(\sum_{i = 1}^{n} x_i)^2}{n}} = \frac{S_{xy}}{S_{xx}}\\
 \hat{\beta}_0 &amp;= \bar{y} - \hat{\beta}_1 \bar{x}
 \end{aligned}
 \]</span></p>
+</div>
+</div>
 <p>Here, we have defined some notation for the expression we’ve obtained. Note that they have alternative forms which are much easier to work with. (We won’t do it here, but you can try to prove the equalities below on your own, for “fun”). We use the capital letter <span class="math inline">\(S\)</span> to denote “summation” which replaces the capital letter <span class="math inline">\(\Sigma\)</span> when we calculate these values based on observed data, <span class="math inline">\((x_i ,y_i)\)</span>. The subscripts such as <span class="math inline">\(xy\)</span> denote over which variables the function <span class="math inline">\((z - \bar{z})\)</span> is applied.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Summation Notation for Regression
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><span class="math display">\[
 \begin{aligned}
 S_{xy} &amp;= \sum_{i = 1}^{n} x_i y_i - \frac{(\sum_{i = 1}^{n} x_i)(\sum_{i = 1}^{n} y_i)}{n}  = \sum_{i = 1}^{n}(x_i - \bar{x})(y_i - \bar{y})\\
@@ -2588,6 +2672,8 @@ S_{yy} &amp;= \sum_{i = 1}^{n} y_i^2 - \frac{(\sum_{i = 1}^{n} y_i)^2}{n}  = \su
 \end{aligned}
 \]</span></p>
 <p>Note that these summations <span class="math inline">\(S\)</span> are not to be confused with sample standard deviation <span class="math inline">\(s\)</span>.</p>
+</div>
+</div>
 <p>By using the above alternative expressions for <span class="math inline">\(S_{xy}\)</span> and <span class="math inline">\(S_{xx}\)</span>, we arrive at a cleaner, more useful expression for <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
 <p><span class="math display">\[
 \hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{\sum_{i = 1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sum_{i = 1}^{n}(x_i - \bar{x})^2}
@@ -2603,15 +2689,52 @@ S_{yy} &amp;= \sum_{i = 1}^{n} y_i^2 - \frac{(\sum_{i = 1}^{n} y_i)^2}{n}  = \su
 <div id="qwebr-insertion-location-6"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>What do these values tell us about our dataset?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The Slope Parameter / Estimate
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>The slope <em>parameter</em> <span class="math inline">\(\beta_1\)</span> tells us that for an increase in speed of one mile per hour, the <strong>mean</strong> stopping distance increases by <span class="math inline">\(\beta_1\)</span>. It is important to specify that we are talking about the mean. Recall that <span class="math inline">\(\beta_0 + \beta_1 x\)</span> is the mean of <span class="math inline">\(Y\)</span>, in this case stopping distance, for a particular value of <span class="math inline">\(x\)</span>. (In this case speed.) So <span class="math inline">\(\beta_1\)</span> tells us how the mean of <span class="math inline">\(Y\)</span> is affected by a change in <span class="math inline">\(x\)</span>.</p>
 <p>Similarly, the <em>estimate</em> <span class="math inline">\(\hat{\beta}_1 = 3.93\)</span> tells us that for an increase in speed of one mile per hour, the <strong>estimated</strong> <em>mean</em> stopping distance increases by <span class="math inline">\(3.93\)</span> feet. Here we should be sure to specify we are discussing an estimated quantity. Recall that <span class="math inline">\(\hat{y}\)</span> is the estimated mean of <span class="math inline">\(Y\)</span>, so <span class="math inline">\(\hat{\beta}_1\)</span> tells us how the estimated mean of <span class="math inline">\(Y\)</span> is affected by changing <span class="math inline">\(x\)</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Intercept Parameter / Estimate
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>The intercept <em>parameter</em> <span class="math inline">\(\beta_0\)</span> tells us the <strong>mean</strong> stopping distance for a car traveling zero miles per hour. (Not moving.) The <em>estimate</em> <span class="math inline">\(\hat{\beta}_0 = -17.58\)</span> tells us that the <strong>estimated</strong> mean stopping distance for a car traveling zero miles per hour is <span class="math inline">\(-17.58\)</span> feet. So when you apply the brakes to a car that is not moving, it moves backwards? This doesn’t seem right. (Extrapolation, which we will see later, is the issue here.)</p>
+</div>
+</div>
 <section id="making-predictions" class="level3">
 <h3 class="anchored" data-anchor-id="making-predictions">Making Predictions</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Fitted Line
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>We can now write the <strong>fitted</strong> or estimated line,</p>
 <p><span class="math display">\[
 \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x.
 \]</span></p>
+<p>This fitted line can be used to make <strong>predictions</strong>.</p>
+</div>
+</div>
 <p>In this case,</p>
 <p><span class="math display">\[
 \hat{y} = -17.58 + 3.93 x.
@@ -2631,6 +2754,7 @@ S_{yy} &amp;= \sum_{i = 1}^{n} y_i^2 - \frac{(\sum_{i = 1}^{n} y_i)^2}{n}  = \su
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div id="qwebr-insertion-location-10"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>The prediction is found by plugging 21 into the equation of the line:</p>
 <p><span class="math display">\[
 \hat{y} = -17.58 + 3.93 \times 21 % = 65
 \]</span></p>
@@ -2646,24 +2770,58 @@ S_{yy} &amp;= \sum_{i = 1}^{n} y_i^2 - \frac{(\sum_{i = 1}^{n} y_i)^2}{n}  = \su
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Cars travel 50 miles per hour rather easily today, but not in the 1920s!</p>
 <p>This is also an issue we saw when interpreting <span class="math inline">\(\hat{\beta}_0 = -17.58\)</span>, which is equivalent to making a prediction at <span class="math inline">\(x = 0\)</span>. We should not be confident in the estimated linear relationship outside of the range of data we have observed.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Prediction, Interpolation, and Extrapolation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A prediction of <span class="math inline">\(y\)</span> for a given <span class="math inline">\(x\)</span> value can be found by plugging <span class="math inline">\(x\)</span> into <span class="math display">\[
+\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x.
+\]</span></p>
+<ul>
+<li>A prediction at an <span class="math inline">\(x\)</span> value in the data is often called a <strong>fitted value</strong>.</li>
+<li>A prediction at an <span class="math inline">\(x\)</span> value that is <em>not</em> in the data bu <em>is</em> in the range of <span class="math inline">\(x\)</span> values is called <strong>interpolation</strong>.</li>
+<li>A prediction outside the range of observed <span class="math inline">\(x\)</span> values is called <strong>extrapolation</strong>.</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="residuals" class="level3">
 <h3 class="anchored" data-anchor-id="residuals">Residuals</h3>
 <p>If we think of our model as “Response = Prediction + Error,” we can then write it as</p>
-<p><span class="math display">\[$
+<p><span class="math display">\[
 y = \hat{y} + e.
-\]</span>$</p>
-<p>We then define a <strong>residual</strong> to be the observed value minus the predicted value.</p>
-<p><span class="math display">\[$
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Residual
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We then define a <strong>residual</strong> to be the observed value minus the fitted value.</p>
+<p><span class="math display">\[
 e_i = y_i - \hat{y}_i
-\]</span>$</p>
+\]</span></p>
+<p>The residual is <em>positive</em> if the fitted value is less than the true value, and <em>negative</em> if the fitted value is larger than the true value.</p>
+<p>Note that the residual is <em>always</em> observed minus fitted.</p>
+</div>
+</div>
 <p>Let’s calculate the residual for the prediction we made for a car traveling 8 miles per hour. First, we need to obtain the observed value of <span class="math inline">\(y\)</span> for this <span class="math inline">\(x\)</span> value.</p>
 <div id="qwebr-insertion-location-14"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>We can then calculate the residual.</p>
-<p><span class="math display">\[$
+<p><span class="math display">\[
 e = 16 - 13.88 = 2.12
-\]</span>$</p>
+\]</span></p>
 <div id="qwebr-insertion-location-15"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>The positive residual value indicates that the observed stopping distance is actually 2.12 feet more than what was predicted.</p>
@@ -2680,7 +2838,18 @@ e = 16 - 13.88 = 2.12
 \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i
 \]</span></p>
 <p>is a natural estimate for the mean of <span class="math inline">\(Y_i\)</span> for a given value of <span class="math inline">\(x_i\)</span>.</p>
-<p>Also, recall that when we specified the model, we had three unknown parameters; <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\sigma^2\)</span>. The method of least squares gave us estimates for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, however, we have yet to see an estimate for <span class="math inline">\(\sigma^2\)</span>. We will now define <span class="math inline">\(s_e^2\)</span> which will be an estimate for <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Also, recall that when we specified the model, we had three unknown parameters; <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\sigma^2\)</span>. The method of least squares gave us estimates for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, however, we have yet to see an estimate for <span class="math inline">\(\sigma^2\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Estimate of <span class="math inline">\(\sigma^2\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We will now define <span class="math inline">\(s_e^2\)</span> which will be an estimate for <span class="math inline">\(\sigma^2\)</span>.</p>
 <p><span class="math display">\[
 \begin{aligned}
 s_e^2 &amp;= \frac{1}{n - 2} \sum_{i = 1}^{n}(y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i))^2 \\
@@ -2688,11 +2857,9 @@ s_e^2 &amp;= \frac{1}{n - 2} \sum_{i = 1}^{n}(y_i - (\hat{\beta}_0 + \hat{\beta}
       &amp;= \frac{1}{n - 2} \sum_{i = 1}^{n} e_i^2
 \end{aligned}
 \]</span></p>
-<p>This probably seems like a natural estimate, aside from the use of <span class="math inline">\(n - 2\)</span>, which we will put off explaining until the next chapter. It should actually look rather similar to something we have seen before.</p>
-<p><span class="math display">\[
-s^2 = \frac{1}{n - 1}\sum_{i=1}^{n}(x_i - \bar{x})^2
-\]</span></p>
-<p>Here, <span class="math inline">\(s^2\)</span> is the estimate of <span class="math inline">\(\sigma^2\)</span> when we have a single random variable <span class="math inline">\(X\)</span>. In this case <span class="math inline">\(\bar{x}\)</span> is an estimate of <span class="math inline">\(\mu\)</span> which is assumed to be the same for each <span class="math inline">\(x\)</span>.</p>
+</div>
+</div>
+<p>This probably seems like a natural estimate, aside from the use of <span class="math inline">\(n - 2\)</span>, which we will put off explaining until the next chapter. Note that we will sometimes use <span class="math inline">\(s^2\)</span> to mean <span class="math inline">\(s_e^2\)</span>; in regression, we’re almost always most interested in the variance of the residuals and very rarely are we interested in a univariate variance (except for the variance of <span class="math inline">\(y\)</span>).</p>
 <p>Now, in the regression case, with <span class="math inline">\(s_e^2\)</span> each <span class="math inline">\(y\)</span> has a different mean because of the relationship with <span class="math inline">\(x\)</span>. Thus, for each <span class="math inline">\(y_i\)</span>, we use a different estimate of the mean, that is <span class="math inline">\(\hat{y}_i\)</span>.</p>
 <div id="qwebr-insertion-location-16"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
@@ -2704,19 +2871,39 @@ s^2 = \frac{1}{n - 1}\sum_{i=1}^{n}(x_i - \bar{x})^2
 </section>
 <section id="decomposition-of-variation" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="decomposition-of-variation"><span class="header-section-number">7.3</span> Decomposition of Variation</h2>
-<p>We can re-express <span class="math inline">\(y_i - \bar{y}\)</span>, which measures the deviation of an observation from the sample mean, in the following way,</p>
+<p>We can re-express <span class="math inline">\(y_i - \bar{y}\)</span>, which measures the deviation of an observation from the sample mean of <span class="math inline">\(y\)</span> (not accounting for the relationship with <span class="math inline">\(x\)</span>), in the following way,</p>
 <p><span class="math display">\[
 y_i - \bar{y} = (y_i - \hat{y}_i) + (\hat{y}_i - \bar{y}).
 \]</span></p>
 <p>This is the common mathematical trick of “adding zero.” In this case we both added and subtracted <span class="math inline">\(\hat{y}_i\)</span>.</p>
 <p>Here, <span class="math inline">\(y_i - \hat{y}_i\)</span> measures the deviation of an observation from the fitted regression line and <span class="math inline">\(\hat{y}_i - \bar{y}\)</span> measures the deviation of the fitted regression line from the sample mean.</p>
-<p>If we square then sum both sides of the equation above, we can obtain the following,</p>
+<p>If we square then sum both sides of the equation above<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, we can obtain the following,</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Decomposition of the Variance of <span class="math inline">\(Y\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><span class="math display">\[
 \sum_{i=1}^{n}(y_i - \bar{y})^2 = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 + \sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2.
 \]</span></p>
+</div>
+</div>
 <p>This should be somewhat alarming or amazing. How is this true? For now we will leave this question unanswered. (Think about this, and maybe try to prove it.) We will now define three of the quantities seen in this equation.</p>
-<section id="sum-of-squares-total" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="sum-of-squares-total">Sum of Squares Total</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Sum of Squares Total
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><span class="math display">\[
 \text{SST} = \sum_{i=1}^{n}(y_i - \bar{y})^2
 \]</span></p>
@@ -2724,20 +2911,40 @@ y_i - \bar{y} = (y_i - \hat{y}_i) + (\hat{y}_i - \bar{y}).
 <p><span class="math display">\[
 s ^ 2 = \frac{1}{n - 1}\sum_{i=1}^{n}(y_i - \bar{y})^2 = \frac{1}{n - 1} \text{SST}.
 \]</span></p>
-</section>
-<section id="sum-of-squares-regression" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="sum-of-squares-regression">Sum of Squares Regression</h4>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Sum of Squares Regression
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><span class="math display">\[
 \text{SSReg} = \sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2
 \]</span></p>
 <p>The quantity “Sum of Squares Regression,” <span class="math inline">\(\text{SSReg}\)</span>, represents the <strong>explained variation</strong> of the observed <span class="math inline">\(y\)</span> values.</p>
-</section>
-<section id="sum-of-squares-error" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="sum-of-squares-error">Sum of Squares Error</h4>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Sum of Squares Error
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><span class="math display">\[
 \text{SSE} = \text{RSS} = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2
 \]</span></p>
 <p>The quantity “Sum of Squares Error,” <span class="math inline">\(\text{SSE}\)</span>, represents the <strong>unexplained variation</strong> of the observed <span class="math inline">\(y\)</span> values. You will often see <span class="math inline">\(\text{SSE}\)</span> written as <span class="math inline">\(\text{RSS}\)</span>, or “Residual Sum of Squares.”</p>
+</div>
+</div>
 <div id="qwebr-insertion-location-18"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Note that,</p>
@@ -2750,17 +2957,30 @@ s_e^2 = \frac{\text{SSE}}{n - 2}.
 <div id="qwebr-insertion-location-20"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>These three measures also do not have an important practical interpretation individually. But together, they’re about to reveal a new statistic to help measure the strength of an SLR model.</p>
-</section>
 <section id="coefficient-of-determination" class="level3">
 <h3 class="anchored" data-anchor-id="coefficient-of-determination">Coefficient of Determination</h3>
-<p>The <strong>coefficient of determination</strong>, <span class="math inline">\(R^2\)</span>, is defined as</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Coefficient of Determination / Variance Explained by the Regression / <span class="math inline">\(R^2\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><span class="math display">\[
 \begin{aligned}
-R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2} \\]</span>2.5ex] &amp;= = 1 - $<span class="math inline">\(2.5ex]
-    &amp;= 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2} =
+R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} \\&amp;= \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}\\
+    &amp;= \frac{\text{SST} - \text{SSE}}{\text{SST}} \\&amp;= 1 - \frac{\text{SSE}}{\text{SST}}\\
+    &amp;= 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2} \\&amp; =
 1 - \frac{\sum_{i = 1}^{n}e_i^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}
-\end{aligned}\)</span>$</p>
+\end{aligned}
+\]</span></p>
 <p>The coefficient of determination is interpreted as the proportion of observed variation in <span class="math inline">\(y\)</span> that can be explained by the simple linear regression model.</p>
+<p>Try verifying each of the steps in the derivation above.</p>
+</div>
+</div>
 <div id="qwebr-insertion-location-21"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>For the <code>cars</code> example, we calculate <span class="math inline">\(R^2 = 0.65\)</span>. We then say that <span class="math inline">\(65\%\)</span> of the observed variability in stopping distance is explained by the linear relationship with speed.</p>
@@ -2774,6 +2994,10 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \b
 </div>
 </div>
 </div>
+<p>In the top left plot, we see the SSReg, which is the variation in the <em>line itself</em>. That is, how much the diagonal line deviates from the horizontal line representing the mean of <span class="math inline">\(y\)</span>. If this is a “large” deviation, then the linear model that regresses <span class="math inline">\(Y\)</span> against <span class="math inline">\(X\)</span> is very different from ignoring <span class="math inline">\(X\)</span> and just using <span class="math inline">\(Y\)</span>. In other words, a “large” SSReg justifies the regression. How do we define “large”? As usual, we use some definition variance as a sense of the scale of the data.</p>
+<p>The top right plot shows the variance of the points around the line. We see that the points follow the line fairly closely, relative to the previous plot.</p>
+<p>The bottom left plot demonstrates the total variance in <span class="math inline">\(Y\)</span> (the observed values, not the line) if we didn’t consider <span class="math inline">\(X\)</span>.</p>
+<p>The bottom right plot demonstrates that <span class="math inline">\(y_i - \bar y = (y_i - \hat y_i) + (\hat y_i - \bar y)\)</span>: the grey arrows from the SST plot are equal to the orange arrows plus the blue arrows. Shown visually, it is clear that the orange errors account for most of the variation of <span class="math inline">\(y_i\)</span> from <span class="math inline">\(\bar y\)</span>. That is, the regression explains the variation!</p>
 <p>The next plots again visually demonstrate the three “sums of squares,” this time for a simulated dataset which has <span class="math inline">\(R^2 = 0.19\)</span>. Notice in the final plot, that now the blue arrows account for a larger proportion of the total arrow.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -2791,9 +3015,21 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \b
 <p>So far we have done regression by deriving the least squares estimates, then writing simple <code>R</code> commands to perform the necessary calculations. Since this is such a common task, this is functionality that is built directly into <code>R</code> via the <code>lm()</code> command.</p>
 <p>The <code>lm()</code> command is used to fit <strong>linear models</strong> which actually account for a broader class of models than simple linear regression, but we will use SLR as our first demonstration of <code>lm()</code>. The <code>lm()</code> function will be one of our most commonly used tools, so you may want to take a look at the documentation by using <code>?lm</code>. You’ll notice there is a lot of information there, but we will start with just the very basics. This is documentation you will want to return to often.</p>
 <p>We’ll continue using the <code>cars</code> data, and essentially use the <code>lm()</code> function to check the work we had previously done.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The <code>lm()</code> Function
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div id="qwebr-insertion-location-22"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>This line of code fits our very first linear model. The syntax should look somewhat familiar. We use the <code>dist ~ speed</code> syntax to tell <code>R</code> we would like to model the response variable <code>dist</code> as a linear function of the predictor variable <code>speed</code>. In general, you should think of the syntax as <code>response ~ predictor</code>. The <code>data = cars</code> argument then tells <code>R</code> that the <code>dist</code> and <code>speed</code> variables are from the dataset <code>cars</code>. We then store this result in a variable <code>stop_dist_model</code>.</p>
+</div>
+</div>
 <p>The variable <code>stop_dist_model</code> now contains a wealth of information, and we will now see how to extract and use that information. The first thing we will do is simply output whatever is stored immediately in the variable <code>stop_dist_model</code>.</p>
 <div id="qwebr-insertion-location-23"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
@@ -2816,7 +3052,7 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \b
 <p>An <code>R</code> function that is useful in many situations is <code>summary()</code>. We see that when it is called on our model, it returns a good deal of information. By the end of the course, you will know what every value here is used for. For now, you should immediately notice the coefficient estimates, and you may recognize the <span class="math inline">\(R^2\)</span> value we saw earlier.</p>
 <div id="qwebr-insertion-location-29"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>The <code>summary()</code> command also returns a list, and we can again use <code>names()</code> to learn what about the elements of this list.</p>
+<p>The <code>summary()</code> command also returns a list, and we can again use <code>names()</code> to learn what about the elements of this list<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <div id="qwebr-insertion-location-30"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>So, for example, if we wanted to directly access the value of <span class="math inline">\(R^2\)</span>, instead of copy and pasting it out of the printed statement from <code>summary()</code>, we could do so.</p>
@@ -2826,9 +3062,9 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \b
 <div id="qwebr-insertion-location-32"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Note that this is the same result seen earlier as <code>s_e</code>. You may also notice that this value was displayed above as a result of the <code>summary()</code> command, which <code>R</code> labeled the “Residual Standard Error.”</p>
-<p><span class="math display">\[$
+<p><span class="math display">\[
 s_e = \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
-\]</span>$</p>
+\]</span></p>
 <p>Often it is useful to talk about <span class="math inline">\(s_e\)</span> (or RSE) instead of <span class="math inline">\(s_e^2\)</span> because of their units. The unit of <span class="math inline">\(s_e\)</span> in the <code>cars</code> example is feet, while the unit of <span class="math inline">\(s_e^2\)</span> is feet-squared.</p>
 <p>Another useful function, which we will use almost as often as <code>lm()</code> is the <code>predict()</code> function.</p>
 <div id="qwebr-insertion-location-33"></div>
@@ -2857,9 +3093,9 @@ s_e = \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
 <section id="maximum-likelihood-estimation-mle-approach" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="maximum-likelihood-estimation-mle-approach"><span class="header-section-number">7.5</span> Maximum Likelihood Estimation (MLE) Approach</h2>
 <p>Recall the model,</p>
-<p><span class="math display">\[$
+<p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
-\]</span>$</p>
+\]</span></p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>.</p>
 <p>Then we can find the mean and variance of each <span class="math inline">\(Y_i\)</span>.</p>
 <p><span class="math display">\[
@@ -2932,9 +3168,9 @@ s_e^2 &amp;= \frac{1}{n - 2} \sum_{i = 1}^{n}(y_i - \hat{y}_i)^2 = \frac{1}{n - 
 <p>We return again to more examples of simulation. This will be a common theme!</p>
 <p>In practice you will almost never have a true model, and you will use data to attempt to recover information about the unknown true model. With simulation, we decide the true model and simulate data from it. Then, we apply a method to the data, in this case least squares. Now, since we know the true model, we can assess how well it did.</p>
 <p>For this example, we will simulate <span class="math inline">\(n = 21\)</span> observations from the model</p>
-<p><span class="math display">\[$
+<p><span class="math display">\[
 Y = 5 - 2 x + \epsilon.
-\]</span>$</p>
+\]</span></p>
 <p>That is <span class="math inline">\(\beta_0 = 5\)</span>, <span class="math inline">\(\beta_1 = -2\)</span>, and let <span class="math inline">\(\epsilon \sim N(\mu = 0, \sigma^2 = 9)\)</span>. Or, even more succinctly we could write</p>
 <p><span class="math display">\[
 Y \mid X \sim N(\mu = 5 - 2 x, \sigma^ 2 = 9).
@@ -2979,6 +3215,13 @@ Y \mid X \sim N(\mu = 5 - 2 x, \sigma^ 2 = 9).
 <p>For some brief background on the history of linear regression, see <a href="https://www.tandfonline.com/doi/full/10.1080/10691898.2001.11910537" target="_blank">“Galton, Pearson, and the Peas: A Brief History of Linear Regression for Statistics Instructors”</a> from the <a href="https://www.tandfonline.com/journals/ujse20" target="_blank">Journal of Statistics Education</a> as well as the <a href="https://en.wikipedia.org/wiki/Regression_analysis#History" target="_blank">Wikipedia page on the history of regression analysis</a> and lastly the article for <a href="https://en.wikipedia.org/wiki/Regression_toward_the_mean" target="_blank">regression toward the mean</a> which details the origins of the term “regression.”</p>
 
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Warning: there’s an extra step involved here! Try to work through the math yourself, recalling with great care that <span class="math inline">\((a + b)^2 \ne a^2 + b^2\)</span> in general.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is extraordinarily odd behaviour in R, and the more you learn about this the more weird it becomes. For now, just know that you can do it.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

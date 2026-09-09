@@ -1,3 +1,9 @@
+---
+webr:
+     packages:
+          ["ggplot2"]
+---
+
 # Summarizing Data
 
 ## Summary Statistics
@@ -6,6 +12,7 @@
 
 ```{r, message = FALSE, warning = FALSE}
 library(ggplot2)
+data(mpg)
 ```
 
 ### Central Tendency {-}

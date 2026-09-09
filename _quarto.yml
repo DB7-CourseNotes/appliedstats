@@ -17,6 +17,7 @@ author: "David Dalpiaz, modified by Devan Becker"
 execute:
     warning: false
     cache: true
+    freeze: auto
 
 book:
   title: "Applied Statistics with R"
