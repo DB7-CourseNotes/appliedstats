@@ -45,14 +45,14 @@ which we also called $\text{RSE}$, for "Residual Standard Error."
 
 When applied to the `cars` data, we obtained the following results:
 
-```{r}
+```{webr-r}
 stop_dist_model <- lm(dist ~ speed, data = cars)
 summary(stop_dist_model)
 ```
 
 Last chapter, we only discussed the `Estimate`, `Residual standard error`, and `Multiple R-squared` values. In this chapter, we will discuss all of the information under `Coefficients` as well as `F-statistic`.
 
-```{r}
+```{webr-r}
 plot(dist ~ speed, data = cars,
      xlab = "Speed (in Miles Per Hour)",
      ylab = "Stopping Distance (in Feet)",
@@ -86,7 +86,11 @@ Last chapter we argued that these estimates of unknown model parameters $\beta_0
 
 ## Gauss–Markov Theorem
 
+::: {.callout-note}
+## The Gauss–Markov Theorem
+
 The **Gauss–Markov theorem** tells us that when estimating the parameters of the simple linear regression model $\beta_0$ and $\beta_1$, the $\hat{\beta}_0$ and $\hat{\beta}_1$ which we derived are the **best linear unbiased estimates**, or *BLUE* for short. (The actual conditions for the Gauss–Markov theorem are more relaxed than the SLR model.)
+:::
 
 We will now discuss *linear*, *unbiased*, and *best* as they relate to these estimates.
 
@@ -143,6 +147,9 @@ we say that $\hat{\theta}_{BAD}$ is a biased estimator unless $\beta_1 = 5$, whi
 
 So now, the natural question is, what are the variances of $\hat{\beta}_0$ and $\hat{\beta}_1$? They are,
 
+::: {.callout-note}
+## Variances of Regression Estimates
+
 $$
 \begin{aligned}
 \text{Var}[\hat{\beta}_0] &= \sigma^2 \left(\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}\right) \\
@@ -150,42 +157,40 @@ $$
 \end{aligned}
 $$
 
-These quantify the variability of the estimates due to random chance during sampling. Are these "the best"? Are these variances as small as we can possibly get? You'll just have to take our word for it that they are because showing that this is true is beyond the scope of this course.
+These quantify the variability of the estimates due to random chance during sampling. These variances are as small as we can possibly get among all linear unbiased estimators—a result guaranteed by the Gauss–Markov theorem.
+:::
 
 ## Sampling Distributions
 
-Now that we have "redefined" the estimates for $\hat{\beta}_0$ and $\hat{\beta}_1$ as random variables, we can discuss their **sampling distribution**, which is the distribution when a statistic is considered a random variable.
+::: {.callout-note}
+## Sampling Distribution
+
+A **sampling distribution** is the probability distribution of a sample statistic when that statistic is considered a random variable (before data are observed).
+:::
+
+Now that we have "redefined" the estimates for $\hat{\beta}_0$ and $\hat{\beta}_1$ as random variables, we can discuss their sampling distributions.
 
 Since both $\hat{\beta}_0$ and $\hat{\beta}_1$ are a linear combination of the $Y_i$ and each $Y_i$ is normally distributed, then both $\hat{\beta}_0$ and $\hat{\beta}_1$ also follow a normal distribution.
 
 Then, putting all of the above together, we arrive at the distributions of $\hat{\beta}_0$ and $\hat{\beta}_1$.
 
-For $\hat{\beta}_1$ we say,
+::: {.callout-note}
+## Sampling Distributions of Regression Estimators
 
-$$
-\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} 
-= \frac{\sum_{i = 1}^{n}(x_i - \bar{x}) Y_i}{\sum_{i = 1}^{n}(x_i - \bar{x})^2}
-\sim N\left(  \beta_1, \ \frac{\sigma^2}{\sum_{i = 1}^{n}(x_i - \bar{x})^2} \right).
-$$
-
-Or more succinctly,
+For $\hat{\beta}_1$:
 
 $$
 \hat{\beta}_1 \sim N\left(  \beta_1, \frac{\sigma^2}{S_{xx}} \right).
 $$
 
-And for $\hat{\beta}_0$,
+For $\hat{\beta}_0$:
 
 $$
-\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{x} 
-\sim N\left(  \beta_0, \ \frac{\sigma^2 \sum_{i = 1}^{n}x_i^2}{n \sum_{i = 1}^{n}(x_i - \bar{x})^2} \right).
+\hat{\beta}_0 \sim N\left(  \beta_0, \sigma^2 \left(\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}\right) \right).
 $$
 
-Or more succinctly,
-
-$$
-\hat{\beta}_0 \sim N\left(  \beta_0, \sigma^2 \left(\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}\right) \right)
-$$
+Both follow normal distributions because they are linear combinations of the normally distributed $Y_i$ values.
+:::
 
 At this point we have neglected to prove a number of these results. Instead of working through the tedious derivations of these sampling distributions, we will instead justify these results to ourselves using simulation.
 
@@ -219,7 +224,7 @@ $$
 
 First we need to decide ahead of time what our $x$ values will be for this simulation, since the $x$ values in SLR are also considered known quantities. The choice of $x$ values is arbitrary. Here we also set a seed for randomization, and calculate $S_{xx}$ which we will need going forward.
 
-```{r}
+```{webr-r}
 set.seed(42)
 sample_size <- 100 # this is n
 x <- seq(-1, 1, length = sample_size)
@@ -228,7 +233,7 @@ Sxx <- sum((x - mean(x)) ^ 2)
 
 We also fix our parameter values.
 
-```{r}
+```{webr-r}
 beta_0 <- 3
 beta_1 <- 6
 sigma  = 2
@@ -236,7 +241,7 @@ sigma  = 2
 
 With this information, we know the sampling distributions should be:
 
-```{r}
+```{webr-r}
 (var_beta_1_hat = sigma ^ 2 / Sxx)
 (var_beta_0_hat = sigma ^ 2 * (1 / sample_size + mean(x) ^ 2 / Sxx))
 ```
@@ -271,7 +276,7 @@ $$
 
 We now simulate data from this model 10,000 times. Note this may not be the most `R` way of doing the simulation. We perform the simulation in this manner in an attempt at clarity. For example, we could have used the `sim_slr()` function from the previous chapter. We also simply store variables in the global environment instead of creating a data frame for each new simulated dataset.
 
-```{r}
+```{webr-r}
 num_samples <- 10000
 beta_0_hats <- rep(0, num_samples)
 beta_1_hats <- rep(0, num_samples)
@@ -291,7 +296,7 @@ Each time we simulated the data, we obtained values of the estimated coefficient
 
 We first verify the distribution of $\hat{\beta}_1$.
 
-```{r}
+```{webr-r}
 mean(beta_1_hats) # empirical mean
 beta_1            # true mean
 var(beta_1_hats)  # empirical variance
@@ -300,7 +305,7 @@ var_beta_1_hat    # true variance
 
 We see that the empirical and true means and variances are *very* similar. We also verify that the empirical distribution is normal. To do so, we plot a histogram of the `beta_1_hats`, and add the curve for the true distribution of $\hat{\beta}_1$. We use `prob = TRUE` to put the histogram on the same scale as the normal curve.
 
-```{r}
+```{webr-r}
 # note need to use prob = TRUE
 hist(beta_1_hats, prob = TRUE, breaks = 20, 
      xlab = expression(hat(beta)[1]), main = "", border = "dodgerblue")
@@ -310,14 +315,14 @@ curve(dnorm(x, mean = beta_1, sd = sqrt(var_beta_1_hat)),
 
 We then repeat the process for $\hat{\beta}_0$.
 
-```{r}
+```{webr-r}
 mean(beta_0_hats) # empirical mean
 beta_0            # true mean
 var(beta_0_hats)  # empirical variance
 var_beta_0_hat    # true variance
 ```
 
-```{r}
+```{webr-r}
 hist(beta_0_hats, prob = TRUE, breaks = 25, 
      xlab = expression(hat(beta)[0]), main = "", border = "dodgerblue")
 curve(dnorm(x, mean = beta_0, sd = sqrt(var_beta_0_hat)),
@@ -326,7 +331,7 @@ curve(dnorm(x, mean = beta_0, sd = sqrt(var_beta_0_hat)),
 
 In this simulation study, we have only simulated a finite number of samples. To truly verify the distributional results, we would need to observe an infinite number of samples. However, the following plot should make it clear that if we continued simulating, the empirical results would get closer and closer to what we should expect.
 
-```{r}
+```{webr-r}
 par(mar = c(5, 5, 1, 1)) # adjusted plot margins, otherwise the "hat" does not display
 plot(cumsum(beta_1_hats) / (1:length(beta_1_hats)), type = "l", ylim = c(5.95, 6.05),
      xlab = "Number of Simulations",
@@ -379,7 +384,10 @@ $$
 
 Since we don't know $\sigma$ in practice, we will have to estimate it using $s_e$, which we plug into our existing expression for the standard deviations of our estimates.
 
-These two new expressions are called **standard errors** which are the *estimated* standard deviations of the sampling distributions.
+::: {.callout-note}
+## Standard Error
+
+A **standard error** (SE) is the *estimated* standard deviation of the sampling distribution of a statistic. For the regression coefficients:
 
 $$
 \text{SE}[\hat{\beta}_0] = s_e\sqrt{\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}}
@@ -389,7 +397,15 @@ $$
 \text{SE}[\hat{\beta}_1] = \frac{s_e}{\sqrt{S_{xx}}}
 $$
 
+Standard errors replace the unknown parameter $\sigma$ with its estimate $s_e$.
+:::
+
 Now if we divide by the standard error, instead of the standard deviation, we obtain the following results which will allow us to make confidence intervals and perform hypothesis testing.
+
+::: {.callout-note}
+## Test Statistics for Regression Coefficients
+
+When we standardize the regression estimates by their standard errors, we get:
 
 $$
 \frac{\hat{\beta}_0 - \beta_0}{\text{SE}[\hat{\beta}_0]} \sim t_{n-2}
@@ -398,6 +414,9 @@ $$
 $$
 \frac{\hat{\beta}_1 - \beta_1}{\text{SE}[\hat{\beta}_1]} \sim t_{n-2}
 $$
+
+These follow $t$ distributions with $n - 2$ degrees of freedom (not standard normal), because we estimate $\sigma$ from the data.
+:::
 
 To see this, first note that,
 
@@ -440,7 +459,7 @@ where $Z \sim N(0,1)$.
 
 Recall that a $t$ distribution is similar to a standard normal, but with heavier tails. As the degrees of freedom increases, the $t$ distribution becomes more and more like a standard normal. Below we plot a standard normal distribution as well as two examples of a $t$ distribution with different degrees of freedom. Notice how the $t$ distribution with the larger degrees of freedom is more similar to the standard normal curve.
 
-```{r}
+```{webr-r}
 # define grid of x values
 x <- seq(-4, 4, length = 100)
 
@@ -473,19 +492,23 @@ $$
 
 where $\text{EST}$ is an estimate for the parameter of interest, $\text{SE}$ is the standard error of the estimate, and $\text{MARGIN} = \text{CRIT} \cdot \text{SE}$.
 
-Then, for $\beta_0$ and $\beta_1$ we can create confidence intervals using
+::: {.callout-note}
+## Confidence Intervals for Regression Coefficients
+
+For $\beta_0$:
 
 $$
-\hat{\beta}_0 \pm t_{\alpha/2, n - 2} \cdot \text{SE}[\hat{\beta}_0] \quad \quad \quad \hat{\beta}_0 \pm t_{\alpha/2, n - 2} \cdot s_e\sqrt{\frac{1}{n}+\frac{\bar{x}^2}{S_{xx}}}
+\hat{\beta}_0 \pm t_{\alpha/2, n - 2} \cdot \text{SE}[\hat{\beta}_0] = \hat{\beta}_0 \pm t_{\alpha/2, n - 2} \cdot s_e\sqrt{\frac{1}{n}+\frac{\bar{x}^2}{S_{xx}}}
 $$
 
-and
+For $\beta_1$:
 
 $$
-\hat{\beta}_1 \pm t_{\alpha/2, n - 2} \cdot \text{SE}[\hat{\beta}_1]  \quad \quad \quad \hat{\beta}_1 \pm t_{\alpha/2, n - 2} \cdot \frac{s_e}{\sqrt{S_{xx}}}
+\hat{\beta}_1 \pm t_{\alpha/2, n - 2} \cdot \text{SE}[\hat{\beta}_1] = \hat{\beta}_1 \pm t_{\alpha/2, n - 2} \cdot \frac{s_e}{\sqrt{S_{xx}}}
 $$
 
 where $t_{\alpha/2, n - 2}$ is the critical value such that $P(t_{n-2} > t_{\alpha/2, n - 2}) = \alpha/2$.
+:::
 
 ## Hypothesis Tests
 
@@ -501,39 +524,29 @@ $$
 
 where $\text{EST}$ is an estimate for the parameter of interest, $\text{HYP}$ is a hypothesized value of the parameter, and $\text{SE}$ is the standard error of the estimate.
 
-So, to test
+::: {.callout-note}
+## Test Statistics for Regression Coefficients
+
+To test $H_0: \beta_0 = \beta_{00}$ vs $H_1: \beta_0 \neq \beta_{00}$:
 
 $$
-H_0: \beta_0 = \beta_{00} \quad \text{vs} \quad H_1: \beta_0 \neq \beta_{00}
+t = \frac{\hat{\beta}_0 - \beta_{00}}{\text{SE}[\hat{\beta}_0]} = \frac{\hat{\beta}_0-\beta_{00}}{s_e\sqrt{\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}}} \sim t_{n-2}
 $$
 
-we use the test statistic
+To test $H_0: \beta_1 = \beta_{10}$ vs $H_1: \beta_1 \neq \beta_{10}$:
 
 $$
-t = \frac{\hat{\beta}_0 - \beta_{00}}{\text{SE}[\hat{\beta}_0]} = \frac{\hat{\beta}_0-\beta_{00}}{s_e\sqrt{\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}}}
+t = \frac{\hat{\beta}_1-\beta_{10}}{\text{SE}[\hat{\beta}_1]} = \frac{\hat{\beta}_1-\beta_{10}}{s_e / \sqrt{S_{xx}}} \sim t_{n-2}
 $$
 
-which, under the null hypothesis, follows a $t$ distribution with $n - 2$ degrees of freedom. We use $\beta_{00}$ to denote the hypothesized value of $\beta_0$.
-
-Similarly, to test
-
-$$
-H_0: \beta_1 = \beta_{10} \quad \text{vs} \quad H_1: \beta_1 \neq \beta_{10}
-$$
-
-we use the test statistic
-
-$$
-t = \frac{\hat{\beta}_1-\beta_{10}}{\text{SE}[\hat{\beta}_1]} = \frac{\hat{\beta}_1-\beta_{10}}{s_e / \sqrt{S_{xx}}}
-$$
-
-which again, under the null hypothesis, follows a $t$ distribution with $n - 2$ degrees of freedom. We now use $\beta_{10}$ to denote the hypothesized value of $\beta_1$.
+Under the null hypothesis, both test statistics follow $t$ distributions with $n - 2$ degrees of freedom.
+:::
 
 ## `cars` Example
 
 We now return to the `cars` example from last chapter to illustrate these concepts. We first fit the model using `lm()` then use `summary()` to view the results in greater detail.
 
-```{r}
+```{webr-r}
 stop_dist_model <- lm(dist ~ speed, data = cars)
 summary(stop_dist_model)
 ```
@@ -542,7 +555,7 @@ summary(stop_dist_model)
 
 We will now discuss the results displayed called `Coefficients`. First recall that we can extract this information directly.
 
-```{r}
+```{webr-r}
 names(summary(stop_dist_model))
 summary(stop_dist_model)$coefficients
 ```
@@ -563,7 +576,7 @@ which are our estimates for the model parameters $\beta_0$ and $\beta_1$.
 
 Let's now focus on the second row of output, which is relevant to $\beta_1$.
 
-```{r}
+```{webr-r}
 summary(stop_dist_model)$coefficients[2,]
 ```
 
@@ -595,13 +608,13 @@ Note here, we are specifically testing whether or not $\beta_1 = 0$.
 
 The first row of output reports the same values, but for $\beta_0$.
 
-```{r}
+```{webr-r}
 summary(stop_dist_model)$coefficients[1,]
 ```
 
 In summary, the following code stores the information of `summary(stop_dist_model)$coefficients` in a new variable `stop_dist_model_test_info`, then extracts each element into a new variable which describes the information it contains.
 
-```{r}
+```{webr-r}
 stop_dist_model_test_info <- summary(stop_dist_model)$coefficients
 
 beta_0_hat      = stop_dist_model_test_info[1, 1] # Estimate
@@ -617,27 +630,37 @@ beta_1_hat_pval <- stop_dist_model_test_info[2, 4] # Pr(>|t|)
 
 We can then verify some equivalent expressions: the $t$ test statistic for $\hat{\beta}_1$ and the two-sided p-value associated with that test statistic.
 
-```{r}
+```{webr-r}
 (beta_1_hat - 0) / beta_1_hat_se
 beta_1_hat_t
 ```
 
-```{r}
+```{webr-r}
 2 * pt(abs(beta_1_hat_t), df = length(resid(stop_dist_model)) - 2, lower.tail = FALSE)
 beta_1_hat_pval
 ```
 
 ### Significance of Regression, t-Test
 
-We pause to discuss the **significance of regression** test. First, note that based on the above distributional results, we could test $\beta_0$ and $\beta_1$ against any particular value, and perform both one and two-sided tests.
+::: {.callout-note}
+## Significance of Regression Test (t-test)
 
-However, one very specific test,
+The most common hypothesis test in regression is:
 
 $$
 H_0: \beta_1 = 0 \quad \text{vs} \quad H_1: \beta_1 \neq 0
 $$
 
-is used most often. Let's think about this test in terms of the simple linear regression model,
+Interpretation:
+- Under $H_0$: the response does **not** depend linearly on the predictor. There is **no significant linear relationship** between $x$ and $y$.
+- Under $H_1$: the response depends linearly on the predictor. There **is a significant linear relationship** between $x$ and $y$.
+
+Note: This test can only detect *linear* relationships, not other types of associations.
+:::
+
+We pause to discuss this **significance of regression** test. First, note that based on the above distributional results, we could test $\beta_0$ and $\beta_1$ against any particular value, and perform both one and two-sided tests.
+
+However, one very specific test is used most often. Let's think about this test in terms of the simple linear regression model,
 
 $$
 Y_i = \beta_0 + \beta_1 x_i + \epsilon_i.
@@ -649,10 +672,7 @@ $$
 Y_i = \beta_0 + \epsilon_i.
 $$
 
-In this model, the response does **not** depend on the predictor. So then we could think of this test in the following way,
-
-- Under $H_0$ there is not a significant linear relationship between $x$ and $y$.
-- Under $H_1$ there is a significant **linear** relationship between $x$ and $y$.
+In this model, the response does **not** depend on the predictor.
 
 For the `cars` example,
 
@@ -681,7 +701,7 @@ In this plot of simulated data, we see a clear relationship between $x$ and $y$,
 
 Using `R` we can very easily obtain the confidence intervals for $\beta_0$ and $\beta_1$.
 
-```{r}
+```{webr-r}
 confint(stop_dist_model, level = 0.99)
 ```
 
@@ -695,7 +715,7 @@ You should be somewhat suspicious of the confidence interval for $\beta_0$, as i
 
 Note, we can extract specific values from this output a number of ways. This code is not run, and instead, you should check how it relates to the output of the code above.
 
-```{r, eval = FALSE}
+```{webr-r, eval = FALSE}
 confint(stop_dist_model, level = 0.99)[1,]
 confint(stop_dist_model, level = 0.99)[1, 1]
 confint(stop_dist_model, level = 0.99)[1, 2]
@@ -708,7 +728,7 @@ confint(stop_dist_model, parm = "speed", level = 0.99)
 
 We can also verify that calculations that `R` is performing for the $\beta_1$ interval.
 
-```{r}
+```{webr-r}
 # store estimate
 beta_1_hat <- coef(stop_dist_model)[2]
 
@@ -724,7 +744,13 @@ c(beta_1_hat - crit * beta_1_hat_se, beta_1_hat + crit * beta_1_hat_se)
 
 ## Confidence Interval for Mean Response
 
-In addition to confidence intervals for $\beta_0$ and $\beta_1$, there are two other common interval estimates used with regression. The first is called a **confidence interval for the mean response**. Often, we would like an interval estimate for the mean, $E[Y \mid X = x]$ for a particular value of $x$.
+In addition to confidence intervals for $\beta_0$ and $\beta_1$, there are two other common interval estimates used with regression. The first is called a **confidence interval for the mean response**. 
+
+::: {.callout-note}
+## Confidence Interval for Mean Response
+
+Often, we would like an interval estimate for the mean response, $E[Y \mid X = x]$, for a particular value of $x$. This is an interval for the expected value of $Y$ at a specific $x$ value (not for an individual observation).
+:::
 
 In this situation we use $\hat{y}(x)$ as our estimate of $E[Y \mid X = x]$. We modify our notation slightly to make it clear that the predicted value is a function of the $x$ value.
 
@@ -762,15 +788,21 @@ $$
 \text{SE}[\hat{y}(x)] = s_e \sqrt{\frac{1}{n}+\frac{(x-\bar{x})^2}{S_{xx}}}.
 $$
 
-We can then use this to find the confidence interval for the mean response,
+We can then use this to find the confidence interval for the mean response:
+
+::: {.callout-note}
+## Formula: Confidence Interval for Mean Response
 
 $$
 \hat{y}(x) \pm t_{\alpha/2, n - 2} \cdot s_e\sqrt{\frac{1}{n}+\frac{(x-\bar{x})^2}{S_{xx}}}
 $$
 
+This interval is narrowest at $x = \bar{x}$ and widens as we move away from the mean of $x$.
+:::
+
 To find confidence intervals for the mean response using `R`, we use the `predict()` function. We give the function our fitted model as well as new data, stored as a data frame. (This is important, so that `R` knows the name of the predictor variable.) Here, we are finding the confidence interval for the mean stopping distance when a car is travelling 5 miles per hour and when a car is travelling 21 miles per hour.
 
-```{r}
+```{webr-r}
 new_speeds <- data.frame(speed = c(5, 21))
 predict(stop_dist_model, newdata = new_speeds, 
         interval = c("confidence"), level = 0.99)
@@ -778,14 +810,20 @@ predict(stop_dist_model, newdata = new_speeds,
 
 ## Prediction Interval for New Observations
 
-Sometimes we would like an interval estimate for a new observation, $Y$, for a particular value of $x$. This is very similar to an interval for the mean response, $\text{E}[Y \mid X = x]$, but different in one very important way.
+::: {.callout-note}
+## Prediction Interval for New Observations
+
+Sometimes we would like an interval estimate for a new (individual) observation, $Y$, for a particular value of $x$. This is different from an interval for the mean response, $\text{E}[Y \mid X = x]$.
+
+While our best guess for a new observation is still $\hat{y}(x)$, the variability must account for both uncertainty in the mean *and* the natural variation of observations about the regression line.
+:::
 
 Our best guess for a new observation is still $\hat{y}(x)$. The estimated mean is still the best prediction we can make. The difference is in the amount of variability. We know that observations will vary about the true regression line according to a $N(0, \sigma^2)$ distribution. Because of this we add an extra factor of $\sigma^2$ to our estimate's variability in order to account for the variability of observations about the regression line.
 
 $$
 \begin{aligned}
-\text{Var}[\hat{y}(x) + \epsilon] &= \text{Var}[\hat{y}(x)] + \text{Var}[\epsilon] \$$2ex]
-&= \sigma^2 \left(\frac{1}{n}+\frac{(x-\bar{x})^2}{S_{xx}}\right) + \sigma^2 \$$2ex]
+\text{Var}[\hat{y}(x) + \epsilon] &= \text{Var}[\hat{y}(x)] + \text{Var}[\epsilon] \\[2ex]
+&= \sigma^2 \left(\frac{1}{n}+\frac{(x-\bar{x})^2}{S_{xx}}\right) + \sigma^2 \\[2ex]
 &= \sigma^2 \left(1 + \frac{1}{n}+\frac{(x-\bar{x})^2}{S_{xx}}\right)
 \end{aligned}
 $$
@@ -798,15 +836,21 @@ $$
 \text{SE}[\hat{y}(x) + \epsilon] = s_e \sqrt{1 + \frac{1}{n}+\frac{(x-\bar{x})^2}{S_{xx}}}
 $$
 
-We can then find a **prediction interval** using,
+We can then find a prediction interval using:
+
+::: {.callout-note}
+## Formula: Prediction Interval for New Observations
 
 $$
 \hat{y}(x) \pm t_{\alpha/2, n - 2} \cdot s_e\sqrt{1 + \frac{1}{n}+\frac{(x-\bar{x})^2}{S_{xx}}}.
 $$
 
+Note the extra $1$ under the square root compared to the confidence interval for the mean. This accounts for the additional variability of individual observations about the line.
+:::
+
 To calculate this for a set of points in `R` notice there is only a minor change in syntax from finding a confidence interval for the mean response.
 
-```{r}
+```{webr-r}
 predict(stop_dist_model, newdata = new_speeds, 
         interval = c("prediction"), level = 0.99)
 ```
@@ -817,7 +861,7 @@ Also notice that these two intervals are wider than the corresponding confidence
 
 Often we will like to plot both confidence intervals for the mean response and prediction intervals for all possible values of $x$. We calls these confidence and prediction bands.
 
-```{r, fig.height = 8, fig.width = 10, message = TRUE}
+```{webr-r, fig.height = 8, fig.width = 10, message = TRUE}
 speed_grid <- seq(min(cars$speed), max(cars$speed), by = 0.01)
 dist_ci_band <- predict(stop_dist_model, 
                        newdata = data.frame(speed = speed_grid), 
@@ -867,7 +911,13 @@ $$
 \text{SST} = \text{SSE} + \text{SSReg}.
 $$
 
-To develop the $F$ test, we will arrange this information in an **ANOVA** table,
+To develop the $F$ test, we organize this information in an **Analysis of Variance (ANOVA) table**:
+
+::: {.callout-note}
+## ANOVA Table for Simple Linear Regression
+
+An **ANOVA table** summarizes the decomposition of variance:
+:::
 
 | Source     | Sum of Squares  | Degrees of Freedom | Mean Square | $F$ |
 |------------|-----------------|------------|-----------|-----------|
@@ -875,13 +925,19 @@ To develop the $F$ test, we will arrange this information in an **ANOVA** table,
 | Error      | $\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$     | $n - 2$ | $\text{SSE} / (n - 2)$ |             |
 | Total      | $\sum_{i=1}^{n}(y_i - \bar{y})^2$       | $n - 1$ |                 |             |
 
-ANOVA, or Analysis of Variance will be a concept we return to often in this course. For now, we will focus on the results of the table, which is the $F$ statistic,
+:::
+
+From this table, we compute the $F$ statistic:
+
+::: {.callout-note}
+## F-Statistic for Significance of Regression
 
 $$
-F = \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2 / 1}{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 / (n - 2)} \sim F_{1, n - 2}
+F = \frac{\text{SSReg} / 1}{\text{SSE} / (n - 2)} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2 / 1}{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 / (n - 2)} \sim F_{1, n - 2}
 $$
 
-which follows an $F$ distribution with degrees of freedom $1$ and $n - 2$ under the null hypothesis. An $F$ distribution is a continuous distribution which takes only positive values and has two parameters, which are the two degrees of freedom.
+Under the null hypothesis $H_0: \beta_1 = 0$, this follows an $F$ distribution with degrees of freedom $1$ and $n - 2$. An $F$ distribution is a continuous distribution which takes only positive values and is determined by two degrees of freedom parameters.
+:::
 
 Recall, in the significance of the regression test, $Y$ does **not** depend on $x$ in the null hypothesis.
 
@@ -905,13 +961,13 @@ In particular, we will reject the null when the $F$ statistic is large, that is,
 
 To perform the $F$ test in `R` you can look at the last row of the output from `summary()` called `F-statistic` which gives the value of the test statistic, the relevant degrees of freedom, as well as the p-value of the test.
 
-```{r}
+```{webr-r}
 summary(stop_dist_model)
 ```
 
 Additionally, you can use the `anova()` function to display the information in an ANOVA table.
 
-```{r}
+```{webr-r}
 anova(stop_dist_model)
 ```
 
@@ -919,7 +975,7 @@ This also gives a p-value for the test. You should notice that the p-value from 
 
 Note that there is another equivalent way to do this in `R`, which we will return to often to compare two models.
 
-```{r}
+```{webr-r}
 anova(lm(dist ~ 1, data = cars), lm(dist ~ speed, data = cars))
 ```
 
