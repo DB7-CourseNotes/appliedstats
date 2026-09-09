@@ -2,11 +2,10 @@
 
 # Applied Statistics with `R` (`appliedstats`)
 
-This is a fork of "Applied Statistics with R" by David Dalpiaz.
+This is a fork of "Applied Statistics with R" by David Dalpiaz to accompany ST362 at Wilfrid Laurier University.
 
-Textbook to accompany [STAT 420](http://catalog.illinois.edu/courses-of-instruction/stat/) at [UIUC](http://illinois.edu/). Currently under active development for use in Summer 2018 and future Coursera MOOC offerings.
+The original textbook was developed to accompany [STAT 420](http://catalog.illinois.edu/courses-of-instruction/stat/) at [UIUC](http://illinois.edu/). The repo can be found here: [https://github.com/daviddalpiaz/appliedstats](https://github.com/daviddalpiaz/appliedstats)
 
-This book came to exist after [James](https://github.com/coatless) noticed me writing a bunch of RMarkdown files as notes, and told me there was a better way, `bookdown`. You can also blame him for the use of `=` as the assignment operator. So, on some level, this is all [Yihui's](https://github.com/yihui) fault.
 
 ## License
 
