@@ -21,7 +21,7 @@ After reading this chapter you will be able to:
 
 Let's consider a simple example of how the speed of a car affects its stopping distance, that is, how far it travels before it comes to a stop. To examine this relationship, we will use the `cars` dataset, which is a default `R` dataset. Thus, we don't need to load a package first; it is immediately available.
 
-To get a first look at the data you can use the `View()` function inside RStudio.
+To get a first look at the data you can use the `View()` function inside RStudio. **Never include this in an Rmd or qmd!!!**
 
 ```{r, eval = FALSE}
 View(cars)
@@ -67,11 +67,20 @@ Other texts may use the term independent variable instead of predictor and depen
 
 In the `cars` example, we are interested in using the predictor variable `speed` to predict and explain the response variable `dist`.
 
+
+::: {.callout-note}
+
+
+## General Functional Form
+
 Broadly speaking, we would like to model the relationship between $X$ and $Y$ using the form
 
-$$$
+$$
 Y = f(X) + \epsilon.
-$$$
+$$
+
+Note that this form is *additive* in the error term.
+:::
 
 The function $f$ describes the functional relationship between the two variables, and the $\epsilon$ term is used to account for error. This indicates that if we plug in a given value of $X$ as input, our output is a value of $Y$, within a certain range of error. You could think of this a number of ways:
 
@@ -126,27 +135,41 @@ plot(dist ~ speed, data = cars,
 abline(stop_dist_model, lwd = 3, col = "darkorange")
 ```
 
-With this in mind, we would like to restrict our choice of $f(X)$ to *linear* functions of $X$. We will write our model using $\beta_1$ for the slope, and $\beta_0$ for the intercept,
+With this in mind, we would like to restrict our choice of $f(X)$ to *linear* functions of $X$. 
 
-$$$
+
+
+::: {.callout-note}
+## Linear Functional Form
+
+We will write our model using $\beta_1$ for the slope, and $\beta_0$ for the intercept,
+
+$$
 Y = \beta_0 + \beta_1 X + \epsilon.
-$$$
+$$
+:::
 
 ### Simple Linear Regression Model
 
 We now define what we will call the simple linear regression model,
 
-$$$
+
+::: {.callout-note}
+## Simple Linear Regression
+
+$$
 Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
-$$$
+$$
 
 where
 
 $$
-\epsilon_i \sim N(0, \sigma^2).
+\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2).
 $$
 
 That is, the $\epsilon_i$ are *independent and identically distributed* (iid) normal random variables with mean $0$ and variance $\sigma^2$. This model has three parameters to be estimated: $\beta_0$, $\beta_1$, and $\sigma^2$, which are fixed, but unknown constants.
+
+:::
 
 We have slightly modified our notation here. We are now using $Y_i$ and $x_i$, since we will be fitting this model to a set of $n$ data points, for $i = 1, 2, \ldots n$.
 
@@ -176,6 +199,10 @@ This is visually displayed in the image below. We see that for any value $x$, th
 
 ![Simple Linear Regression Model [Introductory Statistics (Shafer and Zhang), UC Davis Stat Wiki](https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Introductory_Statistics_(Shafer_and_Zhang)/10%3A_Correlation_and_Regression/10.03%3A_Modelling_Linear_Relationships_with_Randomness_Present){target="_blank"}](images/model.jpg)
 
+
+::: {.callout-note}
+## Assumptions of Simple Linear Regression
+
 Often, we directly talk about the assumptions that this model makes. They can be cleverly shortened to **LINE**.  
 
 - **L**inear. The relationship between $Y$ and $x$ is linear, of the form $\beta_0 + \beta_1 x$.
@@ -184,6 +211,7 @@ Often, we directly talk about the assumptions that this model makes. They can be
 - **E**qual Variance. At each value of $x$, the variance of $Y$ is the same, $\sigma^2$.
 
 We are also assuming that the values of $x$ are fixed, that is, not random. We do not make a distributional assumption about the predictor variable.
+:::
 
 As a side note, we will often refer to simple linear regression as **SLR**. Some explanation of the name SLR:
 
@@ -216,6 +244,10 @@ This last option is called the method of **least squares**. It is essentially th
 
 ##  Least Squares Approach
 
+
+::: {.callout-note}
+## Least Squares Estimation
+
 Given observations $(x_i, y_i)$, for $i = 1, 2, \ldots n$, we want to find values of $\beta_0$ and $\beta_1$ which minimize
 
 $$
@@ -223,6 +255,7 @@ f(\beta_0, \beta_1) = \sum_{i = 1}^{n}(y_i - (\beta_0 + \beta_1 x_i))^2 = \sum_{
 $$
 
 We will call these values $\hat{\beta}_0$ and $\hat{\beta}_1$.
+:::
 
 First, we take a partial derivative with respect to both $\beta_0$ and $\beta_1$.
 
@@ -253,6 +286,11 @@ $$
 
 Finally, we finish solving the system of equations.
 
+
+::: {.callout-note}
+## SLR Coefficient Estimates
+
+
 $$
 \begin{aligned}
 \hat{\beta}_1 &= \frac{\sum_{i = 1}^{n} x_i y_i - \frac{(\sum_{i = 1}^{n} x_i)(\sum_{i = 1}^{n} y_i)}{n}}{\sum_{i = 1}^{n} x_i^2 - \frac{(\sum_{i = 1}^{n} x_i)^2}{n}} = \frac{S_{xy}}{S_{xx}}\\
@@ -260,7 +298,16 @@ $$
 \end{aligned}
 $$
 
+:::
+
 Here, we have defined some notation for the expression we've obtained. Note that they have alternative forms which are much easier to work with. (We won't do it here, but you can try to prove the equalities below on your own, for "fun"). We use the capital letter $S$ to denote "summation" which replaces the capital letter $\Sigma$ when we calculate these values based on observed data, $(x_i ,y_i)$. The subscripts such as $xy$ denote over which variables the function $(z - \bar{z})$ is applied.
+
+
+::: {.callout-note}
+
+## Summation Notation for Regression
+
+
 
 $$
 \begin{aligned}
@@ -271,6 +318,7 @@ S_{yy} &= \sum_{i = 1}^{n} y_i^2 - \frac{(\sum_{i = 1}^{n} y_i)^2}{n}  = \sum_{i
 $$
 
 Note that these summations $S$ are not to be confused with sample standard deviation $s$.
+:::
 
 By using the above alternative expressions for $S_{xy}$ and $S_{xx}$, we arrive at a cleaner, more useful expression for $\hat{\beta}_1$.
 
@@ -317,19 +365,37 @@ beta_0_hat <- mean(y) - beta_1_hat * mean(x)
 
 What do these values tell us about our dataset?
 
+
+::: {.callout-note}
+
+## The Slope Parameter / Estimate
 The slope *parameter* $\beta_1$ tells us that for an increase in speed of one mile per hour, the **mean** stopping distance increases by $\beta_1$. It is important to specify that we are talking about the mean. Recall that $\beta_0 + \beta_1 x$ is the mean of $Y$, in this case stopping distance, for a particular value of $x$. (In this case speed.) So $\beta_1$ tells us how the mean of $Y$ is affected by a change in $x$.
 
 Similarly, the *estimate* $\hat{\beta}_1 = `r round(beta_1_hat, 2)`$ tells us that for an increase in speed of one mile per hour, the **estimated** *mean* stopping distance increases by $`r round(beta_1_hat, 2)`$ feet. Here we should be sure to specify we are discussing an estimated quantity. Recall that $\hat{y}$ is the estimated mean of $Y$, so $\hat{\beta}_1$ tells us how the estimated mean of $Y$ is affected by changing $x$. 
+:::
+
+::: {.callout-note}
+## Intercept Parameter / Estimate
 
 The intercept *parameter* $\beta_0$ tells us the **mean** stopping distance for a car traveling zero miles per hour. (Not moving.) The *estimate* $\hat{\beta}_0 = `r round(beta_0_hat, 2)`$ tells us that the **estimated** mean stopping distance for a car traveling zero miles per hour is $`r round(beta_0_hat, 2)`$ feet. So when you apply the brakes to a car that is not moving, it moves backwards? This doesn't seem right. (Extrapolation, which we will see later, is the issue here.) 
 
+:::
+
 ### Making Predictions
+
+
+::: {.callout-note}
+## Fitted Line
 
 We can now write the **fitted** or estimated line,
 
 $$
 \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x.
 $$
+
+This fitted line can be used to make **predictions**.
+
+:::
 
 In this case,
 
@@ -366,6 +432,8 @@ Now let's make a prediction for the stopping distance of a car traveling at 21 m
 min(cars$speed) < 21 & 21 < max(cars$speed)
 ```
 
+The prediction is found by plugging 21 into the equation of the line:
+
 $$
 \hat{y} = `r round(beta_0_hat, 2)` + `r round(beta_1_hat, 2)` \times 21 % = `r round(beta_0_hat + beta_1_hat * 21, 2)`
 $$
@@ -393,33 +461,55 @@ Cars travel 50 miles per hour rather easily today, but not in the 1920s!
 
 This is also an issue we saw when interpreting $\hat{\beta}_0 = `r round(beta_0_hat, 2)`$, which is equivalent to making a prediction at $x = 0$. We should not be confident in the estimated linear relationship outside of the range of data we have observed.
 
+::: {.callout-note}
+## Prediction, Interpolation, and Extrapolation
+
+A prediction of $y$ for a given $x$ value can be found by plugging $x$ into 
+$$
+\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x.
+$$
+
+- A prediction at an $x$ value in the data is often called a **fitted value**. 
+- A prediction at an $x$ value that is *not* in the data bu *is* in the range of $x$ values is called **interpolation**.
+- A prediction outside the range of observed $x$ values is called **extrapolation**.
+
+:::
+
 ### Residuals
 
 If we think of our model as "Response = Prediction + Error," we can then write it as
 
-$$$
+$$
 y = \hat{y} + e.
-$$$
+$$
 
-We then define a **residual** to be the observed value minus the predicted value.
+::: {.callout-note}
+## Residual
 
-$$$
+
+We then define a **residual** to be the observed value minus the fitted value.
+
+$$
 e_i = y_i - \hat{y}_i
-$$$
+$$
+
+The residual is *positive* if the fitted value is less than the true value, and *negative* if the fitted value is larger than the true value.
+
+Note that the residual is *always* observed minus fitted. 
+:::
 
 Let's calculate the residual for the prediction we made for a car traveling 8 miles per hour. First, we need to obtain the observed value of $y$ for this $x$ value.
 
 ```{webr-r}
-which(cars$speed == 8)
-cars[5, ]
+which(cars$speed == 8) # Returns the index of all cars with a speed of 8
 cars[which(cars$speed == 8), ]
 ```
 
 We can then calculate the residual.
 
-$$$
+$$
 e = 16 - `r round(beta_0_hat + beta_1_hat * 8, 2)` = `r round(16 - (beta_0_hat + beta_1_hat * 8), 2)`
-$$$
+$$
 
 ```{webr-r}
 16 - (beta_0_hat + beta_1_hat * 8)
@@ -445,7 +535,12 @@ $$
 
 is a natural estimate for the mean of $Y_i$ for a given value of $x_i$.
 
-Also, recall that when we specified the model, we had three unknown parameters; $\beta_0$, $\beta_1$, and $\sigma^2$. The method of least squares gave us estimates for $\beta_0$ and $\beta_1$, however, we have yet to see an estimate for $\sigma^2$. We will now define $s_e^2$ which will be an estimate for $\sigma^2$.
+Also, recall that when we specified the model, we had three unknown parameters; $\beta_0$, $\beta_1$, and $\sigma^2$. The method of least squares gave us estimates for $\beta_0$ and $\beta_1$, however, we have yet to see an estimate for $\sigma^2$. 
+
+::: {.callout-note}
+## Estimate of $\sigma^2$
+
+We will now define $s_e^2$ which will be an estimate for $\sigma^2$.
 
 $$
 \begin{aligned}
@@ -454,14 +549,9 @@ s_e^2 &= \frac{1}{n - 2} \sum_{i = 1}^{n}(y_i - (\hat{\beta}_0 + \hat{\beta}_1 x
       &= \frac{1}{n - 2} \sum_{i = 1}^{n} e_i^2
 \end{aligned}
 $$
+:::
 
-This probably seems like a natural estimate, aside from the use of $n - 2$, which we will put off explaining until the next chapter. It should actually look rather similar to something we have seen before.
-
-$$
-s^2 = \frac{1}{n - 1}\sum_{i=1}^{n}(x_i - \bar{x})^2
-$$
-
-Here, $s^2$ is the estimate of $\sigma^2$ when we have a single random variable $X$. In this case $\bar{x}$ is an estimate of $\mu$ which is assumed to be the same for each $x$.
+This probably seems like a natural estimate, aside from the use of $n - 2$, which we will put off explaining until the next chapter. Note that we will sometimes use $s^2$ to mean $s_e^2$; in regression, we're almost always most interested in the variance of the residuals and very rarely are we interested in a univariate variance (except for the variance of $y$).
 
 Now, in the regression case, with $s_e^2$ each $y$ has a different mean because of the relationship with $x$. Thus, for each $y_i$, we use a different estimate of the mean, that is $\hat{y}_i$.
 
@@ -496,7 +586,7 @@ This tells us that our estimates of mean stopping distance are "typically" off b
 
 ##  Decomposition of Variation
 
-We can re-express $y_i - \bar{y}$, which measures the deviation of an observation from the sample mean, in the following way,
+We can re-express $y_i - \bar{y}$, which measures the deviation of an observation from the sample mean of $y$ (not accounting for the relationship with $x$), in the following way,
 
 $$
 y_i - \bar{y} = (y_i - \hat{y}_i) + (\hat{y}_i - \bar{y}).
@@ -506,15 +596,22 @@ This is the common mathematical trick of "adding zero." In  this case we both ad
 
 Here, $y_i - \hat{y}_i$ measures the deviation of an observation from the fitted regression line and  $\hat{y}_i - \bar{y}$ measures the deviation of the fitted regression line from the sample mean.
 
-If we square then sum both sides of the equation above, we can obtain the following,
+If we square then sum both sides of the equation above^[Warning: there's an extra step involved here! Try to work through the math yourself, recalling with great care that $(a + b)^2 \ne a^2 + b^2$ in general.], we can obtain the following,
+
+::: {.callout-note}
+## Decomposition of the Variance of $Y$
 
 $$
 \sum_{i=1}^{n}(y_i - \bar{y})^2 = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 + \sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2.
 $$
+:::
 
 This should be somewhat alarming or amazing. How is this true? For now we will leave this question unanswered. (Think about this, and maybe try to prove it.) We will now define three of the quantities seen in this equation. 
 
-#### Sum of Squares Total {-}
+
+::: {.callout-note}
+
+## Sum of Squares Total {-}
 
 $$
 \text{SST} = \sum_{i=1}^{n}(y_i - \bar{y})^2
@@ -526,7 +623,13 @@ $$
 s ^ 2 = \frac{1}{n - 1}\sum_{i=1}^{n}(y_i - \bar{y})^2 = \frac{1}{n - 1} \text{SST}.
 $$
 
-#### Sum of Squares Regression {-}
+:::
+
+
+
+::: {.callout-note}
+
+## Sum of Squares Regression {-}
 
 $$
 \text{SSReg} = \sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2
@@ -534,13 +637,22 @@ $$
 
 The quantity "Sum of Squares Regression," $\text{SSReg}$, represents the **explained variation** of the observed $y$ values.
 
-#### Sum of Squares Error {-}
+:::
+
+
+
+::: {.callout-note}
+
+## Sum of Squares Error {-}
 
 $$
 \text{SSE} = \text{RSS} = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2
 $$
 
 The quantity "Sum of Squares Error," $\text{SSE}$, represents the **unexplained variation** of the observed $y$ values. You will often see $\text{SSE}$ written as $\text{RSS}$, or "Residual Sum of Squares."
+
+:::
+
 
 ```{webr-r}
 SST   = sum((y - mean(y)) ^ 2)
@@ -575,18 +687,24 @@ These three measures also do not have an important practical interpretation indi
 
 ###  Coefficient of Determination
 
-The **coefficient of determination**, $R^2$, is defined as
+
+::: {.callout-note}
+
+##  Coefficient of Determination / Variance Explained by the Regression / $R^2$
 
 $$
 \begin{aligned}
-R^2 &= \frac{\text{SSReg}}{\text{SST}} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2} \$$2.5ex]
-    &= \frac{\text{SST} - \text{SSE}}{\text{SST}} = 1 - \frac{\text{SSE}}{\text{SST}} \$$2.5ex]
-    &= 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2} = 
+R^2 &= \frac{\text{SSReg}}{\text{SST}} \\&= \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}\\
+    &= \frac{\text{SST} - \text{SSE}}{\text{SST}} \\&= 1 - \frac{\text{SSE}}{\text{SST}}\\
+    &= 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2} \\& = 
 1 - \frac{\sum_{i = 1}^{n}e_i^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}
 \end{aligned}
 $$
 
 The coefficient of determination is interpreted as the proportion of observed variation in $y$ that can be explained by the simple linear regression model.
+
+Try verifying each of the steps in the derivation above.
+:::
 
 ```{webr-r}
 R2 <- SSReg / SST
@@ -677,6 +795,14 @@ set.seed(1)
 plot_data <- generate_data(slope = -1.5, sigma = 10)
 ```
 
+In the top left plot, we see the SSReg, which is the variation in the *line itself*. That is, how much the diagonal line deviates from the horizontal line representing the mean of $y$. If this is a "large" deviation, then the linear model that regresses $Y$ against $X$ is very different from ignoring $X$ and just using $Y$. In other words, a "large" SSReg justifies the regression. How do we define "large"? As usual, we use some definition variance as a sense of the scale of the data. 
+
+The top right plot shows the variance of the points around the line. We see that the points follow the line fairly closely, relative to the previous plot.
+
+The bottom left plot demonstrates the total variance in $Y$ (the observed values, not the line) if we didn't consider $X$.
+
+The bottom right plot demonstrates that $y_i - \bar y = (y_i - \hat y_i) + (\hat y_i - \bar y)$: the grey arrows from the SST plot are equal to the orange arrows plus the blue arrows. Shown visually, it is clear that the orange errors account for most of the variation of $y_i$ from $\bar y$. That is, the regression explains the variation!
+
 The next plots again visually demonstrate the three "sums of squares," this time for a simulated dataset which has $R^2 = `r round(summary(lm(y ~ x, data = plot_data))$r.sq, 2)`$. Notice in the final plot, that now the blue arrows account for a larger proportion of the total arrow.
 
 ```{r, echo=FALSE, fig.height=12, fig.width=12, message=FALSE, warning=FALSE}
@@ -696,11 +822,17 @@ The `lm()` command is used to fit **linear models** which actually account for a
 
 We'll continue using the `cars` data, and essentially use the `lm()` function to check the work we had previously done.
 
+::: {.callout-note}
+## The `lm()` Function
+
+
+
 ```{webr-r}
 stop_dist_model <- lm(dist ~ speed, data = cars)
 ```
 
 This line of code fits our very first linear model. The syntax should look somewhat familiar. We use the `dist ~ speed` syntax to tell `R` we would like to model the response variable `dist` as a linear function of the predictor variable `speed`. In general, you should think of the syntax as `response ~ predictor`. The `data = cars` argument then tells `R` that the `dist` and `speed` variables are from the dataset `cars`. We then store this result in a variable `stop_dist_model`.
+:::
 
 The variable `stop_dist_model` now contains a wealth of information, and we will now see how to extract and use that information. The first thing we will do is simply output whatever is stored immediately in the variable `stop_dist_model`.
 
@@ -755,7 +887,7 @@ An `R` function that is useful in many situations is `summary()`. We see that wh
 summary(stop_dist_model)
 ```
 
-The `summary()` command also returns a list, and we can again use `names()` to learn what about the elements of this list.
+The `summary()` command also returns a list, and we can again use `names()` to learn what about the elements of this list^[This is extraordinarily odd behaviour in R, and the more you learn about this the more weird it becomes. For now, just know that you can do it.].
 
 ```{webr-r}
 names(summary(stop_dist_model))
@@ -775,9 +907,9 @@ summary(stop_dist_model)$sigma
 
 Note that this is the same result seen earlier as `s_e`. You may also notice that this value was displayed above as a result of the `summary()` command, which `R` labeled the "Residual Standard Error."
 
-$$$
+$$
 s_e = \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
-$$$
+$$
 
 Often it is useful to talk about $s_e$ (or RSE) instead of $s_e^2$ because of their units. The unit of $s_e$ in the `cars` example is feet, while the unit of $s_e^2$ is feet-squared.
 
@@ -827,9 +959,9 @@ fitted(stop_dist_model)
 
 Recall the model,
 
-$$$
+$$
 Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
-$$$
+$$
 
 where $\epsilon_i \sim N(0, \sigma^2)$.
 
@@ -934,9 +1066,9 @@ In practice you will almost never have a true model, and you will use data to at
 
 For this example, we will simulate $n = 21$ observations from the model
 
-$$$
+$$
 Y = 5 - 2 x + \epsilon.
-$$$
+$$
 
 That is $\beta_0 = 5$, $\beta_1 = -2$, and let $\epsilon \sim N(\mu = 0, \sigma^2 = 9)$. Or, even more succinctly we could write
 
@@ -1043,6 +1175,7 @@ abline(beta_0, beta_1, lwd = 3, lty = 2, col = "dodgerblue")
 legend("topright", c("Estimate", "Truth"), lty = c(1, 2), lwd = 2,
        col = c("darkorange", "dodgerblue"))
 ```
+
 
 
 ## History
