@@ -1129,16 +1129,30 @@ abline(sim_fit)
 
 We should say here, that we're being sort of lazy, and not the good kind of lazy that could be considered efficient. Any time you simulate data, you should consider doing two things: writing a function, and storing the data in a data frame.
 
+::: {.callout-note}
+## Simulation Function
+
+
+
+
 The function below, `sim_slr()`, can be used for the same task as above, but is much more flexible. Notice that we provide `x` to the function, instead of generating `x` inside the function. In the SLR model, the $x_i$ are considered known values. That is, they are not random, so we do not assume a distribution for the $x_i$. Because of this, we will repeatedly use the same `x` values across all simulations.
 
 ```{webr-r}
 sim_slr <- function(x, beta_0 = 10, beta_1 = 5, sigma = 1) {
-  n = length(x)
+     n = length(x)
   epsilon = rnorm(n, mean = 0, sd = sigma)
   y = beta_0 + beta_1 * x + epsilon
   data.frame(predictor = x, response = y)
 }
 ```
+
+For simulation, note that:
+
+- The $x$ values are passed as an argument.
+     - They are *fixed*; they should be the same for all simulated data sets.
+- `epsilon = rnorm(...)` is doing the bulk of the work here.
+- Each time you run this function, the results will be slightly different. More on this in the next chapter!
+:::
 
 Here, we use the function to repeat the analysis above.
 
