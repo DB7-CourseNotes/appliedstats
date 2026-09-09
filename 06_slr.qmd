@@ -69,9 +69,9 @@ In the `cars` example, we are interested in using the predictor variable `speed`
 
 Broadly speaking, we would like to model the relationship between $X$ and $Y$ using the form
 
-$$
+$$$
 Y = f(X) + \epsilon.
-$$
+$$$
 
 The function $f$ describes the functional relationship between the two variables, and the $\epsilon$ term is used to account for error. This indicates that if we plug in a given value of $X$ as input, our output is a value of $Y$, within a certain range of error. You could think of this a number of ways:
 
@@ -128,17 +128,17 @@ abline(stop_dist_model, lwd = 3, col = "darkorange")
 
 With this in mind, we would like to restrict our choice of $f(X)$ to *linear* functions of $X$. We will write our model using $\beta_1$ for the slope, and $\beta_0$ for the intercept,
 
-$$
-Y <- \beta_0 + \beta_1 X + \epsilon.
-$$
+$$$
+Y = \beta_0 + \beta_1 X + \epsilon.
+$$$
 
 ### Simple Linear Regression Model
 
 We now define what we will call the simple linear regression model,
 
-$$
-Y_i <- \beta_0 + \beta_1 x_i + \epsilon_i
-$$
+$$$
+Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+$$$
 
 where
 
@@ -397,15 +397,15 @@ This is also an issue we saw when interpreting $\hat{\beta}_0 = `r round(beta_0_
 
 If we think of our model as "Response = Prediction + Error," we can then write it as
 
-$$
-y <- \hat{y} + e.
-$$
+$$$
+y = \hat{y} + e.
+$$$
 
 We then define a **residual** to be the observed value minus the predicted value.
 
-$$
-e_i <- y_i - \hat{y}_i
-$$
+$$$
+e_i = y_i - \hat{y}_i
+$$$
 
 Let's calculate the residual for the prediction we made for a car traveling 8 miles per hour. First, we need to obtain the observed value of $y$ for this $x$ value.
 
@@ -417,9 +417,9 @@ cars[which(cars$speed == 8), ]
 
 We can then calculate the residual.
 
-$$
+$$$
 e = 16 - `r round(beta_0_hat + beta_1_hat * 8, 2)` = `r round(16 - (beta_0_hat + beta_1_hat * 8), 2)`
-$$
+$$$
 
 ```{webr-r}
 16 - (beta_0_hat + beta_1_hat * 8)
@@ -579,8 +579,8 @@ The **coefficient of determination**, $R^2$, is defined as
 
 $$
 \begin{aligned}
-R^2 &= \frac{\text{SSReg}}{\text{SST}} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2} \\[2.5ex]
-    &= \frac{\text{SST} - \text{SSE}}{\text{SST}} = 1 - \frac{\text{SSE}}{\text{SST}} \\[2.5ex]
+R^2 &= \frac{\text{SSReg}}{\text{SST}} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2} \$$2.5ex]
+    &= \frac{\text{SST} - \text{SSE}}{\text{SST}} = 1 - \frac{\text{SSE}}{\text{SST}} \$$2.5ex]
     &= 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2} = 
 1 - \frac{\sum_{i = 1}^{n}e_i^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}
 \end{aligned}
@@ -775,9 +775,9 @@ summary(stop_dist_model)$sigma
 
 Note that this is the same result seen earlier as `s_e`. You may also notice that this value was displayed above as a result of the `summary()` command, which `R` labeled the "Residual Standard Error."
 
-$$
-s_e <- \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
-$$
+$$$
+s_e = \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
+$$$
 
 Often it is useful to talk about $s_e$ (or RSE) instead of $s_e^2$ because of their units. The unit of $s_e$ in the `cars` example is feet, while the unit of $s_e^2$ is feet-squared.
 
@@ -827,9 +827,9 @@ fitted(stop_dist_model)
 
 Recall the model,
 
-$$
-Y_i <- \beta_0 + \beta_1 x_i + \epsilon_i
-$$
+$$$
+Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+$$$
 
 where $\epsilon_i \sim N(0, \sigma^2)$.
 
@@ -934,9 +934,9 @@ In practice you will almost never have a true model, and you will use data to at
 
 For this example, we will simulate $n = 21$ observations from the model
 
-$$
-Y <- 5 - 2 x + \epsilon.
-$$
+$$$
+Y = 5 - 2 x + \epsilon.
+$$$
 
 That is $\beta_0 = 5$, $\beta_1 = -2$, and let $\epsilon \sim N(\mu = 0, \sigma^2 = 9)$. Or, even more succinctly we could write
 

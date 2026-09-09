@@ -34,49 +34,49 @@ where each $\sigma_{ij} = \operatorname{cov} \left({X_i,X_j}\right)$.
 
 Note to take the expectation of $\bf{X}$ we need:
 
-\[E\left[ \bf{X} \right] = \bf{\mu}  = {\left( {\begin{array}{*{20}{c}}
+$$E\left[ \bf{X} \right] = \bf{\mu}  = {\left( {\begin{array}{*{20}{c}}
   {{\mu _1}} \\ 
   {{\mu _2}} \\ 
    \vdots  \\ 
   {{\mu _n}} 
-\end{array}} \right)_{n \times 1}}\]
+\end{array}} \right)_{n \times 1}}$$
 
 Therefore, the covariance calculation is given as:
 
-\[\Sigma  = E\left[ {\left( {\bf{X} - \bf{\mu} } \right){{\left( {\bf{X} - \bf{\mu} } \right)}^T}} \right]\]
+$$\Sigma  = E\left[ {\left( {\bf{X} - \bf{\mu} } \right){{\left( {\bf{X} - \bf{\mu} } \right)}^T}} \right]$$
 
 
 # Multivariate Normal Distribution
 
 Consider the standard Multivariate Normal Distribution given by $Z \sim {N_n}\left( {\bf{0},{\bf{I}_n}} \right)$ where $\bf{I}_n$ represent the identity matrix:
 
-\[{\bf{I}_n} = \left[ {\begin{array}{*{20}{c}}
+$${\bf{I}_n} = \left[ {\begin{array}{*{20}{c}}
   1&0& \cdots &0 \\ 
   0&1&{}&0 \\ 
    \vdots &{}& \ddots & \vdots  \\ 
   0&0& \cdots &1 
-\end{array}} \right]\]
+\end{array}} \right]$$
 
 The standard multivariate normal distribution density function is given by:
 
-\[{f_Z}\left( z \right) = \frac{1}{{{{\left( {2\pi } \right)}^{n/2}}}}\exp \left( { - \frac{1}{2}{z^T}z} \right) = \prod\limits_{i = 1}^n {\frac{1}{{\sqrt {2\pi } }}\exp \left( { - \frac{1}{2}z_i^2} \right)} \]
+$${f_Z}\left( z \right) = \frac{1}{{{{\left( {2\pi } \right)}^{n/2}}}}\exp \left( { - \frac{1}{2}{z^T}z} \right) = \prod\limits_{i = 1}^n {\frac{1}{{\sqrt {2\pi } }}\exp \left( { - \frac{1}{2}z_i^2} \right)} $$
 
 Now, if we let the Multivariate Normal Distribution with mean $\mu \ne 0$ and covariance $\Sigma \ne \bf{I}_n$  we have:
 
 $$\bf{X} \sim N_{n}\left({\bf{\mu}, \Sigma}\right)$$ has a density function of:
 
-\[{f_X}\left( \bf{x} \right) = \frac{1}{{{{\left( {2\pi } \right)}^{n/2}}{{\left| \Sigma  \right|}^{1/2}}}}\exp \left\{ { - \frac{1}{2}{{\left( {\bf{x} - \bf{\mu} } \right)}^T}{\bf{\Sigma}^{ - 1}}\left( {\bf{x} - \bf{\mu} } \right)} \right\}\]
+$${f_X}\left( \bf{x} \right) = \frac{1}{{{{\left( {2\pi } \right)}^{n/2}}{{\left| \Sigma  \right|}^{1/2}}}}\exp \left\{ { - \frac{1}{2}{{\left( {\bf{x} - \bf{\mu} } \right)}^T}{\bf{\Sigma}^{ - 1}}\left( {\bf{x} - \bf{\mu} } \right)} \right\}$$
 
 The Moment Generating Function of the standard Multivariate Normal Distribution is then given to be:
 
-\[{M_\bf{X}}\left( \bf{t} \right) = \exp \left( {{\bf{t}^T}\bf{\mu}  + \frac{1}{2}{\bf{t}^T}\Sigma \bf{t}} \right)\]
+$${M_\bf{X}}\left( \bf{t} \right) = \exp \left( {{\bf{t}^T}\bf{\mu}  + \frac{1}{2}{\bf{t}^T}\Sigma \bf{t}} \right)$$
 
-for \[\bf{t} = \left( {\begin{array}{*{20}{c}}
+for $$\bf{t} = \left( {\begin{array}{*{20}{c}}
   {{t_1}} \\ 
   {{t_2}} \\ 
    \vdots  \\ 
   {{t_n}} 
-\end{array}} \right) \in {\mathbb{R}^n}\]
+\end{array}} \right) \in {\mathbb{R}^n}$$
 
 ## Multivariate Distribution under Linear Transformation
 
@@ -125,11 +125,11 @@ they are independent.
 
 Next, consider the expectation of the $\bf{Y}$ transformation:
 
-\[\begin{aligned}
+$$\begin{aligned}
   E\left[ \bf{Y} \right] &= E\left[ { \bf{X}_{1} + \bf{A}\bf{X}_{2} } \right] \\
    &= E\left[ {\bf{X}_{1} } \right] + \bf{A}E\left[ {\bf{X}_{2} } \right]  \\
    &= {\bf{\mu}_1} + \bf{A}{\bf{\mu} _2} 
-\end{aligned} \]
+\end{aligned} $$
 
 If we rearrange the transformation in terms of $X_1$, we get:
 
@@ -141,7 +141,7 @@ $$\begin{aligned}
 Applying the conditioning logic to obtain a conditional expectation between 
 $\bf{X}_1$ and $\bf{X}_2$ we get:
 
-\[\begin{aligned}
+$$\begin{aligned}
   E\left[ {\bf{X}_{1}|\bf{X}_{2}} \right] &= E\left[ {\left( {\bf{Y} - 
   \bf{A}\bf{X}_{2}} \right)|\bf{X}_{2}} \right] \\
    &= E\left[ {\bf{Y} |\bf{X}_{2}} \right] - 
@@ -152,7 +152,7 @@ $\bf{X}_1$ and $\bf{X}_2$ we get:
    &= \bf{\mu}_{1} + \bf{A}\left( {{\bf{\mu}_{2}} - \bf{X}_{2}} \right) \\
    &= \bf{\mu}_{1} + {\bf{\Sigma}_{12}}\bf{\Sigma}_{22}^{ - 1}\left( {\bf{X}_{2}
    - \bf{\mu}_{2}} \right) \\ 
-\end{aligned} \]
+\end{aligned} $$
 
 We now have the conditional expectation, in order to be able to declare the 
 conditional multivariate normal, we must also have the conditional covariance 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-03">
+<meta name="dcterms.date" content="2026-09-09">
 
 <title>15&nbsp; Collinearity – Applied Statistics with R</title>
 <style>
@@ -537,7 +537,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-03</p>
+      <p class="date">2026-09-09</p>
     </div>
   </div>
   
@@ -887,7 +887,9 @@ Model 2: hipcenter ~ Age + Weight + HtShoes + Ht + Seated + Arm + Thigh +
 <h2 data-number="15.3" class="anchored" data-anchor-id="simulation"><span class="header-section-number">15.3</span> Simulation</h2>
 <p>Here we simulate example data with and without collinearity. We will note the difference in the distribution of the estimates of the <span class="math inline">\(\beta\)</span> parameters, in particular their variance. However, we will also notice the similarity in their <span class="math inline">\(MSE\)</span>.</p>
 <p>We will use the model,</p>
-<p>[ Y &lt;- _0 + _1 x_1 + _2 x_2 + ]</p>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon
+\]</span></p>
 <p>where <span class="math inline">\(\epsilon \sim N(\mu = 0, \sigma^2 = 25)\)</span> and the <span class="math inline">\(\beta\)</span> coefficients defined below.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>

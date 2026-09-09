@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-03">
+<meta name="dcterms.date" content="2026-09-09">
 
 <title>13&nbsp; Model Diagnostics – Applied Statistics with R</title>
 <style>
@@ -551,7 +551,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-03</p>
+      <p class="date">2026-09-09</p>
     </div>
   </div>
   
@@ -577,24 +577,42 @@ window.Quarto = {
 <section id="model-assumptions" class="level2" data-number="13.1">
 <h2 data-number="13.1" class="anchored" data-anchor-id="model-assumptions"><span class="header-section-number">13.1</span> Model Assumptions</h2>
 <p>Recall the multiple linear regression model that we have defined.</p>
-<p>[ Y_i &lt;- <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{p-1} x_{i(p-1)} + _i, i = 1, 2, , n. ]</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)} + \epsilon_i, \qquad i = 1, 2, \ldots, n.
+\]</span></p>
 <p>Using matrix notation, this model can be written much more succinctly as</p>
-<p>[ Y &lt;- X + . ]</p>
+<p><span class="math display">\[
+Y = X \beta + \epsilon.
+\]</span></p>
 <p>Given data, we found the estimates for the <span class="math inline">\(\beta\)</span> parameters using</p>
-<p>[ = ( X^X )<sup>{-1}X</sup>y. ]</p>
+<p><span class="math display">\[
+\hat{\beta} = \left(  X^\top X  \right)^{-1}X^\top y.
+\]</span></p>
 <p>We then noted that these estimates had mean</p>
-<p>[ [] = , ]</p>
+<p><span class="math display">\[
+\text{E}[\hat{\beta}] = \beta,
+\]</span></p>
 <p>and variance</p>
-<p>[ [] = ^2 ( X^X )^{-1}. ]</p>
+<p><span class="math display">\[
+\text{Var}[\hat{\beta}] = \sigma^2 \left(  X^\top X  \right)^{-1}.
+\]</span></p>
 <p>In particular, an individual parameter, say <span class="math inline">\(\hat{\beta}_j\)</span> had a normal distribution</p>
-<p>[ _j N(<em>j, ^2 C</em>{jj} ) ]</p>
+<p><span class="math display">\[
+\hat{\beta}_j \sim N\left(\beta_j, \sigma^2 C_{jj}  \right)
+\]</span></p>
 <p>where <span class="math inline">\(C\)</span> was the matrix defined as</p>
-<p>[ C &lt;- (X<sup>X)</sup>{-1}. ]</p>
+<p><span class="math display">\[
+C = \left(X^\top X\right)^{-1}.
+\]</span></p>
 <p>We then used this fact to define</p>
-<p>[ t_{n-p}, ]</p>
+<p><span class="math display">\[
+\frac{\hat{\beta}_j - \beta_j}{s_e \sqrt{C_{jj}}} \sim t_{n-p},
+\]</span></p>
 <p>which we used to perform hypothesis testing.</p>
 <p>So far we have looked at various metrics such as RMSE, RSE, and <span class="math inline">\(R^2\)</span> to determine how well our model fits our data. Each of these in some way considers the expression</p>
-<p>[ _{i = 1}^n (y_i - _i)^2. ]</p>
+<p><span class="math display">\[
+\sum_{i = 1}^n (y_i - \hat{y}_i)^2.
+\]</span></p>
 <p>So, essentially each of these looks at how close the data points are to the model. However is that all we care about?</p>
 <ul>
 <li>It could be that the errors are made in a systematic way, which means that our model is misspecified. We may need additional interaction terms, or polynomial terms which we will see later.</li>
@@ -603,7 +621,9 @@ window.Quarto = {
 </ul>
 <p>Are these issues that we care about? If all we would like to do is predict, possibly not, since we would only care about the size of our errors. However, if we would like to perform inference, for example to determine if a particular predictor is important, we care a great deal. All of the distributional results, such as a <span class="math inline">\(t\)</span>-test for a single predictor, are derived under the assumptions of our model.</p>
 <p>Technically, the assumptions of the model are encoded directly in a model statement such as,</p>
-<p>[ Y_i &lt;- <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{p-1} x_{i(p-1)} + _i ]</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)} + \epsilon_i
+\]</span></p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2).\)</span></p>
 <p>Often, the <strong>assumptions of linear regression</strong>, are stated as,</p>
 <ul>
@@ -613,18 +633,28 @@ window.Quarto = {
 <li><strong>E</strong>qual Variance: the error variance is the same at any set of predictor values.</li>
 </ul>
 <p>The linearity assumption is encoded as</p>
-<p>[ <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{p-1} x_{i(p-1)}, ]</p>
+<p><span class="math display">\[
+\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)},
+\]</span></p>
 <p>while the remaining three, are all encoded in</p>
-<p>[ _i N(0, ^2), ]</p>
+<p><span class="math display">\[
+\epsilon_i \sim N(0, \sigma^2),
+\]</span></p>
 <p>since the <span class="math inline">\(\epsilon_i\)</span> are <span class="math inline">\(iid\)</span> normal random variables with constant variance.</p>
 <p>If these assumptions are met, great! We can perform inference, <strong>and it is valid</strong>. If these assumptions are <em>not</em> met, we can still “perform” a <span class="math inline">\(t\)</span>-test using <code>R</code>, but the results are <strong>not valid</strong>. The distributions of the parameter estimates will not be what we expect. Hypothesis tests will then accept or reject incorrectly. Essentially, <strong>garbage in, garbage out.</strong></p>
 </section>
 <section id="checking-assumptions" class="level2" data-number="13.2">
 <h2 data-number="13.2" class="anchored" data-anchor-id="checking-assumptions"><span class="header-section-number">13.2</span> Checking Assumptions</h2>
 <p>We’ll now look at a number of tools for checking the assumptions of a linear model. To test these tools, we’ll use data simulated from three models:</p>
-<p>[ Y = 3 + 5x + , N(0, 1) ]</p>
-<p>[ Y = 3 + 5x + , N(0, x^2) ]</p>
-<p>[ Y = 3 + 5x^2 + , N(0, 25) ]</p>
+<p><span class="math display">\[
+\text{Model 1:} \quad Y = 3 + 5x + \epsilon, \quad \epsilon \sim N(0, 1)
+\]</span></p>
+<p><span class="math display">\[
+\text{Model 2:} \quad Y = 3 + 5x + \epsilon, \quad \epsilon \sim N(0, x^2)
+\]</span></p>
+<p><span class="math display">\[
+\text{Model 3:} \quad Y = 3 + 5x^2 + \epsilon, \quad \epsilon \sim N(0, 25)
+\]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sim_1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">sample_size =</span> <span class="dv">500</span>) {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">runif</span>(<span class="at">n =</span> sample_size) <span class="sc">*</span> <span class="dv">5</span></span>
@@ -1148,26 +1178,44 @@ W = 0.97643, p-value = 3.231e-07</code></pre>
 <h3 class="anchored" data-anchor-id="leverage">Leverage</h3>
 <p>A data point with high <strong>leverage</strong>, is a data point that <em>could</em> have a large influence when fitting the model.</p>
 <p>Recall that,</p>
-<p>[ = (X^X )^{-1} X^y. ]</p>
+<p><span class="math display">\[
+\hat{\beta} = \left(X^\top X \right)^{-1} X^\top y.
+\]</span></p>
 <p>Thus,</p>
-<p>[ = X = X (X^X )^{-1} X^y ]</p>
+<p><span class="math display">\[
+\hat{y} = X \hat{\beta}   = X \left(X^\top X \right)^{-1} X^\top y
+\]</span></p>
 <p>Now we define,</p>
-<p>[ H &lt;- X (X<sup>X)</sup>{-1} X^ ]</p>
+<p><span class="math display">\[
+H = X \left(X^\top X\right)^{-1} X^\top
+\]</span></p>
 <p>which we will refer to as the <em>hat matrix</em>. The hat matrix is used to project onto the subspace spanned by the columns of <span class="math inline">\(X\)</span>. It is also simply known as a projection matrix.</p>
 <p>The hat matrix is a matrix that takes the original <span class="math inline">\(y\)</span> values, and adds a hat!</p>
-<p>[ = H y ]</p>
+<p><span class="math display">\[
+\hat{y} = H y
+\]</span></p>
 <p>The diagonal elements of this matrix are called the <strong>leverages</strong></p>
-<p>[ H_{ii} = h_i, ]</p>
+<p><span class="math display">\[
+H_{ii} = h_i,
+\]</span></p>
 <p>where <span class="math inline">\(h_i\)</span> is the leverage for the <span class="math inline">\(i\)</span>th observation.</p>
 <p>Large values of <span class="math inline">\(h_i\)</span> indicate extreme values in <span class="math inline">\(X\)</span>, which may influence regression. Note that leverages only depend on <span class="math inline">\(X\)</span>.</p>
 <p>Here, <span class="math inline">\(p\)</span>, the number of <span class="math inline">\(\beta\)</span>s, is also the trace (and rank) of the hat matrix.</p>
-<p>[ _{i = 1}^n h_i = p ]</p>
+<p><span class="math display">\[
+\sum_{i = 1}^n h_i = p
+\]</span></p>
 <p>What is a value of <span class="math inline">\(h_i\)</span> that would be considered large? There is no exact answer to this question. A common heuristic would be to compare each leverage to two times the average leverage. A leverage larger than this is considered an observation to be aware of. That is, if</p>
-<p>[ h_i &gt; 2 {h} ]</p>
+<p><span class="math display">\[
+h_i &gt; 2 \bar{h}
+\]</span></p>
 <p>we say that observation <span class="math inline">\(i\)</span> has large leverage. Here,</p>
-<p>[ {h} = = . ]</p>
+<p><span class="math display">\[
+\bar{h} = \frac{\sum_{i = 1}^n h_i}{n} = \frac{p}{n}.
+\]</span></p>
 <p>For simple linear regression, the leverage for each point is given by</p>
-<p>[ h_i &lt;- + . ]</p>
+<p><span class="math display">\[
+h_i = \frac{1}{n} + \frac{(x_i - \bar{x})^2}{S_{xx}}.
+\]</span></p>
 <p>This expression should be familiar. (Think back to inference for SLR.) It suggests that the large leverages occur when <span class="math inline">\(x\)</span> values are far from their mean. Recall that the regression goes through the point <span class="math inline">\((\bar{x},\bar{y})\)</span>.</p>
 <p>There are multiple ways to find leverages in <code>R</code>.</p>
 <div class="cell" data-layout-align="center">
@@ -1342,13 +1390,21 @@ FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE </code></pre>
 <h3 class="anchored" data-anchor-id="outliers">Outliers</h3>
 <p>Outliers are points which do not fit the model well. They may or may not have a large effect on the model. To identify outliers, we will look for observations with large residuals.</p>
 <p>Note,</p>
-<p>[ e &lt;- y - = Iy - Hy = (I - H) y ]</p>
+<p><span class="math display">\[
+e = y - \hat{y} = Iy - Hy = (I - H) y
+\]</span></p>
 <p>Then, under the assumptions of linear regression,</p>
-<p>[ (e_i) = (1 - h_i) ^2 ]</p>
+<p><span class="math display">\[
+\text{Var}(e_i) = (1 - h_i) \sigma^2
+\]</span></p>
 <p>and thus estimating <span class="math inline">\(\sigma^2\)</span> with <span class="math inline">\(s_e^2\)</span> gives</p>
-<p>[ [e_i] = s_e . ]</p>
+<p><span class="math display">\[
+\text{SE}[e_i] = s_e \sqrt{(1 - h_i)}.
+\]</span></p>
 <p>We can then look at the <strong>standardized residual</strong> for each observation, <span class="math inline">\(i = 1, 2, \ldots n\)</span>,</p>
-<p>[ r_i &lt;- N(= 0, ^ 2 = 1) ]</p>
+<p><span class="math display">\[
+r_i = \frac{e_i}{s_e\sqrt{1 - h_i}} \overset{approx}{\sim} N(\mu = 0, \sigma^ 2 = 1)
+\]</span></p>
 <p>when <span class="math inline">\(n\)</span> is large.</p>
 <p>We can use this fact to identify “large” residuals. For example, standardized residuals greater than 2 in magnitude should only happen approximately 5 percent of the time.</p>
 <p>Returning again to our three plots, each with an added point, we can calculate the residuals and standardized residuals for each. Standardized residuals can be obtained in <code>R</code> by using <code>rstandard()</code> where we would normally use <code>resid()</code>.</p>
@@ -1423,10 +1479,14 @@ FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE </code></pre>
 <h3 class="anchored" data-anchor-id="influence">Influence</h3>
 <p>As we have now seen in the three plots, some outliers only change the regression a small amount (plot one) and some outliers have a large effect on the regression (plot three). Observations that fall into the latter category, points with (some combination of) <em>high leverage</em> <strong>and</strong> <em>large residual</em>, we will call <strong>influential</strong>.</p>
 <p>A common measure of influence is <strong>Cook’s Distance</strong>, which is defined as</p>
-<p>[ D_i = r_i^2. ]</p>
+<p><span class="math display">\[
+  D_i = \frac{1}{p}r_i^2\frac{h_i}{1-{h_i}}.
+\]</span></p>
 <p>Notice that this is a function of both <em>leverage</em> and <em>standardized residuals</em>.</p>
 <p>A Cook’s Distance is often considered large if</p>
-<p>[ D_i &gt; ]</p>
+<p><span class="math display">\[
+D_i &gt; \frac{4}{n}
+\]</span></p>
 <p>and an observation with a large Cook’s Distance is called influential. This is again simply a heuristic, and not an exact rule.</p>
 <p>The Cook’s distance for each point of a regression can be calculated using <code>cooks.distance()</code> which is a default function in <code>R</code>. Let’s look for influential points in the three plots we had been considering.</p>
 <div class="cell" data-layout-align="center">

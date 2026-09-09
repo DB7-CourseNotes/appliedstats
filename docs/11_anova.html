@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-03">
+<meta name="dcterms.date" content="2026-09-09">
 
 <title>12&nbsp; Analysis of Variance – Applied Statistics with R</title>
 <style>
@@ -541,7 +541,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-03</p>
+      <p class="date">2026-09-09</p>
     </div>
   </div>
   
@@ -585,12 +585,18 @@ window.Quarto = {
 <h2 data-number="12.2" class="anchored" data-anchor-id="two-sample-t-test"><span class="header-section-number">12.2</span> Two-Sample t-Test</h2>
 <p>The simplest example of an experimental design is the setup for a two-sample <span class="math inline">\(t\)</span>-test. There is a single factor variable with two levels which split the subjects into two groups. Often, one level is considered the <strong>control</strong>, while the other is the <strong>treatment</strong>. The subjects are randomly assigned to one of the two groups. After being assigned to a group, each subject has some quantity measured, which is the response variable.</p>
 <p>Mathematically, we consider the model</p>
-<p>[ y_{ij} N(_i, ^2) ]</p>
+<p><span class="math display">\[
+y_{ij} \sim N(\mu_i, \sigma^2)
+\]</span></p>
 <p>where <span class="math inline">\(i = 1, 2\)</span> for the two groups and <span class="math inline">\(j = 1, 2, \ldots n_i\)</span>. Here <span class="math inline">\(n_i\)</span> is the number of subjects in group <span class="math inline">\(i\)</span>. So <span class="math inline">\(y_{13}\)</span> would be the measurement for the third member of the first group.</p>
 <p>So measurements of subjects in group <span class="math inline">\(1\)</span> follow a normal distribution with mean <span class="math inline">\(\mu_1\)</span>.</p>
-<p>[ y_{1j} N(_1, ^2) ]</p>
+<p><span class="math display">\[
+y_{1j} \sim N(\mu_1, \sigma^2)
+\]</span></p>
 <p>Then measurements of subjects in group <span class="math inline">\(2\)</span> follow a normal distribution with mean <span class="math inline">\(\mu_2\)</span>.</p>
-<p>[ y_{2j} N(_2, ^2) ]</p>
+<p><span class="math display">\[
+y_{2j} \sim N(\mu_2, \sigma^2)
+\]</span></p>
 <p>This model makes a number of assumptions. Specifically,</p>
 <ul>
 <li>The observations follow a <strong>normal</strong> distribution. The mean of each group is different.</li>
@@ -600,7 +606,9 @@ window.Quarto = {
 <p>Later, we will investigate the normal and equal variance assumptions. For now, we will continue to assume they are reasonable.</p>
 <p>The natural question to ask: Is there a difference between the two groups? The specific question we’ll answer: Are the means of the two groups different?</p>
 <p>Mathematically, that is</p>
-<p>[ H_0: _1 = _2 H_1: _1 _2 ]</p>
+<p><span class="math display">\[
+H_0: \mu_1 = \mu_2 \quad \text{vs} \quad H_1: \mu_1 \neq \mu_2
+\]</span></p>
 <p>For the stated model and assuming the null hypothesis is true, the <span class="math inline">\(t\)</span> test statistic would follow a <span class="math inline">\(t\)</span> distribution with degrees of freedom <span class="math inline">\(n_1 + n_2 - 2\)</span>.</p>
 <p>As an example, suppose we are interested in the effect of <a href="https://en.wikipedia.org/wiki/Melatonin" target="_blank">melatonin</a> on sleep duration. A researcher obtains a random sample of 20 adult males. Of these subjects, 10 are randomly chosen for the control group, which will receive a placebo. The remaining 10 will be given 5mg of melatonin before bed. The sleep duration in hours of each subject is then measured. The researcher chooses a significance level of <span class="math inline">\(\alpha = 0.10\)</span>. Was sleep duration affected by the melatonin?</p>
 <div class="cell" data-layout-align="center">
@@ -630,7 +638,9 @@ window.Quarto = {
 </div>
 </div>
 <p>Here, we would like to test,</p>
-<p>[ H_0: _C = _T H_1: _C _T ]</p>
+<p><span class="math display">\[
+H_0: \mu_C = \mu_T \quad \text{vs} \quad H_1: \mu_C \neq \mu_T
+\]</span></p>
 <p>To do so in <code>R</code>, we use the <code>t.test()</code> function, with the <code>var.equal</code> argument set to <code>TRUE</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sleep <span class="sc">~</span> group, <span class="at">data =</span> melatonin, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -673,29 +683,45 @@ sample estimates:
 <section id="one-way-anova" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="one-way-anova"><span class="header-section-number">12.3</span> One-Way ANOVA</h2>
 <p>What if there are more than two groups? Consider the model</p>
-<p>[ y_{ij} = + <em>i + e</em>{ij} ]</p>
+<p><span class="math display">\[
+y_{ij} = \mu + \alpha_i + e_{ij}
+\]</span></p>
 <p>where</p>
-<p>[ _{i=1}^{g} _i = 0 ]</p>
+<p><span class="math display">\[
+\sum_{i=1}^{g} \alpha_i = 0
+\]</span></p>
 <p>and</p>
-<p>[ e_{ij} N(0,^{2}). ]</p>
+<p><span class="math display">\[
+e_{ij} \sim N(0,\sigma^{2}).
+\]</span></p>
 <p>Here,</p>
 <ul>
 <li><span class="math inline">\(i = 1, 2, \ldots g\)</span> where <span class="math inline">\(g\)</span> is the number of groups.</li>
 <li><span class="math inline">\(j = 1, 2, \ldots n_i\)</span> where <span class="math inline">\(n_i\)</span> is the number of observations in group <span class="math inline">\(i\)</span>.</li>
 </ul>
 <p>Then the total sample size is</p>
-<p>[ N &lt;- _{i = 1}^{g} n_i ]</p>
+<p><span class="math display">\[
+N = \sum_{i = 1}^{g} n_i
+\]</span></p>
 <p>Observations from group <span class="math inline">\(i\)</span> follow a normal distribution</p>
-<p>[ y_{ij} N(_i,^{2}) ]</p>
+<p><span class="math display">\[
+y_{ij} \sim N(\mu_i,\sigma^{2})
+\]</span></p>
 <p>where the mean of each group is given by</p>
-<p>[ _i = + _i. ]</p>
+<p><span class="math display">\[
+\mu_i = \mu + \alpha_i.
+\]</span></p>
 <p>Here <span class="math inline">\(\alpha_i\)</span> measures the effect of group <span class="math inline">\(i\)</span>. It is the difference between the overall mean and the mean of group <span class="math inline">\(i\)</span>.</p>
 <p>Essentially, the assumptions here are the same as the two-sample case, however now, we simply have more groups.</p>
 <p>Much like the two-sample case, we would again like to test if the means of the groups are equal.</p>
-<p>[ H_0: _1 = _2 = _g H_1: _i ]</p>
+<p><span class="math display">\[
+H_0: \mu_1 = \mu_2 = \ldots \mu_g \quad \text{vs} \quad H_1: \text{ Not all } \mu_i \text{ are equal.}
+\]</span></p>
 <p>Notice that the alternative simply indicates that some of the means are not equal, not specifically which are not equal. More on that later.</p>
 <p>Alternatively, we could write</p>
-<p>[ H_0: _1 = _2 = = _g = 0 H_1: _i 0. ]</p>
+<p><span class="math display">\[
+H_0: \alpha_1 = \alpha_2 = \ldots = \alpha_g = 0 \quad \text{vs} \quad H_1: \text{ Not all } \alpha_i \text{ are } 0.
+\]</span></p>
 <p>This test is called <strong>Analysis of Variance (ANOVA)</strong>. ANOVA compares the variation due to specific sources (between groups) with the variation among individuals who should be similar (within groups). In particular, ANOVA tests whether several populations have the same mean by comparing how far apart the sample means are with how much variation there is within the samples. We use variability of means to test for equality of means, thus the use of <em>variance</em> in the name for a test about means.</p>
 <p>We’ll leave out most of the details about how the estimation is done, but we’ll see later, that it is done via least squares. We’ll use <code>R</code> to obtain these estimates, but they are actually rather simple. We only need to think about the sample means of the groups.</p>
 <ul>
@@ -704,11 +730,17 @@ sample estimates:
 <li><span class="math inline">\(s_{i}^{2}\)</span> is the sample variance of group <span class="math inline">\(i\)</span>.</li>
 </ul>
 <p>We’ll then decompose the variance, as we’ve seen before in regression. The <strong>total</strong> variation measures how much the observations vary about the overall sample mean, <em>ignoring the groups</em>.</p>
-<p>[ SST &lt;- <em>{i = 1}^{g} </em>{j = 1}^{n_i} (y_{ij} - {y})^2 ]</p>
+<p><span class="math display">\[
+SST = \sum_{i = 1}^{g} \sum_{j = 1}^{n_i} (y_{ij} - \bar{y})^2
+\]</span></p>
 <p>The variation <strong>between</strong> groups looks at how far the individual sample means are from the overall sample mean.</p>
-<p>[ SSB &lt;- <em>{i = 1}^{g} </em>{j = 1}^{n_i} ({y}<em>i - {y})^2 = </em>{i = 1}^{g} n_i ({y}_i - {y})^2 ]</p>
+<p><span class="math display">\[
+SSB = \sum_{i = 1}^{g} \sum_{j = 1}^{n_i} (\bar{y}_i - \bar{y})^2 = \sum_{i = 1}^{g} n_i (\bar{y}_i - \bar{y})^2
+\]</span></p>
 <p>Lastly, the <strong>within</strong> group variation measures how far observations are from the sample mean of its group.</p>
-<p>[ SSW &lt;- <em>{i = 1}^{g} </em>{j = 1}^{n_i} (y_{ij} - {y}<em>i)^2 = </em>{i = 1}^{g} (n_i - 1) s_{i}^{2} ]</p>
+<p><span class="math display">\[
+SSW = \sum_{i = 1}^{g} \sum_{j = 1}^{n_i} (y_{ij} - \bar{y}_i)^2 = \sum_{i = 1}^{g} (n_i - 1) s_{i}^{2}
+\]</span></p>
 <p>This could also be thought of as the error sum of squares, where <span class="math inline">\(y_{ij}\)</span> is an observation and <span class="math inline">\(\bar{y}_i\)</span> is its fitted (predicted) value from the model.</p>
 <p>To develop the test statistic for ANOVA, we place this information into an ANVOA table.</p>
 <table class="caption-top table">
@@ -826,7 +858,9 @@ sample estimates:
 </ul>
 <p>Let’s consider an example with real data. We’ll use the <code>coagulation</code> dataset from the <code>faraway</code> package. Here four different diets (<code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>) were administered to a random sample of 24 animals. The subjects were randomly assigned to one of the four diets. For each, their blood coagulation time was measured in seconds.</p>
 <p>Here we would like to test</p>
-<p>[ H_0: _A = _B = _C = _D ]</p>
+<p><span class="math display">\[
+H_0: \mu_A = \mu_B = \mu_C = \mu_D
+\]</span></p>
 <p>where, for example, <span class="math inline">\(\mu_A\)</span> is the mean blood coagulation time for an animal that ate diet <code>A</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(faraway)</span>
@@ -963,7 +997,9 @@ Residuals   12 14.484  1.2070               </code></pre>
 <p>Now that we’re performing experiments, getting more data means finding more test subjects, running more lab tests, etc. In other words, it will cost more time and money.</p>
 <p>We’d like to design our experiment so that we have a good chance of detecting an interesting effect size, without spending too much money. There’s no point in running an experiment if there’s only a very low chance that it has a significant result that you care about. (Remember, not all statistically significant results have practical value.)</p>
 <p>We’d like the ANOVA test to have high <strong>power</strong> for an alternative hypothesis with a minimum desired effect size.</p>
-<p>[ = P( H_0 H_0 ) ]</p>
+<p><span class="math display">\[
+\text{Power } = P(\text{Reject } H_0 \mid H_0 \text{ False})
+\]</span></p>
 <p>That is, for a true difference of means that we deem interesting, we want the test to reject with high probability.</p>
 <p>A number of things can affect the power of a test:</p>
 <ul>
@@ -1037,7 +1073,9 @@ P value adjustment method: none </code></pre>
 <p>The adjustment is an attempt to correct for the <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem" target="_blank">multiple testing problem</a>. (See also: <a href="https://xkcd.com/882/" target="_blank">Relevant XKCD</a>. ) Imagine that you knew ahead of time that you were going to perform 100 <span class="math inline">\(t\)</span>-tests. Suppose you wish to do this with a false positive rate of <span class="math inline">\(\alpha = 0.05\)</span>. If we use this significance level for each test, for 100 tests, we then expect 5 false positives. That means, with 100 tests, we’re almost guaranteed to have at least one error.</p>
 <p>What we’d really like is for the <a href="https://en.wikipedia.org/wiki/Family-wise_error_rate" target="_blank">family-wise error rate (FWER)</a> to be 0.05. If we consider the 100 tests to be a single “experiment,” the FWER is the rate of one or more false positives for the full experiment (100 tests). Consider it an error rate for an entire procedure, instead of a single test.</p>
 <p>With this in mind, one of the simplest adjustments we can make, is to increase the p-values for each test, depending on the number of tests. In particular the Bonferroni correction simply multiplies by the number of tests.</p>
-<p>[ = (1, n_{tests} ) ]</p>
+<p><span class="math display">\[
+\text{p-value-bonf} = \min(1, n_{tests} \cdot \text{p-value})
+\]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(coagulation, <span class="fu">pairwise.t.test</span>(coag, diet, <span class="at">p.adj =</span> <span class="st">"bonferroni"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1129,12 +1167,19 @@ D-C   -7 -10.5770944 -3.422906 0.0001268</code></pre>
 <section id="two-way-anova" class="level2" data-number="12.5">
 <h2 data-number="12.5" class="anchored" data-anchor-id="two-way-anova"><span class="header-section-number">12.5</span> Two-Way ANOVA</h2>
 <p>What if there is more than one factor variable? Why do we need to limit ourselves to experiments with only one factor? We don’t! Consider the model</p>
-<p>[ y_{ijk} = + <em>i + <em>j + ()</em>{ij} + </em>{ijk} ]</p>
+<p><span class="math display">\[
+y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij} + \epsilon_{ijk}
+\]</span></p>
 <p>where <span class="math inline">\(\epsilon_{ijk}\)</span> are <span class="math inline">\(N(0, \sigma^2)\)</span> random variables.</p>
 <p>We add constraints</p>
-<p>[ _{i=1}^{I} <em>i = 0 </em>{j=1}^{J} _j = 0. ]</p>
+<p><span class="math display">\[
+\sum_{i=1}^{I} \alpha_i = 0 \quad \quad \sum_{j=1}^{J} \beta_j = 0.
+\]</span></p>
 <p>and</p>
-<p>[ ()<em>{1j} + ()</em>{2j} + ()<em>{3j} = 0 \ ()</em>{i1} + ()<em>{i2} + ()</em>{i3} + ()_{i4} = 0 ]</p>
+<p><span class="math display">\[
+(\alpha \beta)_{1j} + (\alpha \beta)_{2j} + (\alpha \beta)_{3j} = 0 \\
+(\alpha \beta)_{i1} + (\alpha \beta)_{i2} + (\alpha \beta)_{i3} + (\alpha \beta)_{i4} = 0
+\]</span></p>
 <p>for any <span class="math inline">\(i\)</span> or <span class="math inline">\(j\)</span>.</p>
 <p>Here,</p>
 <ul>
@@ -1626,21 +1671,27 @@ D-C   -7 -10.5770944 -3.422906 0.0001268</code></pre>
 </tbody>
 </table>
 <p>The row for <strong>AB Interaction</strong> tests:</p>
-<p>[ H_0: ()<em>{ij} = 0. H_1: ()</em>{ij} 0. ]</p>
+<p><span class="math display">\[
+H_0: \text{ All }(\alpha\beta)_{ij} = 0. \quad \text{vs} \quad H_1: \text{ Not all } (\alpha\beta)_{ij} \text{ are } 0.
+\]</span></p>
 <ul>
 <li>Null Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \beta_j + \epsilon_{ijk}.\)</span> (Additive Model.)</li>
 <li>Alternative Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij} + \epsilon_{ijk}.\)</span> (Interaction Model.)</li>
 </ul>
 <p>We reject the null when the <span class="math inline">\(F\)</span> statistic is large. Under the null hypothesis, the distribution of the test statistic is <span class="math inline">\(F\)</span> with degrees of freedom <span class="math inline">\((I -1)(J -1)\)</span> and <span class="math inline">\(IJ(K - 1)\)</span>.</p>
 <p>The row for <strong>Factor B</strong> tests:</p>
-<p>[ H_0: <em>{j} = 0. H_1: </em>{j} 0. ]</p>
+<p><span class="math display">\[
+H_0: \text{ All }\beta_{j} = 0. \quad \text{vs} \quad H_1: \text{ Not all } \beta_{j} \text{ are } 0.
+\]</span></p>
 <ul>
 <li>Null Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \epsilon_{ijk}.\)</span> (Only Factor A Model.)</li>
 <li>Alternative Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \beta_j + \epsilon_{ijk}.\)</span> (Additive Model.)</li>
 </ul>
 <p>We reject the null when the <span class="math inline">\(F\)</span> statistic is large. Under the null hypothesis, the distribution of the test statistic is <span class="math inline">\(F\)</span> with degrees of freedom <span class="math inline">\(J - 1\)</span> and <span class="math inline">\(IJ(K - 1)\)</span>.</p>
 <p>The row for <strong>Factor A</strong> tests:</p>
-<p>[ H_0: <em>{i} = 0. H_1: </em>{i} 0. ]</p>
+<p><span class="math display">\[
+H_0: \text{ All }\alpha_{i} = 0. \quad \text{vs} \quad H_1: \text{ Not all } \alpha_{i} \text{ are } 0.
+\]</span></p>
 <ul>
 <li>Null Model: <span class="math inline">\(y_{ijk} = \mu + \beta_j + \epsilon_{ijk}.\)</span> (Only Factor B Model.)</li>
 <li>Alternative Model: <span class="math inline">\(y_{ijk} = \mu + \alpha_i + \beta_j + \epsilon_{ijk}.\)</span> (Additive Model.)</li>

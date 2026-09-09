@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-03">
+<meta name="dcterms.date" content="2026-09-09">
 
 <title>3&nbsp; Data and Programming – Applied Statistics with R</title>
 <style>
@@ -2384,7 +2384,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-03</p>
+      <p class="date">2026-09-09</p>
     </div>
   </div>
   
@@ -2707,7 +2707,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>When this is the case, the <code>%*%</code> operator is used to calculate the <strong>dot product</strong>, also known as the <strong>inner product</strong> of the two vectors.</p>
 <p>The dot product of vectors <span class="math inline">\(\boldsymbol{a} = \lbrack a_1, a_2, \cdots a_n \rbrack\)</span> and <span class="math inline">\(\boldsymbol{b} = \lbrack b_1, b_2, \cdots b_n \rbrack\)</span> is defined to be</p>
-<p>[ = _{i = 1}^{n} a_i b_i = a_1 b_1 + a_2 b_2 + a_n b_n. ]</p>
+<p><span class="math display">\[
+\boldsymbol{a} \cdot \boldsymbol{b} = \sum_{i = 1}^{n} a_i b_i = a_1 b_1 + a_2 b_2 + \cdots a_n b_n.
+\]</span></p>
 <div id="qwebr-insertion-location-54"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>The <code>%o%</code> operator is used to calculate the <strong>outer product</strong> of the two vectors.</p>
@@ -2726,9 +2728,13 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div id="qwebr-insertion-location-57"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>These functions could be very useful later. When used with matrices <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> as arguments, it calculates</p>
-<p>[ X^Y. ]</p>
+<p><span class="math display">\[
+X^\top Y.
+\]</span></p>
 <p>When dealing with linear models, the calculation</p>
-<p>[ X^X ]</p>
+<p><span class="math display">\[
+X^\top X
+\]</span></p>
 <p>is used repeatedly.</p>
 <div id="qwebr-insertion-location-58"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
@@ -2857,7 +2863,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>To use a function, you simply type its name, followed by an open parenthesis, then specify values of its arguments, then finish with a closing parenthesis.</p>
 <p>An <strong>argument</strong> is a variable which is used in the body of the function. Specifying the values of the arguments is essentially providing the inputs to the function.</p>
 <p>We can also write our own functions in <code>R</code>. For example, we often like to “standardize” variables, that is, subtracting the sample mean, and dividing by the sample standard deviation.</p>
-<p>[ ]</p>
+<p><span class="math display">\[
+\frac{x - \bar{x}}{s}
+\]</span></p>
 <p>In <code>R</code> we would write a function to do this. When writing a function, there are three things you must do.</p>
 <ul>
 <li>Give the function a name. Preferably something that is short, but descriptive.</li>
@@ -2888,9 +2896,13 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <p>To further illustrate a function with a default argument, we will write a function that calculates sample variance two ways.</p>
 <p>By default, it will calculate the unbiased estimate of <span class="math inline">\(\sigma^2\)</span>, which we will call <span class="math inline">\(s^2\)</span>.</p>
-<p>[ s^2 = _{i=1}^{n}(x - {x})^2 ]</p>
+<p><span class="math display">\[
+s^2 = \frac{1}{n - 1}\sum_{i=1}^{n}(x - \bar{x})^2
+\]</span></p>
 <p>It will also have the ability to return the biased estimate (based on maximum likelihood) which we will call <span class="math inline">\(\hat{\sigma}^2\)</span>.</p>
-<p>[ ^2 = _{i=1}^{n}(x - {x})^2 ]</p>
+<p><span class="math display">\[
+\hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^{n}(x - \bar{x})^2
+\]</span></p>
 <div id="qwebr-insertion-location-86"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div id="qwebr-insertion-location-87"></div>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-03">
+<meta name="dcterms.date" content="2026-09-09">
 
 <title>17&nbsp; Logistic Regression – Applied Statistics with R</title>
 <style>
@@ -554,7 +554,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-03</p>
+      <p class="date">2026-09-09</p>
     </div>
   </div>
   
@@ -676,7 +676,7 @@ Y \mid {\bf X} = {\bf x} \sim N(\beta_0 + \beta_1x_1 + \ldots + \beta_{p - 1}x_{
 <h2 data-number="17.2" class="anchored" data-anchor-id="binary-response"><span class="header-section-number">17.2</span> Binary Response</h2>
 <p>To illustrate the use of a GLM we’ll focus on the case of binary responses variable coded using <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. In practice, these <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>s will code for two classes such as yes/no, cat/dog, sick/healthy, etc.</p>
 <p><span class="math display">\[
-Y &lt;-
+Y =
 \begin{cases}
       1 &amp; \text{yes} \\
       0 &amp; \text{no}
@@ -712,9 +712,9 @@ P[Y = 0 \mid {\bf X} = {\bf x}] = 1 - p({\bf x})
 \]</span></p>
 <p>Note that for <span class="math inline">\(x \in (-\infty, \infty))\)</span>, this function outputs values between 0 and 1.</p>
 <p>Students often ask, where is the error term? The answer is that it’s something that is specific to the normal model. First notice that the model with the error term,</p>
-<p><span class="math display">\[
-Y &lt;- \beta_0 + \beta_1x_1 + \ldots + \beta_qx_q + \epsilon, \ \ \epsilon \sim N(0, \sigma^2)
-\]</span> can instead be written as</p>
+<p><span class="math display">\[$
+Y = \beta_0 + \beta_1x_1 + \ldots + \beta_qx_q + \epsilon, \ \ \epsilon \sim N(0, \sigma^2)
+\]</span>$ can instead be written as</p>
 <p><span class="math display">\[
 Y \mid {\bf X} = {\bf x} \sim N(\beta_0 + \beta_1x_1 + \ldots + \beta_qx_q, \ \sigma^2).
 \]</span></p>
@@ -1054,9 +1054,9 @@ H_0: \beta_j = 0 \quad \text{vs} \quad H_1: \beta_j \neq 0
 H_0: \beta_j = 0 \quad \text{vs} \quad H_1: \beta_j \neq 0
 \]</span></p>
 <p>however, the test statistic and its distribution are no longer <span class="math inline">\(t\)</span>. We see that the test statistic takes the same form</p>
-<p><span class="math display">\[
-z &lt;- \frac{\hat{\beta}_j - \beta_j}{\text{SE}[\hat{\beta}_j]} \overset{\text{approx}}{\sim} N(0, 1)
-\]</span></p>
+<p><span class="math display">\[$
+z = \frac{\hat{\beta}_j - \beta_j}{\text{SE}[\hat{\beta}_j]} \overset{\text{approx}}{\sim} N(0, 1)
+\]</span>$</p>
 <p>but now we are performing a <span class="math inline">\(z\)</span>-test, as the test statistic is approximated by a standard normal distribution, <em>provided we have a large enough sample</em>. (The <span class="math inline">\(t\)</span>-test for ordinary linear regression, assuming the assumptions were correct, had an exact distribution for any sample size.)</p>
 <p>We’ll skip some of the exact details of the calculations, as <code>R</code> will obtain the standard error for us. The use of this test will be extremely similar to the <span class="math inline">\(t\)</span>-test for ordinary linear regression. Essentially the only thing that changes is the distribution of the test statistic.</p>
 </section>
@@ -1078,9 +1078,9 @@ H_0: \beta_q = \beta_{q+1} = \cdots = \beta_{p - 1} = 0.
 \]</span></p>
 <p>This implies that the reduced model is nested inside the full model.</p>
 <p>We then define a test statistic, <span class="math inline">\(D\)</span>,</p>
-<p><span class="math display">\[
-D &lt;- -2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Null}}})} {L(\boldsymbol{\hat{\beta}_{\text{Full}}})} \right) = 2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Full}}})} {L(\boldsymbol{\hat{\beta}_{\text{Null}}})} \right) = 2 \left( \ell(\hat{\beta}_{\text{Full}}) - \ell(\hat{\beta}_{\text{Null}})\right)
-\]</span></p>
+<p><span class="math display">\[$
+D = -2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Null}}})} {L(\boldsymbol{\hat{\beta}_{\text{Full}}})} \right) = 2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Full}}})} {L(\boldsymbol{\hat{\beta}_{\text{Null}}})} \right) = 2 \left( \ell(\hat{\beta}_{\text{Full}}) - \ell(\hat{\beta}_{\text{Null}})\right)
+\]</span>$</p>
 <p>where <span class="math inline">\(L\)</span> denotes a likelihood and <span class="math inline">\(\ell\)</span> denotes a log-likelihood. For a large enough sample, this test statistic has an approximate Chi-square distribution</p>
 <p><span class="math display">\[
 D \overset{\text{approx}}{\sim} \chi^2_{k}

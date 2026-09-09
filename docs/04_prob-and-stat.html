@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-03">
+<meta name="dcterms.date" content="2026-09-09">
 
 <title>5&nbsp; Probability and Statistics in R – Applied Statistics with R</title>
 <style>
@@ -547,7 +547,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-03</p>
+      <p class="date">2026-09-09</p>
     </div>
   </div>
   
@@ -606,8 +606,8 @@ window.Quarto = {
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  0.01739343  0.36521024  0.96379705 -1.23400278  7.11228839 10.41312860
- [7]  2.76635897 -8.69730357 -7.10236699  3.51138691</code></pre>
+<pre><code> [1] -13.3767730  -1.5141951  -0.9651799  -5.5330528  -8.7328229   1.2320630
+ [7]  -2.1353980   7.9812857  -2.2178863   3.1005594</code></pre>
 </div>
 </div>
 <p>These functions exist for many other distributions, including but not limited to:</p>
@@ -671,10 +671,14 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="one-sample-t-test-review">One Sample t-Test: Review</h3>
 <p>Suppose <span class="math inline">\(x_{i} \sim \mathrm{N}(\mu,\sigma^{2})\)</span> and we want to test <span class="math inline">\(H_{0}: \mu = \mu_{0}\)</span> versus <span class="math inline">\(H_{1}: \mu \neq \mu_{0}.\)</span></p>
 <p>Assuming <span class="math inline">\(\sigma\)</span> is unknown, we use the one-sample Student’s <span class="math inline">\(t\)</span> test statistic:</p>
-<p>[ t &lt;- t_{n-1}, ]</p>
+<p><span class="math display">\[
+t = \frac{\bar{x}-\mu_{0}}{s/\sqrt{n}} \sim t_{n-1},
+\]</span></p>
 <p>where <span class="math inline">\(\bar{x} = \displaystyle\frac{\sum_{i=1}^{n}x_{i}}{n}\)</span> and <span class="math inline">\(s = \sqrt{\displaystyle\frac{1}{n - 1}\sum_{i=1}^{n}(x_i - \bar{x})^2}\)</span>.</p>
 <p>A <span class="math inline">\(100(1 - \alpha)\)</span>% confidence interval for <span class="math inline">\(\mu\)</span> is given by,</p>
-<p>[ {x} t_{/2, n-1} ]</p>
+<p><span class="math display">\[
+\bar{x} \pm t_{\alpha/2, n-1}\frac{s}{\sqrt{n}}
+\]</span></p>
 <p>where <span class="math inline">\(t_{\alpha/2, n-1}\)</span> is the critical value such that <span class="math inline">\(P\left(t&gt;t_{\alpha/2, n-1}\right) = \alpha/2\)</span> for <span class="math inline">\(n-1\)</span> degrees of freedom.</p>
 </section>
 <section id="one-sample-t-test-example" class="level3">
@@ -685,7 +689,9 @@ window.Quarto = {
 </div>
 <p>The company that makes <em>Captain Crisp</em> cereal claims that the average weight of a box is at least 16 ounces. We will assume the weight of cereal in a box is normally distributed and use a 0.05 level of significance to test the company’s claim.</p>
 <p>To test <span class="math inline">\(H_{0}: \mu \geq 16\)</span> versus <span class="math inline">\(H_{1}: \mu &lt; 16\)</span>, the test statistic is</p>
-<p>[ t &lt;- ]</p>
+<p><span class="math display">\[
+t = \frac{\bar{x} - \mu_{0}}{s / \sqrt{n}}
+\]</span></p>
 <p>The sample mean <span class="math inline">\(\bar{x}\)</span> and the sample standard deviation <span class="math inline">\(s\)</span> can be easily computed using <code>R</code>. We also create variables which store the hypothesized mean and the sample size.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(capt_crisp<span class="sc">$</span>weight)</span>
@@ -703,7 +709,9 @@ window.Quarto = {
 </div>
 <p>Under the null hypothesis, the test statistic has a <span class="math inline">\(t\)</span> distribution with <span class="math inline">\(n - 1\)</span> degrees of freedom, in this case 8.</p>
 <p>To complete the test, we need to obtain the p-value of the test. Since this is a one-sided test with a less-than alternative, we need the area to the left of -1.2 for a <span class="math inline">\(t\)</span> distribution with 8 degrees of freedom. That is,</p>
-<p>[ P(t_{8} &lt; -1.2) ]</p>
+<p><span class="math display">\[
+P(t_{8} &lt; -1.2)
+\]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(t, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -766,7 +774,9 @@ attr(,"conf.level")
 </div>
 </div>
 <p>So, the 95% CI for the mean weight of a cereal box is calculated by plugging into the formula,</p>
-<p>[ {x} t_{/2, n-1} ]</p>
+<p><span class="math display">\[
+\bar{x} \pm t_{\alpha/2, n-1} \frac{s}{\sqrt{n}}
+\]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">mean</span>(capt_crisp<span class="sc">$</span>weight) <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">8</span>) <span class="sc">*</span> <span class="fu">sd</span>(capt_crisp<span class="sc">$</span>weight) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">9</span>),</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(capt_crisp<span class="sc">$</span>weight) <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">8</span>) <span class="sc">*</span> <span class="fu">sd</span>(capt_crisp<span class="sc">$</span>weight) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">9</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -780,10 +790,14 @@ attr(,"conf.level")
 <p>Suppose <span class="math inline">\(x_{i} \sim \mathrm{N}(\mu_{x}, \sigma^{2})\)</span> and <span class="math inline">\(y_{i} \sim \mathrm{N}(\mu_{y}, \sigma^{2}).\)</span></p>
 <p>Want to test <span class="math inline">\(H_{0}: \mu_{x} - \mu_{y} = \mu_{0}\)</span> versus <span class="math inline">\(H_{1}: \mu_{x} - \mu_{y} \neq \mu_{0}.\)</span></p>
 <p>Assuming <span class="math inline">\(\sigma\)</span> is unknown, use the two-sample Student’s <span class="math inline">\(t\)</span> test statistic:</p>
-<p>[ t &lt;- t_{n+m-2}, ]</p>
+<p><span class="math display">\[
+t = \frac{(\bar{x} - \bar{y})-\mu_{0}}{s_{p}\sqrt{\frac{1}{n}+\frac{1}{m}}} \sim t_{n+m-2},
+\]</span></p>
 <p>where <span class="math inline">\(\displaystyle\bar{x}=\frac{\sum_{i=1}^{n}x_{i}}{n}\)</span>, <span class="math inline">\(\displaystyle\bar{y}=\frac{\sum_{i=1}^{m}y_{i}}{m}\)</span>, and <span class="math inline">\(s_p^2 = \displaystyle\frac{(n-1)s_x^2+(m-1)s_y^2}{n+m-2}\)</span>.</p>
 <p>A <span class="math inline">\(100(1-\alpha)\)</span>% CI for <span class="math inline">\(\mu_{x}-\mu_{y}\)</span> is given by</p>
-<p>[ ({x} - {y}) t_{/2, n+m-2}(s_{p}), ]</p>
+<p><span class="math display">\[
+(\bar{x} - \bar{y}) \pm t_{\alpha/2, n+m-2}\left(s_{p}\textstyle\sqrt{\frac{1}{n}+\frac{1}{m}}\right),
+\]</span></p>
 <p>where <span class="math inline">\(t_{\alpha/2, n+m-2}\)</span> is the critical value such that <span class="math inline">\(P\left(t&gt;t_{\alpha/2, n+m-2}\right)=\alpha/2\)</span>.</p>
 </section>
 <section id="two-sample-t-test-example" class="level3">
@@ -807,12 +821,16 @@ attr(,"conf.level")
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>s_y   <span class="ot">=</span> <span class="fu">sd</span>(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can then calculate the pooled standard deviation.</p>
-<p>[ s_{p} = ]</p>
+<p><span class="math display">\[
+s_{p} = \sqrt{\frac{(n-1)s_{x}^{2}+(m-1)s_{y}^{2}}{n+m-2}}
+\]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>s_p <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s_x <span class="sc">^</span> <span class="dv">2</span> <span class="sc">+</span> (m <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s_y <span class="sc">^</span> <span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">+</span> m <span class="sc">-</span> <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Thus, the relevant <span class="math inline">\(t\)</span> test statistic is given by</p>
-<p>[ t &lt;- . ]</p>
+<p><span class="math display">\[
+t = \frac{(\bar{x}-\bar{y})-\mu_{0}}{s_{p}\sqrt{\frac{1}{n}+\frac{1}{m}}}.
+\]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> ((x_bar <span class="sc">-</span> y_bar) <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> (s_p <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> n <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> m))</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -821,7 +839,9 @@ attr(,"conf.level")
 </div>
 </div>
 <p>Note that <span class="math inline">\(t \sim t_{n + m - 2} = t_{12}\)</span>, so we can calculate the p-value, which is</p>
-<p>[ P(t_{12} &gt; 1.8233692). ]</p>
+<p><span class="math display">\[
+P(t_{12} &gt; 1.8233692).
+\]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(t, <span class="at">df =</span> n <span class="sc">+</span> m <span class="sc">-</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -910,32 +930,42 @@ mean in group A mean in group B
 <section id="paired-differences" class="level3">
 <h3 class="anchored" data-anchor-id="paired-differences">Paired Differences</h3>
 <p>Consider the model:</p>
-[
-<span class="math display">\[\begin{split}
+<p><span class="math display">\[
+\begin{split}
 X_{11}, X_{12}, \ldots, X_{1n} \sim N(\mu_1,\sigma^2)\\
 X_{21}, X_{22}, \ldots, X_{2n} \sim N(\mu_2,\sigma^2)
-\end{split}\]</span>
-<p>]</p>
+\end{split}
+\]</span></p>
 <p>Assume that <span class="math inline">\(\mu_1 = 6\)</span>, <span class="math inline">\(\mu_2 = 5\)</span>, <span class="math inline">\(\sigma^2 = 4\)</span> and <span class="math inline">\(n = 25\)</span>.</p>
 <p>Let</p>
-[
-<span class="math display">\[\begin{aligned}
+<p><span class="math display">\[
+\begin{aligned}
 \bar{X}_1 &amp;= \displaystyle\frac{1}{n}\sum_{i=1}^{n}X_{1i}\\
 \bar{X}_2 &amp;= \displaystyle\frac{1}{n}\sum_{i=1}^{n}X_{2i}\\
 D &amp;= \bar{X}_1 - \bar{X}_2.
-\end{aligned}\]</span>
-<p>]</p>
+\end{aligned}
+\]</span></p>
 <p>Suppose we would like to calculate <span class="math inline">\(P(0 &lt; D &lt; 2)\)</span>. First we will need to obtain the distribution of <span class="math inline">\(D\)</span>.</p>
 <p>Recall,</p>
-<p>[ {X}_1 N(_1,) ]</p>
+<p><span class="math display">\[
+\bar{X}_1 \sim N\left(\mu_1,\frac{\sigma^2}{n}\right)
+\]</span></p>
 <p>and</p>
-<p>[ {X}_2 N(_2,). ]</p>
+<p><span class="math display">\[
+\bar{X}_2 \sim N\left(\mu_2,\frac{\sigma^2}{n}\right).
+\]</span></p>
 <p>Then,</p>
-<p>[ D &lt;- {X}_1 - {X}_2 N(_1-_2, + ) = N(6-5, + ). ]</p>
+<p><span class="math display">\[
+D = \bar{X}_1 - \bar{X}_2 \sim N\left(\mu_1-\mu_2, \frac{\sigma^2}{n} + \frac{\sigma^2}{n}\right) = N\left(6-5, \frac{4}{25} + \frac{4}{25}\right).
+\]</span></p>
 <p>So,</p>
-<p>[ D N(= 1, ^2 = 0.32). ]</p>
+<p><span class="math display">\[
+D \sim N(\mu = 1, \sigma^2 = 0.32).
+\]</span></p>
 <p>Thus,</p>
-<p>[ P(0 &lt; D &lt; 2) = P(D &lt; 2) - P(D &lt; 0). ]</p>
+<p><span class="math display">\[
+P(0 &lt; D &lt; 2) = P(D &lt; 2) - P(D &lt; 0).
+\]</span></p>
 <p>This can then be calculated using <code>R</code> without a need to first standardize, or use a table.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(<span class="fl">0.32</span>)) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">0</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(<span class="fl">0.32</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1017,13 +1047,21 @@ D &amp;= \bar{X}_1 - \bar{X}_2.
 <h3 class="anchored" data-anchor-id="distribution-of-a-sample-mean">Distribution of a Sample Mean</h3>
 <p>For another example of simulation, we will simulate observations from a Poisson distribution, and examine the empirical distribution of the sample mean of these observations.</p>
 <p>Recall, if</p>
-<p>[ X Pois() ]</p>
+<p><span class="math display">\[
+X \sim Pois(\mu)
+\]</span></p>
 <p>then</p>
-<p>[ E[X] = ]</p>
+<p><span class="math display">\[
+E[X] = \mu
+\]</span></p>
 <p>and</p>
-<p>[ Var[X] = . ]</p>
+<p><span class="math display">\[
+Var[X] = \mu.
+\]</span></p>
 <p>Also, recall that for a random variable <span class="math inline">\(X\)</span> with finite mean <span class="math inline">\(\mu\)</span> and finite variance <span class="math inline">\(\sigma^2\)</span>, the central limit theorem tells us that the mean, <span class="math inline">\(\bar{X}\)</span> of a random sample of size <span class="math inline">\(n\)</span> is approximately normal for <em>large</em> values of <span class="math inline">\(n\)</span>. Specifically, as <span class="math inline">\(n \to \infty\)</span>,</p>
-<p>[ {X} N(, ). ]</p>
+<p><span class="math display">\[
+\bar{X} \overset{d}{\to} N\left(\mu, \frac{\sigma^2}{n}\right).
+\]</span></p>
 <p>The following verifies this result for a Poisson distribution with <span class="math inline">\(\mu = 10\)</span> and a sample size of <span class="math inline">\(n = 50\)</span>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>

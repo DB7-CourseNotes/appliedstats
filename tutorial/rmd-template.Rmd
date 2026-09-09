@@ -167,9 +167,9 @@ With `.html` the LaTeX is not actually rendered during knitting, but actually re
 
 Displaystyle is used for larger equations which appear centered on their own line.
 
-$$
-s <- \sqrt{\frac{1}{n - 1}\sum_{i=1}^{n}(x - \bar{x})^2}
-$$
+$$$
+s = \sqrt{\frac{1}{n - 1}\sum_{i=1}^{n}(x - \bar{x})^2}
+$$$
 
 ## Inline LaTex
 

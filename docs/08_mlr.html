@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-03">
+<meta name="dcterms.date" content="2026-09-09">
 
 <title>9&nbsp; Multiple Linear Regression – Applied Statistics with R</title>
 <style>
@@ -542,7 +542,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-03</p>
+      <p class="date">2026-09-09</p>
     </div>
   </div>
   
@@ -567,7 +567,9 @@ window.Quarto = {
 <li>Compare nested models using an ANOVA F-Test.</li>
 </ul>
 <p>The last two chapters we saw how to fit a model that assumed a linear relationship between a response variable and a single predictor variable. Specifically, we defined the simple linear regression model,</p>
-<p>[ Y_i &lt;- _0 + _1 x_i + _i ]</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
+\]</span></p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>.</p>
 <p>However, it is rarely the case that a dataset will have a single predictor variable. It is also rarely the case that a response variable will only depend on a single variable. So in this chapter, we will extend our current linear model to allow a response to depend on <em>multiple</em> predictors.</p>
 <div class="cell" data-layout-align="center">
@@ -604,7 +606,9 @@ window.Quarto = {
 </div>
 <p>We will once again discuss a dataset with information about cars. <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data" target="_blank">This dataset</a>, which can be found at the <a href="https://archive.ics.uci.edu/ml/datasets/Auto+MPG" target="_blank">UCI Machine Learning Repository</a> contains a response variable <code>mpg</code> which stores the city fuel efficiency of cars, as well as several predictor variables for the attributes of the vehicles. We load the data, and perform some basic tidying before moving on to analysis.</p>
 <p>For now we will focus on using two variables, <code>wt</code> and <code>year</code>, as predictor variables. That is, we would like to model the fuel efficiency (<code>mpg</code>) of a car as a function of its weight (<code>wt</code>) and model year (<code>year</code>). To do so, we will define the following linear model,</p>
-<p>[ Y_i &lt;- _0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + _i, i = 1, 2, , n ]</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i, \qquad i = 1, 2, \ldots, n
+\]</span></p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>. In this notation we will define:</p>
 <ul>
 <li><span class="math inline">\(x_{i1}\)</span> as the weight (<code>wt</code>) of the <span class="math inline">\(i\)</span>th car.</li>
@@ -621,23 +625,25 @@ window.Quarto = {
 </div>
 </div>
 <p>How do we find such a plane? Well, we would like a plane that is as close as possible to the data points. That is, we would like it to minimize the errors it is making. How will we define these errors? Squared distance of course! So, we would like to minimize</p>
-<p>[ f(_0, _1, <em>2) = </em>{i = 1}^{n}(y_i - (_0 + <em>1 x</em>{i1} + <em>2 x</em>{i2}))^2 ]</p>
+<p><span class="math display">\[
+f(\beta_0, \beta_1, \beta_2) = \sum_{i = 1}^{n}(y_i - (\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2}))^2
+\]</span></p>
 <p>with respect to <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\beta_2\)</span>. How do we do so? It is another straightforward multivariate calculus problem. All we have done is add an extra variable since we did this last time. So again, we take a derivative with respect to each of <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\beta_2\)</span> and set them equal to zero, then solve the resulting system of equations. That is,</p>
-[
-<span class="math display">\[\begin{aligned}
+<p><span class="math display">\[
+\begin{aligned}
 \frac{\partial f}{\partial \beta_0} &amp;= 0 \\
 \frac{\partial f}{\partial \beta_1} &amp;= 0 \\
 \frac{\partial f}{\partial \beta_2} &amp;= 0
-\end{aligned}\]</span>
-<p>]</p>
+\end{aligned}
+\]</span></p>
 <p>After doing so, we will once again obtain the <strong>normal equations.</strong></p>
-[
-<span class="math display">\[\begin{aligned}
+<p><span class="math display">\[
+\begin{aligned}
 n \beta_0 + \beta_1 \sum_{i = 1}^{n} x_{i1} + \beta_2 \sum_{i = 1}^{n} x_{i2} &amp;= \sum_{i = 1}^{n} y_i  \\
 \beta_0 \sum_{i = 1}^{n} x_{i1} + \beta_1 \sum_{i = 1}^{n} x_{i1}^2 + \beta_2 \sum_{i = 1}^{n} x_{i1}x_{i2} &amp;= \sum_{i = 1}^{n} x_{i1}y_i \\
 \beta_0 \sum_{i = 1}^{n} x_{i2} + \beta_1 \sum_{i = 1}^{n} x_{i1}x_{i2} + \beta_2 \sum_{i = 1}^{n} x_{i2}^2 &amp;= \sum_{i = 1}^{n} x_{i2}y_i
-\end{aligned}\]</span>
-<p>]</p>
+\end{aligned}
+\]</span></p>
 <p>We now have three equations and three variables, which we could solve, or we could simply let <code>R</code> solve for us.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mpg_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> year, <span class="at">data =</span> autompg)</span>
@@ -647,7 +653,9 @@ n \beta_0 + \beta_1 \sum_{i = 1}^{n} x_{i1} + \beta_2 \sum_{i = 1}^{n} x_{i2} &a
 -14.637641945  -0.006634876   0.761401955 </code></pre>
 </div>
 </div>
-<p>[ = -14.6376419 + -0.0066349 x_1 + 0.761402 x_2 ]</p>
+<p><span class="math display">\[
+\hat{y} = -14.6376419 + -0.0066349 x_1 + 0.761402 x_2
+\]</span></p>
 <p>Here we have once again fit our model using <code>lm()</code>, however we have introduced a new syntactical element. The formula <code>mpg ~ wt + year</code> now reads: “model the response variable <code>mpg</code> as a linear function of <code>wt</code> and <code>year</code>.” That is, it will estimate an intercept, as well as slope coefficients for <code>wt</code> and <code>year</code>. We then extract these as we have done before using <code>coef()</code>.</p>
 <p>In the multiple linear regression setting, some of the interpretations of the coefficients change slightly.</p>
 <p>Here, <span class="math inline">\(\hat{\beta}_0 = -14.6376419\)</span> is our estimate for <span class="math inline">\(\beta_0\)</span>, the mean miles per gallon for a car that weighs 0 pounds and was built in 1900. We see our estimate here is negative, which is a physical impossibility. However, this isn’t unexpected, as we shouldn’t expect our model to be accurate for cars from 1900 which weigh 0 pounds. (Because they never existed!) This isn’t much of a change from SLR. That is, <span class="math inline">\(\beta_0\)</span> is still simply the mean when all of the predictors are 0.</p>
@@ -656,18 +664,20 @@ n \beta_0 + \beta_1 \sum_{i = 1}^{n} x_{i1} + \beta_2 \sum_{i = 1}^{n} x_{i2} &a
 <section id="matrix-approach-to-regression" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="matrix-approach-to-regression"><span class="header-section-number">9.1</span> Matrix Approach to Regression</h2>
 <p>In our above example we used two predictor variables, but it will only take a little more work to allow for an arbitrary number of predictor variables and derive their coefficient estimates. We can consider the model,</p>
-<p>[ Y_i &lt;- <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{p-1} x_{i(p-1)} + _i, i = 1, 2, , n ]</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)} + \epsilon_i, \qquad i = 1, 2, \ldots, n
+\]</span></p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>. In this model, there are <span class="math inline">\(p - 1\)</span> predictor variables, <span class="math inline">\(x_1, x_2, \cdots, x_{p-1}\)</span>. There are a total of <span class="math inline">\(p\)</span> <span class="math inline">\(\beta\)</span>-parameters and a single parameter <span class="math inline">\(\sigma^2\)</span> for the variance of the errors. (It should be noted that almost as often, authors will use <span class="math inline">\(p\)</span> as the number of predictors, making the total number of <span class="math inline">\(\beta\)</span> parameters <span class="math inline">\(p+1\)</span>. This is always something you should be aware of when reading about multiple regression. There is not a standard that is used most often.)</p>
 <p>If we were to stack together the <span class="math inline">\(n\)</span> linear equations that represent each <span class="math inline">\(Y_i\)</span> into a column vector, we get the following.</p>
-[
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+\begin{bmatrix}
 Y_1   \\
 Y_2   \\
 \vdots\\
 Y_n   \\
-\end{bmatrix}\]</span>
+\end{bmatrix}
 =
-<span class="math display">\[\begin{bmatrix}
+\begin{bmatrix}
 1      &amp; x_{11}    &amp; x_{12}    &amp; \cdots &amp; x_{1(p-1)} \\
 1      &amp; x_{21}    &amp; x_{22}    &amp; \cdots &amp; x_{2(p-1)} \\
 \vdots &amp; \vdots    &amp; \vdots    &amp;  &amp; \vdots \\
@@ -679,46 +689,46 @@ Y_n   \\
 \beta_2 \\
 \vdots \\
 \beta_{p-1} \\
-\end{bmatrix}\]</span>
-<ul>
-<li><span class="math display">\[\begin{bmatrix}
+\end{bmatrix}
++
+\begin{bmatrix}
 \epsilon_1   \\
 \epsilon_2   \\
 \vdots\\
 \epsilon_n   \\
-\end{bmatrix}\]</span>
-]</li>
-</ul>
-<p>[ Y &lt;- X + ]</p>
-[ Y &lt;-
-<span class="math display">\[\begin{bmatrix} Y_1 \\ Y_2 \\ \vdots\\ Y_n \end{bmatrix}\]</span>
-, X &lt;-
-<span class="math display">\[\begin{bmatrix}
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+Y = X \beta + \epsilon
+\]</span></p>
+<p><span class="math display">\[
+Y &lt;- \begin{bmatrix} Y_1 \\ Y_2 \\ \vdots\\ Y_n \end{bmatrix}, \quad
+X &lt;- \begin{bmatrix}
 1      &amp; x_{11}    &amp; x_{12}    &amp; \cdots &amp; x_{1(p-1)} \\
 1      &amp; x_{21}    &amp; x_{22}    &amp; \cdots &amp; x_{2(p-1)} \\
 \vdots &amp; \vdots    &amp; \vdots    &amp;  &amp; \vdots \\
 1      &amp; x_{n1}    &amp; x_{n2}    &amp; \cdots &amp; x_{n(p-1)} \\
-\end{bmatrix}\]</span>
-, =
-<span class="math display">\[\begin{bmatrix}
+\end{bmatrix}, \quad
+\beta = \begin{bmatrix}
 \beta_0 \\
 \beta_1 \\
 \beta_2 \\
 \vdots \\
 \beta_{p-1} \\
-\end{bmatrix}\]</span>
-, =
-<span class="math display">\[\begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots\\ \epsilon_n \end{bmatrix}\]</span>
-<p>]</p>
+\end{bmatrix}, \quad
+\epsilon = \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots\\ \epsilon_n \end{bmatrix}
+\]</span></p>
 <p>So now with data,</p>
-[ y &lt;-
-<span class="math display">\[\begin{bmatrix} y_1 \\ y_2 \\ \vdots\\ y_n \end{bmatrix}\]</span>
-<p>]</p>
+<p><span class="math display">\[
+y = \begin{bmatrix} y_1 \\ y_2 \\ \vdots\\ y_n \end{bmatrix}
+\]</span></p>
 <p>Just as before, we can estimate <span class="math inline">\(\beta\)</span> by minimizing,</p>
-<p>[ f(<em>0, <em>1, <em>2, , </em>{p-1}) = </em>{i = 1}^{n}(y_i - (<em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{p-1} x</em>{i(p-1)}))^2, ]</p>
+<p><span class="math display">\[
+f(\beta_0, \beta_1, \beta_2, \cdots, \beta_{p-1}) = \sum_{i = 1}^{n}(y_i - (\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{p-1} x_{i(p-1)}))^2,
+\]</span></p>
 <p>which would require taking <span class="math inline">\(p\)</span> derivatives, which result in the following <strong>normal equations</strong>.</p>
-[
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+\begin{bmatrix}
 n                           &amp; \sum_{i = 1}^{n} x_{i1}           &amp; \sum_{i = 1}^{n} x_{i2}           &amp; \cdots &amp; \sum_{i = 1}^{n} x_{i(p-1)}       \\
 \sum_{i = 1}^{n} x_{i1}     &amp; \sum_{i = 1}^{n} x_{i1}^2         &amp; \sum_{i = 1}^{n} x_{i1}x_{i2}     &amp; \cdots &amp; \sum_{i = 1}^{n} x_{i1}x_{i(p-1)} \\
 \vdots                      &amp; \vdots                            &amp; \vdots                            &amp;        &amp; \vdots                            \\
@@ -729,19 +739,23 @@ n                           &amp; \sum_{i = 1}^{n} x_{i1}           &amp; \sum_{
 \beta_1 \\
 \vdots \\
 \beta_{p-1} \\
-\end{bmatrix}\]</span>
+\end{bmatrix}
 =
-<span class="math display">\[\begin{bmatrix}
+\begin{bmatrix}
 \sum_{i = 1}^{n} y_i \\
 \sum_{i = 1}^{n} x_{i1}y_i \\
 \vdots \\
 \sum_{i = 1}^{n} x_{i(p-1)}y_i \\
-\end{bmatrix}\]</span>
-<p>]</p>
+\end{bmatrix}
+\]</span></p>
 <p>The normal equations can be written much more succinctly in matrix notation,</p>
-<p>[ X^X = X^y. ]</p>
+<p><span class="math display">\[
+X^\top X \beta = X^\top y.
+\]</span></p>
 <p>We can then solve this expression by multiplying both sides by the inverse of <span class="math inline">\(X^\top X\)</span>, which exists, provided the columns of <span class="math inline">\(X\)</span> are linearly independent. Then as always, we denote our solution with a hat.</p>
-<p>[ = ( X^X )<sup>{-1}X</sup>y ]</p>
+<p><span class="math display">\[
+\hat{\beta} = \left(  X^\top X  \right)^{-1}X^\top y
+\]</span></p>
 <p>To verify that this is what <code>R</code> has done for us in the case of two predictors, we create an <span class="math inline">\(X\)</span> matrix. Note that the first column is all 1s, and the remaining columns contain the data.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(autompg)</span>
@@ -762,37 +776,44 @@ n                           &amp; \sum_{i = 1}^{n} x_{i1}           &amp; \sum_{
 -14.637641945  -0.006634876   0.761401955 </code></pre>
 </div>
 </div>
-[ =
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+\hat{\beta} = \begin{bmatrix}
 -14.6376419    \\
 -0.0066349    \\
 0.761402    \\
-\end{bmatrix}\]</span>
-<p>]</p>
+\end{bmatrix}
+\]</span></p>
 <p>In our new notation, the fitted values can be written</p>
-<p>[ = X . ]</p>
-[ =
-<span class="math display">\[\begin{bmatrix} \hat{y}_1 \\ \hat{y}_2 \\ \vdots\\ \hat{y}_n \end{bmatrix}\]</span>
-<p>]</p>
+<p><span class="math display">\[
+\hat{y} = X \hat{\beta}.
+\]</span></p>
+<p><span class="math display">\[
+\hat{y} = \begin{bmatrix} \hat{y}_1 \\ \hat{y}_2 \\ \vdots\\ \hat{y}_n \end{bmatrix}
+\]</span></p>
 <p>Then, we can create a vector for the residual values,</p>
-[ e =
-<span class="math display">\[\begin{bmatrix} e_1 \\ e_2 \\ \vdots\\ e_n \end{bmatrix}\]</span>
-=
-<span class="math display">\[\begin{bmatrix} y_1 \\ y_2 \\ \vdots\\ y_n \end{bmatrix}\]</span>
-<ul>
-<li><span class="math display">\[\begin{bmatrix} \hat{y}_1 \\ \hat{y}_2 \\ \vdots\\ \hat{y}_n \end{bmatrix}\]</span>
-. ]</li>
-</ul>
+<p><span class="math display">\[
+e
+= \begin{bmatrix} e_1 \\ e_2 \\ \vdots\\ e_n \end{bmatrix}
+= \begin{bmatrix} y_1 \\ y_2 \\ \vdots\\ y_n \end{bmatrix} - \begin{bmatrix} \hat{y}_1 \\ \hat{y}_2 \\ \vdots\\ \hat{y}_n \end{bmatrix}.
+\]</span></p>
 <p>And lastly, we can update our estimate for <span class="math inline">\(\sigma^2\)</span>.</p>
-<p>[ s_e^2 = = ]</p>
+<p><span class="math display">\[
+s_e^2 = \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{n - p} = \frac{e^\top e}{n-p}
+\]</span></p>
 <p>Recall, we like this estimate because it is unbiased, that is,</p>
-<p>[ [s_e^2] = ^2 ]</p>
+<p><span class="math display">\[
+\text{E}[s_e^2] = \sigma^2
+\]</span></p>
 <p>Note that the change from the SLR estimate to now is in the denominator. Specifically we now divide by <span class="math inline">\(n - p\)</span> instead of <span class="math inline">\(n - 2\)</span>. Or actually, we should note that in the case of SLR, there are two <span class="math inline">\(\beta\)</span> parameters and thus <span class="math inline">\(p = 2\)</span>.</p>
 <p>Also note that if we fit the model <span class="math inline">\(Y_i = \beta + \epsilon_i\)</span> that <span class="math inline">\(\hat{y} = \bar{y}\)</span> and <span class="math inline">\(p = 1\)</span> and <span class="math inline">\(s_e^2\)</span> would become</p>
-<p>[ s_e^2 = ]</p>
+<p><span class="math display">\[
+s_e^2 = \frac{\sum_{i=1}^n (y_i - \bar{y})^2}{n - 1}
+\]</span></p>
 <p>which is likely the very first sample variance you saw in a mathematical statistics class. The same reason for <span class="math inline">\(n - 1\)</span> in this case, that we estimated one parameter, so we lose one degree of freedom. Now, in general, we are estimating <span class="math inline">\(p\)</span> parameters, the <span class="math inline">\(\beta\)</span> parameters, so we lose <span class="math inline">\(p\)</span> degrees of freedom.</p>
 <p>Also, recall that most often we will be interested in <span class="math inline">\(s_e\)</span>, the residual standard error as <code>R</code> calls it,</p>
-<p>[ s_e &lt;- . ]</p>
+<p><span class="math display">\[
+s_e = \sqrt{\frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{n - p}}.
+\]</span></p>
 <p>In <code>R</code>, we could directly access <span class="math inline">\(s_e\)</span> for a fitted model, as we have seen before.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpg_model)<span class="sc">$</span>sigma</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -845,66 +866,98 @@ F-statistic: 815.6 on 2 and 387 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>To understand these differences in detail, we will need to first obtain the sampling distribution of <span class="math inline">\(\hat{\beta}\)</span>.</p>
 <p>The derivation of the sampling distribution of <span class="math inline">\(\hat{\beta}\)</span> involves the <a href="notes/mvn.pdf">multivariate normal distribution. These brief notes from semesters past</a> give a basic overview. These are simply for your information, as we will not present the derivation in full here.</p>
 <p>Our goal now is to obtain the distribution of the <span class="math inline">\(\hat{\beta}\)</span> vector,</p>
-[ =
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+\hat{\beta} = \begin{bmatrix}
 \hat{\beta}_0 \\
 \hat{\beta}_1 \\
 \hat{\beta}_2 \\
 \vdots \\
-\hat{\beta}_{p-1} \end{bmatrix}\]</span>
-<p>]</p>
+\hat{\beta}_{p-1} \end{bmatrix}
+\]</span></p>
 <p>Recall from last time that when discussing sampling distributions, we now consider <span class="math inline">\(\hat{\beta}\)</span> to be a random vector, thus we use <span class="math inline">\(Y\)</span> instead of the data vector <span class="math inline">\(y\)</span>.</p>
-<p>[ = ( X^X )<sup>{-1}X</sup>Y ]</p>
+<p><span class="math display">\[
+\hat{\beta} = \left(  X^\top X  \right)^{-1}X^\top Y
+\]</span></p>
 <p>Then it is a consequence of the multivariate normal distribution that,</p>
-<p>[ N(, ^2 (X<sup>X)</sup>{-1} ). ]</p>
+<p><span class="math display">\[
+\hat{\beta} \sim N\left(\beta, \sigma^2 \left(X^\top X\right)^{-1}  \right).
+\]</span></p>
 <p>We then have</p>
-<p>[ [] = ]</p>
+<p><span class="math display">\[
+\text{E}[\hat{\beta}] = \beta
+\]</span></p>
 <p>and for any <span class="math inline">\(\hat{\beta}_j\)</span> we have</p>
-<p>[ [_j] = _j. ]</p>
+<p><span class="math display">\[
+\text{E}[\hat{\beta}_j] = \beta_j.
+\]</span></p>
 <p>We also have</p>
-<p>[ [] = ^2 ( X^X )^{-1} ]</p>
+<p><span class="math display">\[
+\text{Var}[\hat{\beta}] = \sigma^2 \left(  X^\top X  \right)^{-1}
+\]</span></p>
 <p>and for any <span class="math inline">\(\hat{\beta}_j\)</span> we have</p>
-<p>[ [_j] = ^2 C_{jj} ]</p>
+<p><span class="math display">\[
+\text{Var}[\hat{\beta}_j] = \sigma^2 C_{jj}
+\]</span></p>
 <p>where</p>
-<p>[ C &lt;- (X<sup>X)</sup>{-1} ]</p>
+<p><span class="math display">\[
+C = \left(X^\top X\right)^{-1}
+\]</span></p>
 <p>and the elements of <span class="math inline">\(C\)</span> are denoted</p>
-[ C &lt;-
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+C &lt;- \begin{bmatrix}
 C_{00}     &amp; C_{01}     &amp; C_{02}     &amp; \cdots &amp; C_{0(p-1)}     \\
 C_{10}     &amp; C_{11}     &amp; C_{12}     &amp; \cdots &amp; C_{1(p-1)}     \\
 C_{20}     &amp; C_{21}     &amp; C_{22}     &amp; \cdots &amp; C_{2(p-1)}     \\
 \vdots     &amp; \vdots     &amp; \vdots     &amp;        &amp; \vdots         \\
 C_{(p-1)0} &amp; C_{(p-1)1} &amp; C_{(p-1)2} &amp; \cdots &amp; C_{(p-1)(p-1)} \\
-\end{bmatrix}\]</span>
-<p>. ]</p>
+\end{bmatrix}.
+\]</span></p>
 <p>Essentially, the diagonal elements correspond to the <span class="math inline">\(\beta\)</span> vector.</p>
 <p>Then the standard error for the <span class="math inline">\(\hat{\beta}\)</span> vector is given by</p>
-<p>[ [] = s_e ]</p>
+<p><span class="math display">\[
+\text{SE}[\hat{\beta}] = s_e \sqrt{\left(  X^\top X  \right)^{-1}}
+\]</span></p>
 <p>and for a particular <span class="math inline">\(\hat{\beta}_j\)</span></p>
-<p>[ [_j] = s_e . ]</p>
+<p><span class="math display">\[
+\text{SE}[\hat{\beta}_j] = s_e \sqrt{C_{jj}}.
+\]</span></p>
 <p>Lastly, each of the <span class="math inline">\(\hat{\beta}_j\)</span> follows a normal distribution,</p>
-<p>[ _j N(<em>j, ^2 C</em>{jj} ). ]</p>
+<p><span class="math display">\[
+\hat{\beta}_j \sim N\left(\beta_j, \sigma^2 C_{jj}  \right).
+\]</span></p>
 <p>thus</p>
-<p>[ t_{n-p}. ]</p>
+<p><span class="math display">\[
+\frac{\hat{\beta}_j - \beta_j}{s_e \sqrt{C_{jj}}} \sim t_{n-p}.
+\]</span></p>
 <p>Now that we have the necessary distributional results, we can move on to perform tests and make interval estimates.</p>
 <section id="single-parameter-tests" class="level3">
 <h3 class="anchored" data-anchor-id="single-parameter-tests">Single Parameter Tests</h3>
 <p>The first test we will see is a test for a single <span class="math inline">\(\beta_j\)</span>.</p>
-<p>[ H_0: _j = 0 H_1: _j ]</p>
+<p><span class="math display">\[
+H_0: \beta_j = 0 \quad \text{vs} \quad H_1: \beta_j \neq 0
+\]</span></p>
 <p>Again, the test statistic takes the form</p>
-<p>[ = . ]</p>
+<p><span class="math display">\[
+\text{TS} = \frac{\text{EST} - \text{HYP}}{\text{SE}}.
+\]</span></p>
 <p>In particular,</p>
-<p>[ t &lt;- = , ]</p>
+<p><span class="math display">\[
+t = \frac{\hat{\beta}_j - \beta_j}{\text{SE}[\hat{\beta}_j]} = \frac{\hat{\beta}_j-0}{s_e\sqrt{C_{jj}}},
+\]</span></p>
 <p>which, under the null hypothesis, follows a <span class="math inline">\(t\)</span> distribution with <span class="math inline">\(n - p\)</span> degrees of freedom.</p>
 <p>Recall our model for <code>mpg</code>,</p>
-<p>[ Y_i &lt;- _0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + _i, i = 1, 2, , n ]</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i, \qquad i = 1, 2, \ldots, n
+\]</span></p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>.</p>
 <ul>
 <li><span class="math inline">\(x_{i1}\)</span> as the weight (<code>wt</code>) of the <span class="math inline">\(i\)</span>th car.</li>
 <li><span class="math inline">\(x_{i2}\)</span> as the model year (<code>year</code>) of the <span class="math inline">\(i\)</span>th car.</li>
 </ul>
 <p>Then the test</p>
-<p>[ H_0: _1 = 0 H_1: _1 ]</p>
+<p><span class="math display">\[
+H_0: \beta_1 = 0 \quad \text{vs} \quad H_1: \beta_1 \neq 0
+\]</span></p>
 <p>can be found in the <code>summary()</code> output, in particular:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpg_model)<span class="sc">$</span>coef</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -926,11 +979,17 @@ year          0.761401955 0.0497265950  15.311765  1.036597e-41</code></pre>
 <section id="confidence-intervals" class="level3">
 <h3 class="anchored" data-anchor-id="confidence-intervals">Confidence Intervals</h3>
 <p>Since <span class="math inline">\(\hat{\beta}_j\)</span> is our estimate for <span class="math inline">\(\beta_j\)</span> and we have</p>
-<p>[ [_j] = _j ]</p>
+<p><span class="math display">\[
+\text{E}[\hat{\beta}_j] = \beta_j
+\]</span></p>
 <p>as well as the standard error,</p>
-<p>[ [_j] = s_e ]</p>
+<p><span class="math display">\[
+\text{SE}[\hat{\beta}_j] = s_e\sqrt{C_{jj}}
+\]</span></p>
 <p>and the sampling distribution of <span class="math inline">\(\hat{\beta}_j\)</span> is Normal, then we can easily construct confidence intervals for each of the <span class="math inline">\(\hat{\beta}_j\)</span>.</p>
-<p>[ <em>j t</em>{/2, n - p} s_e ]</p>
+<p><span class="math display">\[
+\hat{\beta}_j \pm t_{\alpha/2, n - p} \cdot s_e\sqrt{C_{jj}}
+\]</span></p>
 <p>We can find these in <code>R</code> using the same method as before. Now there will simply be additional rows for the additional <span class="math inline">\(\beta\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mpg_model, <span class="at">level =</span> <span class="fl">0.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -945,33 +1004,37 @@ year          0.632680051  0.890123859</code></pre>
 <section id="confidence-intervals-for-mean-response" class="level3">
 <h3 class="anchored" data-anchor-id="confidence-intervals-for-mean-response">Confidence Intervals for Mean Response</h3>
 <p>As we saw in SLR, we can create confidence intervals for the mean response, that is, an interval estimate for <span class="math inline">\(\text{E}[Y \mid X = x]\)</span>. In SLR, the mean of <span class="math inline">\(Y\)</span> was only dependent on a single value <span class="math inline">\(x\)</span>. Now, in multiple regression, <span class="math inline">\(\text{E}[Y \mid X = x]\)</span> is dependent on the value of each of the predictors, so we define the vector <span class="math inline">\(x_0\)</span> to be,</p>
-[ x_{0} =
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+x_{0} = \begin{bmatrix}
 1 \\
 x_{01} \\
 x_{02} \\
 \vdots \\
 x_{0(p-1)} \\
-\end{bmatrix}\]</span>
-<p>. ]</p>
+\end{bmatrix}.
+\]</span></p>
 <p>Then our estimate of <span class="math inline">\(\text{E}[Y \mid X = x_0]\)</span> for a set of values <span class="math inline">\(x_0\)</span> is given by</p>
-[
-<span class="math display">\[\begin{aligned}
+<p><span class="math display">\[
+\begin{aligned}
 \hat{y}(x_0) &amp;= x_{0}^\top\hat{\beta} \\
 &amp;= \hat{\beta}_0 + \hat{\beta}_1 x_{01} + \hat{\beta}_2 x_{02} + \cdots + \hat{\beta}_{p-1} x_{0(p-1)}.
-\end{aligned}\]</span>
-<p>]</p>
+\end{aligned}
+\]</span></p>
 <p>As with SLR, this is an unbiased estimate.</p>
-[
-<span class="math display">\[\begin{aligned}
+<p><span class="math display">\[
+\begin{aligned}
 \text{E}[\hat{y}(x_0)] &amp;= x_{0}^\top\beta \\
 &amp;= \beta_0 + \beta_1 x_{01} + \beta_2 x_{02} + \cdots + \beta_{p-1} x_{0(p-1)}
-\end{aligned}\]</span>
-<p>]</p>
+\end{aligned}
+\]</span></p>
 <p>To make an interval estimate, we will also need its standard error.</p>
-<p>[ [(x_0)] = s_e ]</p>
+<p><span class="math display">\[
+\text{SE}[\hat{y}(x_0)] = s_e \sqrt{x_{0}^\top\left(X^\top X\right)^{-1}x_{0}}
+\]</span></p>
 <p>Putting it all together, we obtain a confidence interval for the mean response.</p>
-<p>[ (x_0) t_{/2, n - p} s_e ]</p>
+<p><span class="math display">\[
+\hat{y}(x_0) \pm t_{\alpha/2, n - p} \cdot s_e \sqrt{x_{0}^\top\left(X^\top X\right)^{-1}x_{0}}
+\]</span></p>
 <p>The math has changed a bit, but the process in <code>R</code> remains almost identical. Here, we create a data frame for two additional cars. One car that weighs 3500 pounds produced in 1976, as well as a second car that weighs 5000 pounds which was produced in 1981.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>new_cars <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wt =</span> <span class="fu">c</span>(<span class="dv">3500</span>, <span class="dv">5000</span>), <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">76</span>, <span class="dv">81</span>))</span>
@@ -1036,22 +1099,23 @@ x_{0(p-1)} \\
 [1,] 20.00684</code></pre>
 </div>
 </div>
-[ x_{0} =
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+x_{0} = \begin{bmatrix}
 1    \\
 3500 \\
 76   \\
-\end{bmatrix}\]</span>
-<p>]</p>
-[ =
-<span class="math display">\[\begin{bmatrix}
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+\hat{\beta} = \begin{bmatrix}
 -14.6376419    \\
 -0.0066349    \\
 0.761402    \\
-\end{bmatrix}\]</span>
-<p>]</p>
-[ (x_0) = x_{0}^ =
-<span class="math display">\[\begin{bmatrix}
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+\hat{y}(x_0)  = x_{0}^\top\hat{\beta} =
+\begin{bmatrix}
 1    &amp;
 3500 &amp;
 76   \\
@@ -1060,8 +1124,8 @@ x_{0(p-1)} \\
 -14.6376419    \\
 -0.0066349    \\
 0.761402    \\
-\end{bmatrix}\]</span>
-<p>= 20.0068411 ]</p>
+\end{bmatrix}= 20.0068411
+\]</span></p>
 <p>Also note that, using a particular value for <span class="math inline">\(x_0\)</span>, we can essentially extract certain <span class="math inline">\(\hat{\beta}_j\)</span> values.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>beta_hat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1084,22 +1148,26 @@ x_{0(p-1)} \\
 <h3 class="anchored" data-anchor-id="prediction-intervals">Prediction Intervals</h3>
 <p>As with SLR, creating prediction intervals involves one slight change to the standard error to account for the fact that we are now considering an observation, instead of a mean.</p>
 <p>Here we use <span class="math inline">\(\hat{y}(x_0)\)</span> to estimate <span class="math inline">\(Y_0\)</span>, a new observation of <span class="math inline">\(Y\)</span> at the predictor vector <span class="math inline">\(x_0\)</span>.</p>
-[
-<span class="math display">\[\begin{aligned}
+<p><span class="math display">\[
+\begin{aligned}
 \hat{y}(x_0) &amp;= x_{0}^\top\hat{\beta} \\
 &amp;= \hat{\beta}_0 + \hat{\beta}_1 x_{01} + \hat{\beta}_2 x_{02} + \cdots + \hat{\beta}_{p-1} x_{0(p-1)}
-\end{aligned}\]</span>
-<p>]</p>
-[
-<span class="math display">\[\begin{aligned}
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
 \text{E}[\hat{y}(x_0)] &amp;= x_{0}^\top\beta \\
 &amp;= \beta_0 + \beta_1 x_{01} + \beta_2 x_{02} + \cdots + \beta_{p-1} x_{0(p-1)}
-\end{aligned}\]</span>
-<p>]</p>
+\end{aligned}
+\]</span></p>
 <p>As we did with SLR, we need to account for the additional variability of an observation about its mean.</p>
-<p>[ [(x_0) + ] = s_e ]</p>
+<p><span class="math display">\[
+\text{SE}[\hat{y}(x_0) + \epsilon] = s_e \sqrt{1 + x_{0}^\top\left(X^\top X\right)^{-1}x_{0}}
+\]</span></p>
 <p>Then we arrive at our updated prediction interval for MLR.</p>
-<p>[ (x_0) t_{/2, n - p} s_e ]</p>
+<p><span class="math display">\[
+\hat{y}(x_0) \pm t_{\alpha/2, n - p} \cdot s_e \sqrt{1 + x_{0}^\top\left(X^\top X\right)^{-1}x_{0}}
+\]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>new_cars</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1119,9 +1187,13 @@ x_{0(p-1)} \\
 <section id="significance-of-regression" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="significance-of-regression"><span class="header-section-number">9.3</span> Significance of Regression</h2>
 <p>The decomposition of variation that we had seen in SLR still holds for MLR.</p>
-<p>[ <em>{i=1}^{n}(y_i - {y})^2 = </em>{i=1}^{n}(y_i - <em>i)^2 + </em>{i=1}^{n}(_i - {y})^2 ]</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n}(y_i - \bar{y})^2 = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 + \sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2
+\]</span></p>
 <p>That is,</p>
-<p>[ = + . ]</p>
+<p><span class="math display">\[
+\text{SST} = \text{SSE} + \text{SSReg}.
+\]</span></p>
 <p>This means that we can still calculate <span class="math inline">\(R^2\)</span> in the same manner as before, which <code>R</code> continues to do automatically.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpg_model)<span class="sc">$</span>r.squared</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1131,15 +1203,25 @@ x_{0(p-1)} \\
 </div>
 <p>The interpretation changes slightly as compared to SLR. In this MLR case, we say that <span class="math inline">\(80.82\%\)</span> of the observed variation in miles per gallon is explained by the linear relationship with the two predictor variables, weight and year.</p>
 <p>In multiple regression, the significance of regression test is</p>
-<p>[ H_0: _1 = <em>2 = = </em>{p - 1} = 0. ]</p>
+<p><span class="math display">\[
+H_0: \beta_1 = \beta_2 = \cdots = \beta_{p - 1} = 0.
+\]</span></p>
 <p>Here, we see that the null hypothesis sets all of the <span class="math inline">\(\beta_j\)</span> equal to 0, <em>except</em> the intercept, <span class="math inline">\(\beta_0\)</span>. We could then say that the null model, or “model under the null hypothesis” is</p>
-<p>[ Y_i &lt;- _0 + _i. ]</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \epsilon_i.
+\]</span></p>
 <p>This is a model where the <em>regression</em> is insignificant. <strong>None</strong> of the predictors have a significant linear relationship with the response. Notationally, we will denote the fitted values of this model as <span class="math inline">\(\hat{y}_{0i}\)</span>, which in this case happens to be:</p>
-<p>[ _{0i} = {y}. ]</p>
+<p><span class="math display">\[
+\hat{y}_{0i} = \bar{y}.
+\]</span></p>
 <p>The alternative hypothesis here is that at least one of the <span class="math inline">\(\beta_j\)</span> from the null hypothesis is not 0.</p>
-<p>[ H_1: _j , j = 1, 2, , (p-1) ]</p>
+<p><span class="math display">\[
+H_1: \text{At least one of } \beta_j \neq 0, j = 1, 2, \cdots, (p-1)
+\]</span></p>
 <p>We could then say that the full model, or “model under the alternative hypothesis” is</p>
-<p>[ Y_i &lt;- <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{(p-1)} x_{i(p-1)} + _i ]</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{(p-1)} x_{i(p-1)} + \epsilon_i
+\]</span></p>
 <p>This is a model where the regression is significant. <strong>At least one</strong> of the predictors has a significant linear relationship with the response. There is some linear relationship between <span class="math inline">\(y\)</span> and the predictors, <span class="math inline">\(x_1, x_2, \ldots, x_{p - 1}\)</span>.</p>
 <p>We will denote the fitted values of this model as <span class="math inline">\(\hat{y}_{1i}\)</span>.</p>
 <p>To develop the <span class="math inline">\(F\)</span> test for the significance of the regression, we will arrange the variance decomposition into an ANOVA table.</p>
@@ -1185,9 +1267,13 @@ x_{0(p-1)} \\
 </tbody>
 </table>
 <p>In summary, the <span class="math inline">\(F\)</span> statistic is</p>
-<p>[ F &lt;- , ]</p>
+<p><span class="math display">\[
+F = \frac{\sum_{i=1}^{n}(\hat{y}_{1i} - \bar{y})^2 / (p - 1)}{\sum_{i=1}^{n}(y_i - \hat{y}_{1i})^2 / (n - p)},
+\]</span></p>
 <p>and the p-value is calculated as</p>
-<p>[ P(F_{p-1, n-p} &gt; F) ]</p>
+<p><span class="math display">\[
+P(F_{p-1, n-p} &gt; F)
+\]</span></p>
 <p>since we reject for large values of <span class="math inline">\(F\)</span>. A large value of the statistic corresponds to a large portion of the variance being explained by the regression. Here <span class="math inline">\(F_{p-1, n-p}\)</span> represents a random variable which follows an <span class="math inline">\(F\)</span> distribution with <span class="math inline">\(p - 1\)</span> and <span class="math inline">\(n - p\)</span> degrees of freedom.</p>
 <p>To perform this test in <code>R</code>, we first explicitly specify the two models in <code>R</code> and save the results in different variables. We then use <code>anova()</code> to compare the two models, giving <code>anova()</code> the null model first and the alternative (full) model second. (Specifying the full model first will result in the same p-value, but some nonsensical intermediate values.)</p>
 <p>In this case,</p>
@@ -1277,13 +1363,19 @@ F-statistic: 815.6 on 2 and 387 DF,  p-value: &lt; 2.2e-16</code></pre>
 <h2 data-number="9.4" class="anchored" data-anchor-id="nested-models"><span class="header-section-number">9.4</span> Nested Models</h2>
 <p>The significance of regression test is actually a special case of testing what we will call <strong>nested models</strong>. More generally we can compare two models, where one model is “nested” inside the other, meaning one model contains a subset of the predictors from only the larger model.</p>
 <p>Consider the following full model,</p>
-<p>[ Y_i &lt;- <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{(p-1)} x_{i(p-1)} + _i ]</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{(p-1)} x_{i(p-1)} + \epsilon_i
+\]</span></p>
 <p>This model has <span class="math inline">\(p - 1\)</span> predictors, for a total of <span class="math inline">\(p\)</span> <span class="math inline">\(\beta\)</span>-parameters. We will denote the fitted values of this model as <span class="math inline">\(\hat{y}_{1i}\)</span>.</p>
 <p>Let the null model be</p>
-<p>[ Y_i &lt;- <em>0 + <em>1 x</em>{i1} + <em>2 x</em>{i2} + + </em>{(q-1)} x_{i(q-1)} + _i ]</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_{(q-1)} x_{i(q-1)} + \epsilon_i
+\]</span></p>
 <p>where <span class="math inline">\(q &lt; p\)</span>. This model has <span class="math inline">\(q - 1\)</span> predictors, for a total of <span class="math inline">\(q\)</span> <span class="math inline">\(\beta\)</span>-parameters. We will denote the fitted values of this model as <span class="math inline">\(\hat{y}_{0i}\)</span>.</p>
 <p>The difference between these two models can be codified by the null hypothesis of a test.</p>
-<p>[ H_0: <em>q = </em>{q+1} = = _{p - 1} = 0. ]</p>
+<p><span class="math display">\[
+H_0: \beta_q = \beta_{q+1} = \cdots = \beta_{p - 1} = 0.
+\]</span></p>
 <p>Specifically, the <span class="math inline">\(\beta\)</span>-parameters from the full model that are not in the null model are zero. The resulting model, which is nested, is the null model.</p>
 <p>We can then perform this test using an <span class="math inline">\(F\)</span>-test, which is the result of the following ANOVA table.</p>
 <table class="caption-top table">
@@ -1327,7 +1419,9 @@ F-statistic: 815.6 on 2 and 387 DF,  p-value: &lt; 2.2e-16</code></pre>
 </tr>
 </tbody>
 </table>
-<p>[ F &lt;- . ]</p>
+<p><span class="math display">\[
+F = \frac{\sum_{i=1}^{n}(\hat{y}_{1i} - \hat{y}_{0i})^2 / (p - q)}{\sum_{i=1}^{n}(y_i - \hat{y}_{1i})^2 / (n - p)}.
+\]</span></p>
 <p>Notice that the row for “Diff” compares the sum of the squared differences of the fitted values. The degrees of freedom is then the difference of the number of <span class="math inline">\(\beta\)</span>-parameters estimated between the two models.</p>
 <p>For example, the <code>autompg</code> dataset has a number of additional variables that we have yet to use.</p>
 <div class="cell" data-layout-align="center">
@@ -1342,7 +1436,9 @@ F-statistic: 815.6 on 2 and 387 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li>Null: <code>mpg ~ wt + year</code></li>
 </ul>
 <p>Note that these are nested models, as the null model contains a subset of the predictors from the full model, and no additional predictors. Both models have an intercept <span class="math inline">\(\beta_0\)</span> as well as a coefficient in front of each of the predictors. We could then write the null hypothesis for comparing these two models as,</p>
-<p>[ H_0: <em>{} = </em>{} = <em>{} = </em>{} = 0 ]</p>
+<p><span class="math display">\[
+H_0: \beta_{\texttt{cyl}} = \beta_{\texttt{disp}} = \beta_{\texttt{hp}} = \beta_{\texttt{acc}} = 0
+\]</span></p>
 <p>The alternative is simply that at least one of the <span class="math inline">\(\beta_{j}\)</span> from the null is not 0.</p>
 <p>To perform this test in <code>R</code> we first define both models, then give them to the <code>anova()</code> commands.</p>
 <div class="cell" data-layout-align="center">
@@ -1399,7 +1495,9 @@ Model 2: mpg ~ cyl + disp + hp + wt + acc + year
 <section id="simulation" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="simulation"><span class="header-section-number">9.5</span> Simulation</h2>
 <p>Since we ignored the derivation of certain results, we will again use simulation to convince ourselves of some of the above results. In particular, we will simulate samples of size <code>n = 100</code> from the model</p>
-<p>[ Y_i &lt;- 5 + -2 x_{i1} + 6 x_{i2} + _i, i = 1, 2, , n ]</p>
+<p><span class="math display">\[
+Y_i = 5 + -2 x_{i1} + 6 x_{i2} + \epsilon_i, \qquad i = 1, 2, \ldots, n
+\]</span></p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2 = 16)\)</span>. Here we have two predictors, so <span class="math inline">\(p = 3\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
@@ -1436,7 +1534,9 @@ Model 2: mpg ~ cyl + disp + hp + wt + acc + year
 </div>
 </div>
 <p>We then calculate</p>
-<p>[ = ( X^X )<sup>{-1}X</sup>y. ]</p>
+<p><span class="math display">\[
+\hat{\beta} = \left(  X^\top X  \right)^{-1}X^\top y.
+\]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">beta_hat =</span> C <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1475,10 +1575,16 @@ x2  5.843424</code></pre>
 </div>
 <p>So far so good. Everything checks out. Now we will finally simulate from this model repeatedly in order to obtain an empirical distribution of <span class="math inline">\(\hat{\beta}_2\)</span>.</p>
 <p>We expect <span class="math inline">\(\hat{\beta}_2\)</span> to follow a normal distribution,</p>
-<p>[ _2 N(<em>2, ^2 C</em>{22} ). ]</p>
+<p><span class="math display">\[
+\hat{\beta}_2 \sim N\left(\beta_2, \sigma^2 C_{22}  \right).
+\]</span></p>
 <p>In this case,</p>
-<p>[ _2 N(= 6, ^2 = 16 = 0.0232549 ). ]</p>
-<p>[ _2 N(= 6, ^2 = 0.0232549 ). ]</p>
+<p><span class="math display">\[
+\hat{\beta}_2 \sim N\left(\mu = 6, \sigma^2 = 16 \times 0.0014534 = 0.0232549  \right).
+\]</span></p>
+<p><span class="math display">\[
+\hat{\beta}_2 \sim N\left(\mu = 6, \sigma^2 = 0.0232549  \right).
+\]</span></p>
 <p>Note that <span class="math inline">\(C_{22}\)</span> corresponds to the element in the <strong>third</strong> row and <strong>third</strong> column since <span class="math inline">\(\beta_2\)</span> is the <strong>third</strong> parameter in the model and because <code>R</code> is indexed starting at <code>1</code>. However, we index the <span class="math inline">\(C\)</span> matrix starting at <code>0</code> to match the diagonal elements to the corresponding <span class="math inline">\(\beta_j\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>C[<span class="dv">3</span>, <span class="dv">3</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1517,7 +1623,9 @@ x2  5.843424</code></pre>
 </div>
 </div>
 <p>We also see that the variance of the simulated values is close to the true variance of <span class="math inline">\(\hat{\beta}_2\)</span>.</p>
-<p>[ [_2] = ^2 C_{22} = 16 = 0.0232549 ]</p>
+<p><span class="math display">\[
+\text{Var}[\hat{\beta}_2] = \sigma^2 \cdot C_{22} = 16 \times 0.0014534 = 0.0232549
+\]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(beta_hat_2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">

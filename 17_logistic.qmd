@@ -72,7 +72,7 @@ $$
 To illustrate the use of a GLM we'll focus on the case of binary responses variable coded using $0$ and $1$. In practice, these $0$ and $1$s will code for two classes such as yes/no, cat/dog, sick/healthy, etc.
 
 $$
-Y <- 
+Y = 
 \begin{cases} 
       1 & \text{yes} \\
       0 & \text{no} 
@@ -125,9 +125,9 @@ Note that for $x \in (-\infty, \infty))$, this function outputs values between 0
 
 Students often ask, where is the error term? The answer is that it's something that is specific to the normal model. First notice that the model with the error term,
 
-$$
-Y <- \beta_0 + \beta_1x_1 + \ldots + \beta_qx_q + \epsilon, \ \ \epsilon \sim N(0, \sigma^2)
-$$
+$$$
+Y = \beta_0 + \beta_1x_1 + \ldots + \beta_qx_q + \epsilon, \ \ \epsilon \sim N(0, \sigma^2)
+$$$
 can instead be written as
 
 $$
@@ -496,9 +496,9 @@ $$
 
 however, the test statistic and its distribution are no longer $t$. We see that the test statistic takes the same form
 
-$$
-z <- \frac{\hat{\beta}_j - \beta_j}{\text{SE}[\hat{\beta}_j]} \overset{\text{approx}}{\sim} N(0, 1)
-$$
+$$$
+z = \frac{\hat{\beta}_j - \beta_j}{\text{SE}[\hat{\beta}_j]} \overset{\text{approx}}{\sim} N(0, 1)
+$$$
 
 but now we are performing a $z$-test, as the test statistic is approximated by a standard normal distribution, *provided we have a large enough sample*. (The $t$-test for ordinary linear regression, assuming the assumptions were correct, had an exact distribution for any sample size.)
 
@@ -532,9 +532,9 @@ This implies that the reduced model is nested inside the full model.
 
 We then define a test statistic, $D$,
 
-$$
-D <- -2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Null}}})} {L(\boldsymbol{\hat{\beta}_{\text{Full}}})} \right) = 2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Full}}})} {L(\boldsymbol{\hat{\beta}_{\text{Null}}})} \right) = 2 \left( \ell(\hat{\beta}_{\text{Full}}) - \ell(\hat{\beta}_{\text{Null}})\right)
-$$
+$$$
+D = -2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Null}}})} {L(\boldsymbol{\hat{\beta}_{\text{Full}}})} \right) = 2 \log \left( \frac{L(\boldsymbol{\hat{\beta}_{\text{Full}}})} {L(\boldsymbol{\hat{\beta}_{\text{Null}}})} \right) = 2 \left( \ell(\hat{\beta}_{\text{Full}}) - \ell(\hat{\beta}_{\text{Null}})\right)
+$$$
 
 where $L$ denotes a likelihood and $\ell$ denotes a log-likelihood. For a large enough sample, this test statistic has an approximate Chi-square distribution
 

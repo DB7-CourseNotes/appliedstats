@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-03">
+<meta name="dcterms.date" content="2026-09-09">
 
 <title>14&nbsp; Transformations – Applied Statistics with R</title>
 <style>
@@ -550,7 +550,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-03</p>
+      <p class="date">2026-09-09</p>
     </div>
   </div>
   
@@ -651,22 +651,34 @@ F-statistic: 492.8 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section id="variance-stabilizing-transformations" class="level3">
 <h3 class="anchored" data-anchor-id="variance-stabilizing-transformations">Variance Stabilizing Transformations</h3>
 <p>Recall the fitted value is our estimate of the mean at a particular value of <span class="math inline">\(x\)</span>. Under our usual assumptions,</p>
-<p>[ N(0,^2) ]</p>
+<p><span class="math display">\[
+  \epsilon \sim N(0,\sigma^2)
+\]</span></p>
 <p>and thus</p>
-<p>[ [Y | X = x] = ^2 ]</p>
+<p><span class="math display">\[
+  \text{Var}[Y | X = x] = \sigma^2
+\]</span></p>
 <p>which is a constant value for any value of <span class="math inline">\(x\)</span>.</p>
 <p>However, here we see that the variance is a function of the mean,</p>
-<p>[ [Y X = x] = h([Y X = x]). ]</p>
+<p><span class="math display">\[
+  \text{Var}[Y \mid X = x] = h(\text{E}[Y \mid X = x]).
+\]</span></p>
 <p>In this case, <span class="math inline">\(h\)</span> is some increasing function.</p>
 <p>In order to correct for this, we would like to find some function of <span class="math inline">\(Y\)</span>, <span class="math inline">\(g(Y)\)</span> such that,</p>
-<p>[ [g(Y) X = x] = c ]</p>
+<p><span class="math display">\[
+  \text{Var}[g(Y) \mid X = x] = c
+\]</span></p>
 <p>where <span class="math inline">\(c\)</span> is a constant that does not depend on the mean, <span class="math inline">\(\text{E}[Y \mid X = x]\)</span>. A transformation that accomplishes this is called a <strong>variance stabilizing transformation.</strong></p>
 <p>A common variance stabilizing transformation (VST) when we see increasing variance in a fitted versus residuals plot is <span class="math inline">\(\log(Y)\)</span>. Also, if the values of a variable range over more than one order of magnitude and the variable is <em>strictly positive</em>, then replacing the variable by its logarithm is likely to be helpful.</p>
 <p>A reminder, that for our purposes, <span class="math inline">\(\log\)</span> and <span class="math inline">\(\ln\)</span> are both the natural log. <code>R</code> uses <code>log</code> to mean the natural log, unless a different base is specified.</p>
 <p>We will now use a model with a log transformed response for the <em>Initech</em> data,</p>
-<p>[ (Y_i) = _0 + _1 x_i + _i. ]</p>
+<p><span class="math display">\[
+  \log(Y_i) = \beta_0 + \beta_1 x_i + \epsilon_i.
+\]</span></p>
 <p>Note, if we re-scale the model from a log scale back to the original scale of the data, we now have</p>
-<p>[ Y_i = (_0 + _1 x_i) (_i) ]</p>
+<p><span class="math display">\[
+  Y_i = \exp(\beta_0 + \beta_1 x_i) \cdot \exp(\epsilon_i)
+\]</span></p>
 <p>which has the errors entering the model in a multiplicative fashion.</p>
 <p>Fitting this model in <code>R</code> requires only a minor modification to our formula specification.</p>
 <div class="cell" data-layout-align="center">
@@ -765,26 +777,35 @@ F-statistic: 805.2 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>Again, the transformed response is a <em>linear</em> combination of the predictors,</p>
-<p>[ ((x)) = _0 + _1 x = 10.484 + 0.079x. ]</p>
+<p><span class="math display">\[
+  \log(\hat{y}(x)) = \hat{\beta}_0 + \hat{\beta}_1 x  = 10.484 + 0.079x.
+\]</span></p>
 <p>But now, if we re-scale the data from a log scale back to the original scale of the data, we now have</p>
-<p>[ (x) = (_0) (_1 x) = (10.484)(0.079x). ]</p>
+<p><span class="math display">\[
+  \hat{y}(x) = \exp(\hat{\beta}_0) \exp(\hat{\beta}_1 x) = \exp(10.484)\exp(0.079x).
+\]</span></p>
 <p>We see that for every one additional year of experience, average salary increases <span class="math inline">\(\exp(0.079) = 1.0822\)</span> times. We are now multiplying, not adding.</p>
 <p>While using a <span class="math inline">\(\log\)</span> transform is possibly the most common response variable transformation, many others exist. We will now consider a family of transformations and choose the best from among them, which includes the <span class="math inline">\(\log\)</span> transform.</p>
 </section>
 <section id="box-cox-transformations" class="level3">
 <h3 class="anchored" data-anchor-id="box-cox-transformations">Box-Cox Transformations</h3>
 <p>The Box-Cox method considers a family of transformations on strictly positive response variables,</p>
-[ g_(y) = {
-<span class="math display">\[\begin{array}{lr}\displaystyle\frac{y^\lambda - 1}{\lambda} &amp;  \lambda \neq 0\\
+<p><span class="math display">\[
+g_\lambda(y) = \left\{
+\begin{array}{lr}\displaystyle\frac{y^\lambda - 1}{\lambda} &amp;  \lambda \neq 0\\
         &amp; \\
        \log(y) &amp;  \lambda = 0
-     \end{array}\]</span>
-<p>. ]</p>
+     \end{array}
+   \right.
+\]</span></p>
 <p>The <span class="math inline">\(\lambda\)</span> parameter is chosen by numerically maximizing the log-likelihood,</p>
-<p>[ L() = -(RSS_/ n) + ()(y_i). ]</p>
+<p><span class="math display">\[
+  L(\lambda) = -\frac{n}{2}\log(RSS_\lambda / n) + (\lambda -1)\sum \log(y_i).
+\]</span></p>
 <p>A <span class="math inline">\(100(1 - \alpha)\%\)</span> confidence interval for <span class="math inline">\(\lambda\)</span> is,</p>
-<p>[ { : L() &gt; L() - _{1,}^2 }<br>
-]</p>
+<p><span class="math display">\[
+    \left\{ \lambda :  L(\lambda) &gt; L(\hat{\lambda}) - \frac{1}{2}\chi_{1,\alpha}^2  \right\}   
+\]</span></p>
 <p>which <code>R</code> will plot for us to help quickly select an appropriate <span class="math inline">\(\lambda\)</span> value. We often choose a “nice” value from within the confidence interval, instead of the value of <span class="math inline">\(\lambda\)</span> that truly maximizes the likelihood.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
@@ -818,7 +839,9 @@ F-statistic: 805.2 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>Note that we can specify a range of <span class="math inline">\(\lambda\)</span> values to consider and thus be plotted. We often specify a range that is more visually interesting. Here we see that <span class="math inline">\(\lambda = 1\)</span> is both in the confidence interval, and is extremely close to the maximum. This suggests a transformation of the form</p>
-<p>[ = = y - 1. ]</p>
+<p><span class="math display">\[
+\frac{y^\lambda - 1}{\lambda} = \frac{y^1 - 1}{1} = y - 1.
+\]</span></p>
 <p>This is essentially not a transformation. It would not change the variance or make the model fit better. By subtracting 1 from every value, we would only change the intercept of the model, and the resulting errors would be the same.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(savings_model), <span class="fu">resid</span>(savings_model), <span class="at">col =</span> <span class="st">"dodgerblue"</span>,</span>
@@ -880,7 +903,9 @@ W = 0.98698, p-value = 0.8524</code></pre>
 </div>
 </div>
 <p>Using the Box-Cox method, we see that <span class="math inline">\(\lambda = 0.3\)</span> is both in the confidence interval, and is extremely close to the maximum, which suggests a transformation of the form</p>
-<p>[ = . ]</p>
+<p><span class="math display">\[
+\frac{y^\lambda - 1}{\lambda} = \frac{y^{0.3} - 1}{0.3}.
+\]</span></p>
 <p>We then fit a model with this transformation applied to the response.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>gala_model_cox <span class="ot">&lt;-</span> <span class="fu">lm</span>((((Species <span class="sc">^</span> <span class="fl">0.3</span>) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="fl">0.3</span>) <span class="sc">~</span> Area <span class="sc">+</span> Elevation <span class="sc">+</span> Nearest <span class="sc">+</span> Scruz <span class="sc">+</span> Adjacent, <span class="at">data =</span> gala)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -910,7 +935,9 @@ W = 0.98698, p-value = 0.8524</code></pre>
 </div>
 </div>
 <p>Using the Box-Cox method, we see that <span class="math inline">\(\lambda = 0\)</span> is both in the interval, and extremely close to the maximum, which suggests a transformation of the form</p>
-<p>[ (y). ]</p>
+<p><span class="math display">\[
+  \log(y).
+\]</span></p>
 <p>So the Box-Cox method justifies our previous choice of a <span class="math inline">\(\log\)</span> transform!</p>
 </section>
 </section>
@@ -1005,27 +1032,33 @@ W = 0.98698, p-value = 0.8524</code></pre>
 </div>
 </div>
 <p>We would like to fit the model,</p>
-<p>[ Y_i = _0 + _1 x_i + _2 x_i^2 + _i ]</p>
+<p><span class="math display">\[
+  Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
+\]</span></p>
 <p>where <span class="math inline">\(\epsilon_i \sim N(0,\sigma^2)\)</span> for <span class="math inline">\(i = 1, 2, \cdots 21.\)</span></p>
 <p>The response <span class="math inline">\(y\)</span> is now a <strong>linear</strong> function of “two” variables which now allows <span class="math inline">\(y\)</span> to be a non-linear function of the original single predictor <span class="math inline">\(x\)</span>. We consider this a transformation, although we have actually in some sense added another predictor.</p>
 <p>Thus, our <span class="math inline">\(X\)</span> matrix is,</p>
-[
-<span class="math display">\[\begin{bmatrix}
-  1      &amp; x_1 &amp; x_1^2    \\[3pt]
-  1      &amp; x_2  &amp; x_2^2   \\[3pt]
-  1      &amp; x_3  &amp; x_3^2   \\[3pt]
-  \vdots &amp; \vdots &amp; \vdots \\[3pt]
+<p><span class="math display">\[
+  \begin{bmatrix}
+  1      &amp; x_1 &amp; x_1^2    \\]</span>3pt] 1 &amp; x_2 &amp; x_2^2 $$3pt] 1 &amp; x_3 &amp; x_3^2 $$3pt] &amp; &amp; $<span class="math inline">\(3pt]
   1      &amp; x_{n}  &amp; x_{n}^2   \\
-  \end{bmatrix}\]</span>
-<p>]</p>
+  \end{bmatrix}\)</span>$</p>
 <p>We can then proceed to fit the model as we have in the past for multiple linear regression.</p>
-<p>[ = ( X^X )<sup>{-1}X</sup>y. ]</p>
+<p><span class="math display">\[
+\hat{\beta} = \left(  X^\top X  \right)^{-1}X^\top y.
+\]</span></p>
 <p>Our estimates will have the usual properties. The mean is still</p>
-<p>[ E[] = , ]</p>
+<p><span class="math display">\[
+E[\hat{\beta}] = \beta,
+\]</span></p>
 <p>and variance</p>
-<p>[ [] = ^2 ( X^X )^{-1}. ]</p>
+<p><span class="math display">\[
+\text{Var}[\hat{\beta}] = \sigma^2 \left(  X^\top X  \right)^{-1}.
+\]</span></p>
 <p>We also maintain the same distributional results</p>
-<p>[ _j N(<em>j, ^2 C</em>{jj} ). ]</p>
+<p><span class="math display">\[
+\hat{\beta}_j \sim N\left(\beta_j, \sigma^2 C_{jj}  \right).
+\]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>mark_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(sales <span class="sc">~</span> advert, <span class="at">data =</span> marketing)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mark_mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1097,16 +1130,14 @@ F-statistic:   209 on 2 and 18 DF,  p-value: 3.486e-13</code></pre>
 </div>
 <p>Here we verify the parameter estimates were found as we would expect.</p>
 <p>We could also add higher order terms, such as a third degree predictor. This is easy to do. Our <span class="math inline">\(X\)</span> matrix simply becomes larger again.</p>
-<p>[ Y_i = _0 + _1 x_i + _2 x_i^2 + _3 x_i^3 + _i ]</p>
-[
-<span class="math display">\[\begin{bmatrix}
-  1      &amp; x_1 &amp; x_1^2  &amp; x_1^3    \\[3pt]
-  1      &amp; x_2  &amp; x_2^2  &amp; x_2^3   \\[3pt]
-  1      &amp; x_3  &amp; x_3^2  &amp; x_3^3   \\[3pt]
-  \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\[3pt]
+<p><span class="math display">\[
+  Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \epsilon_i
+\]</span></p>
+<p><span class="math display">\[
+  \begin{bmatrix}
+  1      &amp; x_1 &amp; x_1^2  &amp; x_1^3    \\]</span>3pt] 1 &amp; x_2 &amp; x_2^2 &amp; x_2^3 $$3pt] 1 &amp; x_3 &amp; x_3^2 &amp; x_3^3 $$3pt] &amp; &amp; &amp; $<span class="math inline">\(3pt]
   1      &amp; x_{n}  &amp; x_{n}^2  &amp; x_{n}^3    \\
-  \end{bmatrix}\]</span>
-<p>]</p>
+  \end{bmatrix}\)</span>$</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>mark_mod_poly3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sales <span class="sc">~</span> advert <span class="sc">+</span> <span class="fu">I</span>(advert <span class="sc">^</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(advert <span class="sc">^</span> <span class="dv">3</span>), <span class="at">data =</span> marketing)</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mark_mod_poly3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1169,7 +1200,9 @@ F-statistic: 310.2 on 3 and 17 DF,  p-value: 4.892e-15</code></pre>
 </div>
 </div>
 <p>Note we could fit a polynomial of an arbitrary order,</p>
-<p>[ Y_i = _0 + _1 x_i + <em>2 x_i^2 + + </em>{p-1}x_i^{p-1} + _i ]</p>
+<p><span class="math display">\[
+  Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \cdots + \beta_{p-1}x_i^{p-1} + \epsilon_i
+\]</span></p>
 <p>However, we should be careful about over-fitting, since with a polynomial of degree one less than the number of observations, it is sometimes possible to fit a model perfectly.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
@@ -1428,7 +1461,9 @@ F-statistic:   186 on 6 and 21 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>Again the sixth order term is significant with the other terms in the model and here we see less pattern in the residuals plot. Let’s now test which of the previous two models we prefer. We will test</p>
-<p>[ H_0: _5 = _6 = 0. ]</p>
+<p><span class="math display">\[
+H_0: \beta_5 = \beta_6 = 0.
+\]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit4, fit6)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1716,9 +1751,9 @@ F-statistic: 492.8 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
-<p><span class="math display">\[
-Y_i &lt;- \exp(\beta_0 + \beta_1 x_i) \cdot \exp(\epsilon_i)
-\]</span></p>
+<p><span class="math display">\[$
+Y_i = \exp(\beta_0 + \beta_1 x_i) \cdot \exp(\epsilon_i)
+\]</span>$</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(salary <span class="sc">~</span> years, <span class="at">data =</span> initech, <span class="at">col =</span> <span class="st">"grey"</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="fl">1.5</span>,</span>
 <span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Salaries at Initech, By Seniority"</span>)</span>
@@ -1838,9 +1873,9 @@ F-statistic:  2167 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
-<p><span class="math display">\[
-Y_i &lt;- \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
-\]</span></p>
+<p><span class="math display">\[$
+Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
+\]</span>$</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>quad_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> quad_data)</span>
 <span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quad_fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1941,15 +1976,15 @@ F-statistic:  6608 on 2 and 197 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb127-4"><a href="#cb127-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(x, y)</span>
 <span id="cb127-5"><a href="#cb127-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><span class="math display">\[
-Y_i &lt;- \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
-\]</span></p>
-<p><span class="math display">\[
-Y_i &lt;- \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \epsilon_i
-\]</span></p>
-<p><span class="math display">\[
-Y_i &lt;- \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \beta_5 x_i^5 + \beta_6 x_i^6 + \epsilon_i
-\]</span></p>
+<p><span class="math display">\[$
+Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
+\]</span>$</p>
+<p><span class="math display">\[$
+Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \epsilon_i
+\]</span>$</p>
+<p><span class="math display">\[$
+Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \beta_5 x_i^5 + \beta_6 x_i^6 + \epsilon_i
+\]</span>$</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>data_higher <span class="ot">&lt;-</span> <span class="fu">sim_higher</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2051,9 +2086,9 @@ Model 2: y ~ poly(x, 6)
 </section>
 <section id="poly-function-and-orthogonal-polynomials" class="level3">
 <h3 class="anchored" data-anchor-id="poly-function-and-orthogonal-polynomials"><code>poly()</code> Function and Orthogonal Polynomials</h3>
-<p><span class="math display">\[
-Y_i &lt;- \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \epsilon_i
-\]</span></p>
+<p><span class="math display">\[$
+Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \epsilon_i
+\]</span>$</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>fit_4a <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="at">degree =</span> <span class="dv">4</span>), <span class="at">data =</span> data_higher)</span>
 <span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>fit_4b <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="at">degree =</span> <span class="dv">4</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> data_higher)</span>
