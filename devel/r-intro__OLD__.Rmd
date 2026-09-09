@@ -1106,9 +1106,9 @@ The sample mean $\bar{x}$ and the sample standard deviation $s$ can be easily co
 
 ```{r}
 x_bar <- mean(capt_crisp$weight)
-s     = sd(capt_crisp$weight)
-mu_0  = 16
-n     = 9
+s <- sd(capt_crisp$weight)
+mu_0 <- 16
+n <- 9
 ```
 
 We can then easily compute the test statistic.
@@ -1226,9 +1226,9 @@ First, note that we can calculate the sample means and standard deviations.
 
 ```{r}
 x_bar <- mean(x)
-s_x   = sd(x)
+s_x <- sd(x)
 y_bar <- mean(y)
-s_y   = sd(y)
+s_y <- sd(y)
 ```
 
 We can then calculate the pooled standard deviation.
@@ -1464,10 +1464,10 @@ The following verifies this result for a Poisson distribution with $\mu = 10$ an
 
 ```{r}
 set.seed(1337)
-mu          = 10
+mu <- 10
 sample_size <- 50
-samples     = 100000
-x_bars      = rep(0, samples)
+samples <- 100000
+x_bars <- rep(0, samples)
 ```
 
 ```{r}

@@ -896,12 +896,12 @@ Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> <span class="dv">7</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>beta_2 <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>sigma  <span class="ot">=</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We will use a sample size of 10, and 2500 simulations for both situations.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>num_sim     <span class="ot">=</span> <span class="dv">2500</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>num_sim <span class="ot">&lt;-</span> <span class="dv">2500</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We’ll first consider the situation with a collinearity issue, so we manually create the two predictor variables.</p>
 <div class="cell">
@@ -921,8 +921,8 @@ Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon
 <p>Notice that they have extremely high correlation.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>true_line_bad <span class="ot">&lt;-</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> x1 <span class="sc">+</span> beta_2 <span class="sc">*</span> x2</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>beta_hat_bad  <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, num_sim, <span class="dv">2</span>)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>mse_bad       <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, num_sim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>beta_hat_bad <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, num_sim, <span class="dv">2</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>mse_bad <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, num_sim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We perform the simulation 2500 times, each time fitting a regression model, and storing the estimated coefficients and the MSE.</p>
 <div class="cell">
@@ -951,8 +951,8 @@ Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>true_line_good <span class="ot">&lt;-</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> z1 <span class="sc">+</span> beta_2 <span class="sc">*</span> z2</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>beta_hat_good  <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, num_sim, <span class="dv">2</span>)</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>mse_good       <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, num_sim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>beta_hat_good <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, num_sim, <span class="dv">2</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>mse_good <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, num_sim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We then perform simulations and store the same results.</p>
 <div class="cell">
