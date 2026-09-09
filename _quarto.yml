@@ -29,29 +29,29 @@ book:
     - index.qmd
     - part: Background
       chapters:
-        - r-intro.qmd
-        - data-and-programming.qmd
-        - data-summary.qmd
-        - prob-and-stat.qmd
-        - r-resources.qmd
+        - 01_r-intro.qmd
+        - 02_data-and-programming.qmd
+        - 03_data-summary.qmd
+        - 04_prob-and-stat.qmd
+        - 05_r-resources.qmd
     - part: OLS Basics
       chapters:
-        - slr.qmd
-        - slr-inf.qmd
-        - mlr.qmd
+        - 06_slr.qmd
+        - 07_slr-inf.qmd
+        - 08_mlr.qmd
     - part: Choosing Models
       chapters:
-        - model-building.qmd
-        - cat-int.qmd
-        - anova.qmd
-        - diagnostics.qmd
-        - transformations.qmd
-        - collinearity.qmd
-        - selection.qmd
+        - 09_model-building.qmd
+        - 10_cat-int.qmd
+        - 11_anova.qmd
+        - 12_diagnostics.qmd
+        - 13_transformations.qmd
+        - 14_collinearity.qmd
+        - 15_selection.qmd
     - part: Advanced Topics
       chapters:
-        - logistic.qmd
-        - beyond.qmd
+        - 17_logistic.qmd
+        - 18_beyond.qmd
 
 format:
   html:
