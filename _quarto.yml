@@ -6,10 +6,14 @@ engine: knitr
 filters:
   - webr
 
+webr:
+  cell-options:
+    autorun: true
+
 date: "last-modified"
 date-format: iso
 number-depth: 2
-author: "[David Dalpiaz](https://daviddalpiaz.org/), modified by Devan Becker"
+author: "David Dalpiaz, modified by Devan Becker"
 execute:
     warning: false
 

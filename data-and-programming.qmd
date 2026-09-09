@@ -1,3 +1,9 @@
+---
+webr:
+  cell-options:
+    autorun: true
+---
+
 
 # Data and Programming
 
