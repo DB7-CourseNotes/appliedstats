@@ -9,7 +9,7 @@
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
 <meta name="dcterms.date" content="2026-09-03">
 
-<title>2&nbsp; Introduction to R – Applied Statistics with R</title>
+<title>4&nbsp; Summarizing Data – Applied Statistics with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,8 +67,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./data-and-programming.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./04_prob-and-stat.html" rel="next">
+<link href="./02_data-and-programming.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -112,35 +112,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -315,7 +286,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-intro.html">Background</a></li><li class="breadcrumb-item"><a href="./r-intro.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_r-intro.html">Background</a></li><li class="breadcrumb-item"><a href="./03_data-summary.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -360,31 +331,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-intro.html" class="sidebar-item-text sidebar-link active">
+  <a href="./01_r-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-and-programming.html" class="sidebar-item-text sidebar-link">
+  <a href="./02_data-and-programming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data and Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-summary.html" class="sidebar-item-text sidebar-link">
+  <a href="./03_data-summary.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prob-and-stat.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_prob-and-stat.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-resources.html" class="sidebar-item-text sidebar-link">
+  <a href="./05_r-resources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></span></a>
   </div>
 </li>
@@ -401,19 +372,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slr.html" class="sidebar-item-text sidebar-link">
+  <a href="./06_slr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slr-inf.html" class="sidebar-item-text sidebar-link">
+  <a href="./07_slr-inf.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Inference for Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mlr.html" class="sidebar-item-text sidebar-link">
+  <a href="./08_mlr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
@@ -430,43 +401,43 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./model-building.html" class="sidebar-item-text sidebar-link">
+  <a href="./09_model-building.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Model Building</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cat-int.html" class="sidebar-item-text sidebar-link">
+  <a href="./10_cat-int.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+  <a href="./11_anova.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diagnostics.html" class="sidebar-item-text sidebar-link">
+  <a href="./12_diagnostics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./transformations.html" class="sidebar-item-text sidebar-link">
+  <a href="./13_transformations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+  <a href="./14_collinearity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Collinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./selection.html" class="sidebar-item-text sidebar-link">
+  <a href="./15_selection.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variable Selection and Model Building</span></span></a>
   </div>
 </li>
@@ -483,13 +454,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logistic.html" class="sidebar-item-text sidebar-link">
+  <a href="./17_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./beyond.html" class="sidebar-item-text sidebar-link">
+  <a href="./18_beyond.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></span></a>
   </div>
 </li>
@@ -505,10 +476,19 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started"><span class="header-section-number">2.1</span> Getting Started</a></li>
-  <li><a href="#basic-calculations" id="toc-basic-calculations" class="nav-link" data-scroll-target="#basic-calculations"><span class="header-section-number">2.2</span> Basic Calculations</a></li>
-  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help"><span class="header-section-number">2.3</span> Getting Help</a></li>
-  <li><a href="#installing-packages" id="toc-installing-packages" class="nav-link" data-scroll-target="#installing-packages"><span class="header-section-number">2.4</span> Installing Packages</a></li>
+  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link active" data-scroll-target="#summary-statistics"><span class="header-section-number">4.1</span> Summary Statistics</a>
+  <ul class="collapse">
+  <li><a href="#central-tendency" id="toc-central-tendency" class="nav-link" data-scroll-target="#central-tendency">Central Tendency</a></li>
+  <li><a href="#spread" id="toc-spread" class="nav-link" data-scroll-target="#spread">Spread</a></li>
+  <li><a href="#categorical" id="toc-categorical" class="nav-link" data-scroll-target="#categorical">Categorical</a></li>
+  </ul></li>
+  <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting"><span class="header-section-number">4.2</span> Plotting</a>
+  <ul class="collapse">
+  <li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms">Histograms</a></li>
+  <li><a href="#barplots" id="toc-barplots" class="nav-link" data-scroll-target="#barplots">Barplots</a></li>
+  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">Boxplots</a></li>
+  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots">Scatterplots</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -516,9 +496,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-intro.html">Background</a></li><li class="breadcrumb-item"><a href="./r-intro.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_r-intro.html">Background</a></li><li class="breadcrumb-item"><a href="./03_data-summary.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></h1>
 </div>
 
 
@@ -528,7 +508,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p><a href="https://daviddalpiaz.org/">David Dalpiaz</a>, modified by Devan Becker </p>
+             <p>David Dalpiaz, modified by Devan Becker </p>
           </div>
   </div>
     
@@ -547,224 +527,252 @@ window.Quarto = {
 </header>
 
 
-<section id="getting-started" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">2.1</span> Getting Started</h2>
-<p><code>R</code> is both a programming language and software environment for statistical computing, which is <em>free</em> and <em>open-source</em>. To get started, you will need to install two pieces of software:</p>
-<ul>
-<li><a href="http://cran.r-project.org/" target="_blank"><code>R</code>, the actual programming language.</a>
-<ul>
-<li>Chose your operating system, and select the most recent version, 4.3.3.</li>
-</ul></li>
-<li><a href="http://www.rstudio.com/" target="_blank">RStudio, an excellent IDE for working with <code>R</code>.</a>
-<ul>
-<li>Note, you must have <code>R</code> installed to use RStudio. RStudio is simply an interface used to interact with <code>R</code>.</li>
-</ul></li>
-</ul>
-<p>The popularity of <code>R</code> is on the rise, and every day it becomes a better tool for statistical analysis. It even generated this book! (A skill you will learn in this course.) There are many good resources for learning <code>R</code>.</p>
-<p>The following few chapters will serve as a whirlwind introduction to <code>R</code>. They are by no means meant to be a complete reference for the <code>R</code> language, but simply an introduction to the basics that we will need along the way. Several of the more important topics will be re-stressed as they are actually needed for analyses.</p>
-<p>These introductory <code>R</code> chapters may feel like an overwhelming amount of information. You are not expected to pick up everything the first time through. You should try all of the code from these chapters, then return to them a number of times as you return to the concepts when performing analyses.</p>
-<p><code>R</code> is used both for software development and data analysis. We will operate in a grey area, somewhere between these two tasks. Our main goal will be to analyze data, but we will also perform programming exercises that help illustrate certain concepts.</p>
-<p>RStudio has a large number of useful keyboard shortcuts. A list of these can be found using a keyboard shortcut – the keyboard shortcut to rule them all:</p>
-<ul>
-<li>On Windows: <code>Alt</code> + <code>Shift</code> + <code>K</code></li>
-<li>On Mac: <code>Option</code> + <code>Shift</code> + <code>K</code></li>
-</ul>
-<p>The RStudio team has developed <a href="https://www.rstudio.com/resources/cheatsheets/" target="_blank">a number of “cheatsheets”</a> for working with both <code>R</code> and RStudio. <a href="https://github.com/rstudio/cheatsheets/blob/main/base-r.pdf" target="_blank">This particular cheatsheet for “Base” <code>R</code></a> will summarize many of the concepts in this document. (“Base” <code>R</code> is a name used to differentiate the practice of using built-in <code>R</code> functions, as opposed to using functions from outside packages, in particular, those from the <a href="https://www.tidyverse.org/" target="_blank"><code>tidyverse</code></a>. More on this later.)</p>
-<p>When programming, it is often a good practice to follow a style guide. (Where do spaces go? Tabs or spaces? Underscores or CamelCase when naming variables?) No style guide is “correct,” but it helps to be aware of what others do. The more important thing is to be consistent within your own code.</p>
-<ul>
-<li><a href="http://adv-r.had.co.nz/Style.html" target="_blank">Hadley Wickham Style Guide</a> from <a href="http://adv-r.had.co.nz/" target="_blank">Advanced <code>R</code></a></li>
-<li><a href="https://google.github.io/styleguide/Rguide.xml" target="_blank">Google Style Guide</a></li>
-</ul>
-<p>For this course, our main deviation from these two guides is the use of <code>=</code> in place of <code>&lt;-</code>. (More on that later.)</p>
-</section>
-<section id="basic-calculations" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="basic-calculations"><span class="header-section-number">2.2</span> Basic Calculations</h2>
-<p>To get started, we’ll use <code>R</code> like a simple calculator.</p>
-<section id="addition-subtraction-multiplication-and-division" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="addition-subtraction-multiplication-and-division">Addition, Subtraction, Multiplication, and Division</h4>
+<section id="summary-statistics" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="summary-statistics"><span class="header-section-number">4.1</span> Summary Statistics</h2>
+<p><code>R</code> has built-in functions for a large number of summary statistics. For numeric variables, we can summarize data with the center and spread. We’ll again look at the <code>mpg</code> dataset from the <code>ggplot2</code> package.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="central-tendency" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="central-tendency">Central Tendency</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Math</th>
+<th>Measure</th>
 <th><code>R</code></th>
 <th>Result</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\(3 + 2\)</span></td>
-<td><code>3 + 2</code></td>
+<td>Mean</td>
+<td><code>mean(mpg$cty)</code></td>
+<td>16.8589744</td>
+</tr>
+<tr class="even">
+<td>Median</td>
+<td><code>median(mpg$cty)</code></td>
+<td>17</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="spread" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="spread">Spread</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th><code>R</code></th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variance</td>
+<td><code>var(mpg$cty)</code></td>
+<td>18.1130736</td>
+</tr>
+<tr class="even">
+<td>Standard Deviation</td>
+<td><code>sd(mpg$cty)</code></td>
+<td>4.2559457</td>
+</tr>
+<tr class="odd">
+<td>IQR</td>
+<td><code>IQR(mpg$cty)</code></td>
 <td>5</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(3 - 2\)</span></td>
-<td><code>3 - 2</code></td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(3 \cdot2\)</span></td>
-<td><code>3 * 2</code></td>
-<td>6</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(3 / 2\)</span></td>
-<td><code>3 / 2</code></td>
-<td>1.5</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="exponents" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="exponents">Exponents</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Math</th>
-<th><code>R</code></th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(3^2\)</span></td>
-<td><code>3 ^ 2</code></td>
+<td>Minimum</td>
+<td><code>min(mpg$cty)</code></td>
 <td>9</td>
 </tr>
-<tr class="even">
-<td><span class="math inline">\(2^{(-3)}\)</span></td>
-<td><code>2 ^ (-3)</code></td>
-<td>0.125</td>
-</tr>
 <tr class="odd">
-<td><span class="math inline">\(100^{1/2}\)</span></td>
-<td><code>100 ^ (1 / 2)</code></td>
-<td>10</td>
+<td>Maximum</td>
+<td><code>max(mpg$cty)</code></td>
+<td>35</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(\sqrt{100}\)</span></td>
-<td><code>sqrt(100)</code></td>
-<td>10</td>
+<td>Range</td>
+<td><code>range(mpg$cty)</code></td>
+<td>9, 35</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="mathematical-constants" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="mathematical-constants">Mathematical Constants</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Math</th>
-<th><code>R</code></th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(\pi\)</span></td>
-<td><code>pi</code></td>
-<td>3.1415927</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(e\)</span></td>
-<td><code>exp(1)</code></td>
-<td>2.7182818</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="logarithms" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="logarithms">Logarithms</h4>
-<p>Note that we will use <span class="math inline">\(\ln\)</span> and <span class="math inline">\(\log\)</span> interchangeably to mean the natural logarithm. There is no <code>ln()</code> in <code>R</code>, instead it uses <code>log()</code> to mean the natural logarithm.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Math</th>
-<th><code>R</code></th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(\log(e)\)</span></td>
-<td><code>log(exp(1))</code></td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\log_{10}(1000)\)</span></td>
-<td><code>log10(1000)</code></td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\log_{2}(8)\)</span></td>
-<td><code>log2(8)</code></td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\log_{4}(16)\)</span></td>
-<td><code>log(16, base = 4)</code></td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="trigonometry" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="trigonometry">Trigonometry</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Math</th>
-<th><code>R</code></th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(\sin(\pi / 2)\)</span></td>
-<td><code>sin(pi / 2)</code></td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\cos(0)\)</span></td>
-<td><code>cos(0)</code></td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="getting-help" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="getting-help"><span class="header-section-number">2.3</span> Getting Help</h2>
-<p>In using <code>R</code> as a calculator, we have seen a number of functions: <code>sqrt()</code>, <code>exp()</code>, <code>log()</code> and <code>sin()</code>. To get documentation about a function in <code>R</code>, simply put a question mark in front of the function name and RStudio will display the documentation, for example:</p>
+<section id="categorical" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="categorical">Categorical</h3>
+<p>For categorical variables, counts and percentages can be used for summary.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>?log</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>?sin</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>?paste</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>?lm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mpg<span class="sc">$</span>drv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  4   f   r 
+103 106  25 </code></pre>
 </div>
-<p>Frequently one of the most difficult things to do when learning <code>R</code> is asking for help. First, you need to decide to ask for help, then you need to know <em>how</em> to ask for help. Your very first line of defense should be to Google your error message or a short description of your issue. (The ability to solve problems using this method is quickly becoming an extremely valuable skill.) If that fails, and it eventually will, you should ask for help. There are a number of things you should include when emailing an instructor, or posting to a help website such as <a href="http://stats.stackexchange.com/" target="_blank">Stack Exchange</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mpg<span class="sc">$</span>drv) <span class="sc">/</span> <span class="fu">nrow</span>(mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+        4         f         r 
+0.4401709 0.4529915 0.1068376 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="plotting" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="plotting"><span class="header-section-number">4.2</span> Plotting</h2>
+<p>Now that we have some data to work with, and we have learned about the data at the most basic level, our next task is to visualize the data. Often, a proper visualization can illuminate features of the data that can inform further analysis.</p>
+<p>We will look at four methods of visualizing data that we will use throughout the course:</p>
 <ul>
-<li>Describe what you expect the code to do.</li>
-<li>State the end goal you are trying to achieve. (Sometimes what you expect the code to do, is not what you want to actually do.)</li>
-<li>Provide the full text of any errors you have received.</li>
-<li>Provide enough code to recreate the error. Often for the purpose of this course, you could simply email your entire <code>.R</code> or <code>.Rmd</code> file.</li>
-<li>Sometimes it is also helpful to include a screenshot of your entire RStudio window when the error occurs.</li>
+<li>Histograms</li>
+<li>Barplots</li>
+<li>Boxplots</li>
+<li>Scatterplots</li>
 </ul>
-<p>If you follow these steps, you will get your issue resolved much quicker, and possibly learn more in the process. Do not be discouraged by running into errors and difficulties when learning <code>R</code>. (Or any technical skill.) It is simply part of the learning process.</p>
+<section id="histograms" class="level3">
+<h3 class="anchored" data-anchor-id="histograms">Histograms</h3>
+<p>When visualizing a single numerical variable, a <strong>histogram</strong> will be our go-to tool, which can be created in <code>R</code> using the <code>hist()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mpg<span class="sc">$</span>cty)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_data-summary_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram function has a number of parameters which can be changed to make our plot look much nicer. Use the <code>?</code> operator to read the documentation for the <code>hist()</code> to see a full list of these parameters.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mpg<span class="sc">$</span>cty,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab   =</span> <span class="st">"Miles Per Gallon (City)"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main   =</span> <span class="st">"Histogram of MPG (City)"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">12</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col    =</span> <span class="st">"dodgerblue"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">"darkorange"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_data-summary_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Importantly, you should always be sure to label your axes and give the plot a title. The argument <code>breaks</code> is specific to <code>hist()</code>. Entering an integer will give a suggestion to <code>R</code> for how many bars to use for the histogram. By default <code>R</code> will attempt to intelligently guess a good number of <code>breaks</code>, but as we can see here, it is sometimes useful to modify this yourself.</p>
 </section>
-<section id="installing-packages" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="installing-packages"><span class="header-section-number">2.4</span> Installing Packages</h2>
-<p><code>R</code> comes with a number of built-in functions and datasets, but one of the main strengths of <code>R</code> as an open-source project is its package system. Packages add additional functions and data. Frequently if you want to do something in <code>R</code>, and it is not available by default, there is a good chance that there is a package that will fulfill your needs.</p>
-<p>To install a package, use the <code>install.packages()</code> function. Think of this as buying a recipe book from the store, bringing it home, and putting it on your shelf.</p>
+<section id="barplots" class="level3">
+<h3 class="anchored" data-anchor-id="barplots">Barplots</h3>
+<p>Somewhat similar to a histogram, a barplot can provide a visual summary of a categorical variable, or a numeric variable with a finite number of values, like a ranking from 1 to 10.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(mpg<span class="sc">$</span>drv))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_data-summary_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<p>Once a package is installed, it must be loaded into your current <code>R</code> session before being used. Think of this as taking the book off of the shelf and opening it up to read.</p>
+</div>
+</div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(mpg<span class="sc">$</span>drv),</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab   =</span> <span class="st">"Drivetrain (f = FWD, r = RWD, 4 = 4WD)"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab   =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main   =</span> <span class="st">"Drivetrains"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col    =</span> <span class="st">"dodgerblue"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">"darkorange"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_data-summary_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<p>Once you close <code>R</code>, all the packages are closed and put back on the imaginary shelf. The next time you open <code>R</code>, you do not have to install the package again, but you do have to load any packages you intend to use by invoking <code>library()</code>.</p>
+</div>
+</div>
+</section>
+<section id="boxplots" class="level3">
+<h3 class="anchored" data-anchor-id="boxplots">Boxplots</h3>
+<p>To visualize the relationship between a numerical and categorical variable, we will use a <strong>boxplot</strong>. In the <code>mpg</code> dataset, the <code>drv</code> variable takes a small, finite number of values. A car can only be front wheel drive, 4 wheel drive, or rear wheel drive.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(mpg<span class="sc">$</span>drv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "f" "4" "r"</code></pre>
+</div>
+</div>
+<p>First note that we can use a single boxplot as an alternative to a histogram for visualizing a single numerical variable. To do so in <code>R</code>, we use the <code>boxplot()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(mpg<span class="sc">$</span>hwy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_data-summary_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>However, more often we will use boxplots to compare a numerical variable for different values of a categorical variable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(hwy <span class="sc">~</span> drv, <span class="at">data =</span> mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_data-summary_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here we used the <code>boxplot()</code> command to create side-by-side boxplots. However, since we are now dealing with two variables, the syntax has changed. The <code>R</code> syntax <code>hwy ~ drv, data = mpg</code> reads “Plot the <code>hwy</code> variable against the <code>drv</code> variable using the dataset <code>mpg</code>.” We see the use of a <code>~</code> (which specifies a formula) and also a <code>data =</code> argument. This will be a syntax that is common to many functions we will use in this course.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(hwy <span class="sc">~</span> drv, <span class="at">data =</span> mpg,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab   =</span> <span class="st">"Drivetrain (f = FWD, r = RWD, 4 = 4WD)"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab   =</span> <span class="st">"Miles Per Gallon (Highway)"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main   =</span> <span class="st">"MPG (Highway) vs Drivetrain"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch    =</span> <span class="dv">20</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex    =</span> <span class="dv">2</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col    =</span> <span class="st">"darkorange"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">"dodgerblue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_data-summary_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Again, <code>boxplot()</code> has a number of additional arguments which have the ability to make our plot more visually appealing.</p>
+</section>
+<section id="scatterplots" class="level3">
+<h3 class="anchored" data-anchor-id="scatterplots">Scatterplots</h3>
+<p>Lastly, to visualize the relationship between two numeric variables we will use a <strong>scatterplot</strong>. This can be done with the <code>plot()</code> function and the <code>~</code> syntax we just used with a boxplot. (The function <code>plot()</code> can also be used more generally; see the documentation for details.)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hwy <span class="sc">~</span> displ, <span class="at">data =</span> mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_data-summary_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hwy <span class="sc">~</span> displ, <span class="at">data =</span> mpg,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Engine Displacement (in Liters)"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Miles Per Gallon (Highway)"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"MPG (Highway) vs Engine Displacement"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch  =</span> <span class="dv">20</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex  =</span> <span class="dv">2</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col  =</span> <span class="st">"dodgerblue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_data-summary_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1183,13 +1191,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Applied Statistics with R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Applied Statistics with R</span></span>
+      <a href="./02_data-and-programming.html" class="pagination-link" aria-label="Data and Programming">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data and Programming</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./data-and-programming.html" class="pagination-link" aria-label="Data and Programming">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data and Programming</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./04_prob-and-stat.html" class="pagination-link" aria-label="Probability and Statistics in `R`">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

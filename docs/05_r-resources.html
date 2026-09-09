@@ -9,7 +9,7 @@
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
 <meta name="dcterms.date" content="2026-09-03">
 
-<title>18&nbsp; Beyond – Applied Statistics with R</title>
+<title>6&nbsp; R Resources – Applied Statistics with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +32,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./logistic.html" rel="prev">
+<link href="./06_slr.html" rel="next">
+<link href="./04_prob-and-stat.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -250,7 +251,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./logistic.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./beyond.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_r-intro.html">Background</a></li><li class="breadcrumb-item"><a href="./05_r-resources.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -286,40 +287,40 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Background</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-intro.html" class="sidebar-item-text sidebar-link">
+  <a href="./01_r-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-and-programming.html" class="sidebar-item-text sidebar-link">
+  <a href="./02_data-and-programming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data and Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-summary.html" class="sidebar-item-text sidebar-link">
+  <a href="./03_data-summary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prob-and-stat.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_prob-and-stat.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-resources.html" class="sidebar-item-text sidebar-link">
+  <a href="./05_r-resources.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></span></a>
   </div>
 </li>
@@ -336,19 +337,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slr.html" class="sidebar-item-text sidebar-link">
+  <a href="./06_slr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slr-inf.html" class="sidebar-item-text sidebar-link">
+  <a href="./07_slr-inf.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Inference for Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mlr.html" class="sidebar-item-text sidebar-link">
+  <a href="./08_mlr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
@@ -365,43 +366,43 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./model-building.html" class="sidebar-item-text sidebar-link">
+  <a href="./09_model-building.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Model Building</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cat-int.html" class="sidebar-item-text sidebar-link">
+  <a href="./10_cat-int.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+  <a href="./11_anova.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diagnostics.html" class="sidebar-item-text sidebar-link">
+  <a href="./12_diagnostics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./transformations.html" class="sidebar-item-text sidebar-link">
+  <a href="./13_transformations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+  <a href="./14_collinearity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Collinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./selection.html" class="sidebar-item-text sidebar-link">
+  <a href="./15_selection.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variable Selection and Model Building</span></span></a>
   </div>
 </li>
@@ -409,22 +410,22 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Advanced Topics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logistic.html" class="sidebar-item-text sidebar-link">
+  <a href="./17_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./beyond.html" class="sidebar-item-text sidebar-link active">
+  <a href="./18_beyond.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></span></a>
   </div>
 </li>
@@ -440,20 +441,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#whats-next" id="toc-whats-next" class="nav-link active" data-scroll-target="#whats-next"><span class="header-section-number">18.1</span> What’s Next</a></li>
-  <li><a href="#rstudio" id="toc-rstudio" class="nav-link" data-scroll-target="#rstudio"><span class="header-section-number">18.2</span> RStudio</a></li>
-  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data"><span class="header-section-number">18.3</span> Tidy Data</a></li>
-  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization"><span class="header-section-number">18.4</span> Visualization</a></li>
-  <li><a href="#web-applications" id="toc-web-applications" class="nav-link" data-scroll-target="#web-applications"><span class="header-section-number">18.5</span> Web Applications</a></li>
-  <li><a href="#experimental-design" id="toc-experimental-design" class="nav-link" data-scroll-target="#experimental-design"><span class="header-section-number">18.6</span> Experimental Design</a></li>
-  <li><a href="#machine-learning" id="toc-machine-learning" class="nav-link" data-scroll-target="#machine-learning"><span class="header-section-number">18.7</span> Machine Learning</a>
-  <ul class="collapse">
-  <li><a href="#deep-learning" id="toc-deep-learning" class="nav-link" data-scroll-target="#deep-learning">Deep Learning</a></li>
-  </ul></li>
-  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series"><span class="header-section-number">18.8</span> Time Series</a></li>
-  <li><a href="#bayesianism" id="toc-bayesianism" class="nav-link" data-scroll-target="#bayesianism"><span class="header-section-number">18.9</span> Bayesianism</a></li>
-  <li><a href="#high-performance-computing" id="toc-high-performance-computing" class="nav-link" data-scroll-target="#high-performance-computing"><span class="header-section-number">18.10</span> High Performance Computing</a></li>
-  <li><a href="#further-r-resources" id="toc-further-r-resources" class="nav-link" data-scroll-target="#further-r-resources"><span class="header-section-number">18.11</span> Further <code>R</code> Resources</a></li>
+  <li><a href="#beginner-tutorials-and-references" id="toc-beginner-tutorials-and-references" class="nav-link active" data-scroll-target="#beginner-tutorials-and-references"><span class="header-section-number">6.1</span> Beginner Tutorials and References</a></li>
+  <li><a href="#intermediate-references" id="toc-intermediate-references" class="nav-link" data-scroll-target="#intermediate-references"><span class="header-section-number">6.2</span> Intermediate References</a></li>
+  <li><a href="#advanced-references" id="toc-advanced-references" class="nav-link" data-scroll-target="#advanced-references"><span class="header-section-number">6.3</span> Advanced References</a></li>
+  <li><a href="#quick-comparisons-to-other-languages" id="toc-quick-comparisons-to-other-languages" class="nav-link" data-scroll-target="#quick-comparisons-to-other-languages"><span class="header-section-number">6.4</span> Quick Comparisons to Other Languages</a></li>
+  <li><a href="#rstudio-and-rmarkdown-videos" id="toc-rstudio-and-rmarkdown-videos" class="nav-link" data-scroll-target="#rstudio-and-rmarkdown-videos"><span class="header-section-number">6.5</span> RStudio and RMarkdown Videos</a></li>
+  <li><a href="#rmarkdown-template" id="toc-rmarkdown-template" class="nav-link" data-scroll-target="#rmarkdown-template"><span class="header-section-number">6.6</span> RMarkdown Template</a></li>
   </ul>
 </nav>
     </div>
@@ -461,9 +454,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./logistic.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./beyond.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_r-intro.html">Background</a></li><li class="breadcrumb-item"><a href="./05_r-resources.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></h1>
 </div>
 
 
@@ -473,7 +466,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p><a href="https://daviddalpiaz.org/">David Dalpiaz</a>, modified by Devan Becker </p>
+             <p>David Dalpiaz, modified by Devan Becker </p>
           </div>
   </div>
     
@@ -492,78 +485,82 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<blockquote class="blockquote">
-<p>“End? No, the journey doesn’t end here.”</p>
-<p>— <strong>J.R.R. Tolkien</strong></p>
-</blockquote>
-<p>After reading this chapter you will be able to:</p>
+<p>So far, we have seen a lot of <code>R</code>, and a lot of <code>R</code> quickly. Again, the preceding chapters were in no way meant to be a complete reference for the <code>R</code> language, but rather an introduction to many of the concepts we will need in this text. The following resources are not necessary for the remainder of this text, but you may find them useful if you would like a deeper understanding of <code>R</code>:</p>
+<section id="beginner-tutorials-and-references" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="beginner-tutorials-and-references"><span class="header-section-number">6.1</span> Beginner Tutorials and References</h2>
 <ul>
-<li>Understand the roadmap to continued education about models and the <code>R</code> programming language.</li>
-</ul>
-<section id="whats-next" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="whats-next"><span class="header-section-number">18.1</span> What’s Next</h2>
-<p>So you’ve completed STAT 420, where do you go from here? Now that you understand the basics of linear modeling, there is a wide world of applied statistics waiting to be explored. We’ll briefly detail some resources and discuss how they relate to what you have learned in STAT 420.</p>
-</section>
-<section id="rstudio" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="rstudio"><span class="header-section-number">18.2</span> RStudio</h2>
-<p>RStudio has recently released version 1.0! This is exciting for a number of reasons, especially the release of <a href="http://rmarkdown.rstudio.com/r_notebooks.html" target="_blank"><code>R</code> Notebooks</a>. <code>R</code> Notebooks combine the RMarkdown you have already learned with the ability to work interactively.</p>
-</section>
-<section id="tidy-data" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="tidy-data"><span class="header-section-number">18.3</span> Tidy Data</h2>
-<p>In this textbook, much of the data we have seen has been nice and tidy. It was rectangular where each row was an observation and each column was a variable. This is not always the case! Many packages have been developed to deal with data, and force it into a nice format, which is called <a href="http://vita.had.co.nz/papers/tidy-data.pdf" target="_blank">tidy data</a>, that we can then use for modeling. Often during analysis, this is where a large portion of your time will be spent.</p>
-<p>The <code>R</code> community has started to call this collection of packages the <a href="http://tidyverse.org/" target="_blank">Tidyverse</a>. It was once called the Hadleyverse, as <a href="http://hadley.nz/" target="_blank">Hadley Wickham</a> has authored so many of the packages. Hadley is writing a book called <a href="http://r4ds.had.co.nz/" target="_blank"><code>R</code> for Data Science</a> which describes the use of many of these packages. (And also how to use some to make the modeling process better!) This book is a great starting point for diving deeper into the <code>R</code> community. The two main packages are <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html" target="_blank"><code>dplyr</code></a> and <a href="https://blog.rstudio.org/2014/07/22/introducing-tidyr/" target="_blank"><code>tidyr</code></a> both of which are used internally in RStudio.</p>
-</section>
-<section id="visualization" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="visualization"><span class="header-section-number">18.4</span> Visualization</h2>
-<p>In this course, we have mostly used the base plotting methods in <code>R</code>. When working with tidy data, many users prefer to use the <a href="https://ggplot2.tidyverse.org/" target="_blank"><code>ggplot2</code></a> package, also developed by Hadley Wickham. RStudio provides a rather detailed <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf" target="_blank">“cheat sheet”</a> for working with <code>ggplot2</code>. The community maintains a <a href="http://www.r-graph-gallery.com/portfolio/ggplot2-package/" target="_blank">graph gallery</a> of examples.</p>
-<p>Use of the <a href="https://support.rstudio.com/hc/en-us/articles/200551906-Interactive-Plotting-with-Manipulate" target="_blank"><code>manipulate</code> package</a> with RStudio gives the ability to quickly change a static graphic to become interactive.</p>
-</section>
-<section id="web-applications" class="level2" data-number="18.5">
-<h2 data-number="18.5" class="anchored" data-anchor-id="web-applications"><span class="header-section-number">18.5</span> Web Applications</h2>
-<p>RStudio has made it incredibly easy to create data products through the use of <a href="https://shiny.rstudio.com/" target="_blank">Shiny</a>, which allows for the creation of web applications with <code>R</code>. RStudio maintains an ever-growing <a href="http://shiny.rstudio.com/tutorial/" target="_blank">tutorial</a> and <a href="https://shiny.rstudio.com/gallery/" target="_blank">gallery</a> of examples.</p>
-</section>
-<section id="experimental-design" class="level2" data-number="18.6">
-<h2 data-number="18.6" class="anchored" data-anchor-id="experimental-design"><span class="header-section-number">18.6</span> Experimental Design</h2>
-<p>In the ANOVA chapter, we briefly discussed experimental design. This topic could easily be its own class, and is currently an area of revitalized interest with the rise of <a href="https://en.wikipedia.org/wiki/A/B_testing" target="_blank">A/B testing.</a> Two more classic statistical references include <em>Statistics for Experimenters</em> by Box, Hunter, and Hunter as well as <em>Design and Analysis of Experiments</em> by Douglas Montgomery. There are several <code>R</code> packages for design of experiments, listed in the <a href="https://cran.r-project.org/web/views/ExperimentalDesign.html" target="_blank">CRAN Task View</a>.</p>
-</section>
-<section id="machine-learning" class="level2" data-number="18.7">
-<h2 data-number="18.7" class="anchored" data-anchor-id="machine-learning"><span class="header-section-number">18.7</span> Machine Learning</h2>
-<p>Using models for prediction is the key focus of machine learning. There are many methods, each with its own package, however <code>R</code> has a wonderful package called <a href="http://topepo.github.io/caret/index.html" target="_blank"><code>caret</code>, <em>Classification And REgression Training</em>,</a> which provides a unified interface to training these models. It also contains various utilities for data processing and visualization that are useful for predictive modeling.</p>
-<p><em>Applied Predictive Modeling</em> by Max Kuhn, the author of the <code>caret</code> package, is a good general resource for predictive modeling, which obviously utilizes <code>R</code>. <a href="http://www-bcf.usc.edu/~gareth/ISL/" target="_blank"><em>An Introduction to Statistical Learning</em></a> by James, Witten, Hastie, and Tibshirani is a gentle introduction to machine learning from a statistical perspective which uses <code>R</code> and picks up right where this course stops. This is based on the often referenced <a href="https://web.stanford.edu/~hastie/Papers/ESLII.pdf" target="_blank"><em>The Elements of Statistical Learning</em></a> by Hastie, Tibshirani, and Friedman. Both are freely available online.</p>
-<section id="deep-learning" class="level3">
-<h3 class="anchored" data-anchor-id="deep-learning">Deep Learning</h3>
-<p>While it probably isn’t the best tool for the job, <code>R</code> now has the ability to <a href="https://rstudio.github.io/tensorflow/" target="_blank">train deep neural networks via TensorFlow</a>.</p>
-</section>
-</section>
-<section id="time-series" class="level2" data-number="18.8">
-<h2 data-number="18.8" class="anchored" data-anchor-id="time-series"><span class="header-section-number">18.8</span> Time Series</h2>
-<p>In this class we have only considered independent data. What if data is dependent? Time Series is the area of statistics which deals with this issue, and could easily span multiple courses.</p>
-<p>The primary textbook for STAT 429: Time Series Analysis at the University of Illinois that is free is:</p>
+<li><a href="http://tryr.codeschool.com/" target="_blank">Try <code>R</code></a> from Code School.
 <ul>
-<li><a href="http://www.stat.pitt.edu/stoffer/tsa4/" target="_blank"><em>Time Series Analysis and Its Applications: With R Examples</em></a> by Shumway and Stoffer</li>
-</ul>
-<p>Some tutorials:</p>
+<li>An interactive introduction to the basics of <code>R</code>. Useful for getting up to speed on <code>R</code>’s syntax.</li>
+</ul></li>
+<li><a href="http://www.statmethods.net/" target="_blank">Quick-R</a> by Robert Kabacoff.
 <ul>
-<li><a href="https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/" target="_blank">Little Book of R for Time Series</a></li>
-<li><a href="http://www.statmethods.net/advstats/timeseries.html" target="_blank">Quick <code>R</code>: Time Series and Forecasting</a></li>
-<li><a href="http://rpubs.com/ryankelly/ts6" target="_blank">TSA: Start to Finish Examples</a></li>
+<li>A good reference for <code>R</code> basics.</li>
+</ul></li>
+<li><a href="http://www.r-tutor.com/" target="_blank"><code>R</code> Tutorial</a> by Chi Yau.
+<ul>
+<li>A combination reference and tutorial for <code>R</code> basics.</li>
+</ul></li>
+<li><a href="https://bookdown.org/rdpeng/rprogdatascience/" target="_blank"><code>R</code> Programming for Data Science</a> by Roger Peng
+<ul>
+<li>A great text for <code>R</code> programming beginners. Discusses <code>R</code> from the ground up, highlighting programming details we might not discuss.</li>
+</ul></li>
 </ul>
-<p>When performing time series analysis in <code>R</code> you should be aware of the <a href="https://cran.r-project.org/web/views/TimeSeries.html" target="_blank">many packages</a> that are useful for analysis. It should be hard to avoid the <a href="https://github.com/robjhyndman/forecast" target="_blank"><code>forecast</code></a> and <a href="https://cran.r-project.org/web/packages/zoo/zoo.pdf" target="_blank"><code>zoo</code></a> packages. Often the most difficult part will be dealing with time and date data. Make sure you are utilizing one of the many packages that help with this.</p>
 </section>
-<section id="bayesianism" class="level2" data-number="18.9">
-<h2 data-number="18.9" class="anchored" data-anchor-id="bayesianism"><span class="header-section-number">18.9</span> Bayesianism</h2>
-<p>In this class, we have worked within the frequentist view of statistics. There is an entire alternative universe of Bayesian statistics.</p>
-<p><a href="https://sites.google.com/site/doingbayesiandataanalysis/" target="_blank"><em>Doing Bayesian Data Analysis: A Tutorial with R, JAGS, and Stan</em></a> by John Kruschke is a great introduction to the topic. It introduces the world of <a href="https://www.cs.cornell.edu/Courses/cs4110/2016fa/lectures/lecture33.html" target="_blank">probabilistic programming</a>, in particular <a href="http://mc-stan.org/" target="_blank">Stan</a>, which can be used in both <code>R</code> and Python.</p>
+<section id="intermediate-references" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="intermediate-references"><span class="header-section-number">6.2</span> Intermediate References</h2>
+<ul>
+<li><a href="http://r4ds.had.co.nz/" target="_blank"><code>R</code> for Data Science</a> by Hadley Wickham and Garrett Grolemund.
+<ul>
+<li>Similar to Advanced <code>R</code>, but focuses more on data analysis, while still introducing programming concepts. Especially useful for working in the <a href="http://tidyverse.org/" target="_blank">tidyverse</a>.</li>
+</ul></li>
+<li><a href="https://www.nostarch.com/artofr.htm" target="_blank">The Art of <code>R</code> Programming</a> by Norman Matloff.
+<ul>
+<li>Gentle introduction to the programming side of <code>R</code>. (Whereas we will focus more on the data analysis side.) A <a href="https://i-share-uiu.primo.exlibrisgroup.com/discovery/fulldisplay?docid=alma99954930920805899&amp;context=L&amp;vid=01CARLI_UIU:CARLI_UIU&amp;search_scope=MyInstitution&amp;tab=LibraryCatalog&amp;lang=en" target="_blank">free electronic version</a> is available through the Illinois library.</li>
+</ul></li>
+</ul>
 </section>
-<section id="high-performance-computing" class="level2" data-number="18.10">
-<h2 data-number="18.10" class="anchored" data-anchor-id="high-performance-computing"><span class="header-section-number">18.10</span> High Performance Computing</h2>
-<p>Often <code>R</code> will be called a “slow” language, for two reasons. One, because many do not understand <code>R</code>. Two, because sometimes it really is. Luckily, it is easy to extend <code>R</code> via the <a href="http://www.rcpp.org/" target="_blank"><code>Rcpp</code> package</a> to allow for faster code. Many modern <code>R</code> packages utilize <code>Rcpp</code> to achieve better performance.</p>
+<section id="advanced-references" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="advanced-references"><span class="header-section-number">6.3</span> Advanced References</h2>
+<ul>
+<li><a href="http://adv-r.had.co.nz/" target="_blank">Advanced <code>R</code></a> by Hadley Wickham.
+<ul>
+<li>From the author of several extremely popular <code>R</code> packages. Good follow-up to The Art of <code>R</code> Programming. (And more up-to-date material.)</li>
+</ul></li>
+<li><a href="http://www.burns-stat.com/documents/books/the-r-inferno/" target="_blank">The <code>R</code> Inferno</a> by Patrick Burns.
+<ul>
+<li>Likens learning the tricks of <code>R</code> to descending through the levels of hell. Very advanced material, but may be important if <code>R</code> becomes a part of your everyday toolkit.</li>
+</ul></li>
+<li><a href="https://csgillespie.github.io/efficientR/" target="_blank">Efficient <code>R</code> Programming</a> by Colin Gillespie and Robin Lovelace
+<ul>
+<li>Discusses both efficient <code>R</code> programs, as well as programming in <code>R</code> efficiently.</li>
+</ul></li>
+</ul>
 </section>
-<section id="further-r-resources" class="level2" data-number="18.11">
-<h2 data-number="18.11" class="anchored" data-anchor-id="further-r-resources"><span class="header-section-number">18.11</span> Further <code>R</code> Resources</h2>
-<p>Also, don’t forget that previously in this book we have outlined a large number of <a href="http://daviddalpiaz.github.io/appliedstats/introduction-to-r.html#r-resources" target="_blank"><code>R</code> resources</a>. Now that you’ve gotten started with <code>R</code> many of these will be much more useful.</p>
-<p>If any of these topics interest you, and you would like more information, please don’t hesitate to start a discussion on the forums!</p>
-<p>:)</p>
+<section id="quick-comparisons-to-other-languages" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="quick-comparisons-to-other-languages"><span class="header-section-number">6.4</span> Quick Comparisons to Other Languages</h2>
+<p>Those who are familiar with other languages may find the following “cheatsheets” helpful for transitioning to <code>R</code>.</p>
+<ul>
+<li><a href="http://hyperpolyglot.org/numerical-analysis2#polynomials" target="_blank">MATLAB, NumPy, Julia</a></li>
+<li><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/comparison/comparison_with_r.html">Python pandas comparison with R/R Libraries</a></li>
+<li><a href="http://dss.princeton.edu/training/RStata.pdf" target="_blank">Stata</a></li>
+<li><a href="">SAS</a> - Look for a resource still! Suggestions welcome.</li>
+</ul>
+</section>
+<section id="rstudio-and-rmarkdown-videos" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="rstudio-and-rmarkdown-videos"><span class="header-section-number">6.5</span> RStudio and RMarkdown Videos</h2>
+<p>The following video playlists were made as an introduction to <code>R</code>, RStudio, and RMarkdown for STAT 420 at UIUC. If you are currently using this text for a Coursera course, you can also find updated videos there.</p>
+<ul>
+<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpMjYhX7jLm5B9gEV7AOOJ5w" target="_blank"><code>R</code> and RStudio</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpPojVSoriMTWQCUno_3hjNi" target="_blank">Data in <code>R</code></a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpNgd07DwmS-2odHtMO6MWGH" target="_blank">RMarkdown</a></li>
+</ul>
+<p>Note that RStudio and RMarkdown are constantly receiving excellent support and updates, so these videos may already contain some outdated information.</p>
+<p><a href="http://rmarkdown.rstudio.com/" target="_blank">RStudio</a> provides their own <a href="http://rmarkdown.rstudio.com/lesson-1.html" target="_blank">tutorial for RMarkdown</a>. They also have an excellent <a href="https://www.rstudio.com/resources/cheatsheets/#rstudio-idecheatsheet" target="_blank">RStudio “cheatsheet”</a> which visually identifies many of the features available in the IDE. You may also explore some additional <a href="https://www.rstudio.com/resources/cheatsheets/" target="_blank">“cheatsheets”</a> on their website.</p>
+</section>
+<section id="rmarkdown-template" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="rmarkdown-template"><span class="header-section-number">6.6</span> RMarkdown Template</h2>
+<p><a href="tutorial/rmd-template.zip">This <code>.zip</code> file</a> contains the files necessary to produce <a href="tutorial/rmd-template.html">this rendered document</a>. This document is a more complete version of a template than what is seen in the above videos.</p>
 
 
 </section>
@@ -984,11 +981,14 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./logistic.html" class="pagination-link" aria-label="Logistic Regression">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span>
+      <a href="./04_prob-and-stat.html" class="pagination-link" aria-label="Probability and Statistics in `R`">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./06_slr.html" class="pagination-link" aria-label="Simple Linear Regression">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

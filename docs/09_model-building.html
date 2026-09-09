@@ -9,7 +9,7 @@
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
 <meta name="dcterms.date" content="2026-09-03">
 
-<title>6&nbsp; R Resources – Applied Statistics with R</title>
+<title>10&nbsp; Model Building – Applied Statistics with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,8 +67,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./slr.html" rel="next">
-<link href="./prob-and-stat.html" rel="prev">
+<link href="./10_cat-int.html" rel="next">
+<link href="./08_mlr.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -77,6 +112,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -251,7 +315,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-intro.html">Background</a></li><li class="breadcrumb-item"><a href="./r-resources.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_model-building.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./09_model-building.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Model Building</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -287,40 +351,40 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Background</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-intro.html" class="sidebar-item-text sidebar-link">
+  <a href="./01_r-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-and-programming.html" class="sidebar-item-text sidebar-link">
+  <a href="./02_data-and-programming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data and Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-summary.html" class="sidebar-item-text sidebar-link">
+  <a href="./03_data-summary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prob-and-stat.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_prob-and-stat.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-resources.html" class="sidebar-item-text sidebar-link active">
+  <a href="./05_r-resources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></span></a>
   </div>
 </li>
@@ -337,19 +401,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slr.html" class="sidebar-item-text sidebar-link">
+  <a href="./06_slr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slr-inf.html" class="sidebar-item-text sidebar-link">
+  <a href="./07_slr-inf.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Inference for Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mlr.html" class="sidebar-item-text sidebar-link">
+  <a href="./08_mlr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
@@ -357,52 +421,52 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./model-building.html" class="sidebar-item-text sidebar-link">
+  <a href="./09_model-building.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Model Building</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cat-int.html" class="sidebar-item-text sidebar-link">
+  <a href="./10_cat-int.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+  <a href="./11_anova.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diagnostics.html" class="sidebar-item-text sidebar-link">
+  <a href="./12_diagnostics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./transformations.html" class="sidebar-item-text sidebar-link">
+  <a href="./13_transformations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+  <a href="./14_collinearity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Collinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./selection.html" class="sidebar-item-text sidebar-link">
+  <a href="./15_selection.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variable Selection and Model Building</span></span></a>
   </div>
 </li>
@@ -419,13 +483,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logistic.html" class="sidebar-item-text sidebar-link">
+  <a href="./17_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./beyond.html" class="sidebar-item-text sidebar-link">
+  <a href="./18_beyond.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></span></a>
   </div>
 </li>
@@ -441,12 +505,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#beginner-tutorials-and-references" id="toc-beginner-tutorials-and-references" class="nav-link active" data-scroll-target="#beginner-tutorials-and-references"><span class="header-section-number">6.1</span> Beginner Tutorials and References</a></li>
-  <li><a href="#intermediate-references" id="toc-intermediate-references" class="nav-link" data-scroll-target="#intermediate-references"><span class="header-section-number">6.2</span> Intermediate References</a></li>
-  <li><a href="#advanced-references" id="toc-advanced-references" class="nav-link" data-scroll-target="#advanced-references"><span class="header-section-number">6.3</span> Advanced References</a></li>
-  <li><a href="#quick-comparisons-to-other-languages" id="toc-quick-comparisons-to-other-languages" class="nav-link" data-scroll-target="#quick-comparisons-to-other-languages"><span class="header-section-number">6.4</span> Quick Comparisons to Other Languages</a></li>
-  <li><a href="#rstudio-and-rmarkdown-videos" id="toc-rstudio-and-rmarkdown-videos" class="nav-link" data-scroll-target="#rstudio-and-rmarkdown-videos"><span class="header-section-number">6.5</span> RStudio and RMarkdown Videos</a></li>
-  <li><a href="#rmarkdown-template" id="toc-rmarkdown-template" class="nav-link" data-scroll-target="#rmarkdown-template"><span class="header-section-number">6.6</span> RMarkdown Template</a></li>
+  <li><a href="#family-form-and-fit" id="toc-family-form-and-fit" class="nav-link active" data-scroll-target="#family-form-and-fit"><span class="header-section-number">10.1</span> Family, Form, and Fit</a>
+  <ul class="collapse">
+  <li><a href="#fit" id="toc-fit" class="nav-link" data-scroll-target="#fit">Fit</a></li>
+  <li><a href="#form" id="toc-form" class="nav-link" data-scroll-target="#form">Form</a></li>
+  <li><a href="#family" id="toc-family" class="nav-link" data-scroll-target="#family">Family</a></li>
+  <li><a href="#assumed-model-fitted-model" id="toc-assumed-model-fitted-model" class="nav-link" data-scroll-target="#assumed-model-fitted-model">Assumed Model, Fitted Model</a></li>
+  </ul></li>
+  <li><a href="#explanation-versus-prediction" id="toc-explanation-versus-prediction" class="nav-link" data-scroll-target="#explanation-versus-prediction"><span class="header-section-number">10.2</span> Explanation versus Prediction</a>
+  <ul class="collapse">
+  <li><a href="#explanation" id="toc-explanation" class="nav-link" data-scroll-target="#explanation">Explanation</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction">Prediction</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.3</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -454,9 +525,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-intro.html">Background</a></li><li class="breadcrumb-item"><a href="./r-resources.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_model-building.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./09_model-building.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Model Building</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Model Building</span></h1>
 </div>
 
 
@@ -466,7 +537,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p><a href="https://daviddalpiaz.org/">David Dalpiaz</a>, modified by Devan Becker </p>
+             <p>David Dalpiaz, modified by Devan Becker </p>
           </div>
   </div>
     
@@ -485,82 +556,211 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>So far, we have seen a lot of <code>R</code>, and a lot of <code>R</code> quickly. Again, the preceding chapters were in no way meant to be a complete reference for the <code>R</code> language, but rather an introduction to many of the concepts we will need in this text. The following resources are not necessary for the remainder of this text, but you may find them useful if you would like a deeper understanding of <code>R</code>:</p>
-<section id="beginner-tutorials-and-references" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="beginner-tutorials-and-references"><span class="header-section-number">6.1</span> Beginner Tutorials and References</h2>
+<blockquote class="blockquote">
+<p>“Statisticians, like artists, have the bad habit of falling in love with their models.”</p>
+<p>— <strong>George Box</strong></p>
+</blockquote>
+<p>Let’s take a step back and consider the process of finding a model for data at a higher level. We are attempting to find a model for a response variable <span class="math inline">\(y\)</span> based on a number of predictors <span class="math inline">\(x_1, x_2, x_3, \ldots, x_{p-1}\)</span>.</p>
+<p>Essentially, we are trying to discover the functional relationship between <span class="math inline">\(y\)</span> and the predictors. In the previous chapter we were fitting models for a car’s fuel efficiency (<code>mpg</code>) as a function of its attributes (<code>wt</code>, <code>year</code>, <code>cyl</code>, <code>disp</code>, <code>hp</code>, <code>acc</code>). We also consider <span class="math inline">\(y\)</span> to be a function of some noise. Rarely if ever do we expect there to be an <em>exact</em> functional relationship between the predictors and the response.</p>
+<p>[ y &lt;- f(x_1, x_2, x_3, , x_{p-1}) + ]</p>
+<p>We can think of this as</p>
+<p>[ = + . ]</p>
+<p>We <em>could</em> consider all sorts of complicated functions for <span class="math inline">\(f\)</span>. You will likely encounter several ways of doing this in future machine learning courses. So far in this course we have focused on (multiple) linear regression. That is</p>
+[
+<span class="math display">\[\begin{aligned}
+y &amp;= f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon \\
+  &amp;= \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \cdots + \beta_{p-1} x_{p-1} + \epsilon
+\end{aligned}\]</span>
+<p>]</p>
+<p>In the big picture of possible models that we could fit to this data, this is a rather restrictive model. What do we mean by a restrictive model?</p>
+<section id="family-form-and-fit" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="family-form-and-fit"><span class="header-section-number">10.1</span> Family, Form, and Fit</h2>
+<p>When modeling data, there are a number of choices that need to be made.</p>
 <ul>
-<li><a href="http://tryr.codeschool.com/" target="_blank">Try <code>R</code></a> from Code School.
+<li>What <strong>family</strong> of models will be considered?</li>
+<li>What <strong>form</strong> of the model will be used?</li>
+<li>How will the model be <strong>fit</strong>?</li>
+</ul>
+<p>Let’s work backwards and discuss each of these.</p>
+<section id="fit" class="level3">
+<h3 class="anchored" data-anchor-id="fit">Fit</h3>
+<p>Consider one of the simplest models we could fit to data, simple linear regression.</p>
+<p>[ y &lt;- f(x_1, x_2, x_3, , x_{p-1}) + = _0 + <em>1 x</em>{1} + ]</p>
+<p>So here, despite having multiple predictors, we chose to use only one. How is this model <strong>fit</strong>? We will almost exclusively use the method of least squares, but recall, we had seen alternative methods of fitting this model.</p>
+<p>[ |y_i - (_0 + _1 x_i)| ]</p>
+<p>[ _{i = 1}^{n}|y_i - (_0 + _1 x_i)| ]</p>
+<p>[ _{i = 1}^{n}(y_i - (_0 + _1 x_i))^2 ]</p>
+<p>Any of these methods (we will always use the last, least squares) will obtain estimates of the unknown parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. Since those are the only unknowns of the specified model, we have then <em>fit</em> the model. The fitted model is then</p>
+<p>[ = (x_1, x_2, x_3, , x_{p-1}) = _0 + <em>1 x</em>{1} ]</p>
+<p>Note that, now we have dropped the term for the noise. We don’t make any effort to model the noise, only the signal.</p>
+</section>
+<section id="form" class="level3">
+<h3 class="anchored" data-anchor-id="form">Form</h3>
+<p>What are the different <strong>forms</strong> a model could take? Currently, for the linear models we have considered, the only method for altering the form of the model is to control the predictors used. For example, one form of the multiple linear regression model is simple linear regression.</p>
+<p>[ y &lt;- f(x_1, x_2, x_3, , x_{p-1}) + = _0 + <em>1 x</em>{1} + ]</p>
+<p>We could also consider a SLR model with a different predictor, thus altering the form of the model.</p>
+<p>[ y &lt;- f(x_1, x_2, x_3, , x_{p-1}) + = _0 + <em>2 x</em>{2} + ]</p>
+<p>Often, we’ll use multiple predictors in our model. Very often, we will at least try a model with all possible predictors.</p>
+[
+<span class="math display">\[\begin{aligned}
+y &amp;= f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon \\
+  &amp;= \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \cdots + \beta_{p-1} x_{p-1} + \epsilon
+\end{aligned}\]</span>
+<p>]</p>
+<p>We could also use some, but not all of the predictors.</p>
+[
+<span class="math display">\[\begin{aligned}
+y &amp;= f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon \\
+  &amp;= \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
+\end{aligned}\]</span>
+<p>]</p>
+<p>These forms are <strong>restrictive</strong> in two senses. First, they only allow for linear relationships between the response and the predictors. This seems like an obvious restriction of linear models, but in fact, we will soon see how to use linear models for <em>non-linear</em> relationships. (It will involve transforming variables.) Second, how one variable affects the response is the same for <strong>any</strong> values of the other predictors. Soon we will see how to create models where the effect of <span class="math inline">\(x_{1}\)</span> can be different for different values of <span class="math inline">\(x_{2}\)</span>. We will discuss the concept of <em>interaction</em>.</p>
+</section>
+<section id="family" class="level3">
+<h3 class="anchored" data-anchor-id="family">Family</h3>
+<p>A <strong>family</strong> of models is a broader grouping of many possible <em>forms</em> of a model. For example, above we saw several forms of models from the family of linear models. We will only ever concern ourselves with linear models, which model a response as a linear combination of predictors. There are certainly other families of models.</p>
+<p>For example, there are several families of <em>non-parametric</em> regression. Smoothing is a broad family of models. As are regression trees.</p>
+<p>In linear regression, we specified models with parameters, <span class="math inline">\(\beta_j\)</span> and fit the model by finding the best values of these parameters. This is a <em>parametric</em> approach. A non-parametric approach skips the step of specifying a model with parameters, and is often described as more of an algorithm. Non-parametric models are often used in machine learning.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09_model-building_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here, SLR (parametric) is used on the left, while smoothing (non-parametric) is used on the right. SLR finds the best slope and intercept. Smoothing produces the fitted <span class="math inline">\(y\)</span> value at a particular <span class="math inline">\(x\)</span> value by considering the <span class="math inline">\(y\)</span> values of the data in a neighborhood of the <span class="math inline">\(x\)</span> value considered. (Local smoothing.)</p>
+<p>Why the focus on <strong>linear models</strong>? Two big reasons:</p>
 <ul>
-<li>An interactive introduction to the basics of <code>R</code>. Useful for getting up to speed on <code>R</code>’s syntax.</li>
-</ul></li>
-<li><a href="http://www.statmethods.net/" target="_blank">Quick-R</a> by Robert Kabacoff.
-<ul>
-<li>A good reference for <code>R</code> basics.</li>
-</ul></li>
-<li><a href="http://www.r-tutor.com/" target="_blank"><code>R</code> Tutorial</a> by Chi Yau.
-<ul>
-<li>A combination reference and tutorial for <code>R</code> basics.</li>
-</ul></li>
-<li><a href="https://bookdown.org/rdpeng/rprogdatascience/" target="_blank"><code>R</code> Programming for Data Science</a> by Roger Peng
-<ul>
-<li>A great text for <code>R</code> programming beginners. Discusses <code>R</code> from the ground up, highlighting programming details we might not discuss.</li>
-</ul></li>
+<li>Linear models are <strong>the</strong> go-to model. Linear models have been around for a long time, and are computationally easy. A linear model may not be the final model you use, but often, it should be the first model you try.</li>
+<li>The ideas behind linear models can be easily transferred to other modeling techniques.</li>
 </ul>
 </section>
-<section id="intermediate-references" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="intermediate-references"><span class="header-section-number">6.2</span> Intermediate References</h2>
-<ul>
-<li><a href="http://r4ds.had.co.nz/" target="_blank"><code>R</code> for Data Science</a> by Hadley Wickham and Garrett Grolemund.
-<ul>
-<li>Similar to Advanced <code>R</code>, but focuses more on data analysis, while still introducing programming concepts. Especially useful for working in the <a href="http://tidyverse.org/" target="_blank">tidyverse</a>.</li>
-</ul></li>
-<li><a href="https://www.nostarch.com/artofr.htm" target="_blank">The Art of <code>R</code> Programming</a> by Norman Matloff.
-<ul>
-<li>Gentle introduction to the programming side of <code>R</code>. (Whereas we will focus more on the data analysis side.) A <a href="https://i-share-uiu.primo.exlibrisgroup.com/discovery/fulldisplay?docid=alma99954930920805899&amp;context=L&amp;vid=01CARLI_UIU:CARLI_UIU&amp;search_scope=MyInstitution&amp;tab=LibraryCatalog&amp;lang=en" target="_blank">free electronic version</a> is available through the Illinois library.</li>
-</ul></li>
-</ul>
+<section id="assumed-model-fitted-model" class="level3">
+<h3 class="anchored" data-anchor-id="assumed-model-fitted-model">Assumed Model, Fitted Model</h3>
+<p>When searching for a model, we often need to make assumptions. These assumptions are codified in the <strong>family</strong> and <strong>form</strong> of the model. For example</p>
+<p>[ y &lt;- _0 + <em>1 x</em>{1} + <em>3 x</em>{3} + <em>5 x</em>{5} + ]</p>
+<p>assumes that <span class="math inline">\(y\)</span> is a linear combination of <span class="math inline">\(x_{1}\)</span>, <span class="math inline">\(x_{3}\)</span>, and <span class="math inline">\(x_{5}\)</span> as well as some noise. This assumes that the effect of <span class="math inline">\(x_{1}\)</span> on <span class="math inline">\(y\)</span> is <span class="math inline">\(\beta_1\)</span>, which is the same for all values of <span class="math inline">\(x_{3}\)</span> and <span class="math inline">\(x_{5}\)</span>. That is, we are using the <em>family</em> of linear models with a particular <em>form</em>.</p>
+<p>Suppose we then <em>fit</em> this model to some data and obtain the <strong>fitted model</strong>. For example, in <code>R</code> we would use</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x3 <span class="sc">+</span> x5, <span class="at">data =</span> some_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This is <code>R</code>’s way of saying the <em>family</em> is <em>linear</em> and specifying the <em>form</em> from above. An additive model with the specified predictors as well as an intercept. We then obtain</p>
+<p>[ = 1.5 + 0.9 x_{1} + 1.1 x_{3} + 2.3 x_{5}. ]</p>
+<p>This is our best guess for the function <span class="math inline">\(f\)</span> in</p>
+<p>[ y &lt;- f(x_1, x_2, x_3, , x_{p-1}) + ]</p>
+<p>for the assumed <strong>family</strong> and <strong>form</strong>. Fitting a model only gives us the best fit for the family and form that we specify. So the natural question is; how do we choose the correct family and form? We’ll focus on <em>form</em> since we are focusing on the <em>family</em> of linear models.</p>
 </section>
-<section id="advanced-references" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="advanced-references"><span class="header-section-number">6.3</span> Advanced References</h2>
-<ul>
-<li><a href="http://adv-r.had.co.nz/" target="_blank">Advanced <code>R</code></a> by Hadley Wickham.
-<ul>
-<li>From the author of several extremely popular <code>R</code> packages. Good follow-up to The Art of <code>R</code> Programming. (And more up-to-date material.)</li>
-</ul></li>
-<li><a href="http://www.burns-stat.com/documents/books/the-r-inferno/" target="_blank">The <code>R</code> Inferno</a> by Patrick Burns.
-<ul>
-<li>Likens learning the tricks of <code>R</code> to descending through the levels of hell. Very advanced material, but may be important if <code>R</code> becomes a part of your everyday toolkit.</li>
-</ul></li>
-<li><a href="https://csgillespie.github.io/efficientR/" target="_blank">Efficient <code>R</code> Programming</a> by Colin Gillespie and Robin Lovelace
-<ul>
-<li>Discusses both efficient <code>R</code> programs, as well as programming in <code>R</code> efficiently.</li>
-</ul></li>
-</ul>
 </section>
-<section id="quick-comparisons-to-other-languages" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="quick-comparisons-to-other-languages"><span class="header-section-number">6.4</span> Quick Comparisons to Other Languages</h2>
-<p>Those who are familiar with other languages may find the following “cheatsheets” helpful for transitioning to <code>R</code>.</p>
-<ul>
-<li><a href="http://hyperpolyglot.org/numerical-analysis2#polynomials" target="_blank">MATLAB, NumPy, Julia</a></li>
-<li><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/comparison/comparison_with_r.html">Python pandas comparison with R/R Libraries</a></li>
-<li><a href="http://dss.princeton.edu/training/RStata.pdf" target="_blank">Stata</a></li>
-<li><a href="">SAS</a> - Look for a resource still! Suggestions welcome.</li>
-</ul>
+<section id="explanation-versus-prediction" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="explanation-versus-prediction"><span class="header-section-number">10.2</span> Explanation versus Prediction</h2>
+<p>What is the purpose of fitting a model to data? Usually it is to accomplish one of two goals. We can use a model to <strong>explain</strong> the relationship between the response and the predictors. Models can also be used to <strong>predict</strong> the response based on the predictors. Often, a good model will do both, but we’ll discuss both goals separately since the processes of finding models for explaining and predicting have some differences.</p>
+<p>For our purposes, since we are only considering linear models, searching for a good model is essentially searching for a good <strong>form</strong> of a model.</p>
+<section id="explanation" class="level3">
+<h3 class="anchored" data-anchor-id="explanation">Explanation</h3>
+<p>If the goal of a model is to explain the relationship between the response and the predictors, we are looking for a model that is <strong>small</strong> and <strong>interpretable</strong>, but still fits the data well. When discussing linear models, the <strong>size</strong> of a model is essentially the number of <span class="math inline">\(\beta\)</span> parameters used.</p>
+<p>Suppose we would like to find a model that explains fuel efficiency (<code>mpg</code>) based on a car’s attributes (<code>wt</code>, <code>year</code>, <code>cyl</code>, <code>disp</code>, <code>hp</code>, <code>acc</code>). Perhaps we are a car manufacturer trying to engineer a fuel-efficient vehicle. If this is the case, we are interested in both which predictor variables are useful for explaining the car’s fuel efficiency, as well as how those variables affect fuel efficiency. By understanding this relationship, we can use this knowledge to our advantage when designing a car.</p>
+<p>To explain a relationship, we are interested in keeping models as small as possible, since smaller models are easy to interpret. The fewer predictors the fewer considerations we need to make in our design process.</p>
+<p>Note that <em>linear</em> models of any size are rather interpretable to begin with. Later in your data analysis careers, you will see more complicated models that may fit data better, but are much harder, if not impossible to interpret. These models aren’t nearly as useful for explaining a relationship. This is another reason to always attempt a linear model. If it fits as well as more complicated methods, it will be the easiest to understand.</p>
+<p>To find small and interpretable models, we will eventually use selection procedures, which search among many possible forms of a model. For now we will do this in a more ad-hoc manner using <strong>inference</strong> techniques we have already encountered. To use inference as we have seen it, we need an additional assumption in addition to the family and form of the model.</p>
+<p>[ y &lt;- _0 + <em>1 x</em>{1} + <em>3 x</em>{3} + <em>5 x</em>{5} + ]</p>
+<p>Our additional assumption is about the error term.</p>
+<p>[ N(0, ^2) ]</p>
+<p>This assumption that the errors are normally distributed with some common variance is the key to all of the inference we have done so far. We will discuss this in great detail later.</p>
+<p>So with our inference tools (ANOVA and <span class="math inline">\(t\)</span>-test) we have two potential strategies. Start with a very small model (no predictors) and attempt to add predictors. Or, start with a big model (all predictors) and attempt to remove predictors.</p>
+<section id="correlation-and-causation" class="level4">
+<h4 class="anchored" data-anchor-id="correlation-and-causation">Correlation and Causation</h4>
+<p>A word of caution when using a model to <em>explain</em> a relationship. There are two terms often used to describe a relationship between two variables: <em>causation</em> and <em>correlation</em>. <a href="https://xkcd.com/552/" target="_blank">Correlation</a> is often also referred to as association.</p>
+<p>Just because two variables are correlated does not necessarily mean that one causes the other. For example, consider modeling <code>mpg</code> as only a function of <code>hp</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> hp, <span class="at">data =</span> autompg, <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09_model-building_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Does an increase in horsepower cause a drop in fuel efficiency? Or, perhaps the causality is reversed and an increase in fuel efficiency causes a decrease in horsepower. Or, perhaps there is a third variable that explains both!</p>
+<p>The issue here is that we have <strong>observational</strong> data. With observational data, we can only detect <em>associations</em>. To speak with confidence about <em>causality</em>, we would need to run <strong>experiments</strong>. Often, this decision is made for us, before we ever see data, so we can only modify our interpretation.</p>
+<p>This is a concept that you should encounter often in your statistics education. For some further reading, and some related fallacies, see: <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation" target="_blank">Wikipedia: Correlation does not imply causation</a>.</p>
+<p>We’ll discuss this further when we discuss experimental design and traditional ANOVA techniques. (All of which has recently been re-branded as A/B testing.)</p>
 </section>
-<section id="rstudio-and-rmarkdown-videos" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="rstudio-and-rmarkdown-videos"><span class="header-section-number">6.5</span> RStudio and RMarkdown Videos</h2>
-<p>The following video playlists were made as an introduction to <code>R</code>, RStudio, and RMarkdown for STAT 420 at UIUC. If you are currently using this text for a Coursera course, you can also find updated videos there.</p>
-<ul>
-<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpMjYhX7jLm5B9gEV7AOOJ5w" target="_blank"><code>R</code> and RStudio</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpPojVSoriMTWQCUno_3hjNi" target="_blank">Data in <code>R</code></a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpNgd07DwmS-2odHtMO6MWGH" target="_blank">RMarkdown</a></li>
-</ul>
-<p>Note that RStudio and RMarkdown are constantly receiving excellent support and updates, so these videos may already contain some outdated information.</p>
-<p><a href="http://rmarkdown.rstudio.com/" target="_blank">RStudio</a> provides their own <a href="http://rmarkdown.rstudio.com/lesson-1.html" target="_blank">tutorial for RMarkdown</a>. They also have an excellent <a href="https://www.rstudio.com/resources/cheatsheets/#rstudio-idecheatsheet" target="_blank">RStudio “cheatsheet”</a> which visually identifies many of the features available in the IDE. You may also explore some additional <a href="https://www.rstudio.com/resources/cheatsheets/" target="_blank">“cheatsheets”</a> on their website.</p>
 </section>
-<section id="rmarkdown-template" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="rmarkdown-template"><span class="header-section-number">6.6</span> RMarkdown Template</h2>
-<p><a href="tutorial/rmd-template.zip">This <code>.zip</code> file</a> contains the files necessary to produce <a href="tutorial/rmd-template.html">this rendered document</a>. This document is a more complete version of a template than what is seen in the above videos.</p>
+<section id="prediction" class="level3">
+<h3 class="anchored" data-anchor-id="prediction">Prediction</h3>
+<p>If the goal of a model is to predict the response, then the <strong>only</strong> consideration is how well the model fits the data. For this, we will need a metric. In regression problems, this is most often RMSE.</p>
+<p>[ () = ]</p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(y_i\)</span> are the actual values of the response for the given data</li>
+<li><span class="math inline">\(\hat{y}_i\)</span> are the predicted values using the fitted model and the predictors from the data</li>
+</ul>
+<p>Correlation and causation are <em>not</em> an issue here. If a predictor is correlated with the response, it is useful for prediction. For example, in elementary school aged children their shoe size certainly doesn’t <em>cause</em> them to read at a higher level, however we could very easily use shoe size to make a prediction about a child’s reading ability. The larger their shoe size, the better they read. There’s a lurking variable here though, their age! (Don’t send your kids to school with size 14 shoes, it won’t make them read better!)</p>
+<p>Also, since we are not performing inference, the extra assumption about the errors is not needed. The only thing we care about is how close the fitted model is to the data. Least squares is least squares. For a specified model, it will find the values of the parameters which will minimize the squared error loss. Your results might be largely uninterpretable and useless for inference, but for prediction none of that matters.</p>
+<p>Suppose instead of the manufacturer who would like to build a car, we are a consumer who wishes to purchase a new car. However this particular car is so new, it has not been rigorously tested, so we are unsure of what fuel efficiency to expect. (And, as skeptics, we don’t trust what the manufacturer is telling us.) In this case, we would like to use the model to help <em>predict</em> the fuel efficiency of this car based on its attributes, which are the predictors of the model. The smaller the errors the model makes, the more confident we are in its prediction.</p>
+<section id="test-train-split" class="level4">
+<h4 class="anchored" data-anchor-id="test-train-split">Test-Train Split</h4>
+<p>The trouble with using RMSE to identify how well a model fits data is that RMSE is <strong>always</strong> (equal or) lower for a larger model. This would suggest that we should always use the largest model possible when looking for a model that predicts well. The problem with this is the potential to <strong>overfit</strong> to the data. So, we want a model that fits well, but does not overfit. To understand overfitting, we need to think about applying a model to seen and unseen data.</p>
+<p>Suppose we fit a model using all data available and we evaluate RMSE on this fitted model and all of the seen data. We will call this data the <strong>training</strong> data, and this RMSE the <strong>train</strong> RMSE.</p>
+<p>Now, suppose we magically encounter some additional data. To truly assess how well the model predicts, we should evaluate how well our model predicts the response of this data. We will call this data the <strong>test</strong> data and this RMSE the <strong>test</strong> RMSE.</p>
+<ul>
+<li>Train RMSE: model fit on seen data, evaluated on <strong>seen</strong> data</li>
+<li>Test RMSE: model fit on seen data, evaluated on <strong>unseen</strong> data</li>
+</ul>
+<p>Below, we simulate some data and fit two models. We will call the solid blue line the “simple” model. The dashed orange line will be called the “complex” model, which was fit with methods we do not yet know.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09_model-building_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The left panel shows the data that was used to fit the two models. Clearly the “complex” model fits the data much better. The right panel shows additional data that was simulated in the same manner as the original data. Here we see that the “simple” model fits much better. The dashed orange line almost seems random.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 40%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th><strong>Train</strong> RMSE</th>
+<th><strong>Test</strong> RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Simple</td>
+<td>1.71</td>
+<td>1.45</td>
+</tr>
+<tr class="even">
+<td>Complex</td>
+<td>1.41</td>
+<td>2.07</td>
+</tr>
+</tbody>
+</table>
+<p>The more “complex,” wiggly, model fits the training data much better as it has a much lower train RMSE. However, we see that the “simple” model fits the test data much better, with a much lower test RMSE. This means that the complex model has <em>overfit</em> to the data, and we prefer the simple model. When choosing a model for prediction, we prefer a model that predicts unseen data.</p>
+<p>In practice, you can’t simply generate more data to evaluate your models. Instead we split existing data into data used to fit the model (train) and data used to evaluate the model (test). Never fit a model with test data.</p>
+</section>
+</section>
+</section>
+<section id="summary" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.3</span> Summary</h2>
+<p>Models can be used to <strong>explain</strong> relationships and <strong>predict</strong> observations.</p>
+<p>When using model to,</p>
+<ul>
+<li><strong>explain</strong>; we prefer <em>small</em> and <em>interpretable</em> models.</li>
+<li><strong>predict</strong>; we prefer models that make the smallest errors possible, without <em>overfitting</em>.</li>
+</ul>
+<p>Linear models can accomplish both these goals. Later, we will see that often a linear model that accomplishes one of these goals, usually accomplishes the other.</p>
 
 
 </section>
@@ -981,13 +1181,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./prob-and-stat.html" class="pagination-link" aria-label="Probability and Statistics in `R`">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span>
+      <a href="./08_mlr.html" class="pagination-link" aria-label="Multiple Linear Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./slr.html" class="pagination-link" aria-label="Simple Linear Regression">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./10_cat-int.html" class="pagination-link" aria-label="Categorical Predictors and Interactions">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

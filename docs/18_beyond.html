@@ -9,7 +9,7 @@
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
 <meta name="dcterms.date" content="2026-09-03">
 
-<title>4&nbsp; Summarizing Data – Applied Statistics with R</title>
+<title>18&nbsp; Beyond – Applied Statistics with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -67,8 +32,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./prob-and-stat.html" rel="next">
-<link href="./data-and-programming.html" rel="prev">
+<link href="./17_logistic.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -286,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-intro.html">Background</a></li><li class="breadcrumb-item"><a href="./data-summary.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./17_logistic.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./18_beyond.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -322,40 +286,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Background</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-intro.html" class="sidebar-item-text sidebar-link">
+  <a href="./01_r-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-and-programming.html" class="sidebar-item-text sidebar-link">
+  <a href="./02_data-and-programming.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data and Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-summary.html" class="sidebar-item-text sidebar-link active">
+  <a href="./03_data-summary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prob-and-stat.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_prob-and-stat.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r-resources.html" class="sidebar-item-text sidebar-link">
+  <a href="./05_r-resources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></span></a>
   </div>
 </li>
@@ -372,19 +336,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slr.html" class="sidebar-item-text sidebar-link">
+  <a href="./06_slr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./slr-inf.html" class="sidebar-item-text sidebar-link">
+  <a href="./07_slr-inf.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Inference for Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mlr.html" class="sidebar-item-text sidebar-link">
+  <a href="./08_mlr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
@@ -401,43 +365,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./model-building.html" class="sidebar-item-text sidebar-link">
+  <a href="./09_model-building.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Model Building</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cat-int.html" class="sidebar-item-text sidebar-link">
+  <a href="./10_cat-int.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+  <a href="./11_anova.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./diagnostics.html" class="sidebar-item-text sidebar-link">
+  <a href="./12_diagnostics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./transformations.html" class="sidebar-item-text sidebar-link">
+  <a href="./13_transformations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+  <a href="./14_collinearity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Collinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./selection.html" class="sidebar-item-text sidebar-link">
+  <a href="./15_selection.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variable Selection and Model Building</span></span></a>
   </div>
 </li>
@@ -445,22 +409,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Advanced Topics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logistic.html" class="sidebar-item-text sidebar-link">
+  <a href="./17_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./beyond.html" class="sidebar-item-text sidebar-link">
+  <a href="./18_beyond.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></span></a>
   </div>
 </li>
@@ -476,19 +440,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link active" data-scroll-target="#summary-statistics"><span class="header-section-number">4.1</span> Summary Statistics</a>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link active" data-scroll-target="#whats-next"><span class="header-section-number">18.1</span> What’s Next</a></li>
+  <li><a href="#rstudio" id="toc-rstudio" class="nav-link" data-scroll-target="#rstudio"><span class="header-section-number">18.2</span> RStudio</a></li>
+  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data"><span class="header-section-number">18.3</span> Tidy Data</a></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization"><span class="header-section-number">18.4</span> Visualization</a></li>
+  <li><a href="#web-applications" id="toc-web-applications" class="nav-link" data-scroll-target="#web-applications"><span class="header-section-number">18.5</span> Web Applications</a></li>
+  <li><a href="#experimental-design" id="toc-experimental-design" class="nav-link" data-scroll-target="#experimental-design"><span class="header-section-number">18.6</span> Experimental Design</a></li>
+  <li><a href="#machine-learning" id="toc-machine-learning" class="nav-link" data-scroll-target="#machine-learning"><span class="header-section-number">18.7</span> Machine Learning</a>
   <ul class="collapse">
-  <li><a href="#central-tendency" id="toc-central-tendency" class="nav-link" data-scroll-target="#central-tendency">Central Tendency</a></li>
-  <li><a href="#spread" id="toc-spread" class="nav-link" data-scroll-target="#spread">Spread</a></li>
-  <li><a href="#categorical" id="toc-categorical" class="nav-link" data-scroll-target="#categorical">Categorical</a></li>
+  <li><a href="#deep-learning" id="toc-deep-learning" class="nav-link" data-scroll-target="#deep-learning">Deep Learning</a></li>
   </ul></li>
-  <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting"><span class="header-section-number">4.2</span> Plotting</a>
-  <ul class="collapse">
-  <li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms">Histograms</a></li>
-  <li><a href="#barplots" id="toc-barplots" class="nav-link" data-scroll-target="#barplots">Barplots</a></li>
-  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">Boxplots</a></li>
-  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots">Scatterplots</a></li>
-  </ul></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series"><span class="header-section-number">18.8</span> Time Series</a></li>
+  <li><a href="#bayesianism" id="toc-bayesianism" class="nav-link" data-scroll-target="#bayesianism"><span class="header-section-number">18.9</span> Bayesianism</a></li>
+  <li><a href="#high-performance-computing" id="toc-high-performance-computing" class="nav-link" data-scroll-target="#high-performance-computing"><span class="header-section-number">18.10</span> High Performance Computing</a></li>
+  <li><a href="#further-r-resources" id="toc-further-r-resources" class="nav-link" data-scroll-target="#further-r-resources"><span class="header-section-number">18.11</span> Further <code>R</code> Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -496,9 +461,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-intro.html">Background</a></li><li class="breadcrumb-item"><a href="./data-summary.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./17_logistic.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./18_beyond.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></h1>
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></h1>
 </div>
 
 
@@ -508,7 +473,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p><a href="https://daviddalpiaz.org/">David Dalpiaz</a>, modified by Devan Becker </p>
+             <p>David Dalpiaz, modified by Devan Becker </p>
           </div>
   </div>
     
@@ -527,252 +492,80 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="summary-statistics" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="summary-statistics"><span class="header-section-number">4.1</span> Summary Statistics</h2>
-<p><code>R</code> has built-in functions for a large number of summary statistics. For numeric variables, we can summarize data with the center and spread. We’ll again look at the <code>mpg</code> dataset from the <code>ggplot2</code> package.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="central-tendency" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="central-tendency">Central Tendency</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Measure</th>
-<th><code>R</code></th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Mean</td>
-<td><code>mean(mpg$cty)</code></td>
-<td>16.8589744</td>
-</tr>
-<tr class="even">
-<td>Median</td>
-<td><code>median(mpg$cty)</code></td>
-<td>17</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="spread" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="spread">Spread</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Measure</th>
-<th><code>R</code></th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Variance</td>
-<td><code>var(mpg$cty)</code></td>
-<td>18.1130736</td>
-</tr>
-<tr class="even">
-<td>Standard Deviation</td>
-<td><code>sd(mpg$cty)</code></td>
-<td>4.2559457</td>
-</tr>
-<tr class="odd">
-<td>IQR</td>
-<td><code>IQR(mpg$cty)</code></td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td>Minimum</td>
-<td><code>min(mpg$cty)</code></td>
-<td>9</td>
-</tr>
-<tr class="odd">
-<td>Maximum</td>
-<td><code>max(mpg$cty)</code></td>
-<td>35</td>
-</tr>
-<tr class="even">
-<td>Range</td>
-<td><code>range(mpg$cty)</code></td>
-<td>9, 35</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="categorical" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="categorical">Categorical</h3>
-<p>For categorical variables, counts and percentages can be used for summary.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mpg<span class="sc">$</span>drv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-  4   f   r 
-103 106  25 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mpg<span class="sc">$</span>drv) <span class="sc">/</span> <span class="fu">nrow</span>(mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-        4         f         r 
-0.4401709 0.4529915 0.1068376 </code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="plotting" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="plotting"><span class="header-section-number">4.2</span> Plotting</h2>
-<p>Now that we have some data to work with, and we have learned about the data at the most basic level, our next task is to visualize the data. Often, a proper visualization can illuminate features of the data that can inform further analysis.</p>
-<p>We will look at four methods of visualizing data that we will use throughout the course:</p>
+<blockquote class="blockquote">
+<p>“End? No, the journey doesn’t end here.”</p>
+<p>— <strong>J.R.R. Tolkien</strong></p>
+</blockquote>
+<p>After reading this chapter you will be able to:</p>
 <ul>
-<li>Histograms</li>
-<li>Barplots</li>
-<li>Boxplots</li>
-<li>Scatterplots</li>
+<li>Understand the roadmap to continued education about models and the <code>R</code> programming language.</li>
 </ul>
-<section id="histograms" class="level3">
-<h3 class="anchored" data-anchor-id="histograms">Histograms</h3>
-<p>When visualizing a single numerical variable, a <strong>histogram</strong> will be our go-to tool, which can be created in <code>R</code> using the <code>hist()</code> function.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mpg<span class="sc">$</span>cty)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-summary_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The histogram function has a number of parameters which can be changed to make our plot look much nicer. Use the <code>?</code> operator to read the documentation for the <code>hist()</code> to see a full list of these parameters.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mpg<span class="sc">$</span>cty,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab   =</span> <span class="st">"Miles Per Gallon (City)"</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main   =</span> <span class="st">"Histogram of MPG (City)"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">12</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col    =</span> <span class="st">"dodgerblue"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">"darkorange"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-summary_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Importantly, you should always be sure to label your axes and give the plot a title. The argument <code>breaks</code> is specific to <code>hist()</code>. Entering an integer will give a suggestion to <code>R</code> for how many bars to use for the histogram. By default <code>R</code> will attempt to intelligently guess a good number of <code>breaks</code>, but as we can see here, it is sometimes useful to modify this yourself.</p>
+<section id="whats-next" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="whats-next"><span class="header-section-number">18.1</span> What’s Next</h2>
+<p>So you’ve completed STAT 420, where do you go from here? Now that you understand the basics of linear modeling, there is a wide world of applied statistics waiting to be explored. We’ll briefly detail some resources and discuss how they relate to what you have learned in STAT 420.</p>
 </section>
-<section id="barplots" class="level3">
-<h3 class="anchored" data-anchor-id="barplots">Barplots</h3>
-<p>Somewhat similar to a histogram, a barplot can provide a visual summary of a categorical variable, or a numeric variable with a finite number of values, like a ranking from 1 to 10.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(mpg<span class="sc">$</span>drv))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-summary_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(mpg<span class="sc">$</span>drv),</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab   =</span> <span class="st">"Drivetrain (f = FWD, r = RWD, 4 = 4WD)"</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab   =</span> <span class="st">"Frequency"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main   =</span> <span class="st">"Drivetrains"</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col    =</span> <span class="st">"dodgerblue"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">"darkorange"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-summary_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<section id="rstudio" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="rstudio"><span class="header-section-number">18.2</span> RStudio</h2>
+<p>RStudio has recently released version 1.0! This is exciting for a number of reasons, especially the release of <a href="http://rmarkdown.rstudio.com/r_notebooks.html" target="_blank"><code>R</code> Notebooks</a>. <code>R</code> Notebooks combine the RMarkdown you have already learned with the ability to work interactively.</p>
 </section>
-<section id="boxplots" class="level3">
-<h3 class="anchored" data-anchor-id="boxplots">Boxplots</h3>
-<p>To visualize the relationship between a numerical and categorical variable, we will use a <strong>boxplot</strong>. In the <code>mpg</code> dataset, the <code>drv</code> variable takes a small, finite number of values. A car can only be front wheel drive, 4 wheel drive, or rear wheel drive.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(mpg<span class="sc">$</span>drv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "f" "4" "r"</code></pre>
-</div>
-</div>
-<p>First note that we can use a single boxplot as an alternative to a histogram for visualizing a single numerical variable. To do so in <code>R</code>, we use the <code>boxplot()</code> function.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(mpg<span class="sc">$</span>hwy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-summary_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>However, more often we will use boxplots to compare a numerical variable for different values of a categorical variable.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(hwy <span class="sc">~</span> drv, <span class="at">data =</span> mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-summary_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Here we used the <code>boxplot()</code> command to create side-by-side boxplots. However, since we are now dealing with two variables, the syntax has changed. The <code>R</code> syntax <code>hwy ~ drv, data = mpg</code> reads “Plot the <code>hwy</code> variable against the <code>drv</code> variable using the dataset <code>mpg</code>.” We see the use of a <code>~</code> (which specifies a formula) and also a <code>data =</code> argument. This will be a syntax that is common to many functions we will use in this course.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(hwy <span class="sc">~</span> drv, <span class="at">data =</span> mpg,</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab   =</span> <span class="st">"Drivetrain (f = FWD, r = RWD, 4 = 4WD)"</span>,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab   =</span> <span class="st">"Miles Per Gallon (Highway)"</span>,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main   =</span> <span class="st">"MPG (Highway) vs Drivetrain"</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch    =</span> <span class="dv">20</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex    =</span> <span class="dv">2</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col    =</span> <span class="st">"darkorange"</span>,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">"dodgerblue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-summary_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Again, <code>boxplot()</code> has a number of additional arguments which have the ability to make our plot more visually appealing.</p>
+<section id="tidy-data" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="tidy-data"><span class="header-section-number">18.3</span> Tidy Data</h2>
+<p>In this textbook, much of the data we have seen has been nice and tidy. It was rectangular where each row was an observation and each column was a variable. This is not always the case! Many packages have been developed to deal with data, and force it into a nice format, which is called <a href="http://vita.had.co.nz/papers/tidy-data.pdf" target="_blank">tidy data</a>, that we can then use for modeling. Often during analysis, this is where a large portion of your time will be spent.</p>
+<p>The <code>R</code> community has started to call this collection of packages the <a href="http://tidyverse.org/" target="_blank">Tidyverse</a>. It was once called the Hadleyverse, as <a href="http://hadley.nz/" target="_blank">Hadley Wickham</a> has authored so many of the packages. Hadley is writing a book called <a href="http://r4ds.had.co.nz/" target="_blank"><code>R</code> for Data Science</a> which describes the use of many of these packages. (And also how to use some to make the modeling process better!) This book is a great starting point for diving deeper into the <code>R</code> community. The two main packages are <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html" target="_blank"><code>dplyr</code></a> and <a href="https://blog.rstudio.org/2014/07/22/introducing-tidyr/" target="_blank"><code>tidyr</code></a> both of which are used internally in RStudio.</p>
 </section>
-<section id="scatterplots" class="level3">
-<h3 class="anchored" data-anchor-id="scatterplots">Scatterplots</h3>
-<p>Lastly, to visualize the relationship between two numeric variables we will use a <strong>scatterplot</strong>. This can be done with the <code>plot()</code> function and the <code>~</code> syntax we just used with a boxplot. (The function <code>plot()</code> can also be used more generally; see the documentation for details.)</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hwy <span class="sc">~</span> displ, <span class="at">data =</span> mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-summary_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hwy <span class="sc">~</span> displ, <span class="at">data =</span> mpg,</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Engine Displacement (in Liters)"</span>,</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Miles Per Gallon (Highway)"</span>,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"MPG (Highway) vs Engine Displacement"</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch  =</span> <span class="dv">20</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex  =</span> <span class="dv">2</span>,</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col  =</span> <span class="st">"dodgerblue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data-summary_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<section id="visualization" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="visualization"><span class="header-section-number">18.4</span> Visualization</h2>
+<p>In this course, we have mostly used the base plotting methods in <code>R</code>. When working with tidy data, many users prefer to use the <a href="https://ggplot2.tidyverse.org/" target="_blank"><code>ggplot2</code></a> package, also developed by Hadley Wickham. RStudio provides a rather detailed <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf" target="_blank">“cheat sheet”</a> for working with <code>ggplot2</code>. The community maintains a <a href="http://www.r-graph-gallery.com/portfolio/ggplot2-package/" target="_blank">graph gallery</a> of examples.</p>
+<p>Use of the <a href="https://support.rstudio.com/hc/en-us/articles/200551906-Interactive-Plotting-with-Manipulate" target="_blank"><code>manipulate</code> package</a> with RStudio gives the ability to quickly change a static graphic to become interactive.</p>
+</section>
+<section id="web-applications" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="web-applications"><span class="header-section-number">18.5</span> Web Applications</h2>
+<p>RStudio has made it incredibly easy to create data products through the use of <a href="https://shiny.rstudio.com/" target="_blank">Shiny</a>, which allows for the creation of web applications with <code>R</code>. RStudio maintains an ever-growing <a href="http://shiny.rstudio.com/tutorial/" target="_blank">tutorial</a> and <a href="https://shiny.rstudio.com/gallery/" target="_blank">gallery</a> of examples.</p>
+</section>
+<section id="experimental-design" class="level2" data-number="18.6">
+<h2 data-number="18.6" class="anchored" data-anchor-id="experimental-design"><span class="header-section-number">18.6</span> Experimental Design</h2>
+<p>In the ANOVA chapter, we briefly discussed experimental design. This topic could easily be its own class, and is currently an area of revitalized interest with the rise of <a href="https://en.wikipedia.org/wiki/A/B_testing" target="_blank">A/B testing.</a> Two more classic statistical references include <em>Statistics for Experimenters</em> by Box, Hunter, and Hunter as well as <em>Design and Analysis of Experiments</em> by Douglas Montgomery. There are several <code>R</code> packages for design of experiments, listed in the <a href="https://cran.r-project.org/web/views/ExperimentalDesign.html" target="_blank">CRAN Task View</a>.</p>
+</section>
+<section id="machine-learning" class="level2" data-number="18.7">
+<h2 data-number="18.7" class="anchored" data-anchor-id="machine-learning"><span class="header-section-number">18.7</span> Machine Learning</h2>
+<p>Using models for prediction is the key focus of machine learning. There are many methods, each with its own package, however <code>R</code> has a wonderful package called <a href="http://topepo.github.io/caret/index.html" target="_blank"><code>caret</code>, <em>Classification And REgression Training</em>,</a> which provides a unified interface to training these models. It also contains various utilities for data processing and visualization that are useful for predictive modeling.</p>
+<p><em>Applied Predictive Modeling</em> by Max Kuhn, the author of the <code>caret</code> package, is a good general resource for predictive modeling, which obviously utilizes <code>R</code>. <a href="http://www-bcf.usc.edu/~gareth/ISL/" target="_blank"><em>An Introduction to Statistical Learning</em></a> by James, Witten, Hastie, and Tibshirani is a gentle introduction to machine learning from a statistical perspective which uses <code>R</code> and picks up right where this course stops. This is based on the often referenced <a href="https://web.stanford.edu/~hastie/Papers/ESLII.pdf" target="_blank"><em>The Elements of Statistical Learning</em></a> by Hastie, Tibshirani, and Friedman. Both are freely available online.</p>
+<section id="deep-learning" class="level3">
+<h3 class="anchored" data-anchor-id="deep-learning">Deep Learning</h3>
+<p>While it probably isn’t the best tool for the job, <code>R</code> now has the ability to <a href="https://rstudio.github.io/tensorflow/" target="_blank">train deep neural networks via TensorFlow</a>.</p>
+</section>
+</section>
+<section id="time-series" class="level2" data-number="18.8">
+<h2 data-number="18.8" class="anchored" data-anchor-id="time-series"><span class="header-section-number">18.8</span> Time Series</h2>
+<p>In this class we have only considered independent data. What if data is dependent? Time Series is the area of statistics which deals with this issue, and could easily span multiple courses.</p>
+<p>The primary textbook for STAT 429: Time Series Analysis at the University of Illinois that is free is:</p>
+<ul>
+<li><a href="http://www.stat.pitt.edu/stoffer/tsa4/" target="_blank"><em>Time Series Analysis and Its Applications: With R Examples</em></a> by Shumway and Stoffer</li>
+</ul>
+<p>Some tutorials:</p>
+<ul>
+<li><a href="https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/" target="_blank">Little Book of R for Time Series</a></li>
+<li><a href="http://www.statmethods.net/advstats/timeseries.html" target="_blank">Quick <code>R</code>: Time Series and Forecasting</a></li>
+<li><a href="http://rpubs.com/ryankelly/ts6" target="_blank">TSA: Start to Finish Examples</a></li>
+</ul>
+<p>When performing time series analysis in <code>R</code> you should be aware of the <a href="https://cran.r-project.org/web/views/TimeSeries.html" target="_blank">many packages</a> that are useful for analysis. It should be hard to avoid the <a href="https://github.com/robjhyndman/forecast" target="_blank"><code>forecast</code></a> and <a href="https://cran.r-project.org/web/packages/zoo/zoo.pdf" target="_blank"><code>zoo</code></a> packages. Often the most difficult part will be dealing with time and date data. Make sure you are utilizing one of the many packages that help with this.</p>
+</section>
+<section id="bayesianism" class="level2" data-number="18.9">
+<h2 data-number="18.9" class="anchored" data-anchor-id="bayesianism"><span class="header-section-number">18.9</span> Bayesianism</h2>
+<p>In this class, we have worked within the frequentist view of statistics. There is an entire alternative universe of Bayesian statistics.</p>
+<p><a href="https://sites.google.com/site/doingbayesiandataanalysis/" target="_blank"><em>Doing Bayesian Data Analysis: A Tutorial with R, JAGS, and Stan</em></a> by John Kruschke is a great introduction to the topic. It introduces the world of <a href="https://www.cs.cornell.edu/Courses/cs4110/2016fa/lectures/lecture33.html" target="_blank">probabilistic programming</a>, in particular <a href="http://mc-stan.org/" target="_blank">Stan</a>, which can be used in both <code>R</code> and Python.</p>
+</section>
+<section id="high-performance-computing" class="level2" data-number="18.10">
+<h2 data-number="18.10" class="anchored" data-anchor-id="high-performance-computing"><span class="header-section-number">18.10</span> High Performance Computing</h2>
+<p>Often <code>R</code> will be called a “slow” language, for two reasons. One, because many do not understand <code>R</code>. Two, because sometimes it really is. Luckily, it is easy to extend <code>R</code> via the <a href="http://www.rcpp.org/" target="_blank"><code>Rcpp</code> package</a> to allow for faster code. Many modern <code>R</code> packages utilize <code>Rcpp</code> to achieve better performance.</p>
+</section>
+<section id="further-r-resources" class="level2" data-number="18.11">
+<h2 data-number="18.11" class="anchored" data-anchor-id="further-r-resources"><span class="header-section-number">18.11</span> Further <code>R</code> Resources</h2>
+<p>Also, don’t forget that previously in this book we have outlined a large number of <a href="http://daviddalpiaz.github.io/appliedstats/introduction-to-r.html#r-resources" target="_blank"><code>R</code> resources</a>. Now that you’ve gotten started with <code>R</code> many of these will be much more useful.</p>
+<p>If any of these topics interest you, and you would like more information, please don’t hesitate to start a discussion on the forums!</p>
+<p>:)</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1191,14 +984,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./data-and-programming.html" class="pagination-link" aria-label="Data and Programming">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data and Programming</span></span>
+      <a href="./17_logistic.html" class="pagination-link" aria-label="Logistic Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./prob-and-stat.html" class="pagination-link" aria-label="Probability and Statistics in `R`">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
