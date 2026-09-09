@@ -269,7 +269,7 @@ After simulating a dataset, we'll then fit both ordinary linear regression and l
 
 ```{r}
 # ordinary linear regression
-fit_lm  = lm(y ~ x, data = example_data)
+fit_lm <- lm(y ~ x, data = example_data)
 # logistic regression
 fit_glm <- glm(y ~ x, data = example_data, family = binomial)
 ```

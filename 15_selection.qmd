@@ -159,7 +159,7 @@ We'll now fit two models to this data, one which has the correct form, quadratic
 
 ```{r}
 fit_quad <- lm(y ~ poly(x, degree = 2), data = poly_data)
-fit_big  = lm(y ~ poly(x, degree = 8), data = poly_data)
+fit_big <- lm(y ~ poly(x, degree = 8), data = poly_data)
 ```
 
 We then plot the data and the results of the two models.
@@ -229,7 +229,7 @@ Now we see that the quadratic model has a much smaller LOOCV $\text{RMSE}$, so w
 
 ```{r}
 fit_quad_removed <- lm(y ~ poly(x, degree = 2), data = poly_data[-3, ])
-fit_big_removed  = lm(y ~ poly(x, degree = 8), data = poly_data[-3, ])
+fit_big_removed <- lm(y ~ poly(x, degree = 8), data = poly_data[-3, ])
 
 plot(y ~ x, data = poly_data, ylim = c(-100, 400), cex = 2, pch = 20)
 xplot <- seq(0, 10, by = 0.1)

@@ -247,14 +247,14 @@ set.seed(42)
 beta_0 <- 7
 beta_1 <- 3
 beta_2 <- 4
-sigma  = 5
+sigma <- 5
 ```
 
 We will use a sample size of 10, and 2500 simulations for both situations.
 
 ```{r}
 sample_size <- 10
-num_sim     = 2500
+num_sim <- 2500
 ```
 
 We'll first consider the situation with a collinearity issue, so we manually create the two predictor variables.
@@ -273,8 +273,8 @@ Notice that they have extremely high correlation.
 
 ```{r}
 true_line_bad <- beta_0 + beta_1 * x1 + beta_2 * x2
-beta_hat_bad  = matrix(0, num_sim, 2)
-mse_bad       = rep(0, num_sim)
+beta_hat_bad <- matrix(0, num_sim, 2)
+mse_bad <- rep(0, num_sim)
 ```
 
 We perform the simulation 2500 times, each time fitting a regression model, and storing the estimated coefficients and the MSE.
@@ -304,8 +304,8 @@ cor(z1, z2)
 
 ```{r}
 true_line_good <- beta_0 + beta_1 * z1 + beta_2 * z2
-beta_hat_good  = matrix(0, num_sim, 2)
-mse_good       = rep(0, num_sim)
+beta_hat_good <- matrix(0, num_sim, 2)
+mse_good <- rep(0, num_sim)
 ```
 
 We then perform simulations and store the same results.

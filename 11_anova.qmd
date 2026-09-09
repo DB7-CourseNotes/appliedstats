@@ -392,7 +392,7 @@ When performing ANOVA in `R`, be sure the grouping variable is a factor variable
 ```{r}
 set.seed(42)
 response <- rnorm(15)
-group    = c(rep(1, 5), rep(2, 5), rep(3, 5))
+group <- c(rep(1, 5), rep(2, 5), rep(3, 5))
 bad <- data.frame(response, group)
 summary(aov(response ~ group, data = bad)) # wrong DF!
 
@@ -706,11 +706,11 @@ The obvious indication of interaction would be lines that cross while heading in
 Let's fit each of the possible models, then investigate their estimates for each of the group means.
 
 ```{r}
-rats_int   = aov(time ~ poison * treat, data = rats) # interaction model
-rats_add   = aov(time ~ poison + treat, data = rats) # additive model
-rats_pois  = aov(time ~ poison , data = rats)        # single factor model   
+rats_int <- aov(time ~ poison * treat, data = rats) # interaction model
+rats_add <- aov(time ~ poison + treat, data = rats) # additive model
+rats_pois <- aov(time ~ poison , data = rats)        # single factor model   
 rats_treat <- aov(time ~ treat, data = rats)          # single factor model
-rats_null  = aov(time ~ 1, data = rats)              # null model
+rats_null <- aov(time ~ 1, data = rats)              # null model
 ```
 
 To get the estimates, we'll create a table which we will predict on. 

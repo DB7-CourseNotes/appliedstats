@@ -236,14 +236,26 @@ We also fix our parameter values.
 ```{webr-r}
 beta_0 <- 3
 beta_1 <- 6
-sigma  = 2
+sigma  <- 2
 ```
 
 With this information, we know the sampling distributions should be:
 
 ```{webr-r}
-(var_beta_1_hat = sigma ^ 2 / Sxx)
-(var_beta_0_hat = sigma ^ 2 * (1 / sample_size + mean(x) ^ 2 / Sxx))
+(var_beta_1_hat <- sigma ^ 2 / Sxx)
+(var_beta_0_hat <- sigma ^ 2 * (1 / sample_size + mean(x) ^ 2 / Sxx))
+```
+
+```{r echo=FALSE}
+set.seed(42)
+sample_size <- 100 # this is n
+x <- seq(-1, 1, length = sample_size)
+Sxx <- sum((x - mean(x)) ^ 2)
+beta_0 <- 3
+beta_1 <- 6
+sigma  <- 2
+var_beta_1_hat <- sigma ^ 2 / Sxx
+var_beta_0_hat <- sigma ^ 2 * (1 / sample_size + mean(x) ^ 2 / Sxx)
 ```
 
 $$
@@ -551,6 +563,10 @@ stop_dist_model <- lm(dist ~ speed, data = cars)
 summary(stop_dist_model)
 ```
 
+```{r echo=FALSE}
+stop_dist_model <- lm(dist ~ speed, data = cars)
+```
+
 ### Tests in `R`
 
 We will now discuss the results displayed called `Coefficients`. First recall that we can extract this information directly.
@@ -617,14 +633,28 @@ In summary, the following code stores the information of `summary(stop_dist_mode
 ```{webr-r}
 stop_dist_model_test_info <- summary(stop_dist_model)$coefficients
 
-beta_0_hat      = stop_dist_model_test_info[1, 1] # Estimate
-beta_0_hat_se   = stop_dist_model_test_info[1, 2] # Std. Error
-beta_0_hat_t    = stop_dist_model_test_info[1, 3] # t value
+beta_0_hat <- stop_dist_model_test_info[1, 1] # Estimate
+beta_0_hat_se <- stop_dist_model_test_info[1, 2] # Std. Error
+beta_0_hat_t <- stop_dist_model_test_info[1, 3] # t value
 beta_0_hat_pval <- stop_dist_model_test_info[1, 4] # Pr(>|t|)
 
-beta_1_hat      = stop_dist_model_test_info[2, 1] # Estimate
-beta_1_hat_se   = stop_dist_model_test_info[2, 2] # Std. Error
-beta_1_hat_t    = stop_dist_model_test_info[2, 3] # t value
+beta_1_hat <- stop_dist_model_test_info[2, 1] # Estimate
+beta_1_hat_se <- stop_dist_model_test_info[2, 2] # Std. Error
+beta_1_hat_t <- stop_dist_model_test_info[2, 3] # t value
+beta_1_hat_pval <- stop_dist_model_test_info[2, 4] # Pr(>|t|)
+```
+
+```{r echo=FALSE}
+stop_dist_model_test_info <- summary(stop_dist_model)$coefficients
+
+beta_0_hat <- stop_dist_model_test_info[1, 1] # Estimate
+beta_0_hat_se <- stop_dist_model_test_info[1, 2] # Std. Error
+beta_0_hat_t <- stop_dist_model_test_info[1, 3] # t value
+beta_0_hat_pval <- stop_dist_model_test_info[1, 4] # Pr(>|t|)
+
+beta_1_hat <- stop_dist_model_test_info[2, 1] # Estimate
+beta_1_hat_se <- stop_dist_model_test_info[2, 2] # Std. Error
+beta_1_hat_t <- stop_dist_model_test_info[2, 3] # t value
 beta_1_hat_pval <- stop_dist_model_test_info[2, 4] # Pr(>|t|)
 ```
 

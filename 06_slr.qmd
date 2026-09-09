@@ -557,17 +557,17 @@ Now, in the regression case, with $s_e^2$ each $y$ has a different mean because 
 
 ```{webr-r}
 y_hat <- beta_0_hat + beta_1_hat * x
-e     = y - y_hat
-n     = length(e)
-s2_e  = sum(e^2) / (n - 2)
+e <- y - y_hat
+n <- length(e)
+s2_e <- sum(e^2) / (n - 2)
 s2_e
 ```
 
 ```{r, echo=FALSE}
 y_hat <- beta_0_hat + beta_1_hat * x
-e     = y - y_hat
-n     = length(e)
-s2_e  = sum(e^2) / (n - 2)
+e <- y - y_hat
+n <- length(e)
+s2_e <- sum(e^2) / (n - 2)
 ```
 
 Just as with the univariate measure of variance, this value of `r round(s2_e, 2)` doesn't have a practical interpretation in terms of stopping distance. Taking the square root, however, computes the standard deviation of the residuals, also known as *residual standard error*.
@@ -655,16 +655,16 @@ The quantity "Sum of Squares Error," $\text{SSE}$, represents the **unexplained 
 
 
 ```{webr-r}
-SST   = sum((y - mean(y)) ^ 2)
-SSReg = sum((y_hat - mean(y)) ^ 2)
-SSE   = sum((y - y_hat) ^ 2)
+SST <- sum((y - mean(y)) ^ 2)
+SSReg <- sum((y_hat - mean(y)) ^ 2)
+SSE <- sum((y - y_hat) ^ 2)
 c(SST = SST, SSReg = SSReg, SSE = SSE)
 ```
 
 ```{r echo=FALSE}
-SST   = sum((y - mean(y)) ^ 2)
-SSReg = sum((y_hat - mean(y)) ^ 2)
-SSE   = sum((y - y_hat) ^ 2)
+SST <- sum((y - mean(y)) ^ 2)
+SSReg <- sum((y_hat - mean(y)) ^ 2)
+SSE <- sum((y - y_hat) ^ 2)
 ```
 
 Note that,
@@ -1080,16 +1080,16 @@ We first set the true parameters of the model to be simulated.
 
 ```{webr-r}
 num_obs <- 21
-beta_0  = 5
-beta_1  = -2
-sigma   = 3
+beta_0 <- 5
+beta_1 <- -2
+sigma <- 3
 ```
 
 ```{r echo=FALSE}
 num_obs <- 21
-beta_0  = 5
-beta_1  = -2
-sigma   = 3
+beta_0 <- 5
+beta_1 <- -2
+sigma <- 3
 ```
 
 Next, we obtain simulated values of $\epsilon_i$ after setting a seed for reproducibility.
