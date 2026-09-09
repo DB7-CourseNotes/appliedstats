@@ -775,9 +775,9 @@ plot(log(salary) ~ years, data = initech, col = "grey", pch = 20, cex = 1.5,
 abline(initech_fit_log, col = "darkorange", lwd = 2)
 ```
 
-$$$
+$$
 Y_i = \exp(\beta_0 + \beta_1 x_i) \cdot \exp(\epsilon_i)
-$$$
+$$
 
 ```{r}
 plot(salary ~ years, data = initech, col = "grey", pch = 20, cex = 1.5,
@@ -846,9 +846,9 @@ qqnorm(resid(lin_fit), main = "Normal Q-Q Plot", col = "darkgrey")
 qqline(resid(lin_fit), col = "dodgerblue", lwd = 2)
 ```
 
-$$$
+$$
 Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
-$$$
+$$
 
 ```{r}
 quad_fit <- lm(y ~ x + I(x^2), data = quad_data)
@@ -914,17 +914,17 @@ sim_higher <- function(sample_size = 250) {
 }
 ```
 
-$$$
+$$
 Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i
-$$$
+$$
 
-$$$
+$$
 Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \epsilon_i
-$$$
+$$
 
-$$$
+$$
 Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \beta_5 x_i^5 + \beta_6 x_i^6 + \epsilon_i
-$$$
+$$
 
 ```{r}
 set.seed(42)
@@ -987,9 +987,9 @@ anova(fit_4, fit_6)
 
 ### `poly()` Function and Orthogonal Polynomials
 
-$$$
+$$
 Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \beta_3 x_i^3 + \beta_4 x_i^4 + \epsilon_i
-$$$
+$$
 
 ```{r}
 fit_4a <- lm(y ~ poly(x, degree = 4), data = data_higher)
