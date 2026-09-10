@@ -2414,7 +2414,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <h2 data-number="6.1" class="anchored" data-anchor-id="modeling"><span class="header-section-number">6.1</span> Modeling</h2>
 <p>Let’s consider a simple example of how the speed of a car affects its stopping distance, that is, how far it travels before it comes to a stop. To examine this relationship, we will use the <code>cars</code> dataset, which is a default <code>R</code> dataset. Thus, we don’t need to load a package first; it is immediately available.</p>
 <p>To get a first look at the data you can use the <code>View()</code> function inside RStudio. <strong>Never include this in an Rmd or qmd!!!</strong></p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We could also take a look at the variable names, the dimension of the data frame, and some sample observations with <code>str()</code>.</p>
@@ -2424,7 +2424,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Other than the two variable names and the number of observations, this data is still just a bunch of numbers, so we should probably obtain some context.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>?cars</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Reading the documentation we learn that this is data gathered during the 1920s about the speed of cars and the resulting distance it takes for the car to come to a stop. The interesting task here is to determine how far a car travels before stopping, when traveling at a certain speed. So, we will first plot the stopping distance against the speed.</p>
@@ -2461,31 +2461,31 @@ Y = f(X) + \epsilon.
 </ul>
 <p>What sort of function should we use for <span class="math inline">\(f(X)\)</span> for the <code>cars</code> data?</p>
 <p>We could try to model the data with a horizontal line. That is, the model for <span class="math inline">\(y\)</span> does not depend on the value of <span class="math inline">\(x\)</span>. (Some function <span class="math inline">\(f(X) = c\)</span>.) In the plot below, we see this doesn’t seem to do a very good job. Many of the data points are very far from the orange line representing <span class="math inline">\(c\)</span>. This is an example of <strong>underfitting</strong>. The obvious fix is to make the function <span class="math inline">\(f(X)\)</span> actually depend on <span class="math inline">\(x\)</span>.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/underfit_plot-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="06_slr_files/figure-html/underfit_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We could also try to model the data with a very “wiggly” function that tries to go through as many of the data points as possible. This also doesn’t seem to work very well. The stopping distance for a speed of 5 mph shouldn’t be off the chart! (Even in 1920.) This is an example of <strong>overfitting</strong>. (Note that in this example no function will go through every point, since there are some <span class="math inline">\(x\)</span> values that have several possible <span class="math inline">\(y\)</span> values in the data.)</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/overfit_plot-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="06_slr_files/figure-html/overfit_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Lastly, we could try to model the data with a well-chosen line rather than one of the two extremes previously attempted. The line on the plot below seems to summarize the relationship between stopping distance and speed quite well. As speed increases, the distance required to come to a stop increases. There is still some variation about this line, but it seems to capture the overall trend.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/goodfit_plot-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="06_slr_files/figure-html/goodfit_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2985,11 +2985,11 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} \\&amp;= \frac{\sum_{i=1}^{n}(\hat{y}
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>For the <code>cars</code> example, we calculate <span class="math inline">\(R^2 = 0.65\)</span>. We then say that <span class="math inline">\(65\%\)</span> of the observed variability in stopping distance is explained by the linear relationship with speed.</p>
 <p>The following plots visually demonstrate the three “sums of squares” for a simulated dataset which has <span class="math inline">\(R^2 = 0.92\)</span> which is a somewhat high value. Notice in the final plot, that the orange arrows account for a larger proportion of the total arrow.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="1152"></p>
+<p><img src="06_slr_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
@@ -2999,11 +2999,11 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} \\&amp;= \frac{\sum_{i=1}^{n}(\hat{y}
 <p>The bottom left plot demonstrates the total variance in <span class="math inline">\(Y\)</span> (the observed values, not the line) if we didn’t consider <span class="math inline">\(X\)</span>.</p>
 <p>The bottom right plot demonstrates that <span class="math inline">\(y_i - \bar y = (y_i - \hat y_i) + (\hat y_i - \bar y)\)</span>: the grey arrows from the SST plot are equal to the orange arrows plus the blue arrows. Shown visually, it is clear that the orange errors account for most of the variation of <span class="math inline">\(y_i\)</span> from <span class="math inline">\(\bar y\)</span>. That is, the regression explains the variation!</p>
 <p>The next plots again visually demonstrate the three “sums of squares,” this time for a simulated dataset which has <span class="math inline">\(R^2 = 0.19\)</span>. Notice in the final plot, that now the blue arrows account for a larger proportion of the total arrow.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="1152"></p>
+<p><img src="06_slr_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
