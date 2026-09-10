@@ -25,8 +25,6 @@ book:
   author: "[David Dalpiaz](https://daviddalpiaz.org/), modified by Devan Becker"
   date: "last-modified"
   page-navigation: true
-  sidebar: 
-    collapse-level: 1
   chapters:
     - index.qmd
     - part: Background
@@ -63,3 +61,4 @@ format:
     mainfont: ubuntu, sans-serif
     code-fold: false
     code-summary: "Show the code"
+    include-after-body: sidebar-collapse.html
