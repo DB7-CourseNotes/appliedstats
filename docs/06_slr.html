@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-09">
+<meta name="dcterms.date" content="2026-09-10">
 
 <title>6&nbsp; Simple Linear Regression – Applied Statistics with R</title>
 <style>
@@ -2073,9 +2073,8 @@ window.Quarto = {
   <li><a href="#coefficient-of-determination" id="toc-coefficient-of-determination" class="nav-link" data-scroll-target="#coefficient-of-determination">Coefficient of Determination</a></li>
   </ul></li>
   <li><a href="#the-lm-function" id="toc-the-lm-function" class="nav-link" data-scroll-target="#the-lm-function"><span class="header-section-number">6.4</span> The <code>lm</code> Function</a></li>
-  <li><a href="#maximum-likelihood-estimation-mle-approach" id="toc-maximum-likelihood-estimation-mle-approach" class="nav-link" data-scroll-target="#maximum-likelihood-estimation-mle-approach"><span class="header-section-number">6.5</span> Maximum Likelihood Estimation (MLE) Approach</a></li>
-  <li><a href="#simulating-slr" id="toc-simulating-slr" class="nav-link" data-scroll-target="#simulating-slr"><span class="header-section-number">6.6</span> Simulating SLR</a></li>
-  <li><a href="#history" id="toc-history" class="nav-link" data-scroll-target="#history"><span class="header-section-number">6.7</span> History</a></li>
+  <li><a href="#simulating-slr" id="toc-simulating-slr" class="nav-link" data-scroll-target="#simulating-slr"><span class="header-section-number">6.5</span> Simulating SLR</a></li>
+  <li><a href="#history" id="toc-history" class="nav-link" data-scroll-target="#history"><span class="header-section-number">6.6</span> History</a></li>
   </ul>
 </nav>
     </div>
@@ -2386,7 +2385,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-09</p>
+      <p class="date">2026-09-10</p>
     </div>
   </div>
   
@@ -2414,7 +2413,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <h2 data-number="6.1" class="anchored" data-anchor-id="modeling"><span class="header-section-number">6.1</span> Modeling</h2>
 <p>Let’s consider a simple example of how the speed of a car affects its stopping distance, that is, how far it travels before it comes to a stop. To examine this relationship, we will use the <code>cars</code> dataset, which is a default <code>R</code> dataset. Thus, we don’t need to load a package first; it is immediately available.</p>
 <p>To get a first look at the data you can use the <code>View()</code> function inside RStudio. <strong>Never include this in an Rmd or qmd!!!</strong></p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We could also take a look at the variable names, the dimension of the data frame, and some sample observations with <code>str()</code>.</p>
@@ -2424,7 +2423,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Other than the two variable names and the number of observations, this data is still just a bunch of numbers, so we should probably obtain some context.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>?cars</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Reading the documentation we learn that this is data gathered during the 1920s about the speed of cars and the resulting distance it takes for the car to come to a stop. The interesting task here is to determine how far a car travels before stopping, when traveling at a certain speed. So, we will first plot the stopping distance against the speed.</p>
@@ -2461,31 +2460,31 @@ Y = f(X) + \epsilon.
 </ul>
 <p>What sort of function should we use for <span class="math inline">\(f(X)\)</span> for the <code>cars</code> data?</p>
 <p>We could try to model the data with a horizontal line. That is, the model for <span class="math inline">\(y\)</span> does not depend on the value of <span class="math inline">\(x\)</span>. (Some function <span class="math inline">\(f(X) = c\)</span>.) In the plot below, we see this doesn’t seem to do a very good job. Many of the data points are very far from the orange line representing <span class="math inline">\(c\)</span>. This is an example of <strong>underfitting</strong>. The obvious fix is to make the function <span class="math inline">\(f(X)\)</span> actually depend on <span class="math inline">\(x\)</span>.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/underfit_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="06_slr_files/figure-html/underfit_plot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We could also try to model the data with a very “wiggly” function that tries to go through as many of the data points as possible. This also doesn’t seem to work very well. The stopping distance for a speed of 5 mph shouldn’t be off the chart! (Even in 1920.) This is an example of <strong>overfitting</strong>. (Note that in this example no function will go through every point, since there are some <span class="math inline">\(x\)</span> values that have several possible <span class="math inline">\(y\)</span> values in the data.)</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/overfit_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="06_slr_files/figure-html/overfit_plot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Lastly, we could try to model the data with a well-chosen line rather than one of the two extremes previously attempted. The line on the plot below seems to summarize the relationship between stopping distance and speed quite well. As speed increases, the distance required to come to a stop increases. There is still some variation about this line, but it seems to capture the overall trend.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/goodfit_plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="06_slr_files/figure-html/goodfit_plot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2985,11 +2984,11 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} \\&amp;= \frac{\sum_{i=1}^{n}(\hat{y}
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>For the <code>cars</code> example, we calculate <span class="math inline">\(R^2 = 0.65\)</span>. We then say that <span class="math inline">\(65\%\)</span> of the observed variability in stopping distance is explained by the linear relationship with speed.</p>
 <p>The following plots visually demonstrate the three “sums of squares” for a simulated dataset which has <span class="math inline">\(R^2 = 0.92\)</span> which is a somewhat high value. Notice in the final plot, that the orange arrows account for a larger proportion of the total arrow.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></p>
+<p><img src="06_slr_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
@@ -2999,11 +2998,11 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} \\&amp;= \frac{\sum_{i=1}^{n}(\hat{y}
 <p>The bottom left plot demonstrates the total variance in <span class="math inline">\(Y\)</span> (the observed values, not the line) if we didn’t consider <span class="math inline">\(X\)</span>.</p>
 <p>The bottom right plot demonstrates that <span class="math inline">\(y_i - \bar y = (y_i - \hat y_i) + (\hat y_i - \bar y)\)</span>: the grey arrows from the SST plot are equal to the orange arrows plus the blue arrows. Shown visually, it is clear that the orange errors account for most of the variation of <span class="math inline">\(y_i\)</span> from <span class="math inline">\(\bar y\)</span>. That is, the regression explains the variation!</p>
 <p>The next plots again visually demonstrate the three “sums of squares,” this time for a simulated dataset which has <span class="math inline">\(R^2 = 0.19\)</span>. Notice in the final plot, that now the blue arrows account for a larger proportion of the total arrow.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></p>
+<p><img src="06_slr_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
@@ -3090,81 +3089,8 @@ s_e = \text{RSE} = \sqrt{\frac{1}{n - 2}\sum_{i = 1}^n e_i^2}
 <div id="qwebr-insertion-location-37"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
-<section id="maximum-likelihood-estimation-mle-approach" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="maximum-likelihood-estimation-mle-approach"><span class="header-section-number">6.5</span> Maximum Likelihood Estimation (MLE) Approach</h2>
-<p>Recall the model,</p>
-<p><span class="math display">\[
-Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
-\]</span></p>
-<p>where <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span>.</p>
-<p>Then we can find the mean and variance of each <span class="math inline">\(Y_i\)</span>.</p>
-<p><span class="math display">\[
-\text{E}[Y_i \mid X_i = x_i] = \beta_0 + \beta_1 x_i
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\text{Var}[Y_i \mid X_i = x_i] = \sigma^2.
-\]</span></p>
-<p>Additionally, the <span class="math inline">\(Y_i\)</span> follow a normal distribution conditioned on the <span class="math inline">\(x_i\)</span>.</p>
-<p><span class="math display">\[
-Y_i \mid X_i \sim N(\beta_0 + \beta_1 x_i, \sigma^2)
-\]</span></p>
-<p>Recall that the pdf of a random variable <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span> is given by</p>
-<p><span class="math display">\[
-f_{X}(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp{\left[-\frac{1}{2}\left(\frac{x - \mu}{\sigma}\right)^2\right]}.
-\]</span></p>
-<p>Then we can write the pdf of each of the <span class="math inline">\(Y_i\)</span> as</p>
-<p><span class="math display">\[
-f_{Y_i}(y_i; x_i, \beta_0, \beta_1, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp{\left[-\frac{1}{2}\left(\frac{y_i - (\beta_0 + \beta_1 x_i)}{\sigma}\right)^2\right]}.
-\]</span></p>
-<p>Given <span class="math inline">\(n\)</span> data points <span class="math inline">\((x_i, y_i)\)</span> we can write the likelihood, which is a function of the three parameters <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\sigma^2\)</span>. Since the data have been observed, we use lower case <span class="math inline">\(y_i\)</span> to denote that these values are no longer random.</p>
-<p><span class="math display">\[
-L(\beta_0, \beta_1, \sigma^2) = \prod_{i = 1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp{\left[-\frac{1}{2}\left(\frac{y_i - \beta_0 - \beta_1 x_i}{\sigma}\right)^2\right]}
-\]</span></p>
-<p>Our goal is to find values of <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\sigma^2\)</span> which maximize this function, which is a straightforward multivariate calculus problem.</p>
-<p>We’ll start by doing a bit of rearranging to make our task easier.</p>
-<p><span class="math display">\[
-L(\beta_0, \beta_1, \sigma^2) = \left(\frac{1}{\sqrt{2 \pi \sigma^2}}\right)^n \exp{\left[-\frac{1}{2 \sigma^2} \sum_{i = 1}^{n} (y_i - \beta_0 - \beta_1 x_i)^2\right]}
-\]</span></p>
-<p>Then, as is often the case when finding MLEs, for mathematical convenience we will take the natural logarithm of the likelihood function since log is a monotonically increasing function. Then we will proceed to maximize the log-likelihood, and the resulting estimates will be the same as if we had not taken the log.</p>
-<p><span class="math display">\[
-\log L(\beta_0, \beta_1, \sigma^2) = -\frac{n}{2}\log(2 \pi) - \frac{n}{2}\log(\sigma^2) - \frac{1}{2 \sigma^2} \sum_{i = 1}^{n} (y_i - \beta_0 - \beta_1 x_i)^2
-\]</span></p>
-<p>Note that we use <span class="math inline">\(\log\)</span> to mean the natural logarithm. We now take a partial derivative with respect to each of the parameters.</p>
-<p><span class="math display">\[
-\begin{aligned}
-\frac{\partial \log L(\beta_0, \beta_1, \sigma^2)}{\partial \beta_0} &amp;= \frac{1}{\sigma^2} \sum_{i = 1}^{n} (y_i - \beta_0 - \beta_1 x_i)\\
-\frac{\partial \log L(\beta_0, \beta_1, \sigma^2)}{\partial \beta_1} &amp;= \frac{1}{\sigma^2} \sum_{i = 1}^{n}(x_i)(y_i - \beta_0 - \beta_1 x_i) \\
-\frac{\partial \log L(\beta_0, \beta_1, \sigma^2)}{\partial \sigma^2} &amp;= -\frac{n}{2 \sigma^2} + \frac{1}{2(\sigma^2)^2} \sum_{i = 1}^{n} (y_i - \beta_0 - \beta_1 x_i)^2
-\end{aligned}
-\]</span></p>
-<p>We then set each of the partial derivatives equal to zero and solve the resulting system of equations.</p>
-<p><span class="math display">\[
-\begin{aligned}
-\sum_{i = 1}^{n} (y_i - \beta_0 - \beta_1 x_i) &amp;= 0\\
-\sum_{i = 1}^{n}(x_i)(y_i - \beta_0 - \beta_1 x_i) &amp;= 0\\
--\frac{n}{2 \sigma^2} + \frac{1}{2(\sigma^2)^2} \sum_{i = 1}^{n} (y_i - \beta_0 - \beta_1 x_i)^2 &amp;= 0
-\end{aligned}
-\]</span></p>
-<p>You may notice that the first two equations also appear in the least squares approach. Then, skipping the issue of actually checking if we have found a maximum, we then arrive at our estimates. We call these estimates the maximum likelihood estimates.</p>
-<p><span class="math display">\[
-\begin{aligned}
-\hat{\beta}_1 &amp;= \frac{\sum_{i = 1}^{n} x_i y_i - \frac{(\sum_{i = 1}^{n} x_i)(\sum_{i = 1}^{n} y_i)}{n}}{\sum_{i = 1}^{n} x_i^2 - \frac{(\sum_{i = 1}^{n} x_i)^2}{n}} = \frac{S_{xy}}{S_{xx}}\\
-\hat{\beta}_0 &amp;= \bar{y} - \hat{\beta}_1 \bar{x}\\
-\hat{\sigma}^2 &amp;= \frac{1}{n} \sum_{i = 1}^{n}(y_i - \hat{y}_i)^2
-\end{aligned}
-\]</span></p>
-<p>Note that <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> are the same as the least squares estimates. However we now have a new estimate of <span class="math inline">\(\sigma^2\)</span>, that is <span class="math inline">\(\hat{\sigma}^2\)</span>. So we now have two different estimates of <span class="math inline">\(\sigma^2\)</span>.</p>
-<p><span class="math display">\[
-\begin{aligned}
-s_e^2 &amp;= \frac{1}{n - 2} \sum_{i = 1}^{n}(y_i - \hat{y}_i)^2 = \frac{1}{n - 2} \sum_{i = 1}^{n}e_i^2 &amp; \text{Least Squares}\\
-\hat{\sigma}^2 &amp;= \frac{1}{n} \sum_{i = 1}^{n}(y_i - \hat{y}_i)^2 = \frac{1}{n} \sum_{i = 1}^{n}e_i^2 &amp; \text{MLE}
-\end{aligned}
-\]</span></p>
-<p>In the next chapter, we will discuss in detail the difference between these two estimates, which involves biasedness.</p>
-</section>
-<section id="simulating-slr" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="simulating-slr"><span class="header-section-number">6.6</span> Simulating SLR</h2>
+<section id="simulating-slr" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="simulating-slr"><span class="header-section-number">6.5</span> Simulating SLR</h2>
 <p>We return again to more examples of simulation. This will be a common theme!</p>
 <p>In practice you will almost never have a true model, and you will use data to attempt to recover information about the unknown true model. With simulation, we decide the true model and simulate data from it. Then, we apply a method to the data, in this case least squares. Now, since we know the true model, we can assess how well it did.</p>
 <p>For this example, we will simulate <span class="math inline">\(n = 21\)</span> observations from the model</p>
@@ -3231,8 +3157,8 @@ Y \mid X \sim N(\mu = 5 - 2 x, \sigma^ 2 = 9).
 <div id="qwebr-insertion-location-48"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
-<section id="history" class="level2" data-number="6.7">
-<h2 data-number="6.7" class="anchored" data-anchor-id="history"><span class="header-section-number">6.7</span> History</h2>
+<section id="history" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="history"><span class="header-section-number">6.6</span> History</h2>
 <p>For some brief background on the history of linear regression, see <a href="https://www.tandfonline.com/doi/full/10.1080/10691898.2001.11910537" target="_blank">“Galton, Pearson, and the Peas: A Brief History of Linear Regression for Statistics Instructors”</a> from the <a href="https://www.tandfonline.com/journals/ujse20" target="_blank">Journal of Statistics Education</a> as well as the <a href="https://en.wikipedia.org/wiki/Regression_analysis#History" target="_blank">Wikipedia page on the history of regression analysis</a> and lastly the article for <a href="https://en.wikipedia.org/wiki/Regression_toward_the_mean" target="_blank">regression toward the mean</a> which details the origins of the term “regression.”</p>
 
 
