@@ -9,7 +9,7 @@
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
 <meta name="dcterms.date" content="2026-09-09">
 
-<title>12&nbsp; Analysis of Variance – Applied Statistics with R</title>
+<title>11&nbsp; Analysis of Variance – Applied Statistics with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -315,7 +315,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_model-building.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./11_anova.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_model-building.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./11_anova.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -346,7 +346,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Applied Statistics with R</span></span></a>
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -361,31 +361,31 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_r-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to <code>R</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02_data-and-programming.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data and Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data and Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03_data-summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_prob-and-stat.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Probability and Statistics in <code>R</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05_r-resources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><code>R</code> Resources</span></span></a>
   </div>
 </li>
       </ul>
@@ -402,19 +402,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06_slr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07_slr-inf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Inference for Simple Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inference for Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08_mlr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
       </ul>
@@ -431,43 +431,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09_model-building.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Model Building</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Model Building</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./10_cat-int.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11_anova.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./12_diagnostics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13_transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./14_collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Collinearity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Collinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./15_selection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Variable Selection and Model Building</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Variable Selection and Model Building</span></span></a>
   </div>
 </li>
       </ul>
@@ -484,13 +484,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./17_logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./18_beyond.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Beyond</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Beyond</span></span></a>
   </div>
 </li>
       </ul>
@@ -505,16 +505,16 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#experiments" id="toc-experiments" class="nav-link active" data-scroll-target="#experiments"><span class="header-section-number">12.1</span> Experiments</a></li>
-  <li><a href="#two-sample-t-test" id="toc-two-sample-t-test" class="nav-link" data-scroll-target="#two-sample-t-test"><span class="header-section-number">12.2</span> Two-Sample t-Test</a></li>
-  <li><a href="#one-way-anova" id="toc-one-way-anova" class="nav-link" data-scroll-target="#one-way-anova"><span class="header-section-number">12.3</span> One-Way ANOVA</a>
+  <li><a href="#experiments" id="toc-experiments" class="nav-link active" data-scroll-target="#experiments"><span class="header-section-number">11.1</span> Experiments</a></li>
+  <li><a href="#two-sample-t-test" id="toc-two-sample-t-test" class="nav-link" data-scroll-target="#two-sample-t-test"><span class="header-section-number">11.2</span> Two-Sample t-Test</a></li>
+  <li><a href="#one-way-anova" id="toc-one-way-anova" class="nav-link" data-scroll-target="#one-way-anova"><span class="header-section-number">11.3</span> One-Way ANOVA</a>
   <ul class="collapse">
   <li><a href="#factor-variables" id="toc-factor-variables" class="nav-link" data-scroll-target="#factor-variables">Factor Variables</a></li>
   <li><a href="#some-simulation" id="toc-some-simulation" class="nav-link" data-scroll-target="#some-simulation">Some Simulation</a></li>
   <li><a href="#power" id="toc-power" class="nav-link" data-scroll-target="#power">Power</a></li>
   </ul></li>
-  <li><a href="#post-hoc-testing" id="toc-post-hoc-testing" class="nav-link" data-scroll-target="#post-hoc-testing"><span class="header-section-number">12.4</span> Post Hoc Testing</a></li>
-  <li><a href="#two-way-anova" id="toc-two-way-anova" class="nav-link" data-scroll-target="#two-way-anova"><span class="header-section-number">12.5</span> Two-Way ANOVA</a></li>
+  <li><a href="#post-hoc-testing" id="toc-post-hoc-testing" class="nav-link" data-scroll-target="#post-hoc-testing"><span class="header-section-number">11.4</span> Post Hoc Testing</a></li>
+  <li><a href="#two-way-anova" id="toc-two-way-anova" class="nav-link" data-scroll-target="#two-way-anova"><span class="header-section-number">11.5</span> Two-Way ANOVA</a></li>
   </ul>
 </nav>
     </div>
@@ -522,9 +522,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_model-building.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./11_anova.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_model-building.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./11_anova.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Analysis of Variance</span></h1>
 </div>
 
 
@@ -570,8 +570,8 @@ window.Quarto = {
 </blockquote>
 <p>Thus far, we have built models for numeric responses, when the predictors are all numeric. We’ll take a minor detour to go back and consider models which <em>only</em> have <strong>categorical</strong> predictors. A categorical predictor is a variable which takes only a finite number of values, which are not ordered. For example a variable which takes possible values <code>red</code>, <code>blue</code>, <code>green</code> is categorical. In the context of using a categorical variable as a predictor, it would place observations into different groups (categories).</p>
 <p>We’ve also mostly been dealing with observational data. The methods in this section are most useful in experimental settings, but still work with observational data. (However, for determining causation, we require experiments.)</p>
-<section id="experiments" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="experiments"><span class="header-section-number">12.1</span> Experiments</h2>
+<section id="experiments" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="experiments"><span class="header-section-number">11.1</span> Experiments</h2>
 <p>The biggest difference between an observational study and an experiment is <em>how</em> the predictor data is obtained. Is the experimenter in control?</p>
 <ul>
 <li>In an <strong>observational</strong> study, both response and predictor data are obtained via observation.</li>
@@ -581,8 +581,8 @@ window.Quarto = {
 <p>The design of experiments could be a course by itself. The Wikipedia article on <a href="https://en.wikipedia.org/wiki/Design_of_experiments" target="_blank">design of experiments</a> gives a good overview. Originally, most of the methodology was developed for agricultural applications by <a href="https://en.wikipedia.org/wiki/Ronald_Fisher" target="_blank">R. A. Fisher</a>, but is still in use today, now in a wide variety of application areas. Notably, these methods have seen a resurgence as a part of “A/B Testing.”</p>
 <!-- TODO: In the future, discuss the Morrow Plots: http://cropsci.illinois.edu/research/morrow -->
 </section>
-<section id="two-sample-t-test" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="two-sample-t-test"><span class="header-section-number">12.2</span> Two-Sample t-Test</h2>
+<section id="two-sample-t-test" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="two-sample-t-test"><span class="header-section-number">11.2</span> Two-Sample t-Test</h2>
 <p>The simplest example of an experimental design is the setup for a two-sample <span class="math inline">\(t\)</span>-test. There is a single factor variable with two levels which split the subjects into two groups. Often, one level is considered the <strong>control</strong>, while the other is the <strong>treatment</strong>. The subjects are randomly assigned to one of the two groups. After being assigned to a group, each subject has some quantity measured, which is the response variable.</p>
 <p>Mathematically, we consider the model</p>
 <p><span class="math display">\[
@@ -680,8 +680,8 @@ sample estimates:
 </div>
 <!-- TODO: other parametarization, explain identify -->
 </section>
-<section id="one-way-anova" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="one-way-anova"><span class="header-section-number">12.3</span> One-Way ANOVA</h2>
+<section id="one-way-anova" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="one-way-anova"><span class="header-section-number">11.3</span> One-Way ANOVA</h2>
 <p>What if there are more than two groups? Consider the model</p>
 <p><span class="math display">\[
 y_{ij} = \mu + \alpha_i + e_{ij}
@@ -1048,8 +1048,8 @@ Residuals   12 14.484  1.2070               </code></pre>
 </div>
 </section>
 </section>
-<section id="post-hoc-testing" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="post-hoc-testing"><span class="header-section-number">12.4</span> Post Hoc Testing</h2>
+<section id="post-hoc-testing" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="post-hoc-testing"><span class="header-section-number">11.4</span> Post Hoc Testing</h2>
 <p>Suppose we reject the null hypothesis from the ANOVA test for equal means. That tells us that the means are different. But which means? All of them? Some of them? The obvious strategy is to test all possible comparisons of two means. We can do this easily in <code>R</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(coagulation, <span class="fu">pairwise.t.test</span>(coag, diet, <span class="at">p.adj =</span> <span class="st">"none"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1164,8 +1164,8 @@ D-C   -7 -10.5770944 -3.422906 0.0001268</code></pre>
 </div>
 <p>The creator of this method, <a href="https://en.wikipedia.org/wiki/John_Tukey" target="_blank">John Tukey</a>, is an important figure in the history of data science. He essentially <a href="https://projecteuclid.org/euclid.aoms/1177704711" target="_blank">predicted the rise of data science over 50 years ago</a>. For some retrospective thoughts on those 50 years, see <a href="http://courses.csail.mit.edu/18.337/2015/docs/50YearsDataScience.pdf" target="_blank">this paper from David Donoho</a>.</p>
 </section>
-<section id="two-way-anova" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="two-way-anova"><span class="header-section-number">12.5</span> Two-Way ANOVA</h2>
+<section id="two-way-anova" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="two-way-anova"><span class="header-section-number">11.5</span> Two-Way ANOVA</h2>
 <p>What if there is more than one factor variable? Why do we need to limit ourselves to experiments with only one factor? We don’t! Consider the model</p>
 <p><span class="math display">\[
 y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij} + \epsilon_{ijk}
@@ -1778,29 +1778,6 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 
 </main> <!-- /main -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const links = document.querySelectorAll("#quarto-sidebar a");
-
-  links.forEach(function (link) {
-    if (link.textContent.trim() === "Background") {
-      const section = link.closest("li.sidebar-item-section");
-
-      if (section) {
-        section.classList.remove("show");
-
-        const toggle = section.querySelector(
-          '[data-bs-toggle="collapse"]'
-        );
-
-        if (toggle) {
-          toggle.setAttribute("aria-expanded", "false");
-        }
-      }
-    }
-  });
-});
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -2217,12 +2194,12 @@ document.addEventListener("DOMContentLoaded", function () {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./10_cat-int.html" class="pagination-link" aria-label="Categorical Predictors and Interactions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Categorical Predictors and Interactions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./12_diagnostics.html" class="pagination-link" aria-label="Model Diagnostics">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Diagnostics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

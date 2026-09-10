@@ -1,9 +1,5 @@
---- 
-title: "Applied Statistics with R"
-number: false
----
 
-# Introduction
+# Introduction {.unnumbered}
 
 Welcome to Applied Statistics with R!
 

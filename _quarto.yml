@@ -61,4 +61,3 @@ format:
     mainfont: ubuntu, sans-serif
     code-fold: false
     code-summary: "Show the code"
-    include-after-body: sidebar-collapse.html
