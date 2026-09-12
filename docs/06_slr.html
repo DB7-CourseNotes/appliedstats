@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-10">
+<meta name="dcterms.date" content="2026-09-11">
 
 <title>6&nbsp; Simple Linear Regression – Applied Statistics with R</title>
 <style>
@@ -2385,7 +2385,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-10</p>
+      <p class="date">2026-09-11</p>
     </div>
   </div>
   
@@ -2540,6 +2540,16 @@ Y_i \mid X_i \sim N(\beta_0 + \beta_1 x_i, \sigma^2)
 <p><span class="math display">\[
 \text{E}[Y_i \mid X_i = x_i] = \beta_0 + \beta_1 x_i.
 \]</span></p>
+<p>Consider the followong plot. The red line is the estimated linear model, and the red dots are the average value of <span class="math inline">\(y\)</span> for all <span class="math inline">\(x\)</span> values that are within 2 units. For example, the point at <code>x = 15</code> is the average of the <code>y</code> values for all data where <code>13 &lt;= x &lt;= 17</code>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_slr_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>However, its variance remains constant for each <span class="math inline">\(x_i\)</span>,</p>
 <p><span class="math display">\[
 \text{Var}[Y_i \mid X_i = x_i] = \sigma^2.
@@ -2988,7 +2998,7 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} \\&amp;= \frac{\sum_{i=1}^{n}(\hat{y}
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="1152"></p>
+<p><img src="06_slr_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
@@ -3002,7 +3012,7 @@ R^2 &amp;= \frac{\text{SSReg}}{\text{SST}} \\&amp;= \frac{\sum_{i=1}^{n}(\hat{y}
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="06_slr_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="1152"></p>
+<p><img src="06_slr_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>

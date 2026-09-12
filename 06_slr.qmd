@@ -189,6 +189,41 @@ $$
 \text{E}[Y_i \mid X_i = x_i] = \beta_0 + \beta_1 x_i.
 $$
 
+Consider the followong plot. The red line is the estimated linear model, and the red dots are the average value of $y$ for all $x$ values that are within 2 units. For example, the point at `x = 15` is the average of the `y` values for all data where `13 <= x <= 17`.
+
+```{r echo=FALSE}
+x_avg <- cars$speed
+
+y_avg <- sapply(x_avg, function(x0) {
+  mean(cars$dist[abs(cars$speed - x0) <= 2])
+})
+
+plot(
+    dist ~ speed, data = cars,
+    xlab = "Speed (in Miles Per Hour)",
+    ylab = "Stopping Distance (in Feet)",
+    main = "Stopping Distance vs Speed",
+    pch = 20,
+    cex = 2,
+    col = "grey"
+)
+
+stop_dist_model <- lm(dist ~ speed, data = cars)
+abline(stop_dist_model, lwd = 3, col = "darkorange")
+
+points(x_avg, y_avg, col = "red", pch = 1, cex = 1.2)
+
+legend(
+  "topleft",
+  legend = c("Observed data", "Linear model", "Window average"),
+  col = c("grey", "darkorange", "darkorange"),
+  pch = c(16, NA, 1),
+  lty = c(NA, 1, NA),
+  lwd = c(NA, 2, NA)
+)
+
+```
+
 However, its variance remains constant for each $x_i$,
 
 $$
