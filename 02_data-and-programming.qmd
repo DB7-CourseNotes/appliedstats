@@ -623,7 +623,7 @@ Alternatively, we could use the "Import Dataset" feature in RStudio which can be
 
 Earlier we looked at installing packages, in particular the `ggplot2` package. (A package for visualization. While not necessary for this course, it is quickly growing in popularity.) 
 
-```{webr-r, message = FALSE, warning = FALSE}
+```{webr-r message = FALSE, warning = FALSE}
 library(ggplot2)
 ```
 
@@ -659,7 +659,7 @@ In this dataset an observation is for a particular model-year of a car, and the 
 
 To understand more about the data set, we use the `?` operator to pull up the documentation for the data.
 
-```{webr-r, eval = FALSE}
+```{webr-r eval = FALSE}
 ?mpg
 ```
 
@@ -694,13 +694,13 @@ mpg[mpg$hwy > 35, c("manufacturer", "model", "year")]
 
 An alternative would be to use the `subset()` function, which has a much more readable syntax.
 
-```{webr-r, eval = FALSE}
+```{webr-r eval = FALSE}
 subset(mpg, subset = hwy > 35, select = c("manufacturer", "model", "year"))
 ```
 
 Lastly, we could use the `filter` and `select` functions from the `dplyr` package which introduces the `%>%` operator from the `magrittr` package. This is not necessary for this course, however the `dplyr` package is something you should be aware of as it is becoming a popular tool in the `R` world.
 
-```{webr-r, eval = FALSE}
+```{webr-r eval = FALSE}
 library(dplyr)
 mpg %>% filter(hwy > 35) %>% select(manufacturer, model, year)
 ```

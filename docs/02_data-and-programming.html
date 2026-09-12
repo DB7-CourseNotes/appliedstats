@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-09">
+<meta name="dcterms.date" content="2026-09-11">
 
 <title>2&nbsp; Data and Programming – Applied Statistics with R</title>
 <style>
@@ -2384,7 +2384,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-09</p>
+      <p class="date">2026-09-11</p>
     </div>
   </div>
   
@@ -2784,7 +2784,7 @@ X^\top X
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Alternatively, we could use the “Import Dataset” feature in RStudio which can be found in the environment window. (By default, the top-right pane of RStudio.) Once completed, this process will automatically generate the code to import a file. The resulting code will be shown in the console window. In recent versions of RStudio, <code>read_csv()</code> is used by default, thus reading in a tibble.</p>
 <p>Earlier we looked at installing packages, in particular the <code>ggplot2</code> package. (A package for visualization. While not necessary for this course, it is quickly growing in popularity.)</p>
-<p><code>{webr-r, message = FALSE, warning = FALSE} library(ggplot2)</code></p>
+<p><code>{webr-r message = FALSE, warning = FALSE} library(ggplot2)</code></p>
 <p>Inside the <code>ggplot2</code> package is a dataset called <code>mpg</code>. By loading the package using the <code>library()</code> function, we can now access <code>mpg</code>.</p>
 <p>When using data from inside a package, there are three things we would generally like to do:</p>
 <ul>
@@ -2804,7 +2804,7 @@ X^\top X
 <p>It is important to note that while matrices have rows and columns, data frames (tibbles) instead have observations and variables. When displayed in the console or viewer, each row is an observation and each column is a variable. However generally speaking, their order does not matter, it is simply a side-effect of how the data was entered or stored.</p>
 <p>In this dataset an observation is for a particular model-year of a car, and the variables describe attributes of the car, for example its highway fuel efficiency.</p>
 <p>To understand more about the data set, we use the <code>?</code> operator to pull up the documentation for the data.</p>
-<p><code>{webr-r, eval = FALSE} ?mpg</code></p>
+<p><code>{webr-r eval = FALSE} ?mpg</code></p>
 <p><code>R</code> has a number of functions for quickly working with and extracting basic information from data frames. To quickly obtain a vector of the variable names, we use the <code>names()</code> function.</p>
 <div id="qwebr-insertion-location-71"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
@@ -2819,9 +2819,9 @@ X^\top X
 <div id="qwebr-insertion-location-74"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>An alternative would be to use the <code>subset()</code> function, which has a much more readable syntax.</p>
-<p><code>{webr-r, eval = FALSE} subset(mpg, subset = hwy &gt; 35, select = c("manufacturer", "model", "year"))</code></p>
+<p><code>{webr-r eval = FALSE} subset(mpg, subset = hwy &gt; 35, select = c("manufacturer", "model", "year"))</code></p>
 <p>Lastly, we could use the <code>filter</code> and <code>select</code> functions from the <code>dplyr</code> package which introduces the <code>%&gt;%</code> operator from the <code>magrittr</code> package. This is not necessary for this course, however the <code>dplyr</code> package is something you should be aware of as it is becoming a popular tool in the <code>R</code> world.</p>
-<p><code>{webr-r, eval = FALSE} library(dplyr) mpg %&gt;% filter(hwy &gt; 35) %&gt;% select(manufacturer, model, year)</code></p>
+<p><code>{webr-r eval = FALSE} library(dplyr) mpg %&gt;% filter(hwy &gt; 35) %&gt;% select(manufacturer, model, year)</code></p>
 <p>All three approaches produce the same results. Which you use will be largely based on a given situation as well as user preference.</p>
 <p>When subsetting a data frame, be aware of what is being returned, as sometimes it may be a vector instead of a data frame. Also note that there are differences between subsetting a data frame and a tibble. A data frame operates more like a matrix where it is possible to reduce the subset to a vector. A tibble operates more like a list where it always subsets to another tibble.</p>
 </section>

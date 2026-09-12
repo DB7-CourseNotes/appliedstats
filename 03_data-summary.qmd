@@ -10,7 +10,7 @@ webr:
 
 `R` has built-in functions for a large number of summary statistics. For numeric variables, we can summarize data with the center and spread. We'll again look at the `mpg` dataset from the `ggplot2` package.
 
-```{webr-r, message = FALSE, warning = FALSE}
+```{webr-r message = FALSE, warning = FALSE}
 library(ggplot2)
 data(mpg)
 ```

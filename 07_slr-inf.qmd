@@ -157,7 +157,7 @@ $$
 \end{aligned}
 $$
 
-These quantify the variability of the estimates due to random chance during sampling. These variances are as small as we can possibly get among all linear unbiased estimators—a result guaranteed by the Gauss–Markov theorem.
+These quantify the variability of the estimates due to random chance during sampling. These variances are as small as we can possibly get among all linear unbiased estimators — a result guaranteed by the Gauss–Markov theorem.
 :::
 
 ## Sampling Distributions
@@ -166,6 +166,8 @@ These quantify the variability of the estimates due to random chance during samp
 ## Sampling Distribution
 
 A **sampling distribution** is the probability distribution of a sample statistic when that statistic is considered a random variable (before data are observed).
+
+Intuitively, if you have different data you would have gotten a different estimate. The sampling distribution describes the variability in this estimate.
 :::
 
 Now that we have "redefined" the estimates for $\hat{\beta}_0$ and $\hat{\beta}_1$ as random variables, we can discuss their sampling distributions.
@@ -745,7 +747,7 @@ You should be somewhat suspicious of the confidence interval for $\beta_0$, as i
 
 Note, we can extract specific values from this output a number of ways. This code is not run, and instead, you should check how it relates to the output of the code above.
 
-```{webr-r, eval = FALSE}
+```{webr-r eval = FALSE}
 confint(stop_dist_model, level = 0.99)[1,]
 confint(stop_dist_model, level = 0.99)[1, 1]
 confint(stop_dist_model, level = 0.99)[1, 2]
@@ -891,7 +893,7 @@ Also notice that these two intervals are wider than the corresponding confidence
 
 Often we will like to plot both confidence intervals for the mean response and prediction intervals for all possible values of $x$. We calls these confidence and prediction bands.
 
-```{webr-r, fig.height = 8, fig.width = 10, message = TRUE}
+```{webr-r fig.height = 8, fig.width = 10, message = TRUE}
 speed_grid <- seq(min(cars$speed), max(cars$speed), by = 0.01)
 dist_ci_band <- predict(stop_dist_model, 
                        newdata = data.frame(speed = speed_grid), 
