@@ -651,11 +651,11 @@ An alternative would be to use the `subset()` function, which has a much more re
 subset(mpg, subset = hwy > 35, select = c("manufacturer", "model", "year"))
 ```
 
-Lastly, we could use the `filter` and `select` functions from the `dplyr` package which introduces the `%>%` operator from the `magrittr` package. This is not necessary for this course, however the `dplyr` package is something you should be aware of as it is becoming a popular tool in the `R` world.
+Lastly, we could use the `filter` and `select` functions from the `dplyr` package which introduces the `|>` operator from the `magrittr` package. This is not necessary for this course, however the `dplyr` package is something you should be aware of as it is becoming a popular tool in the `R` world.
 
 ```{r, eval = FALSE}
 library(dplyr)
-mpg %>% filter(hwy > 35) %>% select(manufacturer, model, year)
+mpg |> filter(hwy > 35) |> select(manufacturer, model, year)
 ```
 
 All three approaches produce the same results. Which you use will be largely based on a given situation as well as user preference.

@@ -2784,7 +2784,9 @@ X^\top X
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Alternatively, we could use the “Import Dataset” feature in RStudio which can be found in the environment window. (By default, the top-right pane of RStudio.) Once completed, this process will automatically generate the code to import a file. The resulting code will be shown in the console window. In recent versions of RStudio, <code>read_csv()</code> is used by default, thus reading in a tibble.</p>
 <p>Earlier we looked at installing packages, in particular the <code>ggplot2</code> package. (A package for visualization. While not necessary for this course, it is quickly growing in popularity.)</p>
-<p><code>{webr-r, message = FALSE, warning = FALSE} library(ggplot2)</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>Inside the <code>ggplot2</code> package is a dataset called <code>mpg</code>. By loading the package using the <code>library()</code> function, we can now access <code>mpg</code>.</p>
 <p>When using data from inside a package, there are three things we would generally like to do:</p>
 <ul>
@@ -2804,7 +2806,9 @@ X^\top X
 <p>It is important to note that while matrices have rows and columns, data frames (tibbles) instead have observations and variables. When displayed in the console or viewer, each row is an observation and each column is a variable. However generally speaking, their order does not matter, it is simply a side-effect of how the data was entered or stored.</p>
 <p>In this dataset an observation is for a particular model-year of a car, and the variables describe attributes of the car, for example its highway fuel efficiency.</p>
 <p>To understand more about the data set, we use the <code>?</code> operator to pull up the documentation for the data.</p>
-<p><code>{webr-r, eval = FALSE} ?mpg</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>?mpg</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><code>R</code> has a number of functions for quickly working with and extracting basic information from data frames. To quickly obtain a vector of the variable names, we use the <code>names()</code> function.</p>
 <div id="qwebr-insertion-location-71"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
@@ -2819,9 +2823,25 @@ X^\top X
 <div id="qwebr-insertion-location-74"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>An alternative would be to use the <code>subset()</code> function, which has a much more readable syntax.</p>
-<p><code>{webr-r, eval = FALSE} subset(mpg, subset = hwy &gt; 35, select = c("manufacturer", "model", "year"))</code></p>
-<p>Lastly, we could use the <code>filter</code> and <code>select</code> functions from the <code>dplyr</code> package which introduces the <code>%&gt;%</code> operator from the <code>magrittr</code> package. This is not necessary for this course, however the <code>dplyr</code> package is something you should be aware of as it is becoming a popular tool in the <code>R</code> world.</p>
-<p><code>{webr-r, eval = FALSE} library(dplyr) mpg %&gt;% filter(hwy &gt; 35) %&gt;% select(manufacturer, model, year)</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(mpg, <span class="at">subset =</span> hwy <span class="sc">&gt;</span> <span class="dv">35</span>, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"manufacturer"</span>, <span class="st">"model"</span>, <span class="st">"year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  manufacturer model       year
+  &lt;chr&gt;        &lt;chr&gt;      &lt;int&gt;
+1 honda        civic       2008
+2 honda        civic       2008
+3 toyota       corolla     2008
+4 volkswagen   jetta       1999
+5 volkswagen   new beetle  1999
+6 volkswagen   new beetle  1999</code></pre>
+</div>
+</div>
+<p>Lastly, we could use the <code>filter</code> and <code>select</code> functions from the <code>dplyr</code> package which make heavy use of the <code>|&gt;</code> operator from the <code>magrittr</code> package. This is not necessary for this course, however the <code>dplyr</code> package is something you should be aware of as it is becoming a popular tool in the <code>R</code> world.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span> <span class="fu">filter</span>(hwy <span class="sc">&gt;</span> <span class="dv">35</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(manufacturer, model, year)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>All three approaches produce the same results. Which you use will be largely based on a given situation as well as user preference.</p>
 <p>When subsetting a data frame, be aware of what is being returned, as sometimes it may be a vector instead of a data frame. Also note that there are differences between subsetting a data frame and a tibble. A data frame operates more like a matrix where it is possible to reduce the subset to a vector. A tibble operates more like a list where it always subsets to another tibble.</p>
 </section>
@@ -2832,11 +2852,11 @@ X^\top X
 <h3 class="anchored" data-anchor-id="control-flow">Control Flow</h3>
 <p>In <code>R</code>, the if/else syntax is:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (...) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  some R code</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  more R code</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (...) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  some R code</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  more R code</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>For example,</p>
 <div id="qwebr-insertion-location-75"></div>
@@ -2858,7 +2878,7 @@ X^\top X
 <h3 class="anchored" data-anchor-id="functions">Functions</h3>
 <p>So far we have been using functions, but haven’t actually discussed some of their details.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">function_name</span>(<span class="at">arg1 =</span> <span class="dv">10</span>, <span class="at">arg2 =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">function_name</span>(<span class="at">arg1 =</span> <span class="dv">10</span>, <span class="at">arg2 =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To use a function, you simply type its name, followed by an open parenthesis, then specify values of its arguments, then finish with a closing parenthesis.</p>
 <p>An <strong>argument</strong> is a variable which is used in the body of the function. Specifying the values of the arguments is essentially providing the inputs to the function.</p>
@@ -2892,7 +2912,7 @@ X^\top X
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Also, the following line of code would produce an error since arguments without a default value must be specified.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power_of_num</span>(<span class="at">power =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power_of_num</span>(<span class="at">power =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To further illustrate a function with a default argument, we will write a function that calculates sample variance two ways.</p>
 <p>By default, it will calculate the unbiased estimate of <span class="math inline">\(\sigma^2\)</span>, which we will call <span class="math inline">\(s^2\)</span>.</p>

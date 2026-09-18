@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -376,7 +411,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"stop_dist_model <- lm(dist ~ speed, data = cars)\nsummary(stop_dist_model)","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"plot(dist ~ speed, data = cars,\n     xlab = \"Speed (in Miles Per Hour)\",\n     ylab = \"Stopping Distance (in Feet)\",\n     main = \"Stopping Distance vs Speed\",\n     pch  = 20,\n     cex  = 2,\n     col  = \"grey\")\nabline(stop_dist_model, lwd = 5, col = \"darkorange\")","id":2,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"set.seed(42)\nsample_size <- 100 # this is n\nx <- seq(-1, 1, length = sample_size)\nSxx <- sum((x - mean(x)) ^ 2)","id":3,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"beta_0 <- 3\nbeta_1 <- 6\nsigma  <- 2","id":4,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"(var_beta_1_hat <- sigma ^ 2 / Sxx)\n(var_beta_0_hat <- sigma ^ 2 * (1 / sample_size + mean(x) ^ 2 / Sxx))","id":5,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"num_samples <- 10000\nbeta_0_hats <- rep(0, num_samples)\nbeta_1_hats <- rep(0, num_samples)\n\nfor (i in 1:num_samples) {\n  eps = rnorm(sample_size, mean = 0, sd = sigma)\n  y   = beta_0 + beta_1 * x + eps\n  \n  sim_model = lm(y ~ x)\n  \n  beta_0_hats[i] = coef(sim_model)[1]\n  beta_1_hats[i] = coef(sim_model)[2]\n}","id":6,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-6","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"mean(beta_1_hats) # empirical mean\nbeta_1            # true mean\nvar(beta_1_hats)  # empirical variance\nvar_beta_1_hat    # true variance","id":7,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-7","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# note need to use prob = TRUE\nhist(beta_1_hats, prob = TRUE, breaks = 20, \n     xlab = expression(hat(beta)[1]), main = \"\", border = \"dodgerblue\")\ncurve(dnorm(x, mean = beta_1, sd = sqrt(var_beta_1_hat)), \n      col = \"darkorange\", add = TRUE, lwd = 3)","id":8,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-8","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"mean(beta_0_hats) # empirical mean\nbeta_0            # true mean\nvar(beta_0_hats)  # empirical variance\nvar_beta_0_hat    # true variance","id":9,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-9","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"hist(beta_0_hats, prob = TRUE, breaks = 25, \n     xlab = expression(hat(beta)[0]), main = \"\", border = \"dodgerblue\")\ncurve(dnorm(x, mean = beta_0, sd = sqrt(var_beta_0_hat)),\n      col = \"darkorange\", add = TRUE, lwd = 3)","id":10,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-10","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"par(mar = c(5, 5, 1, 1)) # adjusted plot margins, otherwise the \"hat\" does not display\nplot(cumsum(beta_1_hats) / (1:length(beta_1_hats)), type = \"l\", ylim = c(5.95, 6.05),\n     xlab = \"Number of Simulations\",\n     ylab = expression(\"Empirical Mean of \" ~ hat(beta)[1]),\n     col  = \"dodgerblue\")\nabline(h = 6, col = \"darkorange\", lwd = 2)\n\npar(mar = c(5, 5, 1, 1)) # adjusted plot margins, otherwise the \"hat\" does not display\nplot(cumsum(beta_0_hats) / (1:length(beta_0_hats)), type = \"l\", ylim = c(2.95, 3.05),\n     xlab = \"Number of Simulations\",\n     ylab = expression(\"Empirical Mean of \" ~ hat(beta)[0]),\n     col  = \"dodgerblue\")\nabline(h = 3, col = \"darkorange\", lwd = 2)","id":11,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-11","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# define grid of x values\nx <- seq(-4, 4, length = 100)\n\n# plot curve for standard normal\nplot(x, dnorm(x), type = \"l\", lty = 1, lwd = 2,\n     xlab = \"x\", ylab = \"Density\", main = \"Normal vs t Distributions\")\n# add curves for t distributions\nlines(x, dt(x, df = 1), lty = 3, lwd = 2, col = \"darkorange\")\nlines(x, dt(x, df = 10), lty = 2, lwd = 2, col = \"dodgerblue\")\n\n# add legend\nlegend(\"topright\", title = \"Distributions\",\n       legend = c(\"t, df = 1\", \"t, df = 10\", \"Standard Normal\"), \n       lwd = 2, lty = c(3, 2, 1), col = c(\"darkorange\", \"dodgerblue\", \"black\"))","id":12,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-12","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"stop_dist_model <- lm(dist ~ speed, data = cars)\nsummary(stop_dist_model)","id":13,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-13","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"names(summary(stop_dist_model))\nsummary(stop_dist_model)$coefficients","id":14,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-14","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)$coefficients[2,]","id":15,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-15","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)$coefficients[1,]","id":16,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-16","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"stop_dist_model_test_info <- summary(stop_dist_model)$coefficients\n\nbeta_0_hat <- stop_dist_model_test_info[1, 1] # Estimate\nbeta_0_hat_se <- stop_dist_model_test_info[1, 2] # Std. Error\nbeta_0_hat_t <- stop_dist_model_test_info[1, 3] # t value\nbeta_0_hat_pval <- stop_dist_model_test_info[1, 4] # Pr(>|t|)\n\nbeta_1_hat <- stop_dist_model_test_info[2, 1] # Estimate\nbeta_1_hat_se <- stop_dist_model_test_info[2, 2] # Std. Error\nbeta_1_hat_t <- stop_dist_model_test_info[2, 3] # t value\nbeta_1_hat_pval <- stop_dist_model_test_info[2, 4] # Pr(>|t|)","id":17,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-17","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"(beta_1_hat - 0) / beta_1_hat_se\nbeta_1_hat_t","id":18,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-18","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"2 * pt(abs(beta_1_hat_t), df = length(resid(stop_dist_model)) - 2, lower.tail = FALSE)\nbeta_1_hat_pval","id":19,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-19","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"confint(stop_dist_model, level = 0.99)","id":20,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-20","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# store estimate\nbeta_1_hat <- coef(stop_dist_model)[2]\n\n# store standard error\nbeta_1_hat_se <- summary(stop_dist_model)$coefficients[2, 2]\n\n# calculate critical value for two-sided 99% CI\ncrit <- qt(0.995, df = length(resid(stop_dist_model)) - 2)\n\n# est - margin, est + margin\nc(beta_1_hat - crit * beta_1_hat_se, beta_1_hat + crit * beta_1_hat_se)","id":21,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-21","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"new_speeds <- data.frame(speed = c(5, 21))\npredict(stop_dist_model, newdata = new_speeds, \n        interval = c(\"confidence\"), level = 0.99)","id":22,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-22","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"predict(stop_dist_model, newdata = new_speeds, \n        interval = c(\"prediction\"), level = 0.99)","id":23,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-23","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"anova(stop_dist_model)","id":24,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-24","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"anova(lm(dist ~ 1, data = cars), lm(dist ~ speed, data = cars))","id":25,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-25","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"stop_dist_model <- lm(dist ~ speed, data = cars)\nsummary(stop_dist_model)","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"plot(dist ~ speed, data = cars,\n     xlab = \"Speed (in Miles Per Hour)\",\n     ylab = \"Stopping Distance (in Feet)\",\n     main = \"Stopping Distance vs Speed\",\n     pch  = 20,\n     cex  = 2,\n     col  = \"grey\")\nabline(stop_dist_model, lwd = 5, col = \"darkorange\")","id":2,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"set.seed(42)\nsample_size <- 100 # this is n\nx <- seq(-1, 1, length = sample_size)\nSxx <- sum((x - mean(x)) ^ 2)","id":3,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"beta_0 <- 3\nbeta_1 <- 6\nsigma  <- 2","id":4,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"(var_beta_1_hat <- sigma ^ 2 / Sxx)\n(var_beta_0_hat <- sigma ^ 2 * (1 / sample_size + mean(x) ^ 2 / Sxx))","id":5,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"num_samples <- 10000\nbeta_0_hats <- rep(0, num_samples)\nbeta_1_hats <- rep(0, num_samples)\n\nfor (i in 1:num_samples) {\n  eps = rnorm(sample_size, mean = 0, sd = sigma)\n  y   = beta_0 + beta_1 * x + eps\n  \n  sim_model = lm(y ~ x)\n  \n  beta_0_hats[i] = coef(sim_model)[1]\n  beta_1_hats[i] = coef(sim_model)[2]\n}","id":6,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-6","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"mean(beta_1_hats) # empirical mean\nbeta_1            # true mean\nvar(beta_1_hats)  # empirical variance\nvar_beta_1_hat    # true variance","id":7,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-7","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# note need to use prob = TRUE\nhist(beta_1_hats, prob = TRUE, breaks = 20, \n     xlab = expression(hat(beta)[1]), main = \"\", border = \"dodgerblue\")\ncurve(dnorm(x, mean = beta_1, sd = sqrt(var_beta_1_hat)), \n      col = \"darkorange\", add = TRUE, lwd = 3)","id":8,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-8","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"mean(beta_0_hats) # empirical mean\nbeta_0            # true mean\nvar(beta_0_hats)  # empirical variance\nvar_beta_0_hat    # true variance","id":9,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-9","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"hist(beta_0_hats, prob = TRUE, breaks = 25, \n     xlab = expression(hat(beta)[0]), main = \"\", border = \"dodgerblue\")\ncurve(dnorm(x, mean = beta_0, sd = sqrt(var_beta_0_hat)),\n      col = \"darkorange\", add = TRUE, lwd = 3)","id":10,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-10","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"par(mar = c(5, 5, 1, 1)) # adjusted plot margins, otherwise the \"hat\" does not display\nplot(cumsum(beta_1_hats) / (1:length(beta_1_hats)), type = \"l\", ylim = c(5.95, 6.05),\n     xlab = \"Number of Simulations\",\n     ylab = expression(\"Empirical Mean of \" ~ hat(beta)[1]),\n     col  = \"dodgerblue\")\nabline(h = 6, col = \"darkorange\", lwd = 2)\n\npar(mar = c(5, 5, 1, 1)) # adjusted plot margins, otherwise the \"hat\" does not display\nplot(cumsum(beta_0_hats) / (1:length(beta_0_hats)), type = \"l\", ylim = c(2.95, 3.05),\n     xlab = \"Number of Simulations\",\n     ylab = expression(\"Empirical Mean of \" ~ hat(beta)[0]),\n     col  = \"dodgerblue\")\nabline(h = 3, col = \"darkorange\", lwd = 2)","id":11,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-11","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# define grid of x values\nx <- seq(-4, 4, length = 100)\n\n# plot curve for standard normal\nplot(x, dnorm(x), type = \"l\", lty = 1, lwd = 2,\n     xlab = \"x\", ylab = \"Density\", main = \"Normal vs t Distributions\")\n# add curves for t distributions\nlines(x, dt(x, df = 1), lty = 3, lwd = 2, col = \"darkorange\")\nlines(x, dt(x, df = 10), lty = 2, lwd = 2, col = \"dodgerblue\")\n\n# add legend\nlegend(\"topright\", title = \"Distributions\",\n       legend = c(\"t, df = 1\", \"t, df = 10\", \"Standard Normal\"), \n       lwd = 2, lty = c(3, 2, 1), col = c(\"darkorange\", \"dodgerblue\", \"black\"))","id":12,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-12","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"stop_dist_model <- lm(dist ~ speed, data = cars)\nsummary(stop_dist_model)","id":13,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-13","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"names(summary(stop_dist_model))\nsummary(stop_dist_model)$coefficients","id":14,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-14","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)$coefficients[2,]","id":15,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-15","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)$coefficients[1,]","id":16,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-16","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"stop_dist_model_test_info <- summary(stop_dist_model)$coefficients\n\nbeta_0_hat <- stop_dist_model_test_info[1, 1] # Estimate\nbeta_0_hat_se <- stop_dist_model_test_info[1, 2] # Std. Error\nbeta_0_hat_t <- stop_dist_model_test_info[1, 3] # t value\nbeta_0_hat_pval <- stop_dist_model_test_info[1, 4] # Pr(>|t|)\n\nbeta_1_hat <- stop_dist_model_test_info[2, 1] # Estimate\nbeta_1_hat_se <- stop_dist_model_test_info[2, 2] # Std. Error\nbeta_1_hat_t <- stop_dist_model_test_info[2, 3] # t value\nbeta_1_hat_pval <- stop_dist_model_test_info[2, 4] # Pr(>|t|)","id":17,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-17","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"(beta_1_hat - 0) / beta_1_hat_se\nbeta_1_hat_t","id":18,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-18","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"2 * pt(abs(beta_1_hat_t), df = length(resid(stop_dist_model)) - 2, lower.tail = FALSE)\nbeta_1_hat_pval","id":19,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-19","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"confint(stop_dist_model, level = 0.99)","id":20,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-20","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# store estimate\nbeta_1_hat <- coef(stop_dist_model)[2]\n\n# store standard error\nbeta_1_hat_se <- summary(stop_dist_model)$coefficients[2, 2]\n\n# calculate critical value for two-sided 99% CI\ncrit <- qt(0.995, df = length(resid(stop_dist_model)) - 2)\n\n# est - margin, est + margin\nc(beta_1_hat - crit * beta_1_hat_se, beta_1_hat + crit * beta_1_hat_se)","id":21,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-21","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"new_speeds <- data.frame(speed = c(5, 21))\npredict(stop_dist_model, newdata = new_speeds, \n        interval = c(\"confidence\"), level = 0.99)","id":22,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-22","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"predict(stop_dist_model, newdata = new_speeds, \n        interval = c(\"prediction\"), level = 0.99)","id":23,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-23","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(stop_dist_model)","id":24,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-24","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"anova(stop_dist_model)","id":25,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-25","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"anova(lm(dist ~ 1, data = cars), lm(dist ~ speed, data = cars))","id":26,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-26","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -2040,6 +2075,7 @@ window.Quarto = {
   <li><a href="#confidence-interval-for-mean-response" id="toc-confidence-interval-for-mean-response" class="nav-link" data-scroll-target="#confidence-interval-for-mean-response"><span class="header-section-number">7.7</span> Confidence Interval for Mean Response</a></li>
   <li><a href="#prediction-interval-for-new-observations" id="toc-prediction-interval-for-new-observations" class="nav-link" data-scroll-target="#prediction-interval-for-new-observations"><span class="header-section-number">7.8</span> Prediction Interval for New Observations</a></li>
   <li><a href="#confidence-and-prediction-bands" id="toc-confidence-and-prediction-bands" class="nav-link" data-scroll-target="#confidence-and-prediction-bands"><span class="header-section-number">7.9</span> Confidence and Prediction Bands</a></li>
+  <li><a href="#significance-of-regression-f-test" id="toc-significance-of-regression-f-test" class="nav-link" data-scroll-target="#significance-of-regression-f-test"><span class="header-section-number">7.10</span> Significance of Regression, F-Test</a></li>
   </ul>
 </nav>
     </div>
@@ -2859,7 +2895,7 @@ Y_i = \beta_0 + \epsilon_i.
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="07_slr-inf_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="07_slr-inf_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2876,7 +2912,16 @@ Y_i = \beta_0 + \epsilon_i.
 <p>Note that this 99% confidence interval does <strong>not</strong> contain the hypothesized value of 0. Since it does not contain 0, it is equivalent to rejecting the test of <span class="math inline">\(H_0: \beta_1 = 0\)</span> vs <span class="math inline">\(H_1: \beta_1 \neq 0\)</span> at <span class="math inline">\(\alpha = 0.01\)</span>, which we had seen previously.</p>
 <p>You should be somewhat suspicious of the confidence interval for <span class="math inline">\(\beta_0\)</span>, as it covers negative values, which correspond to negative stopping distances. Technically the interpretation would be that we are 99% confident that the average stopping distance of a car traveling 0 miles per hour is between -35.7066103 and 0.5484205 feet, but we don’t really believe that, since we are actually certain that it would be non-negative.</p>
 <p>Note, we can extract specific values from this output a number of ways. This code is not run, and instead, you should check how it relates to the output of the code above.</p>
-<p><code>{webr-r, eval = FALSE} confint(stop_dist_model, level = 0.99)[1,] confint(stop_dist_model, level = 0.99)[1, 1] confint(stop_dist_model, level = 0.99)[1, 2] confint(stop_dist_model, parm = "(Intercept)", level = 0.99) confint(stop_dist_model, level = 0.99)[2,] confint(stop_dist_model, level = 0.99)[2, 1] confint(stop_dist_model, level = 0.99)[2, 2] confint(stop_dist_model, parm = "speed", level = 0.99)</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">1</span>,]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">parm =</span> <span class="st">"(Intercept)"</span>, <span class="at">level =</span> <span class="fl">0.99</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">2</span>,]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">2</span>, <span class="dv">1</span>]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">level =</span> <span class="fl">0.99</span>)[<span class="dv">2</span>, <span class="dv">2</span>]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(stop_dist_model, <span class="at">parm =</span> <span class="st">"speed"</span>, <span class="at">level =</span> <span class="fl">0.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>We can also verify that calculations that <code>R</code> is performing for the <span class="math inline">\(\beta_1\)</span> interval.</p>
 <div id="qwebr-insertion-location-21"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
@@ -2998,92 +3043,155 @@ Y_i = \beta_0 + \epsilon_i.
 <section id="confidence-and-prediction-bands" class="level2" data-number="7.9">
 <h2 data-number="7.9" class="anchored" data-anchor-id="confidence-and-prediction-bands"><span class="header-section-number">7.9</span> Confidence and Prediction Bands</h2>
 <p>Often we will like to plot both confidence intervals for the mean response and prediction intervals for all possible values of <span class="math inline">\(x\)</span>. We calls these confidence and prediction bands.</p>
-<p>```{webr-r, fig.height = 8, fig.width = 10, message = TRUE} speed_grid &lt;- seq(min(cars<span class="math inline">\(speed), max(cars\)</span>speed), by = 0.01) dist_ci_band &lt;- predict(stop_dist_model, newdata = data.frame(speed = speed_grid), interval = “confidence”, level = 0.99) dist_pi_band &lt;- predict(stop_dist_model, newdata = data.frame(speed = speed_grid), interval = “prediction”, level = 0.99)</p>
-<p>plot(dist ~ speed, data = cars, xlab = “Speed (in Miles Per Hour)”, ylab = “Stopping Distance (in Feet)”, main = “Stopping Distance vs Speed”, pch = 20, cex = 2, col = “grey”, ylim = c(min(dist_pi_band), max(dist_pi_band))) abline(stop_dist_model, lwd = 5, col = “darkorange”)</p>
-<p>lines(speed_grid, dist_ci_band[,“lwr”], col = “dodgerblue”, lwd = 3, lty = 2) lines(speed_grid, dist_ci_band[,“upr”], col = “dodgerblue”, lwd = 3, lty = 2) lines(speed_grid, dist_pi_band[,“lwr”], col = “dodgerblue”, lwd = 3, lty = 3) lines(speed_grid, dist_pi_band[,“upr”], col = “dodgerblue”, lwd = 3, lty = 3) points(mean(cars<span class="math inline">\(speed), mean(cars\)</span>dist), pch = “+”, cex = 3)</p>
-<pre><code>
-Some things to notice:
-
-- We use the `ylim` argument to stretch the $y$-axis of the plot, since the bands extend further than the points.
-- We add a point at the point $(\bar{x}, \bar{y})$.
-    - This is a point that the regression line will **always** pass through. (Think about why.)
-    - This is the point where both the confidence and prediction bands are the narrowest. Look at the standard errors of both to understand why.
-- The prediction bands (dotted blue) are less curved than the confidence bands (dashed blue). This is a result of the extra factor of $\sigma^2$ added to the variance at any value of $x$.
-
-## Significance of Regression, F-Test
-
-In the case of simple linear regression, the $t$ test for the significance of the regression is equivalent to another test, the $F$ test for the significance of the regression. This equivalence will only be true for simple linear regression, and in the next chapter we will only use the $F$ test for the significance of the regression.
-
-Recall from last chapter the decomposition of variance we saw before calculating $R^2$,
-
-$$
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>speed_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(cars<span class="sc">$</span>speed), <span class="fu">max</span>(cars<span class="sc">$</span>speed), <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dist_ci_band <span class="ot">&lt;-</span> <span class="fu">predict</span>(stop_dist_model, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">speed =</span> speed_grid), </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">interval =</span> <span class="st">"confidence"</span>, <span class="at">level =</span> <span class="fl">0.99</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>dist_pi_band <span class="ot">&lt;-</span> <span class="fu">predict</span>(stop_dist_model, </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">speed =</span> speed_grid), </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.99</span>) </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dist <span class="sc">~</span> speed, <span class="at">data =</span> cars,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Speed (in Miles Per Hour)"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Stopping Distance (in Feet)"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Stopping Distance vs Speed"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch  =</span> <span class="dv">20</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex  =</span> <span class="dv">2</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">col  =</span> <span class="st">"grey"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fu">min</span>(dist_pi_band), <span class="fu">max</span>(dist_pi_band)))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(stop_dist_model, <span class="at">lwd =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="st">"darkorange"</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(speed_grid, dist_ci_band[,<span class="st">"lwr"</span>], <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(speed_grid, dist_ci_band[,<span class="st">"upr"</span>], <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(speed_grid, dist_pi_band[,<span class="st">"lwr"</span>], <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(speed_grid, dist_pi_band[,<span class="st">"upr"</span>], <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">mean</span>(cars<span class="sc">$</span>speed), <span class="fu">mean</span>(cars<span class="sc">$</span>dist), <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_slr-inf_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Some things to notice:</p>
+<ul>
+<li>We use the <code>ylim</code> argument to stretch the <span class="math inline">\(y\)</span>-axis of the plot, since the bands extend further than the points.</li>
+<li>We add a point at the point <span class="math inline">\((\bar{x}, \bar{y})\)</span>.
+<ul>
+<li>This is a point that the regression line will <strong>always</strong> pass through. (Think about why.)</li>
+<li>This is the point where both the confidence and prediction bands are the narrowest. Look at the standard errors of both to understand why.</li>
+</ul></li>
+<li>The prediction bands (dotted blue) are less curved than the confidence bands (dashed blue). This is a result of the extra factor of <span class="math inline">\(\sigma^2\)</span> added to the variance at any value of <span class="math inline">\(x\)</span>.</li>
+</ul>
+</section>
+<section id="significance-of-regression-f-test" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="significance-of-regression-f-test"><span class="header-section-number">7.10</span> Significance of Regression, F-Test</h2>
+<p>In the case of simple linear regression, the <span class="math inline">\(t\)</span> test for the significance of the regression is equivalent to another test, the <span class="math inline">\(F\)</span> test for the significance of the regression. This equivalence will only be true for simple linear regression, and in the next chapter we will only use the <span class="math inline">\(F\)</span> test for the significance of the regression.</p>
+<p>Recall from last chapter the decomposition of variance we saw before calculating <span class="math inline">\(R^2\)</span>,</p>
+<p><span class="math display">\[
 \sum_{i=1}^{n}(y_i - \bar{y})^2 = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 + \sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2,
-$$
-
-or, in short,
-
-$$
+\]</span></p>
+<p>or, in short,</p>
+<p><span class="math display">\[
 \text{SST} = \text{SSE} + \text{SSReg}.
-$$
-
-To develop the $F$ test, we organize this information in an **Analysis of Variance (ANOVA) table**:
-
-::: {.callout-note}
-## ANOVA Table for Simple Linear Regression
-
-An **ANOVA table** summarizes the decomposition of variance:
-:::
-
-| Source     | Sum of Squares  | Degrees of Freedom | Mean Square | $F$ |
-|------------|-----------------|------------|-----------|-----------|
-| Regression | $\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2$ | $1$ | $\text{SSReg} / 1$     | $\text{MSReg} / \text{MSE}$ |
-| Error      | $\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$     | $n - 2$ | $\text{SSE} / (n - 2)$ |             |
-| Total      | $\sum_{i=1}^{n}(y_i - \bar{y})^2$       | $n - 1$ |                 |             |
-
-:::
-
-From this table, we compute the $F$ statistic:
-
-::: {.callout-note}
-## F-Statistic for Significance of Regression
-
-$$
+\]</span></p>
+<p>To develop the <span class="math inline">\(F\)</span> test, we organize this information in an <strong>Analysis of Variance (ANOVA) table</strong>:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>ANOVA Table for Simple Linear Regression
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An <strong>ANOVA table</strong> summarizes the decomposition of variance:</p>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 26%">
+<col style="width: 19%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Sum of Squares</th>
+<th>Degrees of Freedom</th>
+<th>Mean Square</th>
+<th><span class="math inline">\(F\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Regression</td>
+<td><span class="math inline">\(\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2\)</span></td>
+<td><span class="math inline">\(1\)</span></td>
+<td><span class="math inline">\(\text{SSReg} / 1\)</span></td>
+<td><span class="math inline">\(\text{MSReg} / \text{MSE}\)</span></td>
+</tr>
+<tr class="even">
+<td>Error</td>
+<td><span class="math inline">\(\sum_{i=1}^{n}(y_i - \hat{y}_i)^2\)</span></td>
+<td><span class="math inline">\(n - 2\)</span></td>
+<td><span class="math inline">\(\text{SSE} / (n - 2)\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td><span class="math inline">\(\sum_{i=1}^{n}(y_i - \bar{y})^2\)</span></td>
+<td><span class="math inline">\(n - 1\)</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>:::</p>
+<p>From this table, we compute the <span class="math inline">\(F\)</span> statistic:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>F-Statistic for Significance of Regression
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
 F = \frac{\text{SSReg} / 1}{\text{SSE} / (n - 2)} = \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2 / 1}{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 / (n - 2)} \sim F_{1, n - 2}
-$$
-
-Under the null hypothesis $H_0: \beta_1 = 0$, this follows an $F$ distribution with degrees of freedom $1$ and $n - 2$. An $F$ distribution is a continuous distribution which takes only positive values and is determined by two degrees of freedom parameters.
-:::
-
-Recall, in the significance of the regression test, $Y$ does **not** depend on $x$ in the null hypothesis.
-
-$$
+\]</span></p>
+<p>Under the null hypothesis <span class="math inline">\(H_0: \beta_1 = 0\)</span>, this follows an <span class="math inline">\(F\)</span> distribution with degrees of freedom <span class="math inline">\(1\)</span> and <span class="math inline">\(n - 2\)</span>. An <span class="math inline">\(F\)</span> distribution is a continuous distribution which takes only positive values and is determined by two degrees of freedom parameters.</p>
+</div>
+</div>
+<p>Recall, in the significance of the regression test, <span class="math inline">\(Y\)</span> does <strong>not</strong> depend on <span class="math inline">\(x\)</span> in the null hypothesis.</p>
+<p><span class="math display">\[
 H_0: \beta_1 = 0 \quad \quad Y_i = \beta_0 + \epsilon_i
-$$
-
-While in the alternative hypothesis $Y$ may depend on $x$.
-
-$$
+\]</span></p>
+<p>While in the alternative hypothesis <span class="math inline">\(Y\)</span> may depend on <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[
 H_1: \beta_1 \neq 0 \quad \quad Y_i = \beta_0 + \beta_1 x_i + \epsilon_i
-$$
-
-We can use the $F$ statistic to perform this test.
-
-$$
+\]</span></p>
+<p>We can use the <span class="math inline">\(F\)</span> statistic to perform this test.</p>
+<p><span class="math display">\[
 F = \frac{\sum_{i=1}^{n}(\hat{y}_i - \bar{y})^2 / 1}{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 / (n - 2)}
-$$
-
-In particular, we will reject the null when the $F$ statistic is large, that is, when there is a low probability that the observations could have come from the null model by chance. We will let `R` calculate the p-value for us.
-
-To perform the $F$ test in `R` you can look at the last row of the output from `summary()` called `F-statistic` which gives the value of the test statistic, the relevant degrees of freedom, as well as the p-value of the test.
-
-```{webr-r}
-summary(stop_dist_model)</code></pre>
-<p>Additionally, you can use the <code>anova()</code> function to display the information in an ANOVA table.</p>
+\]</span></p>
+<p>In particular, we will reject the null when the <span class="math inline">\(F\)</span> statistic is large, that is, when there is a low probability that the observations could have come from the null model by chance. We will let <code>R</code> calculate the p-value for us.</p>
+<p>To perform the <span class="math inline">\(F\)</span> test in <code>R</code> you can look at the last row of the output from <code>summary()</code> called <code>F-statistic</code> which gives the value of the test statistic, the relevant degrees of freedom, as well as the p-value of the test.</p>
 <div id="qwebr-insertion-location-24"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Additionally, you can use the <code>anova()</code> function to display the information in an ANOVA table.</p>
+<div id="qwebr-insertion-location-25"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>This also gives a p-value for the test. You should notice that the p-value from the <span class="math inline">\(t\)</span> test was the same. You might also notice that the value of the test statistic for the <span class="math inline">\(t\)</span> test, <span class="math inline">\(9.46399\)</span>, can be squared to obtain the value of the <span class="math inline">\(F\)</span> statistic, <span class="math inline">\(89.5671065\)</span>.</p>
 <p>Note that there is another equivalent way to do this in <code>R</code>, which we will return to often to compare two models.</p>
-<div id="qwebr-insertion-location-25"></div>
+<div id="qwebr-insertion-location-26"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>The model statement <code>lm(dist ~ 1, data = cars)</code> applies the model <span class="math inline">\(Y_i = \beta_0 + \epsilon_i\)</span> to the cars data. Note that <span class="math inline">\(\hat{y} = \bar{y}\)</span> when <span class="math inline">\(Y_i = \beta_0 + \epsilon_i\)</span>.</p>
 <p>The model statement <code>lm(dist ~ speed, data = cars)</code> applies the model <span class="math inline">\(Y_i = \beta_0 + \beta_1 x_i + \epsilon_i\)</span>.</p>

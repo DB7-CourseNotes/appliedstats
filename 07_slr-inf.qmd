@@ -50,6 +50,10 @@ stop_dist_model <- lm(dist ~ speed, data = cars)
 summary(stop_dist_model)
 ```
 
+```{r echo=FALSE}
+stop_dist_model <- lm(dist ~ speed, data = cars)
+```
+
 Last chapter, we only discussed the `Estimate`, `Residual standard error`, and `Multiple R-squared` values. In this chapter, we will discuss all of the information under `Coefficients` as well as `F-statistic`.
 
 ```{webr-r}
@@ -747,7 +751,7 @@ You should be somewhat suspicious of the confidence interval for $\beta_0$, as i
 
 Note, we can extract specific values from this output a number of ways. This code is not run, and instead, you should check how it relates to the output of the code above.
 
-```{webr-r, eval = FALSE}
+```{r, eval = FALSE}
 confint(stop_dist_model, level = 0.99)[1,]
 confint(stop_dist_model, level = 0.99)[1, 1]
 confint(stop_dist_model, level = 0.99)[1, 2]
@@ -893,7 +897,7 @@ Also notice that these two intervals are wider than the corresponding confidence
 
 Often we will like to plot both confidence intervals for the mean response and prediction intervals for all possible values of $x$. We calls these confidence and prediction bands.
 
-```{webr-r, fig.height = 8, fig.width = 10, message = TRUE}
+```{r, fig.height = 8, fig.width = 10, message = TRUE}
 speed_grid <- seq(min(cars$speed), max(cars$speed), by = 0.01)
 dist_ci_band <- predict(stop_dist_model, 
                        newdata = data.frame(speed = speed_grid), 
