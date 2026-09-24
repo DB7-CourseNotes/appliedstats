@@ -953,7 +953,7 @@ To develop the $F$ test, we organize this information in an **Analysis of Varian
 ## ANOVA Table for Simple Linear Regression
 
 An **ANOVA table** summarizes the decomposition of variance:
-:::
+
 
 | Source     | Sum of Squares  | Degrees of Freedom | Mean Square | $F$ |
 |------------|-----------------|------------|-----------|-----------|
