@@ -858,6 +858,17 @@ summary(mpg_model)$r.squared
 
 The interpretation changes slightly as compared to SLR. In this MLR case, we say that $`r round(100*summary(mpg_model)$r.squared, 2)`\%$ of the observed variation in miles per gallon is explained by the linear relationship with the two predictor variables, weight and year.
 
+
+::: {.callout-warning}
+## $R^2$ Always Increases
+
+If we have a model $y_i = \beta_0 + \beta_1 x_{i1} + \epsilon_i$ and then add a new predictor $x_{2}$, it is impossible for us to explain *less* variation in $y$.
+
+We'll explore this more in a later section. For now, know that $R^2$ is *very* difficult to compare for models with different numbers of predictors (especially nested models, as defined below.)
+
+:::
+
+
 In multiple regression, the significance of regression test is
 
 $$
