@@ -19,6 +19,7 @@ So far in each of our analyses, we have only used numeric variables as predictor
 
 ## Dummy Variables
 
+
 For this chapter, we will briefly use the built-in dataset `mtcars` before returning to our `autompg` dataset that we created in the last chapter. The `mtcars` dataset is somewhat smaller, so we'll quickly take a look at the entire dataset.
 
 ```{r}
@@ -77,7 +78,7 @@ $$
 where $x_1$ and $Y$ remain the same, but now
 
 $$
-x_2 <-
+x_2 =
   \begin{cases}
    1 & \text{manual transmission} \\
    0       & \text{automatic transmission}
@@ -151,6 +152,10 @@ $$
 
 This is nothing new. Again, the math is the same as the multiple regression analyses we have seen before. We could perform either a $t$ or $F$ test here. The only difference is a slight change in interpretation. We could think of this as testing a model with a single line ($H_0$) against a model that allows two lines ($H_1$).
 
+
+- $H_0$: The intercept for automatic and manual cars is the same
+- $H_1$: The intercept is different (there are two separate lines with the *same slope*)
+
 To obtain the test statistic and p-value for the $t$-test, we would use
 
 ```{r}
@@ -183,7 +188,19 @@ we see $\beta_1$ is the average change in $Y$ for an increase in $x_1$, *no matt
 
 Here we restricted ourselves to a single numerical predictor $x_1$ and one dummy variable $x_2$. However, the concept of a dummy variable can be used with larger multiple regression models. We only use a single numerical predictor here for ease of visualization since we can think of the "two lines" interpretation. But in general, we can think of a dummy variable as creating "two models," one for each category of a binary categorical variable.
 
+
+::: {.callout-note}
+## Dummy Variable
+
+A **dummy variable** is a numerical variable used to "code" for a binary categorical variable in regression analysis. It typically takes values of 0 and 1, where:
+- 0 represents one category (often the reference or baseline level)
+- 1 represents the other category
+
+Dummy variables allow categorical variables to be included in linear regression models by converting categories into numerical form.
+:::
+
 ## Interactions
+
 
 To remove the "same slope" restriction, we will now discuss **interaction**. To illustrate this concept, we will return to the `autompg` dataset we created in the last chapter, with a few more modifications.
 
@@ -236,7 +253,7 @@ where
 - $x_2$ is `domestic` as described above, which is a dummy variable.
 
 $$
-x_2 <-
+x_2 =
   \begin{cases}
    1 & \text{Domestic} \\
    0 & \text{Foreign}
@@ -270,6 +287,17 @@ $$
 
 where $x_1$, $x_2$, and $Y$ are the same as before, but we have added a new **interaction** term $x_1 x_2$ which multiplies $x_1$ and $x_2$, so we also have an additional $\beta$ parameter $\beta_3$.
 
+
+::: {.callout-note}
+## Interaction Term
+
+An **interaction term** is created by multiplying two (or more) predictor variables together and including this product in the model. 
+
+In the model $Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2 + \epsilon$, the term $x_1 x_2$ is an interaction. It allows the effect of $x_1$ on $Y$ to depend on the value of $x_2$ (and vice versa).
+
+Interactions remove the additive assumption that each predictor's effect is independent of other predictors.
+:::
+
 This model essentially creates two slopes and two intercepts, $\beta_2$ being the difference in intercepts and $\beta_3$ being the difference in slopes. To see this, we will break down the model into the two "sub-models" for foreign and domestic cars.
 
 For foreign cars, that is $x_2 = 0$, we have
@@ -292,6 +320,7 @@ These two models have both different slopes and intercepts.
 - $\beta_1 + \beta_3$ is the change in average `mpg` for an increase of one `disp`, for **domestic** cars.
 
 How do we fit this model in `R`? There are a number of ways.
+
 
 One method would be to simply create a new variable, then fit a model like any other.
 
@@ -441,7 +470,22 @@ $$
 
 Notice the sign changed!
 
+::: {.callout-note}
+## Specifying Interactions in R
+
+There are two preferred ways to include interaction terms in an `R` formula:
+
+1. **Using `:`** specifies only the interaction term:
+   - `lm(y ~ x1 + x2 + x1:x2, data = df)` — explicitly state main effects and their interaction
+
+2. **Using `*`** specifies interactions AND all main effects automatically:
+   - `lm(y ~ x1 * x2, data = df)` — automatically includes `x1`, `x2`, and `x1:x2`
+
+**Avoid** manually creating product variables (with `:`) and adding them to your data—let `R` handle this automatically!
+:::
+
 ## Factor Variables
+
 
 So far in this chapter, we have limited our use of categorical variables to binary categorical variables. Specifically, we have limited ourselves to dummy variables which take a value of `0` or `1` and represent a categorical variable numerically.
 
@@ -540,6 +584,21 @@ is the estimated average `mpg` for a **domestic** car with 0 `disp`, which is in
 When `R` created $x_2$, the dummy variable, it used domestic cars as the **reference** level, that is the default value of the factor variable. So when the dummy variable is `0`, the model represents this reference level, which is domestic. (`R` makes this choice because domestic comes before foreign alphabetically.)
 
 So the two models have different estimated coefficients, but due to the different model representations, they are actually the same model.
+
+::: {.callout-note}
+## Factor Variable
+
+A **factor variable** is `R`'s special data type for categorical variables. It stores:
+- A set of **levels** (the categories or distinct values)
+- For each observation, which level it belongs to
+
+Advantages of factors:
+- `R` automatically creates dummy variables when used in models
+- Cleaner interpretation and less manual coding
+- Can specify a reference level to control parameterization
+
+Convert character or numeric categorical data to factors using `as.factor()`.
+:::
 
 ### Factors with More Than Two Levels
 
@@ -731,7 +790,25 @@ nrow(autompg) - length(coef(mpg_disp_int_cyl))
 nrow(autompg) - length(coef(mpg_disp_add_cyl))
 ```
 
+
+::: {.callout-note}
+## Categorical vs. Numerical Treatment
+
+**When to treat a variable as categorical (factor):**
+- The variable represents discrete categories with no meaningful order or distance
+- Differences between levels are not uniform (e.g., difference between 4 and 6 cylinders ≠ difference between 6 and 8 cylinders)
+- Each category should have its own parameter/effect
+
+**When to treat a variable as numerical:**
+- The variable has a natural numerical scale with meaningful intervals
+- Linear increase in the variable corresponds to linear change in response
+
+Example: Engine cylinders (4, 6, 8) should usually be categorical, not numerical.
+:::
+
+
 ## Parameterization
+
 
 So far we have been simply letting `R` decide how to create the dummy variables, and thus `R` has been deciding the parameterization of the models. To illustrate the ability to use alternative parameterizations, we will recreate the data, but directly creating the dummy variables ourselves.
 
@@ -815,9 +892,36 @@ all.equal(fitted(lm(mpg ~ disp * cyl, data = autompg)),
           fitted(lm(mpg ~ 0 + cyl + disp : cyl, data = autompg)))
 ```
 
+
+::: {.callout-note}
+## Parameterization and Reference Levels
+
+**Parameterization** refers to how a model's parameters (coefficients) are defined and interpreted.
+
+By default, `R` uses **treatment coding** with a **reference level** (baseline):
+- Drops one dummy variable to avoid multicollinearity (with an intercept)
+- The reference level is the baseline for comparison
+- Other levels' coefficients show their difference from the reference
+
+Alternative approaches exist (e.g., removing the intercept) that parameterize models differently while fitting the same data equally well. Different parameterizations yield the same predictions.
+:::
+
 ## Building Larger Models
 
 Now that we have seen how to incorporate categorical predictors as well as interaction terms, we can start to build much larger, much more flexible models which can potentially fit data better.
+
+::: {.callout-note}
+## Higher-Order Interactions and Hierarchy
+
+An **n-way interaction** is the product of $n$ predictor variables. Examples:
+- Two-way: $x_1 x_2$
+- Three-way: $x_1 x_2 x_3$
+
+**Hierarchy principle:** When including a high-order interaction in a model, all lower-order "components" should also be included. For example:
+- To include $x_1 x_2 x_3$, also include $x_1 x_2$, $x_1 x_3$, $x_2 x_3$, and the main effects $x_1$, $x_2$, $x_3$
+
+This principle improves interpretability and is standard practice, though mathematically the full model can be fit without all components.
+:::
 
 Let's define a "big" model,
 
@@ -832,9 +936,7 @@ Here,
 - $x_2$ is `hp`.
 - $x_3$ is `domestic`, which is a dummy variable we defined, where `1` is a domestic vehicle.
 
-First thing to note here, we have included a new term $x_1 x_2 x_3$ which is a three-way interaction. Interaction terms can be larger and larger, up to the number of predictors in the model. 
-
-Since we are using the three-way interaction term, we also use all possible two-way interactions, as well as each of the first order (**main effect**) terms. This is the concept of a **hierarchy**. Any time a "higher-order" term is in a model, the related "lower-order" terms should also be included. Mathematically their inclusion or exclusion is sometimes irrelevant, but from an interpretation standpoint, it is best to follow the hierarchy rules.
+First thing to note here, we have included a new term $x_1 x_2 x_3$ which is a three-way interaction. Interaction terms can be larger and larger, up to the number of predictors in the model.
 
 Let's do some rearrangement to obtain a "coefficient" in front of $x_1$.
 

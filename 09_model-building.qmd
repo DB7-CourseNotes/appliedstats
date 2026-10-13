@@ -83,7 +83,7 @@ $$
 \hat{y} = \hat{f}(x_1, x_2, x_3, \ldots, x_{p-1}) = \hat{\beta}_0 + \hat{\beta}_1 x_{1}
 $$
 
-Note that, now we have dropped the term for the noise. We don't make any effort to model the noise, only the signal.
+Note that, now we have dropped the term for the noise. The noise is modelled according to a normal distribution - if this is not an appropriate assumption, then we need a more general form of models (Generalized Linear Models, or GLMs). 
 
 ### Form
 
@@ -186,23 +186,6 @@ Why the focus on **linear models**? Two big reasons:
 
 ### Assumed Model, Fitted Model
 
-::: {.callout-note}
-## Assumed Model vs. Fitted Model
-
-An **assumed model** specifies our assumptions about the relationship between $Y$ and predictors:
-
-$$
-y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
-$$
-
-This codifies the **family** (linear) and **form** (which predictors). The **fitted model** is obtained after fitting to data:
-
-$$
-\hat{y} = 1.5 + 0.9 x_{1} + 1.1 x_{3} + 2.3 x_{5}
-$$
-
-The fitted model is our best estimate of $f$ for the assumed family and form—but only for those assumptions.
-:::
 
 When searching for a model, we often need to make assumptions. These assumptions are codified in the **family** and **form** of the model. For example
 
@@ -232,6 +215,25 @@ y = f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon
 $$
 
 for the assumed **family** and **form**. Fitting a model only gives us the best fit for the family and form that we specify. So the natural question is; how do we choose the correct family and form? We'll focus on *form* since we are focusing on the *family* of linear models.
+
+
+::: {.callout-note}
+## Assumed Model vs. Fitted Model
+
+An **assumed model** specifies our assumptions about the relationship between $Y$ and predictors:
+
+$$
+y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
+$$
+
+This codifies the **family** (linear) and **form** (which predictors). The **fitted model** is obtained after fitting to data:
+
+$$
+\hat{y} = 1.5 + 0.9 x_{1} + 1.1 x_{3} + 2.3 x_{5}
+$$
+
+The fitted model is our best estimate of $f$ for the assumed family and form - but only for those assumptions.
+:::
 
 ## Explanation versus Prediction
 
@@ -281,21 +283,8 @@ $$
 
 This assumption that the errors are normally distributed with some common variance is the key to all of the inference we have done so far. We will discuss this in great detail later.
 
-So with our inference tools (ANOVA and $t$-test) we have two potential strategies. Start with a very small model (no predictors) and attempt to add predictors. Or, start with a big model (all predictors) and attempt to remove predictors.
+So with our inference tools (ANOVA and $t$-test) we have two potential strategies. Start with a very small model (no predictors) and attempt to add predictors. Or, start with a big model (all predictors) and attempt to remove predictors. Neither of these are optimal, but may form a good basis for further analysis. The optimal strategy for interpretability is to try and start with the model that you think is the correct one, then perform some tests to see if alternate models are better. We'll go into further details later in this book.
 
-#### Correlation and Causation
-
-::: {.callout-note}
-## Correlation vs. Causation
-
-**Correlation (Association):** Two variables are related; knowing one helps predict the other.
-
-**Causation:** Changes in one variable *cause* changes in the other.
-
-**Critical distinction:** With observational data, we can only establish correlation. To claim causation, we need carefully designed experiments. 
-
-Example: Horsepower and fuel efficiency are correlated, but we cannot claim one causes the other without additional evidence (there may be confounding variables like engine displacement).
-:::
 
 ```{r, echo = FALSE}
 autompg <- read.table(
@@ -325,11 +314,26 @@ The issue here is that we have **observational** data. With observational data, 
 
 This is a concept that you should encounter often in your statistics education. For some further reading, and some related fallacies, see: [Wikipedia: Correlation does not imply causation](https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation){target="_blank"}.
 
-We'll discuss this further when we discuss experimental design and traditional ANOVA techniques. (All of which has recently been re-branded as A/B testing.)
+We'll discuss this further when we discuss experimental design and traditional ANOVA techniques. (All of which has broadly been re-branded as A/B testing.)
+
+
+#### Correlation and Causation
+
+::: {.callout-note}
+## Correlation vs. Causation
+
+**Correlation (Association):** Two variables are related; knowing one helps predict the other.
+
+**Causation:** Changes in one variable *cause* changes in the other.
+
+**Critical distinction:** With observational data, we can only establish correlation. To claim causation, we generally need carefully designed experiments. 
+
+Example: Horsepower and fuel efficiency are correlated, but we cannot claim one causes the other without additional evidence; the size of the engine being larger generally makes it more powerful and less fuel efficient, but this may not be the case for all cars. 
+:::
 
 ### Prediction
 
-If the goal of a model is to predict the response, then the **only** consideration is how well the model fits the data. For this, we will need a metric. In regression problems, this is most often RMSE.
+If the goal of a model is to predict the response, then the **only** consideration is how well the model fits the data. For this, we will need a metric. In regression problems, this is most often RMSE, which is the square root ("Root") of the Mean Squared Error (MSE) that we've already seen.
 
 $$
 \text{RMSE}(\text{model, data}) = \sqrt{\frac{1}{n} \sum_{i = 1}^{n}(y_i - \hat{y}_i)^2}
@@ -348,22 +352,6 @@ Suppose instead of the manufacturer who would like to build a car, we are a cons
 
 #### Test-Train Split
 
-::: {.callout-note}
-## Overfitting and Train/Test Split
-
-A fundamental problem in predictive modeling: larger models always have lower RMSE on the data they were fit to, but may predict poorly on new data (**overfitting**).
-
-**Solution:** Split data into two parts:
-
-- **Training Data:** Used to fit the model (see the coefficients)
-- **Test Data:** Held aside, used only to evaluate predictions (held secret from model fitting)
-
-Then compare:
-- **Train RMSE:** Model evaluated on the data it saw
-- **Test RMSE:** Model evaluated on new, unseen data
-
-A good predictive model has similar (or lower) test RMSE compared to train RMSE. Large differences indicate overfitting.
-:::
 
 The trouble with using RMSE to identify how well a model fits data is that RMSE is **always** (equal or) lower for a larger model. This would suggest that we should always use the largest model possible when looking for a model that predicts well. The problem with this is the potential to **overfit** to the data. So, we want a model that fits well, but does not overfit. To understand overfitting, we need to think about applying a model to seen and unseen data.
 
@@ -443,6 +431,23 @@ The left panel shows the data that was used to fit the two models. Clearly the "
 The more "complex," wiggly, model fits the training data much better as it has a much lower train RMSE. However, we see that the "simple" model fits the test data much better, with a much lower test RMSE. This means that the complex model has *overfit* to the data, and we prefer the simple model. When choosing a model for prediction, we prefer a model that predicts unseen data.
 
 In practice, you can't simply generate more data to evaluate your models. Instead we split existing data into data used to fit the model (train) and data used to evaluate the model (test). Never fit a model with test data.
+
+::: {.callout-note}
+## Overfitting and Train/Test Split
+
+A fundamental problem in predictive modeling: larger models always have lower RMSE on the data they were fit to, but may predict poorly on new data (**overfitting**).
+
+**Solution:** Split data into two parts:
+
+- **Training Data:** Used to fit the model (see the coefficients)
+- **Test Data:** Held aside, used only to evaluate predictions (held secret from model fitting)
+
+Then compare:
+- **Train RMSE:** Model evaluated on the data it saw
+- **Test RMSE:** Model evaluated on new, unseen data
+
+A good predictive model has similar (or lower) test RMSE compared to train RMSE. Large differences indicate overfitting.
+:::
 
 ## Summary
 
