@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-24">
+<meta name="dcterms.date" content="2026-09-25">
 
 <title>8&nbsp; Multiple Linear Regression – Applied Statistics with R</title>
 <style>
@@ -542,7 +542,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-24</p>
+      <p class="date">2026-09-25</p>
     </div>
   </div>
   
@@ -1452,6 +1452,20 @@ H_1: \text{At least one of } \beta_j \neq 0, \, j = 1, 2, \ldots, (p-1) \quad \t
 </div>
 </div>
 <p>The interpretation changes slightly as compared to SLR. In this MLR case, we say that <span class="math inline">\(80.82\%\)</span> of the observed variation in miles per gallon is explained by the linear relationship with the two predictor variables, weight and year.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span><span class="math inline">\(R^2\)</span> Always Increases
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If we have a model <span class="math inline">\(y_i = \beta_0 + \beta_1 x_{i1} + \epsilon_i\)</span> and then add a new predictor <span class="math inline">\(x_{2}\)</span>, it is impossible for us to explain <em>less</em> variation in <span class="math inline">\(y\)</span>.</p>
+<p>We’ll explore this more in a later section. For now, know that <span class="math inline">\(R^2\)</span> is <em>very</em> difficult to compare for models with different numbers of predictors (especially nested models, as defined below.)</p>
+</div>
+</div>
 <p>In multiple regression, the significance of regression test is</p>
 <p><span class="math display">\[
 H_0: \beta_1 = \beta_2 = \cdots = \beta_{p - 1} = 0.

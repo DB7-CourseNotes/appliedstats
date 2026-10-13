@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-09-09">
+<meta name="dcterms.date" content="2026-10-13">
 
 <title>9&nbsp; Model Building – Applied Statistics with R</title>
 <style>
@@ -544,7 +544,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-09-09</p>
+      <p class="date">2026-10-13</p>
     </div>
   </div>
   
@@ -579,6 +579,25 @@ y &amp;= f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon \\
 <p>In the big picture of possible models that we could fit to this data, this is a rather restrictive model. What do we mean by a restrictive model?</p>
 <section id="family-form-and-fit" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="family-form-and-fit"><span class="header-section-number">9.1</span> Family, Form, and Fit</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Three Modeling Choices: Family, Form, and Fit
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When building a model, we must make three key decisions:</p>
+<ul>
+<li><strong>Family:</strong> What class of models will we consider? (e.g., linear models, non-parametric models)</li>
+<li><strong>Form:</strong> What specific structure will the model take within that family? (e.g., which predictors to include)</li>
+<li><strong>Fit:</strong> How will we estimate the unknown parameters? (e.g., least squares, maximum likelihood)</li>
+</ul>
+<p>Each choice constrains and defines the resulting model.</p>
+</div>
+</div>
 <p>When modeling data, there are a number of choices that need to be made.</p>
 <ul>
 <li>What <strong>family</strong> of models will be considered?</li>
@@ -606,7 +625,7 @@ y = f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon = \beta_0 + \beta_1 x_{1} + \ep
 <p><span class="math display">\[
 \hat{y} = \hat{f}(x_1, x_2, x_3, \ldots, x_{p-1}) = \hat{\beta}_0 + \hat{\beta}_1 x_{1}
 \]</span></p>
-<p>Note that, now we have dropped the term for the noise. We don’t make any effort to model the noise, only the signal.</p>
+<p>Note that, now we have dropped the term for the noise. The noise is modelled according to a normal distribution - if this is not an appropriate assumption, then we need a more general form of models (Generalized Linear Models, or GLMs).</p>
 </section>
 <section id="form" class="level3">
 <h3 class="anchored" data-anchor-id="form">Form</h3>
@@ -636,14 +655,33 @@ y &amp;= f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon \\
 </section>
 <section id="family" class="level3">
 <h3 class="anchored" data-anchor-id="family">Family</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Model Family
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>family</strong> of models is a broader grouping of many possible <em>forms</em> of a model. Examples include:</p>
+<ul>
+<li><strong>Linear models:</strong> Response is a linear combination of predictors (parametric approach)</li>
+<li><strong>Smoothing:</strong> Local averaging methods to estimate the regression function (non-parametric)</li>
+<li><strong>Regression trees:</strong> Decision tree approach to predict the response (non-parametric)</li>
+</ul>
+<p>In this course, we focus exclusively on the family of <strong>linear models</strong>, which are parametric and interpretable.</p>
+</div>
+</div>
 <p>A <strong>family</strong> of models is a broader grouping of many possible <em>forms</em> of a model. For example, above we saw several forms of models from the family of linear models. We will only ever concern ourselves with linear models, which model a response as a linear combination of predictors. There are certainly other families of models.</p>
 <p>For example, there are several families of <em>non-parametric</em> regression. Smoothing is a broad family of models. As are regression trees.</p>
 <p>In linear regression, we specified models with parameters, <span class="math inline">\(\beta_j\)</span> and fit the model by finding the best values of these parameters. This is a <em>parametric</em> approach. A non-parametric approach skips the step of specifying a model with parameters, and is often described as more of an algorithm. Non-parametric models are often used in machine learning.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="09_model-building_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></p>
+<p><img src="09_model-building_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
@@ -663,7 +701,7 @@ y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
 \]</span></p>
 <p>assumes that <span class="math inline">\(y\)</span> is a linear combination of <span class="math inline">\(x_{1}\)</span>, <span class="math inline">\(x_{3}\)</span>, and <span class="math inline">\(x_{5}\)</span> as well as some noise. This assumes that the effect of <span class="math inline">\(x_{1}\)</span> on <span class="math inline">\(y\)</span> is <span class="math inline">\(\beta_1\)</span>, which is the same for all values of <span class="math inline">\(x_{3}\)</span> and <span class="math inline">\(x_{5}\)</span>. That is, we are using the <em>family</em> of linear models with a particular <em>form</em>.</p>
 <p>Suppose we then <em>fit</em> this model to some data and obtain the <strong>fitted model</strong>. For example, in <code>R</code> we would use</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x3 <span class="sc">+</span> x5, <span class="at">data =</span> some_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This is <code>R</code>’s way of saying the <em>family</em> is <em>linear</em> and specifying the <em>form</em> from above. An additive model with the specified predictors as well as an intercept. We then obtain</p>
@@ -675,10 +713,59 @@ y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
 y = f(x_1, x_2, x_3, \ldots, x_{p-1}) + \epsilon
 \]</span></p>
 <p>for the assumed <strong>family</strong> and <strong>form</strong>. Fitting a model only gives us the best fit for the family and form that we specify. So the natural question is; how do we choose the correct family and form? We’ll focus on <em>form</em> since we are focusing on the <em>family</em> of linear models.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Assumed Model vs.&nbsp;Fitted Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An <strong>assumed model</strong> specifies our assumptions about the relationship between <span class="math inline">\(Y\)</span> and predictors:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
+\]</span></p>
+<p>This codifies the <strong>family</strong> (linear) and <strong>form</strong> (which predictors). The <strong>fitted model</strong> is obtained after fitting to data:</p>
+<p><span class="math display">\[
+\hat{y} = 1.5 + 0.9 x_{1} + 1.1 x_{3} + 2.3 x_{5}
+\]</span></p>
+<p>The fitted model is our best estimate of <span class="math inline">\(f\)</span> for the assumed family and form - but only for those assumptions.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="explanation-versus-prediction" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="explanation-versus-prediction"><span class="header-section-number">9.2</span> Explanation versus Prediction</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Two Goals for Modeling
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Models serve two distinct purposes, requiring different approaches:</p>
+<ol type="1">
+<li><strong>Explanation:</strong> Understand the relationship between response and predictors
+<ul>
+<li>Prefer small, interpretable models</li>
+<li>Focus on which predictors matter and their effect sizes</li>
+<li>Useful for understanding mechanisms or guiding decisions</li>
+</ul></li>
+<li><strong>Prediction:</strong> Make accurate predictions for new observations
+<ul>
+<li>Only consideration is prediction accuracy (e.g., RMSE)</li>
+<li>Model interpretation is irrelevant if predictions are accurate</li>
+<li>Useful for forecasting or scoring new cases</li>
+</ul></li>
+</ol>
+<p>These goals sometimes conflict; a good explanatory model may not be optimal for prediction, and vice versa.</p>
+</div>
+</div>
 <p>What is the purpose of fitting a model to data? Usually it is to accomplish one of two goals. We can use a model to <strong>explain</strong> the relationship between the response and the predictors. Models can also be used to <strong>predict</strong> the response based on the predictors. Often, a good model will do both, but we’ll discuss both goals separately since the processes of finding models for explaining and predicting have some differences.</p>
 <p>For our purposes, since we are only considering linear models, searching for a good model is essentially searching for a good <strong>form</strong> of a model.</p>
 <section id="explanation" class="level3">
@@ -696,17 +783,15 @@ y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
 \epsilon \sim N(0, \sigma^2)
 \]</span></p>
 <p>This assumption that the errors are normally distributed with some common variance is the key to all of the inference we have done so far. We will discuss this in great detail later.</p>
-<p>So with our inference tools (ANOVA and <span class="math inline">\(t\)</span>-test) we have two potential strategies. Start with a very small model (no predictors) and attempt to add predictors. Or, start with a big model (all predictors) and attempt to remove predictors.</p>
-<section id="correlation-and-causation" class="level4">
-<h4 class="anchored" data-anchor-id="correlation-and-causation">Correlation and Causation</h4>
+<p>So with our inference tools (ANOVA and <span class="math inline">\(t\)</span>-test) we have two potential strategies. Start with a very small model (no predictors) and attempt to add predictors. Or, start with a big model (all predictors) and attempt to remove predictors. Neither of these are optimal, but may form a good basis for further analysis. The optimal strategy for interpretability is to try and start with the model that you think is the correct one, then perform some tests to see if alternate models are better. We’ll go into further details later in this book.</p>
 <p>A word of caution when using a model to <em>explain</em> a relationship. There are two terms often used to describe a relationship between two variables: <em>causation</em> and <em>correlation</em>. <a href="https://xkcd.com/552/" target="_blank">Correlation</a> is often also referred to as association.</p>
 <p>Just because two variables are correlated does not necessarily mean that one causes the other. For example, consider modeling <code>mpg</code> as only a function of <code>hp</code>.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> hp, <span class="at">data =</span> autompg, <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="09_model-building_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="09_model-building_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -714,12 +799,30 @@ y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
 <p>Does an increase in horsepower cause a drop in fuel efficiency? Or, perhaps the causality is reversed and an increase in fuel efficiency causes a decrease in horsepower. Or, perhaps there is a third variable that explains both!</p>
 <p>The issue here is that we have <strong>observational</strong> data. With observational data, we can only detect <em>associations</em>. To speak with confidence about <em>causality</em>, we would need to run <strong>experiments</strong>. Often, this decision is made for us, before we ever see data, so we can only modify our interpretation.</p>
 <p>This is a concept that you should encounter often in your statistics education. For some further reading, and some related fallacies, see: <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation" target="_blank">Wikipedia: Correlation does not imply causation</a>.</p>
-<p>We’ll discuss this further when we discuss experimental design and traditional ANOVA techniques. (All of which has recently been re-branded as A/B testing.)</p>
+<p>We’ll discuss this further when we discuss experimental design and traditional ANOVA techniques. (All of which has broadly been re-branded as A/B testing.)</p>
+<section id="correlation-and-causation" class="level4">
+<h4 class="anchored" data-anchor-id="correlation-and-causation">Correlation and Causation</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Correlation vs.&nbsp;Causation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Correlation (Association):</strong> Two variables are related; knowing one helps predict the other.</p>
+<p><strong>Causation:</strong> Changes in one variable <em>cause</em> changes in the other.</p>
+<p><strong>Critical distinction:</strong> With observational data, we can only establish correlation. To claim causation, we generally need carefully designed experiments.</p>
+<p>Example: Horsepower and fuel efficiency are correlated, but we cannot claim one causes the other without additional evidence; the size of the engine being larger generally makes it more powerful and less fuel efficient, but this may not be the case for all cars.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="prediction" class="level3">
 <h3 class="anchored" data-anchor-id="prediction">Prediction</h3>
-<p>If the goal of a model is to predict the response, then the <strong>only</strong> consideration is how well the model fits the data. For this, we will need a metric. In regression problems, this is most often RMSE.</p>
+<p>If the goal of a model is to predict the response, then the <strong>only</strong> consideration is how well the model fits the data. For this, we will need a metric. In regression problems, this is most often RMSE, which is the square root (“Root”) of the Mean Squared Error (MSE) that we’ve already seen.</p>
 <p><span class="math display">\[
 \text{RMSE}(\text{model, data}) = \sqrt{\frac{1}{n} \sum_{i = 1}^{n}(y_i - \hat{y}_i)^2}
 \]</span></p>
@@ -741,11 +844,11 @@ y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
 <li>Test RMSE: model fit on seen data, evaluated on <strong>unseen</strong> data</li>
 </ul>
 <p>Below, we simulate some data and fit two models. We will call the solid blue line the “simple” model. The dashed orange line will be called the “complex” model, which was fit with methods we do not yet know.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="09_model-building_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1152"></p>
+<p><img src="09_model-building_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
@@ -779,6 +882,26 @@ y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
 </table>
 <p>The more “complex,” wiggly, model fits the training data much better as it has a much lower train RMSE. However, we see that the “simple” model fits the test data much better, with a much lower test RMSE. This means that the complex model has <em>overfit</em> to the data, and we prefer the simple model. When choosing a model for prediction, we prefer a model that predicts unseen data.</p>
 <p>In practice, you can’t simply generate more data to evaluate your models. Instead we split existing data into data used to fit the model (train) and data used to evaluate the model (test). Never fit a model with test data.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Overfitting and Train/Test Split
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A fundamental problem in predictive modeling: larger models always have lower RMSE on the data they were fit to, but may predict poorly on new data (<strong>overfitting</strong>).</p>
+<p><strong>Solution:</strong> Split data into two parts:</p>
+<ul>
+<li><strong>Training Data:</strong> Used to fit the model (see the coefficients)</li>
+<li><strong>Test Data:</strong> Held aside, used only to evaluate predictions (held secret from model fitting)</li>
+</ul>
+<p>Then compare: - <strong>Train RMSE:</strong> Model evaluated on the data it saw - <strong>Test RMSE:</strong> Model evaluated on new, unseen data</p>
+<p>A good predictive model has similar (or lower) test RMSE compared to train RMSE. Large differences indicate overfitting.</p>
+</div>
+</div>
 </section>
 </section>
 </section>
