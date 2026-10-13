@@ -35,6 +35,18 @@ In the big picture of possible models that we could fit to this data, this is a 
 
 ## Family, Form, and Fit
 
+::: {.callout-note}
+## Three Modeling Choices: Family, Form, and Fit
+
+When building a model, we must make three key decisions:
+
+- **Family:** What class of models will we consider? (e.g., linear models, non-parametric models)
+- **Form:** What specific structure will the model take within that family? (e.g., which predictors to include)
+- **Fit:** How will we estimate the unknown parameters? (e.g., least squares, maximum likelihood)
+
+Each choice constrains and defines the resulting model.
+:::
+
 When modeling data, there are a number of choices that need to be made.
 
 - What **family** of models will be considered?
@@ -109,6 +121,18 @@ These forms are **restrictive** in two senses. First, they only allow for linear
 
 ### Family
 
+::: {.callout-note}
+## Model Family
+
+A **family** of models is a broader grouping of many possible *forms* of a model. Examples include:
+
+- **Linear models:** Response is a linear combination of predictors (parametric approach)
+- **Smoothing:** Local averaging methods to estimate the regression function (non-parametric)
+- **Regression trees:** Decision tree approach to predict the response (non-parametric)
+
+In this course, we focus exclusively on the family of **linear models**, which are parametric and interpretable.
+:::
+
 A **family** of models is a broader grouping of many possible *forms* of a model. For example, above we saw several forms of models from the family of linear models. We will only ever concern ourselves with linear models, which model a response as a linear combination of predictors. There are certainly other families of models.
 
 For example, there are several families of *non-parametric* regression. Smoothing is a broad family of models. As are regression trees. 
@@ -162,6 +186,24 @@ Why the focus on **linear models**? Two big reasons:
 
 ### Assumed Model, Fitted Model
 
+::: {.callout-note}
+## Assumed Model vs. Fitted Model
+
+An **assumed model** specifies our assumptions about the relationship between $Y$ and predictors:
+
+$$
+y = \beta_0 + \beta_1 x_{1} + \beta_3 x_{3} + \beta_5 x_{5} + \epsilon
+$$
+
+This codifies the **family** (linear) and **form** (which predictors). The **fitted model** is obtained after fitting to data:
+
+$$
+\hat{y} = 1.5 + 0.9 x_{1} + 1.1 x_{3} + 2.3 x_{5}
+$$
+
+The fitted model is our best estimate of $f$ for the assumed family and form—but only for those assumptions.
+:::
+
 When searching for a model, we often need to make assumptions. These assumptions are codified in the **family** and **form** of the model. For example
 
 $$
@@ -192,6 +234,24 @@ $$
 for the assumed **family** and **form**. Fitting a model only gives us the best fit for the family and form that we specify. So the natural question is; how do we choose the correct family and form? We'll focus on *form* since we are focusing on the *family* of linear models.
 
 ## Explanation versus Prediction
+
+::: {.callout-note}
+## Two Goals for Modeling
+
+Models serve two distinct purposes, requiring different approaches:
+
+1. **Explanation:** Understand the relationship between response and predictors
+   - Prefer small, interpretable models
+   - Focus on which predictors matter and their effect sizes
+   - Useful for understanding mechanisms or guiding decisions
+
+2. **Prediction:** Make accurate predictions for new observations
+   - Only consideration is prediction accuracy (e.g., RMSE)
+   - Model interpretation is irrelevant if predictions are accurate
+   - Useful for forecasting or scoring new cases
+
+These goals sometimes conflict; a good explanatory model may not be optimal for prediction, and vice versa.
+:::
 
 What is the purpose of fitting a model to data? Usually it is to accomplish one of two goals. We can use a model to **explain** the relationship between the response and the predictors. Models can also be used to **predict** the response based on the predictors. Often, a good model will do both, but we'll discuss both goals separately since the processes of finding models for explaining and predicting have some differences. 
 
@@ -224,6 +284,18 @@ This assumption that the errors are normally distributed with some common varian
 So with our inference tools (ANOVA and $t$-test) we have two potential strategies. Start with a very small model (no predictors) and attempt to add predictors. Or, start with a big model (all predictors) and attempt to remove predictors.
 
 #### Correlation and Causation
+
+::: {.callout-note}
+## Correlation vs. Causation
+
+**Correlation (Association):** Two variables are related; knowing one helps predict the other.
+
+**Causation:** Changes in one variable *cause* changes in the other.
+
+**Critical distinction:** With observational data, we can only establish correlation. To claim causation, we need carefully designed experiments. 
+
+Example: Horsepower and fuel efficiency are correlated, but we cannot claim one causes the other without additional evidence (there may be confounding variables like engine displacement).
+:::
 
 ```{r, echo = FALSE}
 autompg <- read.table(
@@ -275,6 +347,23 @@ Also, since we are not performing inference, the extra assumption about the erro
 Suppose instead of the manufacturer who would like to build a car, we are a consumer who wishes to purchase a new car. However this particular car is so new, it has not been rigorously tested, so we are unsure of what fuel efficiency to expect. (And, as skeptics, we don't trust what the manufacturer is telling us.) In this case, we would like to use the model to help *predict* the fuel efficiency of this car based on its attributes, which are the predictors of the model. The smaller the errors the model makes, the more confident we are in its prediction. 
 
 #### Test-Train Split
+
+::: {.callout-note}
+## Overfitting and Train/Test Split
+
+A fundamental problem in predictive modeling: larger models always have lower RMSE on the data they were fit to, but may predict poorly on new data (**overfitting**).
+
+**Solution:** Split data into two parts:
+
+- **Training Data:** Used to fit the model (see the coefficients)
+- **Test Data:** Held aside, used only to evaluate predictions (held secret from model fitting)
+
+Then compare:
+- **Train RMSE:** Model evaluated on the data it saw
+- **Test RMSE:** Model evaluated on new, unseen data
+
+A good predictive model has similar (or lower) test RMSE compared to train RMSE. Large differences indicate overfitting.
+:::
 
 The trouble with using RMSE to identify how well a model fits data is that RMSE is **always** (equal or) lower for a larger model. This would suggest that we should always use the largest model possible when looking for a model that predicts well. The problem with this is the potential to **overfit** to the data. So, we want a model that fits well, but does not overfit. To understand overfitting, we need to think about applying a model to seen and unseen data.
 
