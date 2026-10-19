@@ -193,6 +193,7 @@ Here we restricted ourselves to a single numerical predictor $x_1$ and one dummy
 ## Dummy Variable
 
 A **dummy variable** is a numerical variable used to "code" for a binary categorical variable in regression analysis. It typically takes values of 0 and 1, where:
+
 - 0 represents one category (often the reference or baseline level)
 - 1 represents the other category
 
@@ -589,10 +590,12 @@ So the two models have different estimated coefficients, but due to the differen
 ## Factor Variable
 
 A **factor variable** is `R`'s special data type for categorical variables. It stores:
+
 - A set of **levels** (the categories or distinct values)
 - For each observation, which level it belongs to
 
 Advantages of factors:
+
 - `R` automatically creates dummy variables when used in models
 - Cleaner interpretation and less manual coding
 - Can specify a reference level to control parameterization
@@ -616,7 +619,7 @@ However, that would force the difference in average `mpg` between `4` and `6` cy
 Let's define three dummy variables related to the `cyl` factor variable.
 
 $$
-v_1 <-
+v_1 =
   \begin{cases}
    1 & \text{4 cylinder} \\
    0       & \text{not 4 cylinder}
@@ -624,7 +627,7 @@ v_1 <-
 $$
 
 $$
-v_2 <-
+v_2 =
   \begin{cases}
    1 & \text{6 cylinder} \\
    0       & \text{not 6 cylinder}
@@ -632,7 +635,7 @@ v_2 <-
 $$
 
 $$
-v_3 <-
+v_3 =
   \begin{cases}
    1 & \text{8 cylinder} \\
    0       & \text{not 8 cylinder}
@@ -899,6 +902,7 @@ all.equal(fitted(lm(mpg ~ disp * cyl, data = autompg)),
 **Parameterization** refers to how a model's parameters (coefficients) are defined and interpreted.
 
 By default, `R` uses **treatment coding** with a **reference level** (baseline):
+
 - Drops one dummy variable to avoid multicollinearity (with an intercept)
 - The reference level is the baseline for comparison
 - Other levels' coefficients show their difference from the reference
