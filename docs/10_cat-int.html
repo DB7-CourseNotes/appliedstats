@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-10-13">
+<meta name="dcterms.date" content="2026-10-16">
 
 <title>10&nbsp; Categorical Predictors and Interactions – Applied Statistics with R</title>
 <style>
@@ -539,7 +539,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-10-13</p>
+      <p class="date">2026-10-16</p>
     </div>
   </div>
   
@@ -782,7 +782,11 @@ Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon,
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A <strong>dummy variable</strong> is a numerical variable used to “code” for a binary categorical variable in regression analysis. It typically takes values of 0 and 1, where: - 0 represents one category (often the reference or baseline level) - 1 represents the other category</p>
+<p>A <strong>dummy variable</strong> is a numerical variable used to “code” for a binary categorical variable in regression analysis. It typically takes values of 0 and 1, where:</p>
+<ul>
+<li>0 represents one category (often the reference or baseline level)</li>
+<li>1 represents the other category</li>
+</ul>
 <p>Dummy variables allow categorical variables to be included in linear regression models by converting categories into numerical form.</p>
 </div>
 </div>
@@ -1249,8 +1253,17 @@ Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2 + \epsilon,
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A <strong>factor variable</strong> is <code>R</code>’s special data type for categorical variables. It stores: - A set of <strong>levels</strong> (the categories or distinct values) - For each observation, which level it belongs to</p>
-<p>Advantages of factors: - <code>R</code> automatically creates dummy variables when used in models - Cleaner interpretation and less manual coding - Can specify a reference level to control parameterization</p>
+<p>A <strong>factor variable</strong> is <code>R</code>’s special data type for categorical variables. It stores:</p>
+<ul>
+<li>A set of <strong>levels</strong> (the categories or distinct values)</li>
+<li>For each observation, which level it belongs to</li>
+</ul>
+<p>Advantages of factors:</p>
+<ul>
+<li><code>R</code> automatically creates dummy variables when used in models</li>
+<li>Cleaner interpretation and less manual coding</li>
+<li>Can specify a reference level to control parameterization</li>
+</ul>
 <p>Convert character or numeric categorical data to factors using <code>as.factor()</code>.</p>
 </div>
 </div>
@@ -1271,21 +1284,21 @@ Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2 + \epsilon,
 <p>However, that would force the difference in average <code>mpg</code> between <code>4</code> and <code>6</code> cylinders to be the same as the difference in average mpg between <code>6</code> and <code>8</code> cylinders. That usually makes sense for a continuous variable, but not for a discrete variable with so few possible values. In the case of this variable, there is no such thing as a 7-cylinder engine or a 6.23-cylinder engine in personal vehicles. For these reasons, we will simply consider <code>cyl</code> to be categorical. This is a decision that will commonly need to be made with ordinal variables. Often, with a large number of categories, the decision to treat them as numerical variables is appropriate because, otherwise, a large number of dummy variables are then needed to represent these variables.</p>
 <p>Let’s define three dummy variables related to the <code>cyl</code> factor variable.</p>
 <p><span class="math display">\[
-v_1 &lt;-
+v_1 =
   \begin{cases}
    1 &amp; \text{4 cylinder} \\
    0       &amp; \text{not 4 cylinder}
   \end{cases}
 \]</span></p>
 <p><span class="math display">\[
-v_2 &lt;-
+v_2 =
   \begin{cases}
    1 &amp; \text{6 cylinder} \\
    0       &amp; \text{not 6 cylinder}
   \end{cases}
 \]</span></p>
 <p><span class="math display">\[
-v_3 &lt;-
+v_3 =
   \begin{cases}
    1 &amp; \text{8 cylinder} \\
    0       &amp; \text{not 8 cylinder}
@@ -1642,7 +1655,12 @@ Coefficients:
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>Parameterization</strong> refers to how a model’s parameters (coefficients) are defined and interpreted.</p>
-<p>By default, <code>R</code> uses <strong>treatment coding</strong> with a <strong>reference level</strong> (baseline): - Drops one dummy variable to avoid multicollinearity (with an intercept) - The reference level is the baseline for comparison - Other levels’ coefficients show their difference from the reference</p>
+<p>By default, <code>R</code> uses <strong>treatment coding</strong> with a <strong>reference level</strong> (baseline):</p>
+<ul>
+<li>Drops one dummy variable to avoid multicollinearity (with an intercept)</li>
+<li>The reference level is the baseline for comparison</li>
+<li>Other levels’ coefficients show their difference from the reference</li>
+</ul>
 <p>Alternative approaches exist (e.g., removing the intercept) that parameterize models differently while fitting the same data equally well. Different parameterizations yield the same predictions.</p>
 </div>
 </div>
