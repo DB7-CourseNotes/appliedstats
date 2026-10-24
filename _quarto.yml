@@ -43,7 +43,7 @@ book:
       chapters:
         - 09_model-building.qmd
         - 10_cat-int.qmd
-        - 11_anova.qmd
+        - 11_anova2.qmd
         - 12_diagnostics.qmd
         - 13_transformations.qmd
         - 14_collinearity.qmd
