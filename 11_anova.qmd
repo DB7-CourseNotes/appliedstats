@@ -1,30 +1,20 @@
+
+Important note for ST362: This chapter is basically a guide to experimental design, but from a regression perspective. We will deviate from this in class. 
+
 # Analysis of Variance
 
-**Chapter Status:** This chapter should be considered optional for a first reading of this text. Its inclusion is mostly for the benefit of some courses that use the text. Additionally, this chapter is currently somewhat underdeveloped compared to the rest of the text. If you are interested in contributing, you can find several lines marked "TODO" in the source. Pull requests encouraged!
+
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(cache = TRUE, autodep = TRUE, fig.align = "center")
 ```
 
-<style type="text/css">
-.table {
-
-    width: 70%;
-    margin-left:10%; 
-    margin-right:10%;
-
-}
-</style>
-
-<!-- TODO: use kable styling instead of custom CSS -->
 
 > "To find out what happens when you change something, it is necessary to change it."
 >
 > --- **Box, Hunter, and Hunter**, Statistics for Experimenters (1978)
 
-Thus far, we have built models for numeric responses, when the predictors are all numeric. We'll take a minor detour to go back and consider models which *only* have **categorical** predictors. A categorical predictor is a variable which takes only a finite number of values, which are not ordered. For example a variable which takes possible values `red`, `blue`, `green` is categorical. In the context of using a categorical variable as a predictor, it would place observations into different groups (categories).
 
-We've also mostly been dealing with observational data. The methods in this section are most useful in experimental settings, but still work with observational data. (However, for determining causation, we require experiments.)
 
 ## Experiments
 
@@ -37,7 +27,7 @@ In an experiment, the predictors, which are controlled by the experimenter, are 
 
 The design of experiments could be a course by itself. The Wikipedia article on [design of experiments](https://en.wikipedia.org/wiki/Design_of_experiments){target="_blank"} gives a good overview. Originally, most of the methodology was developed for agricultural applications by [R. A. Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher){target="_blank"}, but is still in use today, now in a wide variety of application areas. Notably, these methods have seen a resurgence as a part of "A/B Testing."
 
-<!-- TODO: In the future, discuss the Morrow Plots: http://cropsci.illinois.edu/research/morrow -->
+
 
 ## Two-Sample t-Test
 
@@ -124,7 +114,14 @@ With a big enough sample size, we could make an effect size of say, four minutes
 boxplot(sleep ~ group, data = melatonin, col = 5:6)
 ```
 
-<!-- TODO: other parametarization, explain identify -->
+Note that, with `var.equal = TRUE`, this is actually a special case of regression with a categorical predictor:
+
+```{r}
+summary(lm(sleep ~ group, data = melatonin))
+```
+
+- Notice how `groupTreatment` has the *exact* same p-value as the one found in the two-sample t-test!
+- The parameter estimates are identical as well!
 
 ## One-Way ANOVA
 
