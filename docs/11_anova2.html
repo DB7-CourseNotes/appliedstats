@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="David Dalpiaz, modified by Devan Becker">
-<meta name="dcterms.date" content="2026-10-24">
+<meta name="dcterms.date" content="2026-11-02">
 
 <title>11&nbsp; Analysis of Variance – Applied Statistics with R</title>
 <style>
@@ -525,6 +525,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#factor-variables" id="toc-factor-variables" class="nav-link" data-scroll-target="#factor-variables">Factor Variables</a></li>
   </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">12</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -551,7 +552,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026-10-24</p>
+      <p class="date">2026-11-02</p>
     </div>
   </div>
   
@@ -1125,9 +1126,50 @@ Residuals 12 14.4841 1.20701               </code></pre>
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="exercises" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Exercises</h1>
+<ol type="1">
+<li><p>Explain why <span class="math inline">\(SS_{Reg}\)</span> is always larger when predictors are added. (That is, if <span class="math inline">\(M1\)</span> is nested within <span class="math inline">\(M2\)</span>, then <span class="math inline">\(SS_{Reg}\)</span> for <span class="math inline">\(M2\)</span> will be larger).</p></li>
+<li><p>Simulate a data set with 10 predictors, where only 5 of them have a non-zero coefficient. Show that an ESS test can detect this, even if some of the parameters with a 0 coefficient have a significant p-value (Type 1 error).</p></li>
+<li><p>Demonstrate that <span class="math inline">\(\hat\beta_1\)</span> in the model <span class="math inline">\(y_i = \beta_0 + \beta_1\)</span> is different <span class="math inline">\(y_i = \beta_0 + \beta_1 + \beta_2\)</span>. Demonstrate this across any data we’ve seen before, new data, simulated data, or whatever you want!</p></li>
+<li><p>Why does the estimate of one parameter change when you add other estimates? (<em>Hint: see the bill length and bill depth example here in the course notes.</em>)</p></li>
+<li><p>The Extra Sum of Squares test explicitly tests:</p>
+<ol type="a">
+<li>Whether the slope parameters are 0.</li>
+<li>Whether the variance in the line is large relative to the variance in the response.</li>
+<li>Whether the variance in the line is significantly larger when new terms are added.</li>
+</ol></li>
+</ol>
+<p>Consider the code below:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp, <span class="at">data =</span> mtcars))</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> hp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="6" type="1">
+<li>The code above will produce the same ANOVA table.
+<ol type="a">
+<li>True</li>
+<li>False</li>
+</ol></li>
+<li>Why would we test a group of predictors when we can test them one-by-one with a series of t-tests?
+<ol type="a">
+<li>Type 1 error.</li>
+<li><strong>Also type 1 error, but bold.</strong></li>
+</ol></li>
+<li>Which of the following is <em>not</em> a good reason to use an ESS test?
+<ol type="a">
+<li>Even though the predictors don’t change the variance of the line, they still may affect the slope estimates of relevant predictors.</li>
+<li>A group of predictors may be natural to include/exclude together.</li>
+<li>We suspect that one predictor in a group of predictors has a non-zero slope.</li>
+<li>To demonstrate that at least one predictor is significant in our regression.</li>
+</ol></li>
+<li>For the penguins data, fit a model with flipper length, bill length, and bill depth (in that order), and check the output of <code>anova()</code>. Reverse the order of predictors and repeat. Which values in the ANOVA table stay the same? Which values change? Why do they change? What does this tell you about interpreting <code>anova()</code> output?</li>
+<li>Give an example of a context where a collection of predictors might be tested for significance all at once.</li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->
