@@ -435,3 +435,42 @@ anova(lm(response ~ group, data = good))
 is.factor(bad$group)  # 1, 2, and 3 are numbers.
 is.factor(good$group) # 1, 2, and 3 are labels.
 ```
+
+# Exercises
+
+
+1. Explain why $SS_{Reg}$ is always larger when predictors are added. (That is, if $M1$ is nested within $M2$, then $SS_{Reg}$ for $M2$ will be larger).
+2. Simulate a data set with 10 predictors, where only 5 of them have a non-zero coefficient. Show that an ESS test can detect this, even if some of the parameters with a 0 coefficient have a significant p-value (Type 1 error).
+3. Demonstrate that $\hat\beta_1$ in the model $y_i = \beta_0 + \beta_1$ is different $y_i = \beta_0 + \beta_1 + \beta_2$. Demonstrate this across any data we've seen before, new data, simulated data, or whatever you want!
+4. Why does the estimate of one parameter change when you add other estimates? (*Hint: see the bill length and bill depth example here in the course notes.*)
+
+5. The Extra Sum of Squares test explicitly tests:
+    a. Whether the slope parameters are 0.\lspace
+    b. Whether the variance in the line is large relative to the variance in the response.
+    c. Whether the variance in the line is significantly larger when new terms are added.
+
+Consider the code below:
+
+```{r}
+#| label: Sequential_order_matters
+#| echo: true
+#| eval: false
+anova(lm(mpg ~ wt + hp, data = mtcars))
+anova(lm(mpg ~ hp + wt, data = mtcars))
+```
+
+6. The code above will produce the same ANOVA table.
+    a. True
+    b. False
+
+7. Why would we test a group of predictors when we can test them one-by-one with a series of t-tests?
+    a. Type 1 error.
+    b. **Also type 1 error, but bold.**
+
+8. Which of the following is *not* a good reason to use an ESS test?
+    a. Even though the predictors don't change the variance of the line, they still may affect the slope estimates of relevant predictors.\lspace
+    b. A group of predictors may be natural to include/exclude together.\lspace
+    c. We suspect that one predictor in a group of predictors has a non-zero slope.\lspace
+    d. To demonstrate that at least one predictor is significant in our regression.
+9. For the penguins data, fit a model with flipper length, bill length, and bill depth (in that order), and check the output of `anova()`. Reverse the order of predictors and repeat. Which values in the ANOVA table stay the same? Which values change? Why do they change? What does this tell you about interpreting `anova()` output?
+10. Give an example of a context where a collection of predictors might be tested for significance all at once.
