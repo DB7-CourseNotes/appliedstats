@@ -228,47 +228,7 @@ abline(h = 0, col = "darkorange", lwd = 2)
 
 This time on the fitted versus residuals plot, for any fitted value, the spread of the residuals is about the same. However, they are not even close to centered at zero! At small and large fitted values the model is underestimating, while at medium fitted values, the model is overestimating. These are systematic errors, not random noise. So the constant variance assumption is met, but the linearity assumption is violated. The form of our model is simply wrong. We're trying to fit a line to a curve!
 
-### Breusch-Pagan Test
-
-Constant variance is often called **homoscedasticity**. Conversely, non-constant variance is called **heteroscedasticity**. We've seen how we can use a fitted versus residuals plot to look for these attributes.
-
-While a fitted versus residuals plot can give us an idea about homoscedasticity, sometimes we would prefer a more formal test. There are many tests for constant variance, but here we will present one, the [**Breusch-Pagan Test**](https://en.wikipedia.org/wiki/Breusch%E2%80%93Pagan_test){target="_blank"}. The exact details of the test will be omitted here, but importantly the null and alternative can be considered to be,
-
-- $H_0$: Homoscedasticity. The errors have constant variance about the true model.
-- $H_1$: Heteroscedasticity.  The errors have non-constant variance about the true model.
-
-Isn't that convenient? A test that will specifically test the **constant variance** assumption.
-
-The Breusch-Pagan Test can not be performed by default in `R`, however the function `bptest` in the `lmtest` package implements the test.
-
-```{r, message = FALSE, warning = FALSE}
-#install.packages("lmtest")
-library(lmtest)
-```
-
-Let's try it on the three models we fit above. Recall,
-
-- `fit_1` had no violation of assumptions,
-- `fit_2` violated the constant variance assumption, but not linearity,
-- `fit_3` violated linearity, but not constant variance.
-
-```{r}
-bptest(fit_1)
-```
-
-For `fit_1` we see a large p-value, so we do not reject the null of homoscedasticity, which is what we would expect.
-
-```{r}
-bptest(fit_2)
-```
-
-For `fit_2` we see a small p-value, so we reject the null of homoscedasticity. The constant variance assumption is violated. This matches our findings with a fitted versus residuals plot.
-
-```{r}
-bptest(fit_3)
-```
-
-Lastly, for `fit_3` we again see a large p-value, so we do not reject the null of homoscedasticity, which matches our findings with a fitted versus residuals plot.
+Constant variance is often called **homoscedasticity**. Conversely, non-constant variance is called **heteroscedasticity**.
 
 ### Histograms
 
@@ -296,7 +256,7 @@ hist(resid(fit_3),
      breaks = 20)
 ```
 
-Above are histograms for each of the three regression models we have been considering. Notice that the first, for `fit_1` appears very normal. The third, for `fit_3`, appears to be very non-normal. However `fit_2` is not as clear. It does have a rough bell shape, however, it also has a very sharp peak. For this reason we will usually use more powerful tools such as **Q-Q plots** and the **Shapiro-Wilk test** for assessing the normality of errors.
+Above are histograms for each of the three regression models we have been considering. Notice that the first, for `fit_1` appears very normal. The third, for `fit_3`, appears to be very non-normal. However `fit_2` is not as clear. It does have a rough bell shape, however, it also has a very sharp peak. For this reason we will usually use more powerful tools such as **Q-Q plots** for assessing the normality of errors.
 
 ### Q-Q Plots
 
@@ -343,7 +303,7 @@ qq_plot <- function(e) {
 We can then verify that it is essentially equivalent to using `qqnorm()` and `qqline()` in `R`.
 
 ```{r, fig.height = 5, fig.width = 10}
-set.seed(420)
+set.seed(421)
 x <- rnorm(100, mean = 0 , sd = 1)
 par(mfrow = c(1, 2))
 qqnorm(x, col = "darkgrey")
@@ -419,36 +379,6 @@ qqline(resid(fit_3), col = "dodgerblue", lwd = 2)
 ```
 
 Lastly, for `fit_3`, we again have a suspect Q-Q plot. We would probably **not** believe the errors follow a normal distribution.
-
-### Shapiro-Wilk Test
-
-Histograms and Q-Q Plots give a nice visual representation of the residuals distribution, however if we are interested in formal testing, there are a number of options available. A commonly used test is the **Shapiro–Wilk test**, which is implemented in `R`.
-
-```{r}
-set.seed(42)
-shapiro.test(rnorm(25))
-shapiro.test(rexp(25))
-```
-
-This gives us the value of the test statistic and its p-value. The null hypothesis assumes the data were sampled from a normal distribution, thus a small p-value indicates we believe there is only a small probability the data could have been sampled from a normal distribution.
-
-For details, see: [Wikipedia: Shapiro–Wilk test.](https://en.wikipedia.org/wiki/Shapiro-Wilk_test){target="_blank"}
-
-In the above examples, we see we fail to reject for the data sampled from normal, and reject on the non-normal data, for any reasonable $\alpha$.
-
-Returning again to `fit_1`, `fit_2`, and `fit_3`, we see the result of running `shapiro.test()` on the residuals of each, returns a result for each that matches decisions based on the Q-Q plots.
-
-```{r}
-shapiro.test(resid(fit_1))
-```
-
-```{r}
-shapiro.test(resid(fit_2))
-```
-
-```{r}
-shapiro.test(resid(fit_3))
-```
 
 ## Unusual Observations
 
