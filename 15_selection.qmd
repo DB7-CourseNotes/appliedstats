@@ -532,6 +532,29 @@ extractAIC(hipcenter_mod_forw_bic, k = log(n))
 extractAIC(hipcenter_mod_both_bic, k = log(n))
 ```
 
+
+### Criticisms and Advice
+
+The automated selection procedures above are all, well, bad. There are two reasons for this:
+
+1. They will confidently select models based on model-fitting criteria, even if the covariates should not be included/excluded.
+    - These methods feel like they're mathematical certainties, but they're actually different heuristics - algorithms that seem good with no particular proof that they **are** good.
+    - These procedures will choose different models! There is no general reason to go with one over the other.
+2. The resultant p-values are utterly useless.
+
+We will demonstrate both via simulation. In the following, we will:
+
+1. Generate a response variable $y$ along with 40 covariates $x$ that are *not* correlated with $y$ at all.
+2. Try each procedure, and record:
+    - The number of covariates selected (should always be 0)
+    - The p-value of the first selected covariate (should be a uniform distribution between 0 and 1). Since the order of the covariates doesn't matter and none are actually correlated, the first selected covariate is sufficient.
+3. Repeat steps 1 and 2 1,000 times
+4. Compare the results for both the number of selected predictors and the p-values.
+
+```{r}
+
+```
+
 ## Higher Order Terms
 
 So far we have only allowed first-order terms in our models. Let's return to the `autompg` dataset to explore higher-order terms.
